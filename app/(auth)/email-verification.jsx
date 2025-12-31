@@ -12,7 +12,7 @@ import {
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Body1, H2 } from "../../components/typo/typography";
+import { Body1, Body2, H2 } from "../../components/typo/typography";
 // import { Body1, Body2, H2 } from "../../components/typo/Typography";
 
 export default function VerificationCodeScreen() {

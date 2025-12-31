@@ -17,7 +17,6 @@ import { Body2, H2 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
 import { validateEmail, validatePassword } from "../../utils/validation";
-// import { validateEmail, validatePassword } from "../../utils/validation";
 
 export default function SignUpScreen() {
     const router = useRouter();
