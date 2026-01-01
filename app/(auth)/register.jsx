@@ -23,7 +23,7 @@ export default function SignUpScreen() {
     const [checked, setChecked] = useState(false);
 
 
-    // values={} এবং errors={} ডিফল্ট ভ্যালু হিসেবে নিশ্চিত করা হয়েছে 
+    
     const {
         values = {},
         errors = {},

@@ -93,7 +93,7 @@ export default function PersonalIfo() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: "#FAFAFA"
+        backgroundColor:Colors.BACKGROUND_COLOR
     },
     scrollContainer: {
         paddingHorizontal: "5%",

@@ -7,6 +7,7 @@ export const FORM_FIELDS = {
   USER_NAME: "userName",
   PHONE:"phone",
   ADDRESS:"address",
+  DESCRIPTION:"description",
   CITY:"city",
   COUNTRY:"country",
   DOB: 'dob',
@@ -26,6 +27,7 @@ export const FORM_LABELS = {
   [FORM_FIELDS.USER_NAME]: "User Name",
   [FORM_FIELDS.PHONE]: "Number",
   [FORM_FIELDS.ADDRESS]: "Address",
+  [FORM_FIELDS.DESCRIPTION]: "Description",
   [FORM_FIELDS.CITY]: "City",
   [FORM_FIELDS.COUNTRY]: "Country",
   [FORM_FIELDS.DOB]: 'Date of Birth',
@@ -44,6 +46,7 @@ export const FORM_PLACEHOLDERS = {
   [FORM_FIELDS.USER_NAME]: 'Enter your username',
   [FORM_FIELDS.DOB]: 'Select your date of birth',
   [FORM_FIELDS.CONTACT_NO]: "+99 54196 418164",
+  [FORM_FIELDS.DOCUMENTATION]:"Message",
   [FORM_FIELDS.LOCATION]: "New York, NY, USA .2 a...",
   [FORM_FIELDS.TAX]: "1485 482895632 86885938",
   [FORM_FIELDS.DOCUMENTATION]: "1485 482895632 86885938"

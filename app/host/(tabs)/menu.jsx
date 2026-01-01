@@ -1,6 +1,6 @@
 import { FontAwesome, FontAwesome6, Fontisto, Foundation, Ionicons, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'; // 1. Added ScrollView
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Body1, Body2 } from '../../../components/typo/typography';
 import { IMAGE_CONSTANTS } from '../../../constants/image.index';
@@ -81,13 +81,17 @@ export default function Menu() {
                     {/* My Preference section */}
                     <View style={styles.settingContent}>
                         <Body2 style={styles.settingTitle}>My Preferences</Body2>
-                        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
+                        <TouchableOpacity 
+                        onPress={()=>router.push("/host/language")}
+                        style={styles.buttonContainer} activeOpacity={0.7}>
                             <FontAwesome name="language" size={24} color="#323135" />
                             <Body1 style={styles.textStyle}>Language </Body1>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
+                        <TouchableOpacity
+                        onPress={()=>router.push("/host/favourite-cleaner")}
+                        style={styles.buttonContainer} activeOpacity={0.7}>
                             <Ionicons name="heart-outline" size={20} color="#323135" />
                             <Body1 style={styles.textStyle}>Favorite cleaner</Body1>
                             <Ionicons name="chevron-forward" size={20} color="gray" />

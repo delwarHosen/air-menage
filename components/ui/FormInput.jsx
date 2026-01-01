@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
+import { Colors } from "../../assets/Colors";
 import { Caption } from "../typo/typography";
 // import { Caption } from "../typo/typography";
 // import { Caption } from "../typo/Typography.jsx";
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     label: {
-        color: "#323135",
+        color:Colors.TEXT_COLOR,
         fontWeight: "500"
     },
     required: {
@@ -155,7 +156,8 @@ const styles = StyleSheet.create({
         // backgroundColor: "#F8FAFC",
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: "#323135",
+        borderColor: "#CACACB",
+        // borderColor: "#Ef4444",
         paddingHorizontal: 16,
         paddingVertical: 4
         // paddingTop:5,
@@ -165,6 +167,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 14,
         fontSize: 16,
-        color: "#1E293B"
+        // color: "#e2c611ff"
     }
 })
