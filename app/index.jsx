@@ -1,36 +1,36 @@
 import { useRouter } from 'expo-router';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../assets/Colors";
+import { Body1, ButtonText, H3 } from '../components/typo/typography';
 
 export default function Home() {
     const router = useRouter();
+    const { t } = useTranslation();
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
-                
+
                 {/* Image Section */}
                 <View style={{ alignItems: 'center', marginBottom: 20 }}>
                     <Image
                         source={require("../assets/images/banner1.png")}
-                        style={{
-                            width: '100%',  
-                            aspectRatio: 16 / 9,
-                        }}
+                        style={{ width: '100%', aspectRatio: 16 / 9 }}
                         resizeMode="contain"
                     />
                 </View>
 
                 {/* Content Section */}
                 <View style={{ marginTop: 20 }}>
-                    <Text style={{ fontSize: 25, textAlign: "center", fontWeight: '600', marginBottom: 12 }}>
-                        Become a Verified Cleaner
-                    </Text>
+                    <H3 style={{ textAlign: "center", fontWeight: "500", marginBottom: 6 }}>
+                        {t("home.title")}  
+                    </H3>
 
-                    <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 24, textAlign: "center" }}>
-                        Get cleaning missions from nearby hosts, choose jobs that fit your schedule.
-                    </Text>
+                    <Body1 style={{ color: Colors.TEXT_COLOR, lineHeight: 24, textAlign: "center" }}>
+                        {t("home.description")}  
+                    </Body1>
 
                     <TouchableOpacity
                         onPress={() => router.push("/selecte-role")}
@@ -42,9 +42,9 @@ export default function Home() {
                             marginTop: 50,
                             width: '100%'
                         }}>
-                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: '700', textAlign: 'center' }}>
-                            Get Started
-                        </Text>
+                        <ButtonText style={{ color: '#fff', fontWeight: '500', textAlign: 'center' }}>
+                            {t("home.button")}  {/* ✅ Translated */}
+                        </ButtonText>
                     </TouchableOpacity>
                 </View>
             </View>

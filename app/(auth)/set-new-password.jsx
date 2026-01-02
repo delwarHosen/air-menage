@@ -1,24 +1,26 @@
 import { useRouter } from "expo-router";
-import { useForm } from "react-hook-form"; // আপনার কাস্টম হুক
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
     KeyboardAvoidingView,
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// import { Body1, H2 } from "../../components/typo/Typography";
-import { Body1, H2 } from "../../components/typo/typography";
+
+import AuthHeading from "../../components/AuthHeading/AuthHeading";
+import { ButtonText } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
-import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
+import { FORM_FIELDS } from "../../constants/form";
 import { validatePassword } from "../../utils/validation";
 
 export default function SetNewPasswordScreen() {
     const router = useRouter();
+    const { t } = useTranslation();
 
     const {
         values = {},
@@ -37,24 +39,20 @@ export default function SetNewPasswordScreen() {
             [FORM_FIELDS.PASSWORD]: validatePassword,
         },
         onSubmit: async formValues => {
-            // পাসওয়ার্ড ম্যাচিং চেক
             if (formValues[FORM_FIELDS.PASSWORD] !== formValues[FORM_FIELDS.CONFIRM_PASSWORD]) {
-                ToastAndroid.show("Passwords do not match!", ToastAndroid.SHORT);
+                ToastAndroid.show(t("setNewPassword.passwordsMismatch"), ToastAndroid.SHORT);
                 return;
             }
 
             try {
-                // এখানে আপনার API কল (Password Reset) হবে
-                ToastAndroid.show("Password reset successful!", ToastAndroid.SHORT);
-                // লগইন পেজে পাঠিয়ে দিন
+                ToastAndroid.show(t("setNewPassword.success"), ToastAndroid.SHORT);
                 router.replace("/(auth)/login");
             } catch (error) {
-                ToastAndroid.show("Failed to reset password", ToastAndroid.SHORT);
+                ToastAndroid.show(t("setNewPassword.failed"), ToastAndroid.SHORT);
             }
         }
     });
 
-    // রিয়েল-টাইম পাসওয়ার্ড ম্যাচিং চেক
     const passwordsMatch =
         values[FORM_FIELDS.PASSWORD] === values[FORM_FIELDS.CONFIRM_PASSWORD] &&
         values[FORM_FIELDS.PASSWORD] !== "";
@@ -75,22 +73,18 @@ export default function SetNewPasswordScreen() {
                     keyboardShouldPersistTaps="handled"
                 >
                     <View style={styles.content}>
-                        {/* Header Section */}
-                        <View style={styles.header}>
-                            <H2 style={styles.title}>Set New Password</H2>
-                            <Body1 color="#64748B" style={{ textAlign: "center" }}>
-                                Your new password must be different from previous used passwords.
-                            </Body1>
-                        </View>
+                        <AuthHeading
+                            title={t("setNewPassword.title")}
+                            description={t("setNewPassword.description")}
+                        />
 
-                        {/* Input Fields */}
                         <View style={styles.form}>
                             <FormInput
-                                label={FORM_LABELS[FORM_FIELDS.PASSWORD]}
+                                label={t("setNewPassword.passwordLabel")}
                                 value={values?.[FORM_FIELDS.PASSWORD] || ""}
                                 onChangeText={text => handleChange(FORM_FIELDS.PASSWORD, text)}
                                 onBlur={() => handleBlur(FORM_FIELDS.PASSWORD)}
-                                placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.PASSWORD]}
+                                placeholder={t("setNewPassword.passwordPlaceholder")}
                                 type="password"
                                 error={errors?.[FORM_FIELDS.PASSWORD]}
                                 touched={touched?.[FORM_FIELDS.PASSWORD]}
@@ -98,35 +92,32 @@ export default function SetNewPasswordScreen() {
                             />
 
                             <FormInput
-                                label={FORM_LABELS[FORM_FIELDS.CONFIRM_PASSWORD]}
+                                label={t("setNewPassword.confirmPasswordLabel")}
                                 value={values?.[FORM_FIELDS.CONFIRM_PASSWORD] || ""}
                                 onChangeText={text => handleChange(FORM_FIELDS.CONFIRM_PASSWORD, text)}
                                 onBlur={() => handleBlur(FORM_FIELDS.CONFIRM_PASSWORD)}
-                                placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.CONFIRM_PASSWORD]}
+                                placeholder={t("setNewPassword.confirmPasswordPlaceholder")}
                                 type="password"
-
                                 error={
                                     touched?.[FORM_FIELDS.CONFIRM_PASSWORD] && !passwordsMatch
-                                        ? "Passwords do not match"
+                                        ? t("setNewPassword.passwordsMismatch")
                                         : ""
                                 }
                                 touched={touched?.[FORM_FIELDS.CONFIRM_PASSWORD]}
                                 required
                             />
 
-                            {/* Reset Password Button */}
                             <TouchableOpacity
-                                onPress={() => router.push("/home")}
-                                // onPress={handleSubmit}
+                                onPress={handleSubmit}
                                 disabled={!isFormValid || isSubmitting}
                                 style={[
                                     styles.submitButton,
                                     (!isFormValid || isSubmitting) && styles.disabledButton
                                 ]}
                             >
-                                <Text style={styles.buttonText}>
-                                    {isSubmitting ? "Updating..." : "Reset Password"}
-                                </Text>
+                                <ButtonText style={styles.buttonText}>
+                                    {isSubmitting ? t("setNewPassword.updating") : t("setNewPassword.resetButton")}
+                                </ButtonText>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -139,30 +130,21 @@ export default function SetNewPasswordScreen() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: "#FFFFFF"
+        backgroundColor: "#FFFFFF",
     },
     container: {
-        flex: 1
+        flex: 1,
     },
     scrollContent: {
-        flexGrow: 1
+        flexGrow: 1,
     },
     content: {
         flex: 1,
         paddingHorizontal: 24,
-        paddingVertical: 40
-    },
-    header: {
-        marginBottom: 40
-    },
-    title: {
-        marginBottom: 12,
-        fontSize: 28,
-        fontWeight: "bold",
-        textAlign: "center"
+        paddingVertical: 40,
     },
     form: {
-        flex: 1
+        flex: 1,
     },
     submitButton: {
         backgroundColor: "#00AFF5",
@@ -173,16 +155,18 @@ const styles = StyleSheet.create({
         marginTop: 20,
         elevation: 2,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
         shadowOpacity: 0.1,
         shadowRadius: 4,
     },
     disabledButton: {
-        // backgroundColor: "#94A3B8",
+        
     },
     buttonText: {
         color: "#FFF",
-        fontSize: 16,
-        fontWeight: "700"
-    }
+        fontWeight: "500",
+    },
 });

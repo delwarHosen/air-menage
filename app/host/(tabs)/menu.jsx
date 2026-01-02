@@ -1,8 +1,8 @@
 import { FontAwesome, FontAwesome6, Fontisto, Foundation, Ionicons, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Body1, Body2 } from '../../../components/typo/typography';
+import { Body1, Body2, ButtonText, H5 } from '../../../components/typo/typography';
 import { IMAGE_CONSTANTS } from '../../../constants/image.index';
 import { Colors } from "./../../../assets/Colors.js";
 
@@ -14,114 +14,115 @@ export default function Menu() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
             >
+                {/* Header/Profile Section */}
+                <View style={styles.profileSection}>
+                    <Image
+                        source={IMAGE_CONSTANTS.profile}
+                        style={styles.profileImage}
+                    />
+                    <H5 style={styles.hostContent}>Delwar</H5>
+                    <View style={styles.statsContainer}>
+                        <View style={styles.row}>
+                            <MaterialIcons name="verified" size={22} color="#868686" />
+                            <Body1 style={styles.statText}>4,72'</Body1>
+                        </View>
+                        <Body1 style={styles.hostContent}>36 Commentaires</Body1>
+                    </View>
+                </View>
+
                 {/* 2. Wrap content in ScrollView */}
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={styles.scrollContainer}
                 >
-                    {/* Header/Profile Section */}
-                    <View style={styles.profileSection}>
-                        <Image
-                            source={IMAGE_CONSTANTS.profile}
-                            style={styles.profileImage}
-                        />
-                        <Body1 style={styles.hostContent}>Host Name</Body1>
-                        <View style={styles.statsContainer}>
-                            <View style={styles.row}>
-                                <MaterialIcons name="verified" size={22} color="#868686" />
-                                <Body2 style={styles.statText}>472</Body2>
-                            </View>
-                            <Body2 style={styles.hostContent}>Commentairs</Body2>
-                        </View>
-                    </View>
-
                     {/* Account Settings section */}
                     <View style={styles.settingContent}>
-                        <Body2 style={styles.settingTitle}>Account settings</Body2>
+                        <H5 style={styles.settingTitle}>Account settings</H5>
 
                         <TouchableOpacity
                             onPress={() => router.push("/host/personal-info")}
                             style={styles.buttonContainer} activeOpacity={0.7}>
                             <Ionicons name="person-circle-outline" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>Personal Information</Body1>
+                            <Body2 style={styles.textStyle}>Personal Information</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                         onPress={() => router.push("/host/payment")}
-                        style={styles.buttonContainer} activeOpacity={0.7}>
+                            onPress={() => router.push("/host/payment")}
+                            style={styles.buttonContainer} activeOpacity={0.7}>
                             <MaterialIcons name="payment" size={20} color="#323135" />
-                            <Body1 style={styles.textStyle}>Payment, and Translation.</Body1>
+                            <Body2 style={styles.textStyle}>Payment, and Translation.</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                        onPress={()=>router.push("/host/password-security")}
-                        style={styles.buttonContainer} activeOpacity={0.7}>
+                            onPress={() => router.push("/host/password-security")}
+                            style={styles.buttonContainer} activeOpacity={0.7}>
                             <SimpleLineIcons name="lock" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>Password & security</Body1>
+                            <Body2 style={styles.textStyle}>Password & security</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
-                        <TouchableOpacity  
-                        onPress={()=>router.push("/host/contact")}
-                        style={styles.buttonContainer} activeOpacity={0.7}>
+                        <TouchableOpacity
+                            onPress={() => router.push("/host/contact")}
+                            style={styles.buttonContainer} activeOpacity={0.7}>
                             <FontAwesome6 name="headset" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>Get help</Body1>
+                            <Body2 style={styles.textStyle}>Get help</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
                             <Foundation name="book-bookmark" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>Identity Verification</Body1>
+                            <Body2 style={styles.textStyle}>Identity Verification</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
                     </View>
 
+
                     {/* My Preference section */}
                     <View style={styles.settingContent}>
-                        <Body2 style={styles.settingTitle}>My Preferences</Body2>
-                        <TouchableOpacity 
-                        onPress={()=>router.push("/host/language")}
-                        style={styles.buttonContainer} activeOpacity={0.7}>
+                        <H5 style={styles.settingTitle}>My Preferences</H5>
+                        <TouchableOpacity
+                            onPress={() => router.push("/host/language")}
+                            style={styles.buttonContainer} activeOpacity={0.7}>
                             <FontAwesome name="language" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>Language </Body1>
+                            <Body2 style={styles.textStyle}>Language </Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                        onPress={()=>router.push("/host/favourite-cleaner")}
-                        style={styles.buttonContainer} activeOpacity={0.7}>
+                            onPress={() => router.push("/host/favourite-cleaner")}
+                            style={styles.buttonContainer} activeOpacity={0.7}>
                             <Ionicons name="heart-outline" size={20} color="#323135" />
-                            <Body1 style={styles.textStyle}>Favorite cleaner</Body1>
+                            <Body2 style={styles.textStyle}>Favorite cleaner</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
                     </View>
 
                     {/* Legal section */}
                     <View style={styles.settingContent}>
-                        <Body2 style={styles.settingTitle}>LEGAL</Body2>
+                        <H5 style={styles.settingTitle}>LEGAL</H5>
                         <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
                             <Ionicons name="information-circle-outline" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>About us </Body1>
+                            <Body2 style={styles.textStyle}>About us </Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
                             <Ionicons name="document-text-outline" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>Terms of use </Body1>
+                            <Body2 style={styles.textStyle}>Terms of use </Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
                             <MaterialIcons name="privacy-tip" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}>Privacy policy</Body1>
+                            <Body2 style={styles.textStyle}>Privacy policy</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
                             <Fontisto name="world-o" size={24} color="#323135" />
-                            <Body1 style={styles.textStyle}> legal notices</Body1>
+                            <Body2 style={styles.textStyle}> legal notices</Body2>
                             <Ionicons name="chevron-forward" size={20} color="gray" />
                         </TouchableOpacity>
                     </View>
@@ -132,7 +133,7 @@ export default function Menu() {
                         onPress={() => router.push("/host/home")}
                         style={styles.submitButton}
                     >
-                        <Text style={styles.buttonText}>Logout</Text>
+                        <ButtonText style={styles.buttonText}>Logout</ButtonText>
                     </TouchableOpacity>
 
                     {/* Extra padding at the bottom for better scroll feel */}
@@ -169,8 +170,7 @@ const styles = StyleSheet.create({
     hostContent: {
         marginBottom: 5,
         color: Colors.SECONDARY,
-        fontSize: 16,
-        fontWeight: "500"
+        fontWeight: "600"
     },
     statsContainer: {
         alignItems: 'center',
@@ -183,17 +183,15 @@ const styles = StyleSheet.create({
     statText: {
         marginLeft: 4,
         color: Colors.SECONDARY,
-        fontSize: 16,
         fontWeight: "500"
     },
     settingContent: {
-        marginTop: "4%",
+        marginTop: "5%",
     },
     settingTitle: {
-        fontSize: 15,
-        fontWeight: "600",
-        color: Colors.TEXT_COLOR,
-        marginBottom: 8
+        color: "#0F243E",
+        marginBottom: 8,
+        marginTop: 8
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -216,10 +214,9 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'left',
         marginLeft: "3%",
-        fontSize: 14,
         color: Colors.TEXT_COLOR
     },
-     submitButton: {
+    submitButton: {
         backgroundColor: Colors.PRIMARY,
         paddingVertical: 16,
         borderRadius: 12,
@@ -228,7 +225,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     buttonText: {
-        color: "#FFF", fontSize: 16,
+        color: "#FFF",
         fontWeight: "600"
     },
 })

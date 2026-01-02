@@ -1,11 +1,14 @@
 import { useRouter } from 'expo-router';
 
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../assets/Colors";
+import { ButtonText, H1, H5 } from '../components/typo/typography';
 
 export default function SelectRole() {
     const router = useRouter();
+    const { t } = useTranslation();
 
     const handleRolePress = (role) => {
         router.push({
@@ -28,30 +31,30 @@ export default function SelectRole() {
                     />
                 </View>
 
-                <Text style={styles.headerTitle}>
-                    How do you want to join?
-                </Text>
-                <Text style={styles.headerText}>
-                    Select your role to provide the best experience.
-                </Text>
+                <H1 style={styles.headerTitle}>
+                   {t("role_page.title")}
+                </H1>
+                <H5 style={styles.headerText}>
+                   {t("role_page.description")}
+                </H5>
 
                 {/* Role Buttons */}
                 <TouchableOpacity
                     onPress={() => handleRolePress('host')}
                     activeOpacity={0.7}
                     style={styles.buttonComponents}>
-                    <Text style={styles.btnText}>
-                        Continue as Host
-                    </Text>
+                    <ButtonText style={styles.btnText}>
+                       {t("role_page.button1")}
+                    </ButtonText>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={() => handleRolePress('cleaner')}
                     activeOpacity={0.7}
                     style={styles.buttonComponents}>
-                    <Text style={styles.btnText}>
-                        Continue as Cleaner
-                    </Text>
+                    <ButtonText style={styles.btnText}>
+                       {t("role_page.button2")}
+                    </ButtonText>
                 </TouchableOpacity>
 
             </View>
@@ -68,17 +71,15 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     headerTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontWeight: '500',
         textAlign: 'center',
-        marginBottom: 10
+        marginBottom: 8
     },
     headerText:
     {
-        fontSize: 15,
-        color: 'gray',
+        color: Colors.TEXT_COLOR,
         textAlign: 'center',
-        marginBottom: 30
+        marginBottom: 23
     },
     buttonComponents: {
         backgroundColor: Colors.PRIMARY,
@@ -88,8 +89,7 @@ const styles = StyleSheet.create({
 
     }, btnText: {
         color: "#fff",
-        fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '500',
         textAlign: 'center'
 
     }

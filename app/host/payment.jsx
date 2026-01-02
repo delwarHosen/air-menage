@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors';
+import Heading from '../../components/Heading/Heading';
 import { Body2 } from '../../components/typo/typography';
 import { IMAGE_CONSTANTS } from '../../constants/image.index';
 
 const WalletPaymentSummary = () => {
-    const router= useRouter();
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState('My Payment');
 
     const payments = [
@@ -89,9 +90,9 @@ const WalletPaymentSummary = () => {
                     <Ionicons name="star" size={16} color="#FFD700" />
                 </View>
                 <View style={styles.authorContainer}>
-                    <Image 
-                        style={{ width: 14, height: 14, borderRadius: 7 }} 
-                        source={IMAGE_CONSTANTS.clientImg} 
+                    <Image
+                        style={{ width: 14, height: 14, borderRadius: 7 }}
+                        source={IMAGE_CONSTANTS.clientImg}
                     />
                     <Body2 style={styles.reviewText}>{item.name}</Body2>
                 </View>
@@ -111,17 +112,10 @@ const WalletPaymentSummary = () => {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
-
-            <View style={styles.header}>
-                <TouchableOpacity 
-                onPress={()=>router.back()}
-                >
-                    <Ionicons name="arrow-back" size={24} color="#000" />
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>Wallet & Payment Summary</Text>
-                <View style={{ width: 24 }} />
+            {/* Headding */}
+            <View style={{ marginHorizontal: 20 }}>
+                <Heading title={"Wallet & Payment Summary"} />
             </View>
-
             <View style={styles.tabContainer}>
                 <View style={styles.tabWrapper}>
                     {['My Payment', 'Pending', 'Refound'].map((tab) => (
@@ -156,21 +150,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5F5F5',
     },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        backgroundColor: '#FFF',
-    },
-    headerTitle: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#000',
-    },
+   
     tabContainer: {
-        backgroundColor: '#FFF',
+        // backgroundColor: '#FFF',
         paddingVertical: 12,
         paddingHorizontal: 16,
     },
@@ -180,7 +162,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.PRIMARY,
         borderRadius: 25,
         backgroundColor: '#FFF',
-        padding: 4, 
+        padding: 4,
     },
     tab: {
         flex: 1,
@@ -227,7 +209,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     nameText: {
-        fontSize: 16,
         fontWeight: '600',
     },
     statusBadge: {
@@ -236,7 +217,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 4,
         borderRadius: 12,
-        fontSize: 12,
+        fontSize: 11,
         fontWeight: '600',
     },
     ratingContainer: {
@@ -255,7 +236,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     ratingText: {
-        fontSize: 14,
+        fontSize: 11,
         fontWeight: '500',
     },
     authorContainer: {
@@ -268,7 +249,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     reviewText: {
-        fontSize: 14,
+        fontSize: 11,
         color: '#666',
     },
     amountText: {
@@ -278,12 +259,13 @@ const styles = StyleSheet.create({
         color: Colors.SECONDARY
     },
     detailText: {
-        fontSize: 13,
+        fontSize: 12,
         color: Colors.TEXT_COLOR,
         marginBottom: 4,
+        fontWeight:"600"
     },
     deleteButton: {
-        width:"40%",
+        width: "40%",
         borderWidth: 1,
         borderColor: Colors.TEXT_COLOR,
         borderRadius: 14,

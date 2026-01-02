@@ -14,10 +14,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../../assets/Colors";
-import { Body2 } from "../../components/typo/typography";
+import Heading from "../../components/Heading/Heading";
+import { Body2, ButtonText } from "../../components/typo/typography";
 import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
 
-const { width } = Dimensions.get('window'); 
+const { width } = Dimensions.get('window');
 
 export default function ChangePassword() {
     const router = useRouter();
@@ -72,6 +73,10 @@ export default function ChangePassword() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+                {/* heading */}
+                <View style={{marginHorizontal:20}}>
+                    <Heading title={"Change Password"} />
+                </View>
                 <FlatList
                     data={passwordFields}
                     keyExtractor={item => item.id}
@@ -80,17 +85,6 @@ export default function ChangePassword() {
                     showsVerticalScrollIndicator={false}
                     ListHeaderComponent={() => (
                         <View style={styles.headerContainer}>
-                            <View style={styles.headerRow}>
-                                <TouchableOpacity onPress={() => router.back()} style={styles.backIconContainer}>
-                                    <Ionicons name='arrow-back' size={24} color={"#7E8792"} />
-                                </TouchableOpacity>
-
-                                <View style={styles.titleWrapper}>
-                                    <Body2 style={styles.headerTitle}>Change Password</Body2>
-                                </View>
-                                <View style={{ width: 40 }} />
-                            </View>
-
                             <View style={styles.iconSection}>
                                 <View style={styles.lockCircle}>
                                     <Ionicons name="lock-closed" size={40} color={Colors.PRIMARY} />
@@ -101,7 +95,7 @@ export default function ChangePassword() {
                     ListFooterComponent={() => (
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
-                                <Body2 style={styles.buttonText}>{isSubmitting ? "Updating..." : "Save the Changes"}</Body2>
+                                <ButtonText style={styles.buttonText}>{isSubmitting ? "Updating..." : "Save the Changes"}</ButtonText>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         paddingBottom: 40,
-        width: width, 
+        width: width,
         alignItems: 'center',
     },
     headerContainer: {
@@ -157,8 +151,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    inputWrapper: { 
-        width: width * 0.92, 
+    inputWrapper: {
+        width: width * 0.92,
         marginBottom: 20,
     },
     labelOutside: { fontSize: 14, color: "#0F243E", marginBottom: 8, fontWeight: '500' },
@@ -171,12 +165,13 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.BACKGROUND_COLOR,
         paddingHorizontal: 15,
         alignItems: "center",
-        width: '100%', 
+        width: '100%',
     },
-    textInput: { flex: 1,
-         fontSize: 14, 
-         color: Colors.TEXT_COLOR 
-        },
+    textInput: {
+        flex: 1,
+        fontSize: 14,
+        color: Colors.TEXT_COLOR
+    },
 
     submitButton: {
         width: width * 0.92,
@@ -186,5 +181,5 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 20,
     },
-    buttonText: { color: "#FFF", fontSize: 16, fontWeight: "600" },
+    buttonText: { color: "#FFF", fontWeight: "500" },
 });

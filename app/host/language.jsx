@@ -1,35 +1,39 @@
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors';
-import { Body2 } from '../../components/typo/typography';
+import Heading from '../../components/Heading/Heading';
+import { Body1, H5 } from '../../components/typo/typography';
+
+import { useTranslation } from 'react-i18next';
+import { changeLanguage } from '../../src/i18n';
+
 
 export default function Language() {
     const router = useRouter();
-    const [selectedLanguage, setSelectedLanguage] = useState("English");
+    const { i18n } = useTranslation();
+
+    // Set initial language from i18n
+    const [selectedLanguage, setSelectedLanguage] = useState(
+        i18n.language === "fr" ? "French" : "English"
+    );
 
     const languages = ["English", "French"];
+
+    const onSelectLanguage = (lang) => {
+        setSelectedLanguage(lang);
+
+        // Change app language
+        if (lang === "English") changeLanguage("en");
+        else if (lang === "French") changeLanguage("fr");
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={{ margin: "2.5%" }}>
                 {/* Header */}
-                <View style={styles.headerRow}>
-                    <TouchableOpacity
-                        onPress={() => router.back()}
-                        style={styles.backIcon}
-                    >
-                        <Ionicons
-                            name="arrow-back"
-                            size={22}
-                            color={Colors.TEXT_COLOR}
-                        />
-                    </TouchableOpacity>
-
-                    <Body2 style={styles.headerTitle}>Language</Body2>
-                </View>
+                <Heading title={"Language"} />
 
                 {/* Language Radio Buttons */}
                 <View style={styles.languageContainer}>
@@ -37,18 +41,18 @@ export default function Language() {
                         <TouchableOpacity
                             key={lang}
                             style={styles.languageColumn}
-                            onPress={() => setSelectedLanguage(lang)}
+                            onPress={() => onSelectLanguage(lang)}
                         >
                             {/* Top row: circle + short label */}
                             <View style={styles.topRow}>
                                 <View style={styles.radioCircle}>
                                     {selectedLanguage === lang && <View style={styles.selectedRb} />}
                                 </View>
-                                <Text style={styles.topLabel}>{lang}</Text>
+                                <H5 style={styles.topLabel}>{lang}</H5>
                             </View>
 
                             {/* Bottom label */}
-                            <Text style={styles.bottomLabel}>{lang}</Text>
+                            <Body1 style={styles.bottomLabel}>{lang}</Body1>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -62,50 +66,20 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.BACKGROUND_COLOR,
         paddingVertical: 7,
-        paddingHorizontal:20,
+        paddingHorizontal: 20,
     },
 
-    /* Header */
-    headerRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-    },
-
-    backIcon: {
-        position: "absolute",
-        left: 0,
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        backgroundColor: "#EBEBEE",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-
-    headerTitle: {
-        fontSize: 16,
-        fontWeight: "500",
-        color: Colors.SECONDARY,
-    },
-
-    /* Language container */
     languageContainer: {
-        flexDirection: "column",          
-        // justifyContent: "space-around",
+        flexDirection: "column",
         marginTop: 32,
     },
 
     languageColumn: {
-        // alignItems: "center",        
         marginLeft: 20
     },
 
     topRow: {
-        flexDirection: "row",          
-        // alignItems: "center",
-        // marginBottom: 6,             
+        flexDirection: "row",
     },
 
     radioCircle: {

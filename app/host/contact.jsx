@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import {
@@ -16,7 +15,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // Assets & Components
 import { useForm } from "react-hook-form";
 import { Colors } from "../../assets/Colors";
-import { Body2 } from "../../components/typo/typography";
+import Heading from "../../components/Heading/Heading";
+import { Body1, ButtonText } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import {
   FORM_FIELDS,
@@ -73,25 +73,15 @@ export default function ContactScreen() {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        {/* Headding */}
+        <View style={{marginHorizontal:20}}>
+          <Heading title={"Contact"} />
+        </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
 
-          <View style={styles.headerRow}>
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={styles.backIcon}
-            >
-              <Ionicons
-                name="arrow-back"
-                size={22}
-                color={Colors.TEXT_COLOR}
-              />
-            </TouchableOpacity>
-
-            <Body2 style={styles.headerTitle}>Contact</Body2>
-          </View>
 
 
           <View style={styles.banner}>
@@ -129,7 +119,7 @@ export default function ContactScreen() {
             />
 
             <View style={styles.container}>
-              <Body2 style={styles.label}>Message</Body2>
+              <Body1 style={styles.label}>Message</Body1>
               <TextInput
                 placeholder="message"
                 multiline
@@ -146,7 +136,7 @@ export default function ContactScreen() {
               onPress={handleSubmit}
             // disabled={!isFormValid || isSubmitting}
             >
-              <Body2 style={styles.submitText}>Send Message</Body2>
+              <ButtonText style={styles.submitText}>Send Message</ButtonText>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -167,31 +157,6 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
 
-  /* Header */
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 30,
-    position: "relative",
-  },
-
-  backIcon: {
-    position: "absolute",
-    left: 0,
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#EBEBEE",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: Colors.SECONDARY,
-  },
 
   /* Banner */
   banner: {
@@ -216,8 +181,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.TEXT_COLOR
   },
   label: {
-    fontSize: 16,
-    // fontWeight: "bold",
     marginBottom: 8,
     color: "#333",
   },
@@ -227,7 +190,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
-    textAlignVertical: "top", 
+    textAlignVertical: "top",
+    fontFamily: "SyneRegular",
   },
 
   submitButton: {
@@ -239,13 +203,9 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 
-  // disabledButton: {
-  //   opacity: 0.5,
-  // },
+ 
 
   submitText: {
     color: "#FFF",
-    fontSize: 16,
-    fontWeight: "600",
   },
 });

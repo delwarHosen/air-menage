@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { FlatList, Image, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../../assets/Colors";
-import { Body2 } from "../../components/typo/typography";
+import Heading from "../../components/Heading/Heading";
+import { Body2, ButtonText } from "../../components/typo/typography";
 import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
 
 export default function PersonalEditInfo() {
@@ -63,6 +64,9 @@ export default function PersonalEditInfo() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+                <View style={{ marginHorizontal: 20 }}> 
+                    <Heading title={"Edit Information"} />
+                </View>
                 <FlatList
                     data={editFields}
                     keyExtractor={item => item.id}
@@ -70,39 +74,28 @@ export default function PersonalEditInfo() {
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
                     ListHeaderComponent={() => (
-                        <View style={styles.headerContainer}>
-                            {/* হেডার রো: আইকন বামে, টেক্সট মাঝে */}
-                            <View style={styles.headerRow}>
-                                <TouchableOpacity onPress={() => router.back()} style={styles.backIconContainer}>
-                                    <Ionicons name='arrow-back' size={24} color={"#7E8792"} />
-                                </TouchableOpacity>
+                        <View>
 
-                                <View style={styles.titleWrapper}>
-                                    <Body2 style={styles.headerTitle}>Edit Information</Body2>
-                                </View>
-
-                                {/* ডানপাশে ব্যালেন্স রাখার জন্য একটি খালি ভিউ */}
-                                <View style={{ width: 40 }} />
-                            </View>
-
-                            {/* প্রোফাইল ইমেজ সেকশন (যা আগে মিসিং ছিল) */}
-                            <View style={styles.imageContainer}>
-                                <View style={styles.imageWrapper}>
-                                    <Image
-                                        source={{ uri: 'https://avatar.iran.liara.run/public/30' }}
-                                        style={styles.profileImage}
-                                        resizeMode="cover"
-                                    />
-                                    <TouchableOpacity style={styles.cameraBadge}>
-                                        <Ionicons name="camera" size={16} color="#FFF" />
-                                    </TouchableOpacity>
+                            <View style={styles.headerContainer}>
+                                <View style={styles.imageContainer}>
+                                    <View style={styles.imageWrapper}>
+                                        <Image
+                                            source={{ uri: 'https://avatar.iran.liara.run/public/30' }}
+                                            style={styles.profileImage}
+                                            resizeMode="cover"
+                                        />
+                                        <TouchableOpacity style={styles.cameraBadge}>
+                                            <Ionicons name="camera" size={16} color="#FFF" />
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                         </View>
+
                     )}
                     ListFooterComponent={() => (
                         <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
-                            <Body2 style={styles.buttonText}>{isSubmitting ? "Saving..." : "Save Changes"}</Body2>
+                            <ButtonText style={styles.buttonText}>{isSubmitting ? "Saving..." : "Save Changes"}</ButtonText>
                         </TouchableOpacity>
                     )}
                 />

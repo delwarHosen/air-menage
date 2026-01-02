@@ -1,15 +1,15 @@
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import {
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Body1, Body2, H4 } from "../../../components/typo/typography";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('pending');
@@ -26,7 +26,7 @@ export default function Home() {
         >
           {/* Header Section */}
           <View style={styles.header}>
-            <Text style={styles.headerTitle}>Hello, Theo!</Text>
+            <H4>Hello, Theo!</H4>
             <View style={styles.addIcon}>
               <AntDesign name="plus" size={20} color={"#4B5563"} />
             </View>
@@ -42,12 +42,12 @@ export default function Home() {
               ]}
               onPress={() => setActiveTab('pending')}
             >
-              <Text style={[
+              <Body2 style={[
                 styles.tabText,
                 activeTab === 'pending' ? styles.activeTabText : styles.inactiveTabText
               ]}>
                 Pending
-              </Text>
+              </Body2>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -58,27 +58,27 @@ export default function Home() {
               ]}
               onPress={() => setActiveTab('confirm')}
             >
-              <Text style={[
+              <Body2 style={[
                 styles.tabText,
                 activeTab === 'confirm' ? styles.activeTabText : styles.inactiveTabText
               ]}>
                 Confirm
-              </Text>
+              </Body2>
             </TouchableOpacity>
           </View>
 
           {/* Tab Content Display */}
           <View style={styles.contentBody}>
             {activeTab === 'pending' ? (
-              <Text>Showing Pending List...</Text>
+              <Body2>Showing Pending List...</Body2>
             ) : (
-              <Text>Showing Confirmed List...</Text>
+              <Body1>Showing Confirmed List...</Body1>
             )}
           </View>
 
           <View style={styles.content}>
-            <Text style={styles.contentHeader}>No Request ...yet!</Text>
-            <Text style={{textAlign:"center"}}>Stay up-date- with the latest listings that match what youreyou’re looking for.</Text>
+            <H4 style={styles.contentHeader}>No Request ...yet!</H4>
+            <Body2 style={{ textAlign: "center" }}>Stay up-date- with the latest listings that match what youreyou’re looking for.</Body2>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -104,16 +104,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 20,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "600",
-  },
+
   addIcon: {
-    height: 36,
-    width: 36,
-    borderRadius: 18,
+    height: 40,
+    width: 40,
+    borderRadius: 20,
     backgroundColor: "#F2F2F2",
     alignItems: "center",
+    color: "#4B5563",
     justifyContent: "center",
   },
 
@@ -121,17 +119,17 @@ const styles = StyleSheet.create({
   tabWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 10, // বাটন দুটির মাঝখানের গ্যাপ
+    gap: 10,
     marginBottom: 20,
   },
   tabButton: {
-    flex: 1,                // দুটি বাটন সমান জায়গা নিবে
+    flex: 1,
     height: 34,             // Fixed Height 34px
     borderRadius: 4,        // Radius 4px
     borderWidth: 1,         // Border 1px
     justifyContent: 'center',
     alignItems: 'center',
-    // আপনার দেওয়া Padding 138px অনেক বড়, তাই টেক্সট সেন্টার করা হয়েছে
+    paddingVertical: 6
   },
   activeTab: {
     backgroundColor: '#3F3F3F', // Active tab color
@@ -142,7 +140,6 @@ const styles = StyleSheet.create({
     borderColor: '#E5E7EB',
   },
   tabText: {
-    fontSize: 14,
     fontWeight: '500',
   },
   activeTabText: {
@@ -160,9 +157,8 @@ const styles = StyleSheet.create({
     alignContent: "center"
   },
   contentHeader: {
-    fontSize: 20,
     fontWeight: "600",
-    textAlign:"center",
-    marginBottom:10
+    textAlign: "center",
+    marginBottom: 10
   }
 });

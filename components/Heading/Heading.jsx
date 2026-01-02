@@ -1,14 +1,14 @@
 import { Ionicons } from '@expo/vector-icons'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../../assets/Colors'
-import { Body2 } from '../typo/typography'
+import { H5 } from '../typo/typography'
 
-export default function Heading({title}) {
+export default function Heading({ title }) {
     return (
         <View style={styles.headerRow}>
             <TouchableOpacity
                 onPress={() => router.back()}
-                style={styles.backIcon}
+                style={styles.backIconContainer}
             >
                 <Ionicons
                     name="arrow-back"
@@ -16,35 +16,39 @@ export default function Heading({title}) {
                     color={Colors.TEXT_COLOR}
                 />
             </TouchableOpacity>
-            <Body2 style={styles.headerTitle}>{title}</Body2>
+            <H5 style={styles.headerTitle}>{title}</H5>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+
     headerRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        marginHorizontal: 20,
-        marginVertical: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+        marginBottom: 20,
+        width: '100%',
+        height: 43,
     },
-
-    backIcon: {
-        position: "absolute",
+    backIconContainer: {
+        position: 'absolute',
         left: 0,
-        width: 44,
-        height: 44,
-        borderRadius: 22,
+        width: 43,
+        height: 43,
+        borderRadius: 23,
         backgroundColor: "#EBEBEE",
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: "#CACACB",
+        zIndex: 1,
     },
-
     headerTitle: {
-        fontSize: 16,
-        fontWeight: "500",
-        color: Colors.SECONDARY,
+        fontSize: 18,
+        fontWeight: '600',
+        color: "#0F243E",
+        textAlign: "center",
     },
 })

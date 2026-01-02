@@ -34,6 +34,20 @@ export const cleaners = [
                 date: "2025-11-20",
                 image: "https://randomuser.me/api/portraits/men/30.jpg"
             },
+            {
+                customer: "James K.",
+                comment: "Did a fantastic job on my kitchen.",
+                rating: 4.5,
+                date: "2025-11-20",
+                image: "https://randomuser.me/api/portraits/men/30.jpg"
+            },
+            {
+                customer: "James K.",
+                comment: "Did a fantastic job on my kitchen.",
+                rating: 4.5,
+                date: "2025-11-20",
+                image: "https://randomuser.me/api/portraits/men/30.jpg"
+            },
         ],
     },
     {
@@ -63,6 +77,20 @@ export const cleaners = [
                 rating: 4.5,
                 date: "2025-12-05",
                 image: "https://randomuser.me/api/portraits/women/60.jpg"
+            },
+            {
+                customer: "Olivia P.",
+                comment: "Reliable and efficient!",
+                rating: 4.5,
+                date: "2025-12-05",
+                image: "https://randomuser.me/api/portraits/women/60.jpg"
+            },
+            {
+                customer: "Michael S.",
+                comment: "Our office has never been cleaner.",
+                rating: 5,
+                date: "2025-11-28",
+                image: "https://randomuser.me/api/portraits/men/35.jpg"
             },
             {
                 customer: "Michael S.",
@@ -100,6 +128,13 @@ export const cleaners = [
                 rating: 5,
                 date: "2025-12-03",
                 image: "https://randomuser.me/api/portraits/women/65.jpg"
+            },
+            {
+                customer: "Henry T.",
+                comment: "Always on time and does a great job.",
+                rating: 4.8,
+                date: "2025-11-30",
+                image: "https://randomuser.me/api/portraits/men/40.jpg"
             },
             {
                 customer: "Henry T.",

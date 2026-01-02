@@ -1,9 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { FlatList, Image, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors.js';
-import { Body2 } from '../../components/typo/typography.jsx';
+import Heading from '../../components/Heading/Heading.jsx';
+import { Body2, ButtonText } from '../../components/typo/typography.jsx';
 import { IMAGE_CONSTANTS } from '../../constants/image.index.js';
 
 export default function PersonalIfo() {
@@ -27,15 +27,8 @@ export default function PersonalIfo() {
 
     const Header = () => (
         <>
-            <View style={styles.headerRow}>
-                <TouchableOpacity
-                    onPress={() => router.back()}
-                    style={styles.backIconContainer}
-                >
-                    <Ionicons name='arrow-back' size={24} color={"#7E8792"} />
-                </TouchableOpacity>
-                <Body2 style={styles.headerTitle}>Personal Information</Body2>
-            </View>
+            {/* Headding */}
+            <Heading title={"Personal Information"} />
 
             <View style={styles.profileSection}>
                 <Image
@@ -46,7 +39,7 @@ export default function PersonalIfo() {
         </>
     );
 
-   
+
     const Footer = () => (
         <>
             <TouchableOpacity
@@ -62,7 +55,7 @@ export default function PersonalIfo() {
                     }
                 })}
                 style={styles.submitButton}>
-                <Body2 style={styles.buttonText}>Edit Profile</Body2>
+                <ButtonText style={styles.buttonText}>Edit Profile</ButtonText>
             </TouchableOpacity>
             <View style={{ height: 40 }} />
         </>
@@ -93,39 +86,12 @@ export default function PersonalIfo() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor:Colors.BACKGROUND_COLOR
+        backgroundColor: Colors.BACKGROUND_COLOR
     },
     scrollContainer: {
         paddingHorizontal: "5%",
     },
-    headerRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-        width: '100%',
-        height: 43,
-    },
-    backIconContainer: {
-        position: 'absolute',
-        left: 0,
-        width: 43,
-        height: 43,
-        borderRadius: 23,
-        backgroundColor: "#EBEBEE",
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: "#CACACB",
-        zIndex: 1,
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: "#0F243E",
-        textAlign: "center",
-    },
+    
     profileSection: {
         alignItems: 'center',
         marginBottom: 30,
@@ -151,9 +117,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     labelStyle: {
-        fontSize: 10,
+        fontSize: 12,
         color: "#0F243E",
         marginBottom: 1,
+        fontWeight:"400",
         textTransform: 'uppercase',
     },
     valueText: {
@@ -172,7 +139,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: "#FFF",
-        fontSize: 16,
-        fontWeight: "600"
+        fontWeight: "500"
     },
 });

@@ -1,62 +1,53 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { useForm } from "react-hook-form"; // নিশ্চিত করুন আপনার custom hook টি সঠিক
+import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
     KeyboardAvoidingView,
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Body2, H2 } from "../../components/typo/typography";
+import { Body1, ButtonText, H3 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
-import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
-import { validateEmail, validatePassword } from "../../utils/validation";
 
 export default function SignUpScreen() {
     const router = useRouter();
+    const { t } = useTranslation();
     const [checked, setChecked] = useState(false);
 
-
-    
-    const {
-        values = {},
-        errors = {},
-        touched = {},
-        isSubmitting,
-        handleChange,
-        handleBlur,
-        handleSubmit
-    } = useForm({
-        initialValues: {
-            [FORM_FIELDS.EMAIL]: "dev@yopmail.com",
-            [FORM_FIELDS.PASSWORD]: "1234567",
-        },
-        validationRules: {
-            [FORM_FIELDS.EMAIL]: validateEmail,
-            [FORM_FIELDS.PASSWORD]: validatePassword,
-        },
-        onSubmit: async formValues => {
-            try {
-                ToastAndroid.show("Login successful!", ToastAndroid.SHORT);
-                router.push("/(app)/home");
-            } catch (error) {
-                ToastAndroid.show("Login failed", ToastAndroid.SHORT);
-            }
+    const { control, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({
+        defaultValues: {
+            fullName: "",
+            email: "",
+            password: "",
+            confirmPassword: ""
         }
     });
 
+    const passwordsMatch = watch("password") === watch("confirmPassword");
 
-    const isFormValid =
-        values?.[FORM_FIELDS.EMAIL] &&
-        values?.[FORM_FIELDS.PASSWORD] &&
-        !errors?.[FORM_FIELDS.EMAIL] &&
-        !errors?.[FORM_FIELDS.PASSWORD];
+    const isFormValid = watch("fullName") && watch("email") && watch("password") && watch("confirmPassword") && passwordsMatch && checked;
+
+    const onSubmit = async (data) => {
+        if (!checked) {
+            ToastAndroid.show("Please accept Terms & Conditions", ToastAndroid.SHORT);
+            return;
+        }
+
+        if (!passwordsMatch) {
+            ToastAndroid.show(t("signup.errors.passwordMismatch"), ToastAndroid.SHORT);
+            return;
+        }
+
+        ToastAndroid.show(t("signup.signingUp"), ToastAndroid.SHORT);
+        router.push("/(app)/login");
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -70,78 +61,94 @@ export default function SignUpScreen() {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.content}>
-                        <View style={styles.header}>
-                            <H2 style={styles.title}>Sign up with Email</H2>
-                            {/* <Body1 color="#64748B">Sign in to continue your journey</Body1> */}
-                        </View>
+                        <H3 style={styles.title}>{t("signup.title")}</H3>
 
                         <View style={styles.form}>
-                            <FormInput
-                                label={FORM_LABELS[FORM_FIELDS.FULL_NAME]}
-                                value={values?.[FORM_FIELDS.FULL_NAME] || ""}
-                                // onChangeText={text => handleChange(FORM_FIELDS.EMAIL, text)}
-                                onBlur={() => handleBlur(FORM_FIELDS.FULL_NAME)}
-                                placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.FULL_NAME]}
-                                type="email"
-                                error={errors?.[FORM_FIELDS.FULL_NAME]}
-                                touched={touched?.[FORM_FIELDS.FULL_NAME]}
-                                required
+                            <Controller
+                                control={control}
+                                name="fullName"
+                                rules={{ required: t("signup.errors.required") }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <FormInput
+                                        label={t("signup.fullName")}
+                                        value={value}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        placeholder={t("signup.fullName")}
+                                        error={errors.fullName?.message}
+                                    />
+                                )}
                             />
 
-                            <FormInput
-                                label={FORM_LABELS[FORM_FIELDS.EMAIL]}
-                                value={values?.[FORM_FIELDS.EMAIL] || ""}
-                                // onChangeText={text => handleChange(FORM_FIELDS.EMAIL, text)}
-                                onBlur={() => handleBlur(FORM_FIELDS.EMAIL)}
-                                placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.EMAIL]}
-                                type="email"
-                                error={errors?.[FORM_FIELDS.EMAIL]}
-                                touched={touched?.[FORM_FIELDS.EMAIL]}
-                                required
+                            <Controller
+                                control={control}
+                                name="email"
+                                rules={{
+                                    required: t("signup.errors.required"),
+                                    pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: t("signup.errors.invalidEmail") }
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <FormInput
+                                        label={t("signup.email")}
+                                        value={value}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        placeholder={t("signup.email")}
+                                        type="email"
+                                        error={errors.email?.message}
+                                    />
+                                )}
                             />
 
-                            <FormInput
-                                label={FORM_LABELS[FORM_FIELDS.PASSWORD]}
-                                value={values?.[FORM_FIELDS.PASSWORD] || ""}
-                                // onChangeText={text => handleChange(FORM_FIELDS.PASSWORD, text)}
-                                onBlur={() => handleBlur(FORM_FIELDS.PASSWORD)}
-                                placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.PASSWORD]}
-                                type="password"
-                                error={errors?.[FORM_FIELDS.PASSWORD]}
-                                touched={touched?.[FORM_FIELDS.PASSWORD]}
-                                required
+                            <Controller
+                                control={control}
+                                name="password"
+                                rules={{
+                                    required: t("signup.errors.required"),
+                                    minLength: { value: 6, message: t("signup.errors.passwordMin") }
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <FormInput
+                                        label={t("signup.password")}
+                                        value={value}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        placeholder={t("signup.password")}
+                                        type="password"
+                                        error={errors.password?.message}
+                                    />
+                                )}
                             />
 
-                            <FormInput
-                                label={FORM_LABELS[FORM_FIELDS.CONFIRM_PASSWORD]}
-                                value={values[FORM_FIELDS.CONFIRM_PASSWORD]}
-                                // onChangeText={(text) => handleChange(FORM_FIELDS.CONFIRM_PASSWORD, text.trim())}
-                                placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.CONFIRM_PASSWORD]}
-                                type="password"
-                                // error={
-                                //     errors[FORM_FIELDS.CONFIRM_PASSWORD] ||
-                                //     (values[FORM_FIELDS.CONFIRM_PASSWORD] && !passwordsMatch ? 'Passwords do not match' : '')
-                                // }
-                                touched={touched[FORM_FIELDS.CONFIRM_PASSWORD]}
-                                required
+                            <Controller
+                                control={control}
+                                name="confirmPassword"
+                                rules={{ required: t("signup.errors.required") }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <FormInput
+                                        label={t("signup.confirmPassword")}
+                                        value={value}
+                                        onChangeText={onChange}
+                                        onBlur={onBlur}
+                                        placeholder={t("signup.confirmPassword")}
+                                        type="password"
+                                        error={!passwordsMatch ? t("signup.errors.passwordMismatch") : errors.confirmPassword?.message}
+                                    />
+                                )}
                             />
 
+                            {/* Button + Terms + Divider + Social */}
                             <TouchableOpacity
-                                onPress={handleSubmit}
+                                onPress={handleSubmit(onSubmit)}
                                 disabled={!isFormValid || isSubmitting}
-                                style={[
-                                    styles.submitButton,
-                                    (!isFormValid || isSubmitting) && styles.disabledButton
-                                ]}
+                                style={[styles.submitButton, (!isFormValid || isSubmitting) && styles.disabledButton]}
                             >
-                                <Text style={styles.buttonText}>
-                                    {isSubmitting ? "Signing In..." : "Sign In"}
-                                </Text>
+                                <ButtonText style={styles.buttonText}>
+                                    {isSubmitting ? t("signup.signingUp") : t("signup.signUp")}
+                                </ButtonText>
                             </TouchableOpacity>
 
-
                             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 12 }}>
-                                {/* Checkbox */}
                                 <TouchableOpacity
                                     onPress={() => setChecked(!checked)}
                                     style={{
@@ -159,51 +166,15 @@ export default function SignUpScreen() {
                                     {checked && <Ionicons name="checkmark" size={14} color="#fff" />}
                                 </TouchableOpacity>
 
-                                {/* Text */}
-                                <Body2>
-                                    Agree with{" "}
-                                    <Text style={{ color: "#2DBEFF" }}>
-                                        Terms & Conditions
-                                    </Text>
-                                </Body2>
+                                <Body1 >{t("signup.terms")} <Body1 style={{color:"#2DBEFF"}}>{t("signup.teems_cond")}</Body1></Body1>
                             </View>
 
-                            {/* forgot route and forgot pass container */}
-                            <View style={styles.footerLinksContainer}>
-                                {/* Sign Up Link */}
-                                {/* <View style={styles.signUpContainer}>
-                                    <Link href="/(auth)/register" asChild >
-                                        <TouchableOpacity hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-                                            <Body2 color="#323135" style={{ fontWeight: 'bold', fontSize: 16, textDecorationLine: 'underline', }}>Sign Up</Body2>
-                                        </TouchableOpacity>
-                                    </Link>
-                                </View> */}
-
-                                {/* Forgot Password Link */}
-                                {/* <View style={styles.forgotPasswordContainer}>
-                                    <Link
-                                        href={{
-                                            pathname: "/(auth)/forgot-password",
-                                            params: { email: values?.[FORM_FIELDS.EMAIL] || "" }
-                                        }}
-                                        asChild
-                                    >
-                                        <TouchableOpacity hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-                                            <Body2 color="323135" style={styles.forgotPassword}>
-                                                Forgot password?
-                                            </Body2>
-                                        </TouchableOpacity>
-                                    </Link>
-                                </View> */}
-                            </View>
-
-                            {/* DEvider */}
                             <View style={styles.dividerContainer}>
                                 <View style={styles.divider} />
-                                <Text style={styles.dividerText}>or</Text>
+                                <Body1 style={styles.dividerText}>{t("signup.or")}</Body1>
                                 <View style={styles.divider} />
                             </View>
-                            {/* Social icon */}
+
                             <View style={styles.socialContaier}>
                                 <View style={styles.socialIcon}>
                                     <Ionicons name="logo-google" size={32} color={"#2DBEFF"} />
@@ -211,8 +182,8 @@ export default function SignUpScreen() {
                                 <View style={styles.socialIcon}>
                                     <Ionicons name="logo-apple" size={32} color="black" />
                                 </View>
-
                             </View>
+
                         </View>
                     </View>
                 </ScrollView>
@@ -222,27 +193,39 @@ export default function SignUpScreen() {
 }
 
 const styles = StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: "#FFFFFF" },
-    container: { flex: 1 },
-    scrollContent: { flexGrow: 1 },
-    content: { flex: 1, paddingHorizontal: 24, paddingVertical: 32 },
-    header: { marginBottom: 40 },
-    title: { marginBottom: 8 },
-    form: { marginBottom: 40 },
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#fff"
+    },
+    container: {
+        flex: 1
+    },
+    scrollContent: {
+        flexGrow: 1
+    },
+    content: {
+        flex: 1,
+        paddingHorizontal: 24,
+        paddingVertical: 50
+    },
+    title: {
+        marginBottom: 50
+    },
+    form: {
+        marginBottom: 40
+    },
     submitButton: {
         backgroundColor: "#00AFF5",
         paddingVertical: 16,
         borderRadius: 12,
         alignItems: "center",
-        marginTop: 10,
-        marginBottom: 5,
-        paddingVertical: "6%"
+        marginTop: 10
     },
-    // disabledButton: { backgroundColor: "#94A3B8" },
+    disabledButton: {
+        backgroundColor: "#6fd6ffff"
+    },
     buttonText: {
-        color: "#FFF",
-        fontSize: 16,
-        fontWeight: "600"
+        color: "#fff",
     },
     dividerContainer: {
         flexDirection: "row",
@@ -258,42 +241,19 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         color: "#94A3B8"
     },
-
-    footerLinksContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginHorizontal: 10,
-        marginTop: 8,
-        marginBottom: 20
-    },
-    signUpContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    forgotPasswordContainer: {
-
-    },
-    forgotPassword: {
-        fontWeight: "600",
-        textDecorationLine: 'underline',
-        fontSize: 16
-    },
     socialContaier: {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
         gap: 12,
-        marginTop: 20,
+        marginTop: 20
     },
-
     socialIcon: {
         backgroundColor: "#F7F7F7",
         height: 60,
         width: 60,
         borderRadius: 30,
         justifyContent: "center",
-        alignItems: "center",
-    },
-
+        alignItems: "center"
+    }
 });

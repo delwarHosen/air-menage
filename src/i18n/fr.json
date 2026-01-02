@@ -1,0 +1,75 @@
+{
+    "home": {
+        "title": "Commencez la Vérification",
+        "description": "Recevez des missions de nettoyage à proximité, choisissez les emplois qui conviennent à votre emploi du temps.",
+        "button": "Commencer"
+    },
+    "role_page": {
+        "title": "Travaillez à votre façon",
+        "description": "Acceptez les missions qui vous intéressent, gérez votre emploi du temps en toute simplicité et profitez-en !",
+        "button1": "Continuer en tant qu'hôte",
+        "button2": "Continue as Cleaner"
+    },
+    "login": {
+        "title": "Se connecter avec un e-mail",
+        "label": "E-mail",
+        "placeholder": "Saisissez votre adresse e-mail",
+        "password": "Password",
+        "button": "Se connecter",
+        "signup": "S'inscrire",
+        "Forgot_Password": "Mot de passe oublié"
+    },
+    "signup": {
+        "title": "Inscrivez-vous avec Email",
+        "fullName": "Nom complet",
+        "email": "Email",
+        "password": "Mot de passe",
+        "confirmPassword": "Confirmer le mot de passe",
+        "signUp": "S'inscrire",
+        "signingUp": "Inscription...",
+        "terms": "D'accord avec",
+        "teems_cond": "Conditions générales",
+        "or": "ou",
+        "errors": {
+            "required": "Ce champ est requis",
+            "invalidEmail": "Adresse e-mail invalide",
+            "passwordMismatch": "Les mots de passe ne correspondent pas",
+            "passwordMin": "Le mot de passe doit contenir au moins 6 caractères"
+        }
+    },
+    "forgotPassword": {
+        "title": "Mot de passe oublié",
+        "description": "Veuillez saisir votre adresse e-mail pour recevoir un code de vérification.",
+        "emailLabel": "Adresse e-mail",
+        "emailPlaceholder": "Entrez votre e-mail",
+        "getCode": "Obtenir le code",
+        "sending": "Envoi...",
+        "enterEmailError": "Veuillez entrer votre e-mail",
+        "verificationSent": "Code de vérification envoyé !",
+        "verificationFailed": "Échec de l'envoi du code"
+    },
+    "verification": {
+        "title": "Code de vérification",
+        "description": "Veuillez saisir le code à 4 chiffres envoyé à votre adresse e-mail.",
+        "notReceived": "Vous n'avez pas reçu le code ?",
+        "resendCode": "Renvoyer le code",
+        "resendIn": "Renvoyer dans",
+        "verifyButton": "Vérifier",
+        "enterCodeError": "Veuillez saisir le code à 4 chiffres",
+        "verificationSuccess": "Vérification réussie !",
+        "verificationResent": "Code de vérification renvoyé !"
+    },
+    "setNewPassword": {
+        "title": "Créer un nouveau mot de passe",
+        "description": "Votre nouveau mot de passe doit être différent des mots de passe précédemment utilisés.",
+        "passwordLabel": "Nouveau mot de passe",
+        "confirmPasswordLabel": "Confirmer le mot de passe",
+        "passwordPlaceholder": "Entrez un nouveau mot de passe",
+        "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+        "passwordsMismatch": "Les mots de passe ne correspondent pas",
+        "resetButton": "Réinitialiser le mot de passe",
+        "updating": "Mise à jour...",
+        "success": "Mot de passe réinitialisé avec succès !",
+        "failed": "Échec de la réinitialisation du mot de passe"
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "home": {
+        "title": "Get Started with Verification",
+        "description": "Get cleaning missions from nearby hosts, choose jobs that fit your schedule.",
+        "button": "Get Started"
+    },
+    "role_page": {
+        "title": "Work Your Way",
+        "description": "Accept the missions you want, manage your schedule with ease, and enjoy ",
+        "button1": "Continue as Host",
+        "button2": "Continue as Cleaner"
+    },
+    "login": {
+        "title": "Login with Email",
+        "label": "Email",
+        "placeholder": "Enter Your Email",
+        "password": "Password",
+        "button": "Login",
+        "signup": "Sign up",
+        "Forgot_Password": "Forgot Password"
+    },
+    "signup": {
+        "title": "Sign up with Email",
+        "fullName": "Name",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "signUp": "Sign Up",
+        "signingUp": "Signing Up...",
+        "terms": "Agree with ",
+        "teems_cond": "Terms & Conditions",
+        "or": "or",
+        "errors": {
+            "required": "This field is required",
+            "invalidEmail": "Invalid email address",
+            "passwordMismatch": "Passwords do not match",
+            "passwordMin": "Password must be at least 6 characters"
+        }
+    },
+    "forgotPassword": {
+        "title": "Forgot Password",
+        "description": "Please enter your email address to receive a verification code.",
+        "emailLabel": "Email Address",
+        "emailPlaceholder": "Enter your email",
+        "getCode": "Get Code",
+        "sending": "Sending...",
+        "enterEmailError": "Please enter your email",
+        "verificationSent": "Verification code sent!",
+        "verificationFailed": "Failed to send code"
+    },
+    "verification": {
+        "title": "Verification code",
+        "description": "Please enter the 4-digit code sent to your email address.",
+        "notReceived": "You don't get the code?",
+        "resendCode": "Resend Code",
+        "resendIn": "Resend in",
+        "verifyButton": "Verify",
+        "enterCodeError": "Please enter the 4-digit code",
+        "verificationSuccess": "Verification Successful!",
+        "verificationResent": "Verification code resent!"
+    },
+    "setNewPassword": {
+        "title": "Create New Password",
+        "description": "Your new password must be different from previously used passwords.",
+        "passwordLabel": "New Password",
+        "confirmPasswordLabel": "Confirm Password",
+        "passwordPlaceholder": "Enter new password",
+        "confirmPasswordPlaceholder": "Confirm your password",
+        "passwordsMismatch": "Passwords do not match",
+        "resetButton": "Reset Password",
+        "updating": "Updating...",
+        "success": "Password reset successful!",
+        "failed": "Failed to reset password"
+    }
+}

@@ -5,32 +5,28 @@ import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors';
 import Heading from '../../components/Heading/Heading';
-import { Body2 } from '../../components/typo/typography';
+import { Caption, H5 } from '../../components/typo/typography';
 import { cleaners } from '../../store/Cleaners';
 
-
 function CleanerItem({ item, onPress }) {
-
     return (
-        <View
-            style={styles.CleanerCard}
-        >
+        <View style={styles.CleanerCard}>
             <Image
                 source={{ uri: item.profileImg }}
                 style={styles.profileImage}
             />
             <View style={{ flex: 1 }}>
-                <Body2 style={{ fontWeight: "bold", fontSize: 16, color: Colors.SECONDARY }}>{item.name}</Body2>
-                <Body2 style={{ fontSize: 12, color: Colors.TEXT_COLOR }}>{item.email}</Body2>
+                <H5>
+                    {item.name}
+                </H5>
+                <Caption style={{ color: Colors.TEXT_COLOR }}>
+                    {item.email}
+                </Caption>
             </View>
             <View>
-                <TouchableOpacity
-                    onPress={onPress}
-                    style={styles.viewButton}
-                >
-                    <Body2 style={{ color: "#fff", fontSize: 12, }}>View Details</Body2>
+                <TouchableOpacity onPress={onPress} style={styles.viewButton}>
+                    <Caption style={{ color: "#fff", }}>View Details</Caption>
                 </TouchableOpacity>
-
             </View>
             <Ionicons name='trash-outline' size={24} color={"#C72D65"} />
         </View>
@@ -53,18 +49,15 @@ export default function FavouriteCleaner() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
             >
-              {/* Heading */}
-                <Heading title={"Favorite cleaner"}/>
-
-                {/* data fatching */}
+                {/* FlatList handles scrolling; Heading is the ListHeader */}
                 <FlatList
                     data={cleaners}
                     keyExtractor={(item) => item.id.toString()}
-                    contentContainerStyle={{ padding: 16 }}
+                    contentContainerStyle={{ padding: 16, paddingBottom: 50 }}
+                    ListHeaderComponent={<Heading title="Favorite cleaner" />}
                     renderItem={renderItem}
+                    keyboardShouldPersistTaps="handled"
                 />
-
-                {/* </ScrollView> */}
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
@@ -75,36 +68,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.BACKGROUND_COLOR,
         paddingVertical: 7,
-        // paddingHorizontal: 20,
     },
-
-    /* Header */
-    headerRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        marginHorizontal: 20,
-        marginVertical: 7
-    },
-
-    backIcon: {
-        position: "absolute",
-        left: 0,
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        backgroundColor: "#EBEBEE",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-
-    headerTitle: {
-        fontSize: 16,
-        fontWeight: "500",
-        color: Colors.SECONDARY,
-    },
-    // cleaner card
     CleanerCard: {
         flexDirection: "row",
         alignItems: "center",
@@ -114,7 +78,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     profileImage: {
-        width: 40, height: 40, borderRadius: 20, marginRight: 12
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        marginRight: 12
     },
     viewButton: {
         marginTop: 4,

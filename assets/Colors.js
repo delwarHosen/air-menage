@@ -3,7 +3,9 @@ const tintColorDark = "#fff";
 const backgroundColor="#FAFAFA"
 const primary = "#00AFF5";
 const secondary = "#323135";
+const authHedColor= "#040404";
 const textColor= "#68656E";
+const borderColor="#CACACB";
 export const Colors = {
     light: {
         text: "#11181C",
@@ -23,6 +25,8 @@ export const Colors = {
     },
     PRIMARY: primary,
     SECONDARY: secondary,
+    AUTH_HED_COLOR:authHedColor,
     TEXT_COLOR:textColor,
+    BORDER_COLOR:borderColor,
     BACKGROUND_COLOR:backgroundColor
 };

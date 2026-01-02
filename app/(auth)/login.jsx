@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import {
     KeyboardAvoidingView,
     Platform,
@@ -10,9 +11,10 @@ import {
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Body2, H2 } from "../../components/typo/typography";
+import { Body1, Body2, ButtonText, H3, H4 } from "../../components/typo/typography";
 
 export default function LoginScreen() {
+    const { t } = useTranslation();
     const router = useRouter();
 
     return (
@@ -28,19 +30,19 @@ export default function LoginScreen() {
                 >
                     <View style={styles.content}>
                         <View style={styles.header}>
-                            <H2 style={styles.title}>Login with Email</H2>
+                            <H3 style={styles.title}>{t("login.title")}</H3>
                         </View>
 
                         <View style={styles.form}>
                             {/* Email input */}
-                            <View style={{ marginBottom: 16 }}>
-                                <Body2>Email</Body2>
+                            <View style={{ marginBottom: 4 }}>
+                                <Body1>{t("login.label")}</Body1>
                                 <View style={styles.fakeInput} />
                             </View>
 
                             {/* Password input */}
                             <View style={{ marginBottom: 16 }}>
-                                <Body2>Password</Body2>
+                                <Body2>{t("login.password")}</Body2>
                                 <View style={styles.fakeInput} />
                             </View>
 
@@ -49,7 +51,7 @@ export default function LoginScreen() {
                                 onPress={() => router.push("/host/home")}
                                 style={styles.submitButton}
                             >
-                                <Text style={styles.buttonText}>Login</Text>
+                                <ButtonText style={styles.buttonText}>{t("login.button")}</ButtonText>
                             </TouchableOpacity>
 
                             {/* Sign Up / Forgot Password */}
@@ -57,14 +59,14 @@ export default function LoginScreen() {
                                 <View style={styles.signUpContainer}>
                                     <Link href="/(auth)/register" asChild>
                                         <TouchableOpacity>
-                                            <Body2 style={{ fontWeight: 'bold', textDecorationLine: 'underline' }}>Sign Up</Body2>
+                                            <H4 style={{ fontWeight: '500', textDecorationLine: 'underline' }}>{t("login.signup")}</H4>
                                         </TouchableOpacity>
                                     </Link>
                                 </View>
-                                <View style={styles.forgotPasswordContainer}>
+                                <View>
                                     <Link href="/(auth)/forgot-password" asChild>
                                         <TouchableOpacity>
-                                            <Body2 style={{ textDecorationLine: 'underline' }}>Forgot password?</Body2>
+                                            <H4 style={{ textDecorationLine: 'underline' }}>{t("login.Forgot_Password")}?</H4>
                                         </TouchableOpacity>
                                     </Link>
                                 </View>
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
         paddingVertical: 32
     },
     header: {
-        marginBottom: 40
+        marginBottom: 20
     },
     title: {
         marginBottom: 8
@@ -136,8 +138,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: "#FFF",
-        fontSize: 16,
-        fontWeight: "600"
+        fontWeight: "500"
     },
     dividerContainer: {
         flexDirection: "row",
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginHorizontal: 10,
-        marginTop: 8,
+        marginTop: 10,
         marginBottom: 20
     },
     socialContaier: {

@@ -4,13 +4,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
     StyleSheet,
-    Text,
     TextInput,
     TouchableOpacity,
     View
 } from "react-native";
 import { Colors } from "../../assets/Colors";
-import { Caption } from "../typo/typography";
+import { Body1, Caption } from "../typo/typography";
 // import { Caption } from "../typo/typography";
 // import { Caption } from "../typo/Typography.jsx";
 // import { Caption } from "../typo/typography.jsx";
@@ -98,8 +97,14 @@ export const FormInput = ({
     return (
         <View style={styles.container}>
             <View style={styles.labelContainer}>
-                <Text style={styles.label}>{label}</Text>
-                {required && <Text style={styles.required}>*</Text>}
+                <Body1 weight="regular" color={Colors.TEXT_COLOR}>
+                    {label}{required && <Body1 style={{ color: "red" }}></Body1>}
+                </Body1>
+                {required && (
+                    <Body1 weight="regular" style={[styles.required, { color: 'red' }]}>
+                        *
+                    </Body1>
+                )}
             </View>
 
             <View style={[styles.inputContainer, getError() && styles.inputError]}>
@@ -143,30 +148,26 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     label: {
-        color:Colors.TEXT_COLOR,
-        fontWeight: "500"
+        color: Colors.TEXT_COLOR,
     },
     required: {
-        // color: "#EF4444",
         marginLeft: 4
     },
     inputContainer: {
         flexDirection: "row",
         alignItems: "center",
-        // backgroundColor: "#F8FAFC",
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: "#CACACB",
-        // borderColor: "#Ef4444",
+        borderColor: Colors.BORDER_COLOR,
         paddingHorizontal: 16,
         paddingVertical: 4
-        // paddingTop:5,
-        // paddingBottom:5
     },
     input: {
         flex: 1,
         paddingVertical: 14,
         fontSize: 16,
-        // color: "#e2c611ff"
+        color: Colors.TEXT_COLOR,
+        fontFamily: "SyneRegular",
+        textAlignVertical: 'center',
     }
 })
