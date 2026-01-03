@@ -1,54 +1,52 @@
-import { Ionicons } from '@expo/vector-icons'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Colors } from '../../assets/Colors'
-import { H5 } from '../typo/typography'
+import { useRouter } from 'expo-router';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { BackArrowIcon } from '../../assets/icons/Icons';
+import { H6 } from '../typo/typography';
 
 export default function Heading({ title }) {
+    const router = useRouter();
+
     return (
         <View style={styles.headerRow}>
+            {/* Back button */}
             <TouchableOpacity
                 onPress={() => router.back()}
                 style={styles.backIconContainer}
             >
-                <Ionicons
-                    name="arrow-back"
-                    size={22}
-                    color={Colors.TEXT_COLOR}
-                />
+                <BackArrowIcon />
             </TouchableOpacity>
-            <H5 style={styles.headerTitle}>{title}</H5>
+
+            {/* Title */}
+            <H6 style={styles.headerTitle}>{title}</H6>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
-
     headerRow: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-        width: '100%',
-        height: 43,
+        marginVertical: 20, 
+        width: '100%', 
+        position: 'relative', 
     },
     backIconContainer: {
         position: 'absolute',
         left: 0,
         width: 43,
         height: 43,
-        borderRadius: 23,
-        backgroundColor: "#EBEBEE",
+        borderRadius: 22, 
+        backgroundColor: '#EBEBEE',
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: "#CACACB",
+        borderColor: '#CACACB',
         zIndex: 1,
     },
     headerTitle: {
-        fontSize: 18,
         fontWeight: '600',
-        color: "#0F243E",
-        textAlign: "center",
+        color: '#0F243E',
+        textAlign: 'center',
     },
-})
+});

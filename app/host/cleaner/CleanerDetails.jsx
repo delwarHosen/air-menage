@@ -1,15 +1,14 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import {
-    StyleSheet,
-    View
-} from "react-native";
-// import { Colors } from "../../../assets/Colors";
-// import { Body2 } from "../../../components/typo/typography";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+
 import { Colors } from "../../../assets/Colors";
+import { BlueVerifyIcon } from "../../../assets/icons/Icons";
 import { Body2 } from "../../../components/typo/typography";
 
-export default function CleanerDetails({cleaner}) {
+export default function CleanerDetails({ cleaner }) {
+    const { t } = useTranslation();
+
     return (
         <View style={styles.profileCardRow}>
             {/* Profile Info */}
@@ -20,41 +19,40 @@ export default function CleanerDetails({cleaner}) {
                         style={styles.profileImage}
                     />
                     <View style={styles.verifyBadge}>
-                        <MaterialIcons
-                            name="verified"
-                            size={24}
-                            color={Colors.PRIMARY}
-                        />
+                        <BlueVerifyIcon/>
                     </View>
                 </View>
 
                 <Body2 style={styles.cleanerName}>{cleaner.name}</Body2>
-                <Body2 style={styles.cleanerEmail}>{cleaner.location.city},{cleaner.location.country}</Body2>
+                <Body2 style={styles.cleanerEmail}>
+                    {cleaner.location.city}, {cleaner.location.country}
+                </Body2>
             </View>
 
             {/* Stats Row */}
             <View style={styles.statsRow}>
                 <View style={styles.statItem}>
                     <Body2 style={styles.statValue}>{cleaner.workManage}</Body2>
-                    <Body2 style={styles.statTitle}>Work Managed</Body2>
+                    <Body2 style={styles.statTitle}>{t("cleaner_details.workManaged")}</Body2>
                     <View style={styles.underline} />
                 </View>
 
                 <View style={styles.statItem}>
                     <Body2 style={styles.statValue}>{cleaner.evaluation}</Body2>
-                    <Body2 style={styles.statTitle}>Evaluation</Body2>
+                    <Body2 style={styles.statTitle}>{t("cleaner_details.evaluation")}</Body2>
                     <View style={styles.underline} />
                 </View>
 
                 <View style={styles.statItem}>
                     <Body2 style={styles.statValue}>{cleaner.overallScore}</Body2>
-                    <Body2 style={styles.statTitle}>Overall Score</Body2>
+                    <Body2 style={styles.statTitle}>{t("cleaner_details.overallScore")}</Body2>
                     <View style={styles.underline} />
                 </View>
             </View>
         </View>
-    )
+    );
 }
+
 
 const styles = StyleSheet.create({
     profileCardRow: {

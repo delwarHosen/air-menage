@@ -71,5 +71,207 @@
         "updating": "Mise à jour...",
         "success": "Mot de passe réinitialisé avec succès !",
         "failed": "Échec de la réinitialisation du mot de passe"
-    }
+    },
+    "menu": {
+        "profile": {
+            "comments": "36 Commentaires"
+        },
+        "sections": {
+            "accountSettings": "Paramètres du compte",
+            "preferences": "Mes préférences",
+            "legal": "Mentions légales"
+        },
+        "items": {
+            "personalInfo": "Informations personnelles",
+            "payment": "Paiement et traduction",
+            "passwordSecurity": "Mot de passe et sécurité",
+            "getHelp": "Obtenir de l'aide",
+            "identityVerification": "Vérification d'identité",
+            "language": "Langue",
+            "favoriteCleaner": "Nettoyeur favori",
+            "aboutUs": "À propos de nous",
+            "terms": "Conditions d'utilisation",
+            "privacy": "Politique de confidentialité",
+            "legalNotices": "Mentions légales"
+        },
+        "actions": {
+            "logout": "Se déconnecter"
+        }
+    },
+    "host_home": {
+        "header": {
+            "greeting": "Bonjour, {{name}} !"
+        },
+        "tabs": {
+            "pending": "En attente",
+            "confirm": "Confirmées"
+        },
+        "content": {
+            "pending": "Affichage des demandes en attente...",
+            "confirm": "Affichage des demandes confirmées..."
+        },
+        "empty": {
+            "title": "Aucune demande pour le moment !",
+            "description": "Restez informé des dernières réservations correspondant à votre disponibilité."
+        }
+    },
+    "host_personal_info": {
+        "title": "Informations personnelles",
+        "fields": {
+            "fullName": "Nom complet",
+            "email": "E-mail",
+            "phone": "Numéro de téléphone",
+            "address": "Adresse",
+            "city": "Ville",
+            "country": "Pays"
+        },
+        "actions": {
+            "edit": "Modifier le profil"
+        }
+    },
+    "edit_personal_info": {
+        "title": "Modifier les informations",
+        "fields": {
+            "fullName": "Nom complet",
+            "email": "Email",
+            "phone": "Téléphone",
+            "address": "Adresse",
+            "city": "Ville",
+            "country": "Pays"
+        },
+        "placeholders": {
+            "fullName": "Entrez votre nom complet",
+            "email": "Entrez votre email",
+            "phone": "Entrez votre numéro de téléphone",
+            "address": "Entrez votre adresse",
+            "city": "Entrez votre ville",
+            "country": "Entrez votre pays"
+        },
+        "actions": {
+            "saveChanges": "Enregistrer les modifications",
+            "saving": "Enregistrement..."
+        }
+    },
+    "wallet_payment_summary": {
+        "title": "Portefeuille & Résumé des paiements",
+        "tabs": {
+            "myPayment": "Mes Paiements",
+            "pending": "En attente",
+            "refound": "Remboursé"
+        },
+        "fields": {
+            "totalPrice": "Prix total",
+            "transactionId": "ID de transaction",
+            "date": "Date",
+            "location": "Lieu",
+            "delete": "Supprimer"
+        },
+        "empty": "Aucune transaction trouvée.",
+        "status": {
+            "success": "Réussi",
+            "pending": "En attente",
+            "refound": "Remboursé"
+        }
+    },
+    "password_security": {
+        "title": "Mot de passe et sécurité",
+        "actions": {
+            "changePassword": "Changer le mot de passe",
+            "deleteAccount": "Supprimer le compte"
+        }
+    },
+    "change_password": {
+        "title": "Changer le mot de passe",
+        "fields": {
+            "currentPassword": "Mot de passe actuel",
+            "newPassword": "Nouveau mot de passe",
+            "confirmPassword": "Confirmer le mot de passe"
+        },
+        "buttons": {
+            "saveChanges": "Enregistrer les modifications",
+            "updating": "Mise à jour..."
+        }
+    },
+    "contact": {
+        "title": "Contact",
+        "fields": {
+            "fullName": {
+                "label": "Nom complet",
+                "placeholder": "Entrez votre nom complet",
+                "errorRequired": "Le nom complet est requis"
+            },
+            "email": {
+                "label": "E-mail",
+                "placeholder": "Entrez votre e-mail",
+                "errorInvalid": "Adresse e-mail invalide"
+            },
+            "description": {
+                "label": "Message",
+                "placeholder": "Tapez votre message ici",
+                "errorRequired": "Le message est requis"
+            }
+        },
+        "buttons": {
+            "send": "Envoyer le message",
+            "successToast": "Message envoyé !"
+        }
+    },
+    "favourite_cleaner": {
+        "title": "Nettoyeur préféré",
+        "button": {
+            "viewDetails": "Voir les détails"
+        }
+    },
+    "cleaner_details": {
+        "title": "Détails du Nettoyeur",
+        "serviceDescription": "Description du service",
+        "seeMore": "Voir plus",
+        "reviews": "Avis",
+        "notFound": "Nettoyeur introuvable",
+        "workManaged": "Travail géré",
+        "evaluation": "Évaluation",
+        "overallScore": "Score global"
+    },
+    "about_us": {
+        "title": "À propos de nous",
+        "sections": [
+            {
+                "id": 1,
+                "title": "Portée du service",
+                "content": "MYTRAINERR fournit une plateforme en ligne qui met en relation les personnes recherchant un entraînement physique ('Clients') avec des entraîneurs personnels ('Trainers')."
+            },
+            {
+                "id": 2,
+                "title": "Comptes utilisateurs et responsabilités",
+                "content": "Pour accéder à nos services, vous devez vous inscrire. Vous acceptez de fournir des informations exactes, actuelles et complètes lors de l'inscription."
+            },
+            {
+                "id": 3,
+                "title": "Réservation et paiement",
+                "content": "Les clients peuvent réserver des séances avec les entraîneurs via l'application. Tous les paiements sont traités par un prestataire de paiement tiers."
+            },
+            {
+                "id": 4,
+                "title": "Responsabilité et avertissements",
+                "content": "MYTRAINERR est un fournisseur de plateforme et n'est pas responsable de la qualité de la formation, des conseils ou des blessures pouvant survenir lors d'une séance. Les clients doivent effectuer leur propre diligence raisonnable."
+            },
+            {
+                "id": 5,
+                "title": "Résiliation",
+                "content": "Nous pouvons résilier ou suspendre votre compte immédiatement, sans préavis ni responsabilité, pour quelque raison que ce soit."
+            },
+            {
+                "id": 6,
+                "title": "Informations de contact",
+                "content": "Pour toute question concernant ces conditions, veuillez nous contacter à legal@mytrainerr.app."
+            }
+        ]
+    },
+    "tabs": {
+    "home": "Accueil",
+    "calender": "Calendrier",
+    "properties": "Propriétés",
+    "message": "Messages",
+    "menu": "Menu"
+  }
 }

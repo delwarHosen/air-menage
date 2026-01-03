@@ -1,5 +1,6 @@
 import { Image } from "expo-image";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -9,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import { Colors } from "../../../assets/Colors";
 import Heading from "../../../components/Heading/Heading";
 import { Body1, Body2 } from "../../../components/typo/typography";
@@ -18,18 +20,18 @@ import CleanerDetails from "./CleanerDetails";
 export default function Cleaner() {
   const router = useRouter();
   const { id } = useLocalSearchParams();
+  const { t } = useTranslation();
 
   const cleaner = cleaners.find((item) => item.id.toString() === id);
 
   if (!cleaner) {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <Body2>Cleaner not found</Body2>
+        <Body2>{t("cleaner_details.notFound")}</Body2>
       </SafeAreaView>
     );
   }
 
-  // Header content (ListHeaderComponent)
   const renderHeader = () => (
     <View style={styles.contentWrapper}>
       <CleanerDetails cleaner={cleaner} />
@@ -38,7 +40,6 @@ export default function Cleaner() {
         <Body1 style={styles.nameText}>{cleaner.name}, 26</Body1>
         <Body2 style={styles.cleanerEmail}>{cleaner.email}</Body2>
 
-        {/* Work Types */}
         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
           {cleaner?.workType?.map((item, index) => (
             <Body2 key={index} style={styles.workType}>
@@ -47,8 +48,7 @@ export default function Cleaner() {
           ))}
         </View>
 
-        {/* Description */}
-        <Body1 style={styles.desTitle}>Service Description</Body1>
+        <Body1 style={styles.desTitle}>{t("cleaner_details.serviceDescription")}</Body1>
         {cleaner?.serviceDescription?.map((item, index) => (
           <View key={index} style={styles.desItem}>
             <View style={styles.square} />
@@ -57,10 +57,10 @@ export default function Cleaner() {
         ))}
 
         <TouchableOpacity>
-          <Body2 style={styles.seeMoreBtn}>See More</Body2>
+          <Body2 style={styles.seeMoreBtn}>{t("cleaner_details.seeMore")}</Body2>
         </TouchableOpacity>
 
-        <Body1 style={styles.desTitle}>Reviews</Body1>
+        <Body1 style={styles.desTitle}>{t("cleaner_details.reviews")}</Body1>
       </View>
     </View>
   );
@@ -71,8 +71,9 @@ export default function Cleaner() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-        {/* Fixed Header */}
-        <Heading title={"Cleaner details"} />
+       <View style={{marginHorizontal:"3%"}}>
+         <Heading title={t("cleaner_details.title")} />
+       </View>
 
         <FlatList
           data={cleaner?.reviews || []}
@@ -97,6 +98,7 @@ export default function Cleaner() {
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   safeArea: {

@@ -11,6 +11,7 @@ import {
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GoogleIcon } from "../../assets/icons/Icons";
 import { Body1, Body2, ButtonText, H3, H4 } from "../../components/typo/typography";
 
 export default function LoginScreen() {
@@ -82,10 +83,10 @@ export default function LoginScreen() {
                             {/* Social icon */}
                             <View style={styles.socialContaier}>
                                 <View style={styles.socialIcon}>
-                                    <Ionicons name="logo-google" size={32} color={"#2DBEFF"} />
+                                    <GoogleIcon/>
                                 </View>
                                 <View style={styles.socialIcon}>
-                                    <Ionicons name="logo-apple" size={32} color="black" />
+                                   <Ionicons name="logo-apple" size={32} color="#0F243E"/>
                                 </View>
                             </View>
                         </View>

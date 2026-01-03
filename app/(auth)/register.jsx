@@ -8,11 +8,13 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
+    Text,
     ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GoogleIcon } from "../../assets/icons/Icons";
 import { Body1, ButtonText, H3 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 
@@ -166,8 +168,15 @@ export default function SignUpScreen() {
                                     {checked && <Ionicons name="checkmark" size={14} color="#fff" />}
                                 </TouchableOpacity>
 
-                                <Body1 >{t("signup.terms")} <Body1 style={{color:"#2DBEFF"}}>{t("signup.teems_cond")}</Body1></Body1>
+                                <Text style={{ flexWrap: "wrap", fontSize: 14, color: "#000" }}>
+                                    {t("signup.terms")}{" "}
+                                   <View>
+                                     <Text style={{ color: "#2DBEFF" }}>{t("signup.teems_cond")}</Text>
+                                   </View>
+                                </Text>
                             </View>
+
+
 
                             <View style={styles.dividerContainer}>
                                 <View style={styles.divider} />
@@ -177,10 +186,10 @@ export default function SignUpScreen() {
 
                             <View style={styles.socialContaier}>
                                 <View style={styles.socialIcon}>
-                                    <Ionicons name="logo-google" size={32} color={"#2DBEFF"} />
+                                    <GoogleIcon />
                                 </View>
                                 <View style={styles.socialIcon}>
-                                    <Ionicons name="logo-apple" size={32} color="black" />
+                                    <Ionicons name="logo-apple" size={32} color="#0F243E" />
                                 </View>
                             </View>
 

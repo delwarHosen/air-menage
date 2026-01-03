@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
     Dimensions,
     FlatList,
@@ -16,12 +17,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
-import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
+import { FORM_FIELDS, FORM_PLACEHOLDERS } from "../../constants/form";
 
 const { width } = Dimensions.get('window');
 
 export default function ChangePassword() {
     const router = useRouter();
+    const { t } = useTranslation();
 
     const [showPassword, setShowPassword] = useState({
         current: false,
@@ -38,9 +40,9 @@ export default function ChangePassword() {
     });
 
     const passwordFields = [
-        { id: '1', key: FORM_FIELDS.CURRENT_PASSWORD, stateKey: 'current' },
-        { id: '2', key: FORM_FIELDS.PASSWORD, stateKey: 'new' },
-        { id: '3', key: FORM_FIELDS.CONFIRM_PASSWORD, stateKey: 'confirm' },
+        { id: '1', key: FORM_FIELDS.CURRENT_PASSWORD, stateKey: 'current', label: t("change_password.fields.currentPassword") },
+        { id: '2', key: FORM_FIELDS.PASSWORD, stateKey: 'new', label: t("change_password.fields.newPassword") },
+        { id: '3', key: FORM_FIELDS.CONFIRM_PASSWORD, stateKey: 'confirm', label: t("change_password.fields.confirmPassword") },
     ];
 
     const toggleVisibility = (key) => {
@@ -49,12 +51,10 @@ export default function ChangePassword() {
 
     const renderItem = ({ item }) => (
         <View style={styles.inputWrapper}>
-            <Body2 style={styles.labelOutside}>{FORM_LABELS[item.key]}</Body2>
+            <Body2 style={styles.labelOutside}>{item.label}</Body2>
             <View style={styles.inputCard}>
                 <TextInput
                     style={styles.textInput}
-                    // value={values[item.key] || ""}
-                    // onChangeText={(text) => handleChange(item.key, text)}
                     placeholder={FORM_PLACEHOLDERS[item.key]}
                     placeholderTextColor="#7E8792"
                     secureTextEntry={!showPassword[item.stateKey]}
@@ -73,9 +73,8 @@ export default function ChangePassword() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-                {/* heading */}
-                <View style={{marginHorizontal:20}}>
-                    <Heading title={"Change Password"} />
+                <View style={{ marginHorizontal: 20 }}>
+                    <Heading title={t("change_password.title")} />
                 </View>
                 <FlatList
                     data={passwordFields}
@@ -95,7 +94,9 @@ export default function ChangePassword() {
                     ListFooterComponent={() => (
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
-                                <ButtonText style={styles.buttonText}>{isSubmitting ? "Updating..." : "Save the Changes"}</ButtonText>
+                                <ButtonText style={styles.buttonText}>
+                                    {isSubmitting ? t("change_password.buttons.updating") : t("change_password.buttons.saveChanges")}
+                                </ButtonText>
                             </TouchableOpacity>
                         </View>
                     )}

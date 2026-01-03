@@ -1,14 +1,16 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { Colors } from '../../assets/Colors';
+import { DeleteIcon } from '../../assets/icons/Icons';
 import Heading from '../../components/Heading/Heading';
 import { Caption, H5 } from '../../components/typo/typography';
 import { cleaners } from '../../store/Cleaners';
 
-function CleanerItem({ item, onPress }) {
+function CleanerItem({ item, onPress, t }) {
     return (
         <View style={styles.CleanerCard}>
             <Image
@@ -16,29 +18,27 @@ function CleanerItem({ item, onPress }) {
                 style={styles.profileImage}
             />
             <View style={{ flex: 1 }}>
-                <H5>
-                    {item.name}
-                </H5>
-                <Caption style={{ color: Colors.TEXT_COLOR }}>
-                    {item.email}
-                </Caption>
+                <H5>{item.name}</H5>
+                <Caption style={{ color: Colors.TEXT_COLOR }}>{item.email}</Caption>
             </View>
             <View>
                 <TouchableOpacity onPress={onPress} style={styles.viewButton}>
-                    <Caption style={{ color: "#fff", }}>View Details</Caption>
+                    <Caption style={{ color: "#fff" }}>{t('favourite_cleaner.button.viewDetails')}</Caption>
                 </TouchableOpacity>
             </View>
-            <Ionicons name='trash-outline' size={24} color={"#C72D65"} />
+            <DeleteIcon/>
         </View>
     );
 }
 
 export default function FavouriteCleaner() {
     const router = useRouter();
+    const { t } = useTranslation();
 
     const renderItem = ({ item }) => (
         <CleanerItem
             item={item}
+            t={t}
             onPress={() => router.push(`/host/cleaner/${item.id}`)}
         />
     );
@@ -49,12 +49,11 @@ export default function FavouriteCleaner() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
             >
-                {/* FlatList handles scrolling; Heading is the ListHeader */}
                 <FlatList
                     data={cleaners}
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle={{ padding: 16, paddingBottom: 50 }}
-                    ListHeaderComponent={<Heading title="Favorite cleaner" />}
+                    ListHeaderComponent={<Heading title={t('favourite_cleaner.title')} />}
                     renderItem={renderItem}
                     keyboardShouldPersistTaps="handled"
                 />

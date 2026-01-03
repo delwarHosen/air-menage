@@ -1,6 +1,5 @@
 // import { Image } from "expo-image";
 // import * as ImagePicker from "expo-image-picker";
-import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
     StyleSheet,
@@ -9,6 +8,8 @@ import {
     View
 } from "react-native";
 import { Colors } from "../../assets/Colors";
+// import { CloseEyeIcons, EyeIcons } from "../../assets/icons/eye";
+import { CloseEyeIcons, EyeIcons } from "../../assets/icons/Icons";
 import { Body1, Caption } from "../typo/typography";
 // import { Caption } from "../typo/typography";
 // import { Caption } from "../typo/Typography.jsx";
@@ -123,10 +124,17 @@ export const FormInput = ({
 
                 {type === "password" && (
                     <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.iconButton}>
-                        {showPassword ? <Ionicons name="eye-off-outline" size={20} color="#64748B" /> : <Ionicons name="eye-outline" size={20} color="#64748B" />}
+                        {showPassword ?
+                            // <CloseEyeIcons />
+                            <CloseEyeIcons />
+                            :
+                            <EyeIcons />
+                        }
+                        :
                     </TouchableOpacity>
                 )}
             </View>
+
 
             {getError() && <Caption color="#EF4444" style={styles.error}>{getError()}</Caption>}
 

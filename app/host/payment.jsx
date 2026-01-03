@@ -1,9 +1,9 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     FlatList,
-    Image, // Changed from ScrollView
+    Image,
     StatusBar,
     StyleSheet,
     Text,
@@ -12,25 +12,27 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors';
+import { CalenderIconForPayment, PaymentVerifyAutherBadge, RatingYelloBagdeStar } from '../../assets/icons/Icons';
 import Heading from '../../components/Heading/Heading';
-import { Body2 } from '../../components/typo/typography';
+import { Body2, Caption } from '../../components/typo/typography';
 import { IMAGE_CONSTANTS } from '../../constants/image.index';
 
 const WalletPaymentSummary = () => {
     const router = useRouter();
-    const [activeTab, setActiveTab] = useState('My Payment');
+    const { t } = useTranslation();
+    const [activeTab, setActiveTab] = useState('myPayment');
 
     const payments = [
         {
             id: '1',
-            name: 'Hridoy ',
+            name: 'Hridoy',
             rating: 4.8,
             reviews: 3241,
             amount: 220,
             transactionId: '2349123',
             date: '21-JUN-2025 7:09 PM',
             location: 'Private room in San Francisco',
-            status: 'Success',
+            status: 'success',
         },
         {
             id: '2',
@@ -41,7 +43,7 @@ const WalletPaymentSummary = () => {
             transactionId: '2349123',
             date: '21-JUN-2025 7:09 PM',
             location: 'Private room in San Francisco',
-            status: 'Success',
+            status: 'success',
         },
         {
             id: '3',
@@ -52,7 +54,7 @@ const WalletPaymentSummary = () => {
             transactionId: '2349123',
             date: '21-JUN-2025 7:09 PM',
             location: 'Private room in San Francisco',
-            status: 'Pending',
+            status: 'pending',
         },
         {
             id: '4',
@@ -63,15 +65,14 @@ const WalletPaymentSummary = () => {
             transactionId: '2349123',
             date: '21-JUN-2025 7:09 PM',
             location: 'Private room in San Francisco',
-            status: 'Refound',
+            status: 'refound',
         },
     ];
 
-    // FIX: Filter logic corrected for 'Refound'
     const filteredPayments = payments.filter(p => {
-        if (activeTab === 'Pending') return p.status === 'Pending';
-        if (activeTab === 'Refound') return p.status === 'Refound'; // Match exact status string
-        return true; // Shows all for "My Payment"
+        if (activeTab === 'pending') return p.status === 'pending';
+        if (activeTab === 'refound') return p.status === 'refound';
+        return true;
     });
 
     const renderPaymentItem = ({ item }) => (
@@ -79,15 +80,15 @@ const WalletPaymentSummary = () => {
             <View style={styles.cardHeader}>
                 <View style={styles.authorText}>
                     <Body2 style={styles.nameText}>{item.name}</Body2>
-                    <MaterialIcons name="verified" size={22} color="#FDBA45" />
+                    <PaymentVerifyAutherBadge/>
                 </View>
-                <Body2 style={styles.statusBadge}>{item.status}</Body2>
+                <Body2 style={styles.statusBadge}>{t(`wallet_payment_summary.status.${item.status}`)}</Body2>
             </View>
 
             <View style={styles.ratingContainer}>
                 <View style={styles.ratingCard}>
                     <Body2 style={styles.ratingText}>{item.rating}</Body2>
-                    <Ionicons name="star" size={16} color="#FFD700" />
+                    <RatingYelloBagdeStar/>
                 </View>
                 <View style={styles.authorContainer}>
                     <Image
@@ -98,13 +99,21 @@ const WalletPaymentSummary = () => {
                 </View>
             </View>
 
-            <Body2 style={styles.amountText}>Total Price - ₹{item.amount}</Body2>
-            <Body2 style={styles.detailText}>Transaction ID : {item.transactionId}</Body2>
-            <Body2 style={styles.detailText}>📅 {item.date}</Body2>
-            <Body2 style={styles.detailText}>📍 {item.location}</Body2>
+            <Body2 style={styles.amountText}>
+                {t('wallet_payment_summary.fields.totalPrice')} - ₹{item.amount}
+            </Body2>
+            <Body2 style={styles.detailText}>
+                {t('wallet_payment_summary.fields.transactionId')} : {item.transactionId}
+            </Body2>
+            <View style={{flexDirection:"row",gap:2}}>
+                <CalenderIconForPayment/><Caption style={{marginLeft:3}}>{item.date}</Caption>
+            </View>
+            <Body2 style={styles.detailText}>
+                📍 {item.location}
+            </Body2>
 
             <TouchableOpacity style={styles.deleteButton}>
-                <Body2 style={styles.deleteButtonText}>Delete</Body2>
+                <Body2 style={styles.deleteButtonText}>{t('wallet_payment_summary.fields.delete')}</Body2>
             </TouchableOpacity>
         </View>
     );
@@ -112,45 +121,45 @@ const WalletPaymentSummary = () => {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
-            {/* Headding */}
             <View style={{ marginHorizontal: 20 }}>
-                <Heading title={"Wallet & Payment Summary"} />
+                <Heading title={t('wallet_payment_summary.title')} />
             </View>
+
             <View style={styles.tabContainer}>
                 <View style={styles.tabWrapper}>
-                    {['My Payment', 'Pending', 'Refound'].map((tab) => (
+                    {['myPayment', 'pending', 'refound'].map((tab) => (
                         <TouchableOpacity
                             key={tab}
                             style={[styles.tab, activeTab === tab && styles.activeTab]}
                             onPress={() => setActiveTab(tab)}
                         >
                             <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
-                                {tab}
+                                {t(`wallet_payment_summary.tabs.${tab}`)}
                             </Text>
                         </TouchableOpacity>
                     ))}
                 </View>
             </View>
 
-            {/* FlatList Implementation */}
             <FlatList
                 data={filteredPayments}
                 keyExtractor={(item) => item.id}
                 renderItem={renderPaymentItem}
                 contentContainerStyle={styles.listContent}
                 showsVerticalScrollIndicator={false}
-                ListEmptyComponent={<Text style={styles.emptyText}>No transactions found.</Text>}
+                ListEmptyComponent={<Text style={styles.emptyText}>{t('wallet_payment_summary.empty')}</Text>}
             />
         </SafeAreaView>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5F5F5',
     },
-   
+
     tabContainer: {
         // backgroundColor: '#FFF',
         paddingVertical: 12,
@@ -262,7 +271,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: Colors.TEXT_COLOR,
         marginBottom: 4,
-        fontWeight:"600"
     },
     deleteButton: {
         width: "40%",

@@ -47,11 +47,11 @@ const Typography = ({
         {
           fontSize: FONT_SIZE[variant],
           lineHeight: LINE_HEIGHT[variant],
-          fontFamily: FONT_MAP[weight] || "SyneRegular", 
+          fontFamily: FONT_MAP[weight] || "SyneRegular",
           color,
           textAlign: align,
         },
-        style, 
+        style,
       ]}
     >
       {children}
@@ -69,8 +69,8 @@ export const H3 = props => <Typography variant="h3" weight="bold" {...props} />;
 export const H4 = props => <Typography variant="h4" weight="semiBold" {...props} />;
 export const H5 = props => <Typography variant="h5" weight="semiBold" {...props} />;
 export const H6 = props => <Typography variant="h6" weight="semiBold" {...props} />;
-export const Body1 = props => <Typography variant="body1" {...props} />;
-export const Body2 = props => <Typography variant="body2" {...props} />;
+export const Body1 = props => <Typography variant="body1" weight="semiBold" {...props} />;
+export const Body2 = props => <Typography variant="body2" weight="semiBold" {...props} />;
 export const Caption = props => <Typography variant="caption" {...props} />;
 export const ButtonText = props => (
   <Typography variant="button" weight="semiBold" {...props} />

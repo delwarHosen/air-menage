@@ -2,59 +2,45 @@ import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { FlatList, Image, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
-import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
 
 export default function PersonalEditInfo() {
     const router = useRouter();
     const params = useLocalSearchParams();
+    const { t } = useTranslation();
+
+    const FIELD_KEYS = ["fullName", "email", "phone", "address", "city", "country"];
 
     const { values = {}, isSubmitting, handleChange, handleSubmit, setValues } = useForm({
-        initialValues: {
-            [FORM_FIELDS.FULL_NAME]: params.fullName || "",
-            [FORM_FIELDS.EMAIL]: params.email || "",
-            [FORM_FIELDS.PHONE]: params.phone || "",
-            [FORM_FIELDS.ADDRESS]: params.address || "",
-            [FORM_FIELDS.CITY]: params.city || "",
-            [FORM_FIELDS.COUNTRY]: params.country || "",
-        }
+        initialValues: FIELD_KEYS.reduce((acc, key) => {
+            acc[key] = params[key] || "";
+            return acc;
+        }, {})
     });
 
     useEffect(() => {
         if (params && setValues) {
-            setValues({
-                [FORM_FIELDS.FULL_NAME]: params.fullName || "",
-                [FORM_FIELDS.EMAIL]: params.email || "",
-                [FORM_FIELDS.PHONE]: params.phone || "",
-                [FORM_FIELDS.ADDRESS]: params.address || "",
-                [FORM_FIELDS.CITY]: params.city || "",
-                [FORM_FIELDS.COUNTRY]: params.country || "",
-            });
+            setValues(FIELD_KEYS.reduce((acc, key) => {
+                acc[key] = params[key] || "";
+                return acc;
+            }, {}));
         }
     }, [params]);
 
-    const editFields = [
-        { id: '1', key: FORM_FIELDS.FULL_NAME },
-        { id: '2', key: FORM_FIELDS.EMAIL },
-        { id: '3', key: FORM_FIELDS.PHONE },
-        { id: '4', key: FORM_FIELDS.ADDRESS },
-        { id: '5', key: FORM_FIELDS.CITY },
-        { id: '6', key: FORM_FIELDS.COUNTRY },
-    ];
-
     const renderItem = ({ item }) => (
         <View style={styles.inputWrapper}>
-            <Body2 style={styles.labelOutside}>{FORM_LABELS[item.key]}</Body2>
+            <Body2 style={styles.labelOutside}>{t(`edit_personal_info.fields.${item}`)}</Body2>
             <View style={styles.inputCard}>
                 <TextInput
                     style={styles.textInput}
-                    value={values[item.key] || ""}
-                    onChangeText={(text) => handleChange(item.key, text)}
-                    placeholder={FORM_PLACEHOLDERS[item.key]}
+                    value={values[item] || ""}
+                    onChangeText={(text) => handleChange(item, text)}
+                    placeholder={t(`edit_personal_info.placeholders.${item}`)}
                     placeholderTextColor="#7E8792"
                 />
             </View>
@@ -64,38 +50,36 @@ export default function PersonalEditInfo() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-                <View style={{ marginHorizontal: 20 }}> 
-                    <Heading title={"Edit Information"} />
+                <View style={{ marginHorizontal: 20 }}>
+                    <Heading title={t("edit_personal_info.title")} />
                 </View>
                 <FlatList
-                    data={editFields}
-                    keyExtractor={item => item.id}
+                    data={FIELD_KEYS}
+                    keyExtractor={item => item}
                     renderItem={renderItem}
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
                     ListHeaderComponent={() => (
-                        <View>
-
-                            <View style={styles.headerContainer}>
-                                <View style={styles.imageContainer}>
-                                    <View style={styles.imageWrapper}>
-                                        <Image
-                                            source={{ uri: 'https://avatar.iran.liara.run/public/30' }}
-                                            style={styles.profileImage}
-                                            resizeMode="cover"
-                                        />
-                                        <TouchableOpacity style={styles.cameraBadge}>
-                                            <Ionicons name="camera" size={16} color="#FFF" />
-                                        </TouchableOpacity>
-                                    </View>
+                        <View style={styles.headerContainer}>
+                            <View style={styles.imageContainer}>
+                                <View style={styles.imageWrapper}>
+                                    <Image
+                                        source={{ uri: 'https://avatar.iran.liara.run/public/30' }}
+                                        style={styles.profileImage}
+                                        resizeMode="cover"
+                                    />
+                                    <TouchableOpacity style={styles.cameraBadge}>
+                                        <Ionicons name="camera" size={16} color="#FFF" />
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
-
                     )}
                     ListFooterComponent={() => (
                         <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
-                            <ButtonText style={styles.buttonText}>{isSubmitting ? "Saving..." : "Save Changes"}</ButtonText>
+                            <ButtonText style={styles.buttonText}>
+                                {isSubmitting ? t("edit_personal_info.actions.saving") : t("edit_personal_info.actions.saveChanges")}
+                            </ButtonText>
                         </TouchableOpacity>
                     )}
                 />

@@ -71,5 +71,207 @@
         "updating": "Updating...",
         "success": "Password reset successful!",
         "failed": "Failed to reset password"
+    },
+    "menu": {
+        "profile": {
+            "comments": "36 Comments"
+        },
+        "sections": {
+            "accountSettings": "Account settings",
+            "preferences": "My Preferences",
+            "legal": "Legal"
+        },
+        "items": {
+            "personalInfo": "Personal Information",
+            "payment": "Payment & Translation",
+            "passwordSecurity": "Password & Security",
+            "getHelp": "Get help",
+            "identityVerification": "Identity Verification",
+            "language": "Language",
+            "favoriteCleaner": "Favorite cleaner",
+            "aboutUs": "About us",
+            "terms": "Terms of use",
+            "privacy": "Privacy policy",
+            "legalNotices": "Legal notices"
+        },
+        "actions": {
+            "logout": "Logout"
+        }
+    },
+    "host_home": {
+        "header": {
+            "greeting": "Hello, {{name}}!"
+        },
+        "tabs": {
+            "pending": "Pending",
+            "confirm": "Confirmed"
+        },
+        "content": {
+            "pending": "Showing pending requests...",
+            "confirm": "Showing confirmed requests..."
+        },
+        "empty": {
+            "title": "No requests yet!",
+            "description": "Stay up to date with the latest bookings that match your availability."
+        }
+    },
+    "host_personal_info": {
+        "title": "Personal Information",
+        "fields": {
+            "fullName": "Full Name",
+            "email": "Email",
+            "phone": "Phone Number",
+            "address": "Address",
+            "city": "City",
+            "country": "Country"
+        },
+        "actions": {
+            "edit": "Edit Profile"
+        }
+    },
+    "edit_personal_info": {
+        "title": "Edit Information",
+        "fields": {
+            "fullName": "Full Name",
+            "email": "Email",
+            "phone": "Phone",
+            "address": "Address",
+            "city": "City",
+            "country": "Country"
+        },
+        "placeholders": {
+            "fullName": "Enter your full name",
+            "email": "Enter your email",
+            "phone": "Enter your phone number",
+            "address": "Enter your address",
+            "city": "Enter your city",
+            "country": "Enter your country"
+        },
+        "actions": {
+            "saveChanges": "Save Changes",
+            "saving": "Saving..."
+        }
+    },
+    "wallet_payment_summary": {
+        "title": "Wallet & Payment Summary",
+        "tabs": {
+            "myPayment": "My Payment",
+            "pending": "Pending",
+            "refound": "Refound"
+        },
+        "fields": {
+            "totalPrice": "Total Price",
+            "transactionId": "Transaction ID",
+            "date": "Date",
+            "location": "Location",
+            "delete": "Delete"
+        },
+        "empty": "No transactions found.",
+        "status": {
+            "success": "Success",
+            "pending": "Pending",
+            "refound": "Refound"
+        }
+    },
+    "password_security": {
+        "title": "Password & Security",
+        "actions": {
+            "changePassword": "Change Password",
+            "deleteAccount": "Delete Account"
+        }
+    },
+    "change_password": {
+        "title": "Change Password",
+        "fields": {
+            "currentPassword": "Current Password",
+            "newPassword": "New Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "buttons": {
+            "saveChanges": "Save the Changes",
+            "updating": "Updating..."
+        }
+    },
+    "contact": {
+        "title": "Contact",
+        "fields": {
+            "fullName": {
+                "label": "Full Name",
+                "placeholder": "Enter your full name",
+                "errorRequired": "Full name is required"
+            },
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter your email",
+                "errorInvalid": "Invalid email address"
+            },
+            "description": {
+                "label": "Message",
+                "placeholder": "Type your message here",
+                "errorRequired": "Description is required"
+            }
+        },
+        "buttons": {
+            "send": "Send Message",
+            "successToast": "Message Sent!"
+        }
+    },
+    "favourite_cleaner": {
+        "title": "Favorite Cleaner",
+        "button": {
+            "viewDetails": "View Details"
+        }
+    },
+    "cleaner_details": {
+        "title": "Cleaner Details",
+        "serviceDescription": "Service Description",
+        "seeMore": "See More",
+        "reviews": "Reviews",
+        "notFound": "Cleaner not found",
+        "workManaged": "Work Managed",
+        "evaluation": "Evaluation",
+        "overallScore": "Overall Score"
+    },
+    "about_us": {
+        "title": "About Us",
+        "sections": [
+            {
+                "id": 1,
+                "title": "Scope of Service",
+                "content": "MYTRAINERR provides an online platform that connects individuals seeking fitness training ('Clients') with personal trainers ('Trainers')."
+            },
+            {
+                "id": 2,
+                "title": "User Accounts & Responsibilities",
+                "content": "To access our services, you must register for an account. You agree to provide accurate, current, and complete information during the registration process."
+            },
+            {
+                "id": 3,
+                "title": "Booking and Payment",
+                "content": "Clients can book sessions with Trainers through the app. All payments are processed through our third-party payment provider."
+            },
+            {
+                "id": 4,
+                "title": "Liability & Disclaimers",
+                "content": "MYTRAINERR is a platform provider and is not liable for the quality of training, advice, or any injuries that may occur during a session. Clients should perform their own due diligence."
+            },
+            {
+                "id": 5,
+                "title": "Termination",
+                "content": "We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever."
+            },
+            {
+                "id": 6,
+                "title": "Contact Information",
+                "content": "For any questions about these Terms, please contact us at legal@mytrainerr.app."
+            }
+        ]
+    },
+    "tabs": {
+        "home": "Home",
+        "calender": "Calendar",
+        "properties": "Properties",
+        "message": "Message",
+        "menu": "Menu"
     }
 }

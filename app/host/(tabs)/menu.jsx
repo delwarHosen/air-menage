@@ -1,148 +1,172 @@
-import { FontAwesome, FontAwesome6, Fontisto, Foundation, Ionicons, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Body1, Body2, ButtonText, H5 } from '../../../components/typo/typography';
-import { IMAGE_CONSTANTS } from '../../../constants/image.index';
-import { Colors } from "./../../../assets/Colors.js";
+import {
+    Ionicons
+} from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
+import {
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Colors } from "../../../assets/Colors";
+import { AboutUsIcon, GetHeloIcon, HeartIcon, IdentityIcon, LanguageIcon, LeagelNoticeIcon, PasswrodIcon, PaymentIcon, PrivecyIcon, ProfileIcon, ProfileVerifiedIconWithPrimary, TermsUsesIcon } from "../../../assets/icons/Icons";
+import { Body1, Body2, ButtonText, H5 } from "../../../components/typo/typography";
+import { IMAGE_CONSTANTS } from "../../../constants/image.index";
 
 export default function Menu() {
     const router = useRouter();
+    const { t } = useTranslation();
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
             >
-                {/* Header/Profile Section */}
+                {/* Profile Section */}
                 <View style={styles.profileSection}>
                     <Image
                         source={IMAGE_CONSTANTS.profile}
                         style={styles.profileImage}
                     />
                     <H5 style={styles.hostContent}>Delwar</H5>
+
                     <View style={styles.statsContainer}>
                         <View style={styles.row}>
-                            <MaterialIcons name="verified" size={22} color="#868686" />
-                            <Body1 style={styles.statText}>4,72'</Body1>
+                           <ProfileVerifiedIconWithPrimary/>
+                            <Body1 style={styles.statText}>4.72</Body1>
                         </View>
-                        <Body1 style={styles.hostContent}>36 Commentaires</Body1>
+                        <Body1 style={styles.hostContent}>
+                            {t("menu.profile.comments")}
+                        </Body1>
                     </View>
                 </View>
 
-                {/* 2. Wrap content in ScrollView */}
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={styles.scrollContainer}
                 >
-                    {/* Account Settings section */}
+                    {/* Account Settings */}
                     <View style={styles.settingContent}>
-                        <H5 style={styles.settingTitle}>Account settings</H5>
+                        <H5 style={styles.settingTitle}>
+                            {t("menu.sections.accountSettings")}
+                        </H5>
 
-                        <TouchableOpacity
+                        <MenuItem
+                            icon={<ProfileIcon />}
+                            label={t("menu.items.personalInfo")}
                             onPress={() => router.push("/host/personal-info")}
-                            style={styles.buttonContainer} activeOpacity={0.7}>
-                            <Ionicons name="person-circle-outline" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>Personal Information</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        />
 
-                        <TouchableOpacity
+                        <MenuItem
+                            icon={<PaymentIcon/>}
+                            label={t("menu.items.payment")}
                             onPress={() => router.push("/host/payment")}
-                            style={styles.buttonContainer} activeOpacity={0.7}>
-                            <MaterialIcons name="payment" size={20} color="#323135" />
-                            <Body2 style={styles.textStyle}>Payment, and Translation.</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        />
 
-                        <TouchableOpacity
+                        <MenuItem
+                            icon={<PasswrodIcon/>}
+                            label={t("menu.items.passwordSecurity")}
                             onPress={() => router.push("/host/password-security")}
-                            style={styles.buttonContainer} activeOpacity={0.7}>
-                            <SimpleLineIcons name="lock" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>Password & security</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        />
 
-                        <TouchableOpacity
+                        <MenuItem
+                            icon={<GetHeloIcon/>}
+                            label={t("menu.items.getHelp")}
                             onPress={() => router.push("/host/contact")}
-                            style={styles.buttonContainer} activeOpacity={0.7}>
-                            <FontAwesome6 name="headset" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>Get help</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        />
 
-                        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
-                            <Foundation name="book-bookmark" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>Identity Verification</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        <MenuItem
+                            icon={<IdentityIcon/>}
+                            label={t("menu.items.identityVerification")}
+                        />
                     </View>
 
-
-                    {/* My Preference section */}
+                    {/* Preferences */}
                     <View style={styles.settingContent}>
-                        <H5 style={styles.settingTitle}>My Preferences</H5>
-                        <TouchableOpacity
+                        <H5 style={styles.settingTitle}>
+                            {t("menu.sections.preferences")}
+                        </H5>
+
+                        <MenuItem
+                            icon={<LanguageIcon/>}
+                            label={t("menu.items.language")}
                             onPress={() => router.push("/host/language")}
-                            style={styles.buttonContainer} activeOpacity={0.7}>
-                            <FontAwesome name="language" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>Language </Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        />
 
-                        <TouchableOpacity
+                        <MenuItem
+                            icon={<HeartIcon/>}
+                            label={t("menu.items.favoriteCleaner")}
                             onPress={() => router.push("/host/favourite-cleaner")}
-                            style={styles.buttonContainer} activeOpacity={0.7}>
-                            <Ionicons name="heart-outline" size={20} color="#323135" />
-                            <Body2 style={styles.textStyle}>Favorite cleaner</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        />
                     </View>
 
-                    {/* Legal section */}
+                    {/* Legal */}
                     <View style={styles.settingContent}>
-                        <H5 style={styles.settingTitle}>LEGAL</H5>
-                        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
-                            <Ionicons name="information-circle-outline" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>About us </Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        <H5 style={styles.settingTitle}>
+                            {t("menu.sections.legal")}
+                        </H5>
 
-                        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
-                            <Ionicons name="document-text-outline" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>Terms of use </Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        <MenuItem
+                            icon={<AboutUsIcon/>}
+                            label={t("menu.items.aboutUs")}
+                            onPress={() => router.push("/host/about-us")}
+                        />
 
-                        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
-                            <MaterialIcons name="privacy-tip" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}>Privacy policy</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        <MenuItem
+                            icon={<TermsUsesIcon/>}
+                            label={t("menu.items.terms")}
+                            onPress={() => router.push("/host/Term-and-uses")}
+                        />
 
-                        <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.7}>
-                            <Fontisto name="world-o" size={24} color="#323135" />
-                            <Body2 style={styles.textStyle}> legal notices</Body2>
-                            <Ionicons name="chevron-forward" size={20} color="gray" />
-                        </TouchableOpacity>
+                        <MenuItem
+                            icon={<PrivecyIcon/>}
+                            label={t("menu.items.privacy")}
+                             onPress={() => router.push("/host/privecy-pilicy")}
+                        />
+
+                        <MenuItem
+                            icon={<LeagelNoticeIcon/>}
+                            label={t("menu.items.legalNotices")}
+                        />
                     </View>
 
-
-                    {/* Logout Button */}
+                    {/* Logout */}
                     <TouchableOpacity
-                        onPress={() => router.push("/host/home")}
                         style={styles.submitButton}
+                        onPress={() => router.push("/host/home")}
                     >
-                        <ButtonText style={styles.buttonText}>Logout</ButtonText>
+                        <ButtonText style={styles.buttonText}>
+                            {t("menu.actions.logout")}
+                        </ButtonText>
                     </TouchableOpacity>
 
-                    {/* Extra padding at the bottom for better scroll feel */}
                     <View style={{ height: 20 }} />
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
-    )
+    );
 }
+
+/*  Reusable Menu Item */
+const MenuItem = ({ icon, label, onPress }) => (
+    <TouchableOpacity
+        style={styles.buttonContainer}
+        activeOpacity={0.7}
+        onPress={onPress}
+    >
+        {icon}
+        <Body2 style={styles.textStyle}>{label}</Body2>
+        <Ionicons name="chevron-forward" size={20} color="gray" />
+    </TouchableOpacity>
+);
+
 
 const styles = StyleSheet.create({
     safeArea: {
@@ -151,21 +175,20 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         paddingHorizontal: "5%",
-        paddingBottom: 20, // Ensures content doesn't touch the very bottom
+        paddingBottom: 20
     },
-    // ... your existing styles remain the same
     profileSection: {
-        alignItems: 'center',
-        marginTop: 20,
+        alignItems: "center",
+        marginTop: 20
     },
     profileImage: {
         height: 120,
         width: 120,
         borderRadius: 60,
-        borderWidth: 1, // Fixed "border" to "borderWidth"
+        borderWidth: 1,
         borderColor: Colors.PRIMARY,
-        backgroundColor: '#E1E1E1',
-        marginBottom: 10,
+        backgroundColor: "#E1E1E1",
+        marginBottom: 10
     },
     hostContent: {
         marginBottom: 5,
@@ -173,12 +196,12 @@ const styles = StyleSheet.create({
         fontWeight: "600"
     },
     statsContainer: {
-        alignItems: 'center',
+        alignItems: "center"
     },
     row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 4,
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 4
     },
     statText: {
         marginLeft: 4,
@@ -186,7 +209,7 @@ const styles = StyleSheet.create({
         fontWeight: "500"
     },
     settingContent: {
-        marginTop: "5%",
+        marginTop: "5%"
     },
     settingTitle: {
         color: "#0F243E",
@@ -194,25 +217,18 @@ const styles = StyleSheet.create({
         marginTop: 8
     },
     buttonContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
         marginTop: 10,
-        width: '100%',
         height: 48,
         borderRadius: 12,
         backgroundColor: Colors.BACKGROUND_COLOR,
-        paddingHorizontal: '3.5%',
-        // Optional: add a slight shadow for depth
-        elevation: 1,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
+        paddingHorizontal: "3.5%",
+        elevation: 1
     },
     textStyle: {
         flex: 1,
-        textAlign: 'left',
         marginLeft: "3%",
         color: Colors.TEXT_COLOR
     },
@@ -221,11 +237,10 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         borderRadius: 12,
         alignItems: "center",
-        marginTop: 30,
-        marginBottom: 5,
+        marginTop: 30
     },
     buttonText: {
         color: "#FFF",
         fontWeight: "600"
-    },
-})
+    }
+});
