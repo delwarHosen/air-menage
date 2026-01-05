@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
@@ -69,7 +68,7 @@ export default function PersonalInfo() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -85,15 +84,12 @@ export default function PersonalInfo() {
           ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
         />
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Colors.BACKGROUND_COLOR
-  },
+ 
   scrollContainer: {
     paddingHorizontal: "5%"
   },

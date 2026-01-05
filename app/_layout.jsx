@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView } from "react-native-safe-area-context";
 import i18n from '../src/i18n';
 
 export default function RootLayout() {
@@ -16,9 +17,9 @@ export default function RootLayout() {
     console.log("i18n initialized:", i18n.language); // prevent auto-remove
 
     return (
-        <>
+        <SafeAreaView style={{ flex: 1,backgroundColor: '#FAFAFA'}}>
             <Stack screenOptions={{ headerShown: false }} />
             <StatusBar style='auto' />
-        </>
+        </SafeAreaView>
     )
 }

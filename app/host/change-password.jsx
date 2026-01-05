@@ -13,7 +13,6 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
@@ -71,7 +70,7 @@ export default function ChangePassword() {
     );
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 20 }}>
                     <Heading title={t("change_password.title")} />
@@ -102,15 +101,12 @@ export default function ChangePassword() {
                     )}
                 />
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: Colors.BACKGROUND_COLOR
-    },
+   
     scrollContainer: {
         paddingBottom: 40,
         width: width,

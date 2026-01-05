@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FlatList, Image, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
@@ -48,7 +47,7 @@ export default function PersonalEditInfo() {
     );
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 20 }}>
                     <Heading title={t("edit_personal_info.title")} />
@@ -84,12 +83,12 @@ export default function PersonalEditInfo() {
                     )}
                 />
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: "#FAFAFA" },
+    
     scrollContainer: { alignItems: "center", paddingBottom: 40 },
     headerContainer: { width: '100%', alignItems: 'center' },
     headerRow: {

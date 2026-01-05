@@ -2,7 +2,6 @@ import { useRouter } from 'expo-router';
 
 import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../assets/Colors";
 import { ButtonText, H1, H5 } from '../components/typo/typography';
 
@@ -20,7 +19,7 @@ export default function SelectRole() {
     };
 
     return (
-        <SafeAreaView style={styles.safeAreaContent}>
+        <>
             <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
 
                 <View style={styles.heroImage}>
@@ -58,14 +57,12 @@ export default function SelectRole() {
                 </TouchableOpacity>
 
             </View>
-        </SafeAreaView>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
-    safeAreaContent: {
-        flex: 1, backgroundColor: 'white'
-    },
+   
     heroImage: {
         alignItems: 'center',
         marginBottom: 30

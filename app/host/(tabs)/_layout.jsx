@@ -1,11 +1,23 @@
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
+import { Dimensions, Platform, View } from "react-native";
 import { CalenderIcon, HomeIcon, MenuIcon, MessageIcon, PropertiesIcon } from "../../../assets/icons/Icons";
-import { scale, verticalScale } from "../../../components/adaptive/Adaptiveness";
+import { scale } from "../../../components/adaptive/Adaptiveness";
+
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export default function TabsLayout() {
-  const { t } = useTranslation(); // i18n translation hook
+  const { t } = useTranslation();
+
+  // Responsive tab bar height with constraints
+  const getTabBarHeight = () => {
+    if (Platform.OS === 'ios') {
+      // iPhone with notch has more bottom space
+      return SCREEN_HEIGHT > 800 ? 85 : 75;
+    }
+    // Android: constrain between 60-75
+    return Math.min(Math.max(SCREEN_HEIGHT * 0.09, 60), 75);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -15,25 +27,26 @@ export default function TabsLayout() {
           tabBarActiveTintColor: "#00AFF5",
           tabBarInactiveTintColor: "#6B7280",
           tabBarStyle: {
-            height: verticalScale(74),
+            height: getTabBarHeight(),
             backgroundColor: "white",
             borderTopWidth: 1,
             borderTopColor: "#E5E7EB",
-            borderBottomLeftRadius: scale(10),
-            borderBottomRightRadius: scale(10),
+            paddingBottom: Platform.OS === 'ios' ? 10 : 8,
+            paddingTop: 8,
           },
           tabBarItemStyle: {
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: verticalScale(11),
+            flexDirection: 'column',
+            justifyContent: 'center',
+            paddingVertical: 4,
           },
           tabBarLabelStyle: {
-            fontSize: scale(14),
+            fontSize: scale(11),
+            lineHeight: scale(14),
             fontFamily: "SyneMedium",
-            marginTop: verticalScale(10),
+            marginTop: 2,
           },
           tabBarIconStyle: {
-            marginBottom: verticalScale(2),
+            marginBottom: 2,
           },
         }}
       >
@@ -41,35 +54,35 @@ export default function TabsLayout() {
           name="home"
           options={{
             title: t("tabs.home"),
-            tabBarIcon: ({ color, size }) => <HomeIcon color={color} size={size} />,
+            tabBarIcon: ({ color }) => <HomeIcon color={color} size={scale(24)} />,
           }}
         />
         <Tabs.Screen
           name="calender"
           options={{
             title: t("tabs.calender"),
-            tabBarIcon: ({ color, size }) => <CalenderIcon color={color} size={size} />,
+            tabBarIcon: ({ color }) => <CalenderIcon color={color} size={scale(24)} />,
           }}
         />
         <Tabs.Screen
           name="properties"
           options={{
             title: t("tabs.properties"),
-            tabBarIcon: ({ color, size }) => <PropertiesIcon color={color} size={size} />,
+            tabBarIcon: ({ color }) => <PropertiesIcon color={color} size={scale(24)} />,
           }}
         />
         <Tabs.Screen
           name="message"
           options={{
             title: t("tabs.message"),
-            tabBarIcon: ({ color, size }) => <MessageIcon color={color} size={size} />,
+            tabBarIcon: ({ color }) => <MessageIcon color={color} size={scale(24)} />,
           }}
         />
         <Tabs.Screen
           name="menu"
           options={{
             title: t("tabs.menu"),
-            tabBarIcon: ({ color, size }) => <MenuIcon color={color} size={size} />,
+            tabBarIcon: ({ color }) => <MenuIcon color={color} size={scale(24)} />,
           }}
         />
       </Tabs>

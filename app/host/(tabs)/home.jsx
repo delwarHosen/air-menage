@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useRouter } from "expo-router";
 import { AddIcon } from "../../../assets/icons/Icons";
@@ -20,7 +19,7 @@ export default function Home() {
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    < >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
@@ -111,15 +110,12 @@ export default function Home() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#FFFFFF"
-  },
+ 
   container: {
     flex: 1,
     paddingHorizontal: "5%"

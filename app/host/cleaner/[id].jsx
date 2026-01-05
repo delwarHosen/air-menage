@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Colors } from "../../../assets/Colors";
 import Heading from "../../../components/Heading/Heading";
@@ -26,9 +25,9 @@ export default function Cleaner() {
 
   if (!cleaner) {
     return (
-      <SafeAreaView style={styles.safeArea}>
+      <>
         <Body2>{t("cleaner_details.notFound")}</Body2>
-      </SafeAreaView>
+      </>
     );
   }
 
@@ -66,7 +65,7 @@ export default function Cleaner() {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -95,16 +94,13 @@ export default function Cleaner() {
           )}
         />
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 }
 
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Colors.BACKGROUND_COLOR,
-  },
+ 
   flatListContent: {
     paddingBottom: 30,
     paddingHorizontal: "3%",

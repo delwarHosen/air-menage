@@ -12,7 +12,6 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Colors } from "../../../assets/Colors";
 import { AboutUsIcon, GetHeloIcon, HeartIcon, IdentityIcon, LanguageIcon, LeagelNoticeIcon, PasswrodIcon, PaymentIcon, PrivecyIcon, ProfileIcon, ProfileVerifiedIconWithPrimary, TermsUsesIcon } from "../../../assets/icons/Icons";
@@ -24,7 +23,7 @@ export default function Menu() {
     const { t } = useTranslation();
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
@@ -150,7 +149,7 @@ export default function Menu() {
                     <View style={{ height: 20 }} />
                 </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </>
     );
 }
 
@@ -169,10 +168,7 @@ const MenuItem = ({ icon, label, onPress }) => (
 
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: Colors.BACKGROUND_COLOR
-    },
+   
     scrollContainer: {
         paddingHorizontal: "5%",
         paddingBottom: 20

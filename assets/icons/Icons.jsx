@@ -543,7 +543,7 @@ export const TikMarkIcon = () => {
 export const CheckMarkIcon = () => {
     return (
         <Text>
-            <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <Rect x="0.5" y="0.5" width="23" height="23" rx="3.5" fill="white" />
                 <Rect x="0.5" y="0.5" width="23" height="23" rx="3.5" stroke="#848484" />
                 <Path d="M8.875 12.3125L11.375 14.8125L15.125 9.1875" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
@@ -558,7 +558,7 @@ export const CheckMarkIcon = () => {
 export const DownForwardIcon = () => {
     return (
         <Text>
-            <Svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <Path d="M19.5 8.25L12 15.75L4.5 8.25" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </Svg>
 

@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors';
 import { DeleteIcon, ForwarAngleIcon, PasswrodIcon } from '../../assets/icons/Icons';
 import Heading from '../../components/Heading/Heading';
@@ -12,7 +11,7 @@ export default function PasswordSecurity() {
     const { t } = useTranslation();
 
     return (
-        <SafeAreaView style={styles.container}>
+        <>
             <View style={{ marginHorizontal: 20 }}>
                 <Heading title={t('password_security.title')} />
             </View>
@@ -47,16 +46,13 @@ export default function PasswordSecurity() {
                     <ForwarAngleIcon />
                 </TouchableOpacity>
             </ScrollView>
-        </SafeAreaView>
+        </>
     );
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Colors.BACKGROUND_COLOR,
-    },
+    
 
     scrollContainer: {
         paddingHorizontal: "3%",

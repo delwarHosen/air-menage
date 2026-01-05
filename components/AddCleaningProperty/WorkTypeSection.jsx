@@ -27,7 +27,7 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
             <FlatList
                 data={workTypes}
                 keyExtractor={(item) => item.id}
-                scrollEnabled={false} // ScrollView এর ভেতরে থাকলে এটা false রাখা ভালো
+                scrollEnabled={false} 
                 renderItem={({ item }) => (
                     <View style={styles.listItemContainer}>
                         {/* Left side: Icon and Text group */}
@@ -96,27 +96,29 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#333',
     },
-    addWorkTypeContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        width: "100%",
-        minHeight: 44,
-        backgroundColor: "#FFFFFF",
-        borderWidth: 1,
-        borderColor: Colors.BORDER_COLOR,
-        borderRadius: 4,
-        paddingTop: 10,
-        paddingRight: 8,
-        paddingBottom: 10,
-        paddingLeft: 8,
+  addWorkTypeContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    minHeight: 44,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: Colors.BORDER_COLOR,
+    borderRadius: 8,
+    paddingTop: 10,
+    paddingRight: 8,
+    paddingBottom: 10,
+    paddingLeft: 8,
 
-        // Shadow for iOS
-        shadowColor: "#000000",
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.25,
-        shadowRadius: 2,
-        elevation: 4,
-    },
+    // iOS shadow (LOW)
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,   
+    shadowRadius: 4,       
+
+    elevation: 1,         
+},
+
     textInput: {
         flex: 1,
         height: 50,

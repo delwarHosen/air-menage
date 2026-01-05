@@ -10,7 +10,6 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors';
 import { CalenderIconForPayment, PaymentVerifyAutherBadge, RatingYelloBagdeStar } from '../../assets/icons/Icons';
 import Heading from '../../components/Heading/Heading';
@@ -119,7 +118,7 @@ const WalletPaymentSummary = () => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <>
             <StatusBar barStyle="dark-content" />
             <View style={{ marginHorizontal: 20 }}>
                 <Heading title={t('wallet_payment_summary.title')} />
@@ -149,16 +148,13 @@ const WalletPaymentSummary = () => {
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={<Text style={styles.emptyText}>{t('wallet_payment_summary.empty')}</Text>}
             />
-        </SafeAreaView>
+        </>
     );
 };
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5F5F5',
-    },
+   
 
     tabContainer: {
         // backgroundColor: '#FFF',

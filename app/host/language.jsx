@@ -1,8 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Colors } from '../../assets/Colors';
 import Heading from '../../components/Heading/Heading';
 import { Body1, H5 } from '../../components/typo/typography';
 
@@ -30,7 +28,7 @@ export default function Language() {
     };
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <>
             <View style={{ margin: "2.5%" }}>
                 {/* Header */}
                 <Heading title={"Language"} />
@@ -57,17 +55,12 @@ export default function Language() {
                     ))}
                 </View>
             </View>
-        </SafeAreaView>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: Colors.BACKGROUND_COLOR,
-        paddingVertical: 7,
-        paddingHorizontal: 20,
-    },
+  
 
     languageContainer: {
         flexDirection: "column",

@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Image, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from "../assets/Colors";
 import { Body1, ButtonText, H3 } from '../components/typo/typography';
 
@@ -10,7 +9,7 @@ export default function Home() {
     const { t } = useTranslation();
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+        <>
             <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
 
                 {/* Image Section */}
@@ -43,11 +42,11 @@ export default function Home() {
                             width: '100%'
                         }}>
                         <ButtonText style={{ color: '#fff', fontWeight: '500', textAlign: 'center' }}>
-                            {t("home.button")}  {/* ✅ Translated */}
+                            {t("home.button")} 
                         </ButtonText>
                     </TouchableOpacity>
                 </View>
             </View>
-        </SafeAreaView>
+        </>
     );
 }

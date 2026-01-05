@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 // Assets & Components
 import { useForm } from "react-hook-form";
@@ -59,7 +58,7 @@ export default function ContactScreen() {
   });
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -114,18 +113,14 @@ export default function ContactScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 }
 
 
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Colors.BACKGROUND_COLOR,
-  },
-
+ 
   scrollContainer: {
     paddingHorizontal: 16,
     paddingBottom: 40,

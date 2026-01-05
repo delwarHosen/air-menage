@@ -2,7 +2,6 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Colors } from '../../assets/Colors';
 import { DeleteIcon } from '../../assets/icons/Icons';
@@ -44,7 +43,7 @@ export default function FavouriteCleaner() {
     );
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
@@ -58,16 +57,12 @@ export default function FavouriteCleaner() {
                     keyboardShouldPersistTaps="handled"
                 />
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: Colors.BACKGROUND_COLOR,
-        paddingVertical: 7,
-    },
+   
     CleanerCard: {
         flexDirection: "row",
         alignItems: "center",
