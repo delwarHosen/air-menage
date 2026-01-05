@@ -5,7 +5,8 @@ const primary = "#00AFF5";
 const secondary = "#323135";
 const authHedColor= "#040404";
 const textColor= "#68656E";
-const borderColor="#CACACB";
+const borderColor="#DDDDDD";
+const labelColor="#0F243E"
 export const Colors = {
     light: {
         text: "#11181C",
@@ -28,5 +29,6 @@ export const Colors = {
     AUTH_HED_COLOR:authHedColor,
     TEXT_COLOR:textColor,
     BORDER_COLOR:borderColor,
-    BACKGROUND_COLOR:backgroundColor
+    BACKGROUND_COLOR:backgroundColor,
+    LABEL_COLOR:labelColor
 };

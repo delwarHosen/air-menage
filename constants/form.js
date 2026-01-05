@@ -5,17 +5,25 @@ export const FORM_FIELDS = {
   CURRENT_PASSWORD: "currentPassword",
   FULL_NAME: 'fullName',
   USER_NAME: "userName",
-  PHONE:"phone",
-  ADDRESS:"address",
-  DESCRIPTION:"description",
-  CITY:"city",
-  COUNTRY:"country",
+  PHONE: "phone",
+  ADDRESS: "address",
+  DESCRIPTION: "description",
+  CITY: "city",
+  COUNTRY: "country",
   DOB: 'dob',
   OTP: 'otp',
   CONTACT_NO: "phone",
   LOCATION: "location",
   TAX: "tax",
-  DOCUMENTATION: "documentation"
+  DOCUMENTATION: "documentation",
+  PROPERTY_TITLE: "propertyTitle",
+  PROPERTY_IMAGE: "propertyImage",
+  FLOOR_NUMBER: "floorNumber",
+  APARTMENT_NUMBER: "apartmentNumber",
+  PROPERTY_SIZE:"propertySize",
+  LOCATION:"location",
+  KEY_LOCATION:"keyLocation",
+  KEY_PASSWORD:"keyPassword"
 };
 
 export const FORM_LABELS = {
@@ -34,7 +42,13 @@ export const FORM_LABELS = {
   [FORM_FIELDS.CONTACT_NO]: "Contact Number",
   [FORM_FIELDS.LOCATION]: "Location",
   [FORM_FIELDS.TAX]: "Tax ID (Add your tax id for buying wholesaling products)",
-  [FORM_FIELDS.DOCUMENTATION]: "Tax ID (Add your tax id for buying wholesaling products)"
+  [FORM_FIELDS.DOCUMENTATION]: "Tax ID (Add your tax id for buying wholesaling products)",
+  [FORM_FIELDS.PROPERTY_TITLE]: "Property title",
+  [FORM_FIELDS.PROPERTY_IMAGE]: "Property Image",
+  [FORM_FIELDS.FLOOR_NUMBER]: "Floor",
+  [FORM_FIELDS.APARTMENT_NUMBER]: "Apartment Number",
+  [FORM_FIELDS.PROPERTY_SIZE]: "Property Size",
+  [FORM_FIELDS.LOCATION]:"Location"
 };
 
 export const FORM_PLACEHOLDERS = {
@@ -46,8 +60,16 @@ export const FORM_PLACEHOLDERS = {
   [FORM_FIELDS.USER_NAME]: 'Enter your username',
   [FORM_FIELDS.DOB]: 'Select your date of birth',
   [FORM_FIELDS.CONTACT_NO]: "+99 54196 418164",
-  [FORM_FIELDS.DOCUMENTATION]:"Message",
+  [FORM_FIELDS.DOCUMENTATION]: "Message",
   [FORM_FIELDS.LOCATION]: "New York, NY, USA .2 a...",
   [FORM_FIELDS.TAX]: "1485 482895632 86885938",
-  [FORM_FIELDS.DOCUMENTATION]: "1485 482895632 86885938"
+  [FORM_FIELDS.DOCUMENTATION]: "1485 482895632 86885938",
+  [FORM_FIELDS.PROPERTY_TITLE]: "Le Central",
+  [FORM_FIELDS.PROPERTY_IMAGE]: `➕  Add photos`,
+  [FORM_FIELDS.FLOOR_NUMBER]: "3rd",
+  [FORM_FIELDS.APARTMENT_NUMBER]:"301",
+  [FORM_FIELDS.PROPERTY_SIZE]:"50 m2",
+  [FORM_FIELDS.LOCATION]:"France",
+  [FORM_FIELDS.KEY_LOCATION]:"e.g. B. Berlin or",
+  [FORM_FIELDS.KEY_PASSWORD]:"******"
 };

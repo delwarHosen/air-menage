@@ -98,14 +98,14 @@ export const FormInput = ({
     return (
         <View style={styles.container}>
             <View style={styles.labelContainer}>
-                <Body1 weight="regular" color={Colors.TEXT_COLOR}>
+                <Body1 weight="regular" color={Colors.LABEL_COLOR}>
                     {label}{required && <Body1 style={{ color: "red" }}></Body1>}
                 </Body1>
-                {required && (
+                {/* {required && (
                     <Body1 weight="regular" style={[styles.required, { color: 'red' }]}>
                         *
                     </Body1>
-                )}
+                )} */}
             </View>
 
             <View style={[styles.inputContainer, getError() && styles.inputError]}>
@@ -114,7 +114,7 @@ export const FormInput = ({
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
-                    placeholderTextColor="#94A3B8"
+                    placeholderTextColor="#3F3F46"
                     secureTextEntry={type === "password" && !showPassword}
                     keyboardType={getKeyboardType()}
                     autoCapitalize={type === "email" ? "none" : "sentences"}
