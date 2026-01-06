@@ -8,14 +8,14 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GoogleIcon } from "../../assets/icons/Icons";
-import { Body1, ButtonText, H3 } from "../../components/typo/typography";
+import { Colors } from "../../assets/Colors";
+import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
+import { Body1, Body2, ButtonText, H3 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 
 export default function SignUpScreen() {
@@ -158,8 +158,8 @@ export default function SignUpScreen() {
                                         width: 20,
                                         borderRadius: 4,
                                         borderWidth: 1.5,
-                                        borderColor: "#2DBEFF",
-                                        backgroundColor: checked ? "#2DBEFF" : "transparent",
+                                        borderColor: Colors.PRIMARY,
+                                        backgroundColor: checked ? Colors.PRIMARY : "transparent",
                                         justifyContent: "center",
                                         alignItems: "center",
                                         marginRight: 10,
@@ -168,15 +168,18 @@ export default function SignUpScreen() {
                                     {checked && <Ionicons name="checkmark" size={14} color="#fff" />}
                                 </TouchableOpacity>
 
-                                <Text style={{ flexWrap: "wrap", fontSize: 14, color: "#000" }}>
-                                    {t("signup.terms")}{" "}
-                                   <View>
-                                     <Text style={{ color: "#2DBEFF" }}>{t("signup.teems_cond")}</Text>
-                                   </View>
-                                </Text>
+
+                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <Body1>{t("signup.terms")}{" "}</Body1>
+                                    <Body2
+                                        style={{ color: "#2DBEFF" }}
+                                        onPress={() => router.push("/terms")}
+                                    >
+                                        {t("signup.teems_cond")}
+                                    </Body2>
+                                </View>
+
                             </View>
-
-
 
                             <View style={styles.dividerContainer}>
                                 <View style={styles.divider} />
@@ -189,7 +192,7 @@ export default function SignUpScreen() {
                                     <GoogleIcon />
                                 </View>
                                 <View style={styles.socialIcon}>
-                                    <Ionicons name="logo-apple" size={32} color="#0F243E" />
+                                    <AppleIcons />
                                 </View>
                             </View>
 
@@ -224,7 +227,7 @@ const styles = StyleSheet.create({
         marginBottom: 40
     },
     submitButton: {
-        backgroundColor: "#00AFF5",
+        backgroundColor: Colors.PRIMARY,
         paddingVertical: 16,
         borderRadius: 12,
         alignItems: "center",
@@ -244,7 +247,7 @@ const styles = StyleSheet.create({
     divider: {
         flex: 1,
         height: 1,
-        backgroundColor: "#2DBEFF"
+        backgroundColor: Colors.PRIMARY
     },
     dividerText: {
         marginHorizontal: 16,

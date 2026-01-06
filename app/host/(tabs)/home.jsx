@@ -11,7 +11,8 @@ import {
 
 import { useRouter } from "expo-router";
 import { AddIcon } from "../../../assets/icons/Icons";
-import { Body1, Body2, H4 } from "../../../components/typo/typography";
+import HostTabs from "../../../components/HostTabs/HostTabs";
+import { Body2, H4 } from "../../../components/typo/typography";
 
 export default function Home() {
   const router = useRouter();
@@ -35,68 +36,20 @@ export default function Home() {
             </H4>
 
             <TouchableOpacity
-            style={styles.addIcon}
-            onPress={()=>router.navigate("/host/addProperty")}
+              style={styles.addIcon}
+              onPress={() => router.navigate("/host/addProperty")}
             >
-              <AddIcon/>
+              <AddIcon />
             </TouchableOpacity>
           </View>
 
           {/* Tabs */}
-          <View style={styles.tabWrapper}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={[
-                styles.tabButton,
-                activeTab === "pending"
-                  ? styles.activeTab
-                  : styles.inactiveTab
-              ]}
-              onPress={() => setActiveTab("pending")}
-            >
-              <Body2
-                style={[
-                  styles.tabText,
-                  activeTab === "pending"
-                    ? styles.activeTabText
-                    : styles.inactiveTabText
-                ]}
-              >
-                {t("host_home.tabs.pending")}
-              </Body2>
-            </TouchableOpacity>
 
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={[
-                styles.tabButton,
-                activeTab === "confirm"
-                  ? styles.activeTab
-                  : styles.inactiveTab
-              ]}
-              onPress={() => setActiveTab("confirm")}
-            >
-              <Body2
-                style={[
-                  styles.tabText,
-                  activeTab === "confirm"
-                    ? styles.activeTabText
-                    : styles.inactiveTabText
-                ]}
-              >
-                {t("host_home.tabs.confirm")}
-              </Body2>
-            </TouchableOpacity>
-          </View>
-
-          {/* Tab Content */}
-          <View style={styles.contentBody}>
-            {activeTab === "pending" ? (
-              <Body2>{t("host_home.content.pending")}</Body2>
-            ) : (
-              <Body1>{t("host_home.content.confirm")}</Body1>
-            )}
-          </View>
+          <HostTabs
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            styles={styles}
+          />
 
           {/* Empty State */}
           <View style={styles.content}>
@@ -115,7 +68,7 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
- 
+
   container: {
     flex: 1,
     paddingHorizontal: "5%"
@@ -139,39 +92,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  // --- New Tab Styles ---
-  tabWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 10,
-    marginBottom: 20,
-  },
-  tabButton: {
-    flex: 1,
-    height: 34,            
-    borderRadius: 4,        
-    borderWidth: 1,       
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 6
-  },
-  activeTab: {
-    backgroundColor: '#3F3F3F', 
-    borderColor: '#3F3F3F',
-  },
-  inactiveTab: {
-    backgroundColor: '#F2F2F2', 
-    borderColor: '#E5E7EB',
-  },
-  tabText: {
-    fontWeight: '500',
-  },
-  activeTabText: {
-    color: '#FFFFFF',
-  },
-  inactiveTabText: {
-    color: '#4B5563',
-  },
   contentBody: {
     marginTop: 10,
   },

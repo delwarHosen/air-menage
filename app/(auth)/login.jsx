@@ -1,5 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
     KeyboardAvoidingView,
@@ -7,19 +7,47 @@ import {
     ScrollView,
     StyleSheet,
     Text,
+    ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { GoogleIcon } from "../../assets/icons/Icons";
-import { Body1, Body2, ButtonText, H3, H4 } from "../../components/typo/typography";
+import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
+import { ButtonText, H3, H4 } from "../../components/typo/typography";
+import { FormInput } from "../../components/ui/FormInput";
+import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
 
 export default function LoginScreen() {
     const { t } = useTranslation();
     const router = useRouter();
 
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            [FORM_FIELDS.EMAIL]: "",
+            [FORM_FIELDS.PASSWORD]: "",
+        },
+    });
+
+    const onSubmit = (values) => {
+
+        try {
+            const payload = {
+                email: values[FORM_FIELDS.EMAIL],
+                password: values[FORM_FIELDS.PASSWORD],
+            };
+
+            console.log("Submitted Data:", payload);
+        } catch (err) {
+            ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+        }
+    };
+
     return (
-        <SafeAreaView style={styles.safeArea}>
+        < >
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.container}
@@ -35,17 +63,35 @@ export default function LoginScreen() {
                         </View>
 
                         <View style={styles.form}>
-                            {/* Email input */}
-                            <View style={{ marginBottom: 4 }}>
-                                <Body1>{t("login.label")}</Body1>
-                                <View style={styles.fakeInput} />
-                            </View>
+                            {/* Email Title */}
+                            <Controller
+                                control={control}
+                                name={FORM_FIELDS.PROPERTY_TITLE}
+                                render={({ field }) => (
+                                    <FormInput
+                                        label={FORM_LABELS[FORM_FIELDS.EMAIL]}
+                                        value={field.value}
+                                        onChangeText={field.onChange}
+                                        placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.EMAIL]}
+                                        required
+                                    />
+                                )}
+                            />
 
                             {/* Password input */}
-                            <View style={{ marginBottom: 16 }}>
-                                <Body2>{t("login.password")}</Body2>
-                                <View style={styles.fakeInput} />
-                            </View>
+                            <Controller
+                                control={control}
+                                name={FORM_FIELDS.PASSWORD}
+                                render={({ field }) => (
+                                    <FormInput
+                                        label={FORM_LABELS[FORM_FIELDS.PASSWORD]}
+                                        value={field.value}
+                                        onChangeText={field.onChange}
+                                        placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.PASSWORD]}
+                                        required
+                                    />
+                                )}
+                            />
 
                             {/* Login Button */}
                             <TouchableOpacity
@@ -83,25 +129,21 @@ export default function LoginScreen() {
                             {/* Social icon */}
                             <View style={styles.socialContaier}>
                                 <View style={styles.socialIcon}>
-                                    <GoogleIcon/>
+                                    <GoogleIcon />
                                 </View>
                                 <View style={styles.socialIcon}>
-                                   <Ionicons name="logo-apple" size={32} color="#0F243E"/>
+                                    <AppleIcons/>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: "#FFFFFF"
-    },
     container: {
         flex: 1
     },
