@@ -4,7 +4,7 @@ import Heading from '../../components/Heading/Heading';
 
 export default function AddProperty() {
     return (
-        // SafeAreaView ke mukhio container hisebe bebohar korun
+      
         < >
             <ScrollView
                 stickyHeaderIndices={[0]} 
@@ -26,8 +26,8 @@ export default function AddProperty() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: "#FAFAFA", // Header er sathe mil rakha bhalo
-        // Android er jonno StatusBar padding
+        backgroundColor: "#FAFAFA", 
+        
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
     headerContainer: {
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        // Agur "10%" paddingTop ekhane dorkar nei, SafeAreaView eta handle korbe
         paddingTop: 10, 
     },
 });

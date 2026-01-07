@@ -9,7 +9,6 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { Colors } from '../../assets/Colors';
 import {
     BedIcon,
     CreatePropertyIcon,
@@ -22,7 +21,7 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
     const [modalVisible, setModalVisible] = useState(false);
 
     // 👇 animation value
-    const slideAnim = useRef(new Animated.Value(300)).current;
+    const slideAnim = useRef(new Animated.Value(600)).current;
 
     const openModal = () => {
         setModalVisible(true);
@@ -36,7 +35,7 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
 
     const closeModal = () => {
         Animated.timing(slideAnim, {
-            toValue: 300,
+            toValue: 600,
             duration: 250,
             easing: Easing.in(Easing.ease),
             useNativeDriver: true,
@@ -44,8 +43,8 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
     };
 
     const handleSelect = (property) => {
-        onSelect(property);
-        closeModal();
+        onSelect(property); // এটি মেইন স্ক্রিনের স্টেট আপডেট করবে
+        closeModal();       // সিলেক্ট করার পর মডাল বন্ধ হবে
     };
 
     return (
@@ -82,9 +81,9 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
             </TouchableOpacity>
 
             {/* Modal */}
-            <Modal transparent visible={modalVisible}>
+            <Modal transparent visible={modalVisible} animationType="none">
                 <View style={styles.modalOverlay}>
-                    {/* Backdrop click */}
+                    {/* Backdrop click to close */}
                     <TouchableOpacity
                         style={StyleSheet.absoluteFill}
                         activeOpacity={1}
@@ -97,14 +96,20 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
                             { transform: [{ translateY: slideAnim }] }
                         ]}
                     >
-
-                        {/* Property List */}
+                        {/* মডালের ভেতরে লিস্ট */}
                         <FlatList
                             data={properties}
                             keyExtractor={(item) => item.id}
                             showsVerticalScrollIndicator={false}
+                            contentContainerStyle={{ paddingVertical: 20 }}
                             renderItem={({ item }) => (
-                                <TouchableOpacity style={[styles.modalPropertyCard, styles.modalPropertyCardSelected]} onPress={openModal}>
+                                <TouchableOpacity 
+                                    style={[
+                                        styles.modalPropertyCard, 
+                                        selectedProperty.id === item.id && styles.activeCardBorder // সিলেক্টেড বর্ডার
+                                    ]} 
+                                    onPress={() => handleSelect(item)} // ✅ এখানে handleSelect কল হবে
+                                >
                                     <View style={styles.propertyImage}>
                                         <Image
                                             source={item.img}
@@ -149,9 +154,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 30,
         borderWidth: 1,
-        borderColor: Colors.BORDER_COLOR,
+        borderColor: '#E5E5E5',
     },
-
     propertyImage: {
         width: 52,
         height: 52,
@@ -159,56 +163,34 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         marginRight: 15,
     },
-
-    propertyInfo: {
-        flex: 1,
-    },
-
-    propertyNameRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 6,
-    },
-
-    propertyDetails: {
-        flexDirection: 'row',
-        gap: 15,
-    },
-
-    propertyContent: {
-        flexDirection: 'row',
-        gap: 5,
-        alignItems: 'center',
-    },
-
+    propertyInfo: { flex: 1 },
+    propertyNameRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
+    propertyDetails: { flexDirection: 'row', gap: 15 },
+    propertyContent: { flexDirection: 'row', gap: 5, alignItems: 'center' },
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'flex-end',
     },
-
     modalContent: {
         backgroundColor: '#fff',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        maxHeight: '70%',
-        paddingBottom: 20,
+        height: '60%', 
     },
-
     modalPropertyCard: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 15,
         marginHorizontal: 20,
-        marginTop: 15,
+        marginBottom: 12,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: Colors.BORDER_COLOR,
+        borderColor: '#E5E5E5',
         backgroundColor: '#FFFFFF',
     },
-
-    modalPropertyCardSelected: {
-        borderColor: Colors.BORDER_COLOR,
-    },
+    activeCardBorder: {
+        borderColor: '#1A1A1A', 
+        backgroundColor: '#F9F9F9'
+    }
 });
-

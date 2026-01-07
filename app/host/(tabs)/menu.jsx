@@ -170,7 +170,7 @@ const MenuItem = ({ icon, label, onPress }) => (
 const styles = StyleSheet.create({
    
     scrollContainer: {
-        paddingHorizontal: "5%",
+        paddingHorizontal: "2.5%",
         paddingBottom: 20
     },
     profileSection: {

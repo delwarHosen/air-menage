@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
   // Sticky header container
   stickyHeader: {
-    paddingHorizontal: "3%",
+    paddingHorizontal: "2.5%",
     paddingTop: 20,
     paddingBottom: 10,
     backgroundColor: "#FFF",

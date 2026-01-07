@@ -12,7 +12,7 @@ import {
 
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
-import { Body2, ButtonText } from "../../components/typo/typography";
+import { Body2, ButtonText, Caption } from "../../components/typo/typography";
 import { IMAGE_CONSTANTS } from "../../constants/image.index";
 
 export default function PersonalInfo() {
@@ -30,9 +30,9 @@ export default function PersonalInfo() {
 
   const renderInfoCard = ({ item }) => (
     <View style={styles.infoCard}>
-      <Body2 style={styles.labelStyle}>
+      <Caption style={styles.labelStyle}>
         {t(`host_personal_info.fields.${item.key}`)}
-      </Body2>
+      </Caption>
       <Body2 style={styles.valueText}>{item.value}</Body2>
     </View>
   );
@@ -91,7 +91,7 @@ export default function PersonalInfo() {
 const styles = StyleSheet.create({
  
   scrollContainer: {
-    paddingHorizontal: "5%"
+    paddingHorizontal: "2.5%"
   },
   profileSection: {
     alignItems: "center",
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   infoCard: {
     width: "100%",
-    height: 48,
+    height: 50,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#CACACB",
@@ -117,16 +117,15 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   labelStyle: {
-    fontSize: 12,
     color: "#0F243E",
     marginBottom: 1,
-    fontWeight: "400",
     textTransform: "uppercase"
   },
   valueText: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#0F243E",
-    fontWeight: "500"
+    fontWeight: "500",
+    marginTop:3
   },
   submitButton: {
     width: "100%",

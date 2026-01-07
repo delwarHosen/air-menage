@@ -15,21 +15,38 @@ export default function PersonalEditInfo() {
 
     const FIELD_KEYS = ["fullName", "email", "phone", "address", "city", "country"];
 
-    const { values = {}, isSubmitting, handleChange, handleSubmit, setValues } = useForm({
-        initialValues: FIELD_KEYS.reduce((acc, key) => {
+   
+    const { setValue, watch, handleSubmit, reset, formState: { isSubmitting } } = useForm({
+        defaultValues: FIELD_KEYS.reduce((acc, key) => {
             acc[key] = params[key] || "";
             return acc;
         }, {})
     });
 
-    useEffect(() => {
-        if (params && setValues) {
-            setValues(FIELD_KEYS.reduce((acc, key) => {
-                acc[key] = params[key] || "";
-                return acc;
-            }, {}));
-        }
-    }, [params]);
+    
+    const values = watch();
+
+   
+    const handleChange = (name, text) => {
+        setValue(name, text);
+    };
+
+   useEffect(() => {
+    if (params) {
+        
+        const initialData = FIELD_KEYS.reduce((acc, key) => {
+            acc[key] = params[key] || "";
+            return acc;
+        }, {});
+        
+        reset(initialData);
+    }
+}, []); 
+
+  
+    const onFormSubmit = (data) => {
+        console.log("Form Data:", data);
+    };
 
     const renderItem = ({ item }) => (
         <View style={styles.inputWrapper}>
@@ -55,6 +72,7 @@ export default function PersonalEditInfo() {
                 <FlatList
                     data={FIELD_KEYS}
                     keyExtractor={item => item}
+                    style={{ width: '100%' }}
                     renderItem={renderItem}
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
@@ -75,7 +93,10 @@ export default function PersonalEditInfo() {
                         </View>
                     )}
                     ListFooterComponent={() => (
-                        <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
+                        <TouchableOpacity 
+                        // onPress={handleSubmit(onFormSubmit)}  
+                        onPress={()=>router.back()}
+                        style={styles.submitButton}>
                             <ButtonText style={styles.buttonText}>
                                 {isSubmitting ? t("edit_personal_info.actions.saving") : t("edit_personal_info.actions.saveChanges")}
                             </ButtonText>
@@ -88,8 +109,11 @@ export default function PersonalEditInfo() {
 }
 
 const styles = StyleSheet.create({
-    
-    scrollContainer: { alignItems: "center", paddingBottom: 40 },
+    scrollContainer: {
+        paddingBottom: 40,
+        paddingHorizontal: '2.5%',
+        width: '100%',
+    },
     headerContainer: { width: '100%', alignItems: 'center' },
     headerRow: {
         flexDirection: "row",
@@ -98,7 +122,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 50,
         marginTop: 10,
-        paddingHorizontal: 20,
     },
     backIconContainer: {
         width: 40,
@@ -152,12 +175,12 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     inputWrapper: {
-        width: 336,
+        width: "100%",
         marginBottom: 15
     },
     labelOutside: {
         fontSize: 16,
-        color: "#7E8792",
+        color: "#0F243E",
         marginBottom: 6,
         fontWeight: '600'
     },
@@ -176,7 +199,7 @@ const styles = StyleSheet.create({
         fontWeight: "500"
     },
     submitButton: {
-        width: 336,
+        width: "100%",
         backgroundColor: Colors.PRIMARY,
         paddingVertical: 14,
         borderRadius: 12,

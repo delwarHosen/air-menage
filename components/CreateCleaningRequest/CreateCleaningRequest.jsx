@@ -7,14 +7,16 @@ import {
     StyleSheet,
     View
 } from 'react-native';
+
 import { Colors } from '../../assets/Colors';
-import { IMAGE_COMPONENTS } from '../../assets/image.index';
 import { Body1, Body2, ButtonText, H2, H3, H5, H6 } from '../typo/typography';
+
+import { IMAGE_COMPONENTS } from '../../assets/image.index';
 import DatePicker from './DatePicker';
 import LinenHandlingForm from './LinenHandlingForm';
+import PriceListModal from './PriceListModal';
 import PropertySelector from './PropertySelector';
 import TimePicker from './TimePicker';
-// import BookingBottomActions from './BookingBottomActions';
 
 const properties = [
     { id: '1', name: 'San Francisco', img: IMAGE_COMPONENTS.selectPropertiImage, area: '50 m²', beds: '2 Bed', featured: true },
@@ -30,12 +32,13 @@ export default function PropertyBookingScreens() {
     const [startTime, setStartTime] = useState('10:30');
     const [endTime, setEndTime] = useState('12:00');
     const [cleaningTime, setCleaningTime] = useState('');
-
     const [selectedOption, setSelectedOption] = useState('collect');
     const [dropOffAddress, setDropOffAddress] = useState('');
     const [rate, setRate] = useState(50);
     const [sendToFavorites, setSendToFavorites] = useState(false);
+    const [priceListVisible, setPriceListVisible] = useState(false);
 
+    
     useEffect(() => {
         const [sh, sm] = startTime.split(':').map(Number);
         const [eh, em] = endTime.split(':').map(Number);
@@ -51,32 +54,76 @@ export default function PropertyBookingScreens() {
         const hours = Math.floor(diff / 60);
         const minutes = diff % 60;
 
-        if (hours > 0 && minutes > 0) {
+        if (hours && minutes) {
             setCleaningTime(`${hours} Hour${hours > 1 ? 's' : ''} ${minutes} min`);
-        } else if (hours > 0) {
+        } else if (hours) {
             setCleaningTime(`${hours} Hour${hours > 1 ? 's' : ''}`);
         } else {
             setCleaningTime(`${minutes} min`);
         }
     }, [startTime, endTime]);
 
+    
+    const handleCreateBooking = () => {
+        const bookingPayload = {
+            propertyDetails: {
+                id: selectedProperty.id,
+                name: selectedProperty.name,
+                image: selectedProperty.img, 
+                area: selectedProperty.area,
+                beds: selectedProperty.beds
+            },
+            bookingDate: selectedDate.toDateString(),
+            timing: {
+                start: startTime,
+                end: endTime,
+                totalDuration: cleaningTime
+            },
+            linenService: {
+                type: selectedOption,
+                address: selectedOption === 'deliver' ? dropOffAddress : 'Inside Property'
+            },
+            rateDetails: {
+                amount: rate,
+                currency: '€'
+            },
+            settings: {
+                sendToFavorites: sendToFavorites
+            }
+        };
 
-
-
+        console.log("======= ALL BOOKING DATA (WITH IMAGE) =======");
+        console.log(JSON.stringify(bookingPayload, null, 2));
+        console.log("================================");
+    };
 
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
         >
-            <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.content}>
                     <H6 style={{ marginBottom: 8 }}>Select Property</H6>
-                    <PropertySelector properties={properties} selectedProperty={selectedProperty} onSelect={setSelectedProperty} />
-                    <DatePicker selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-                    <TimePicker startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime} cleaningTime={cleaningTime} />
+                    
+                    <PropertySelector
+                        properties={properties}
+                        selectedProperty={selectedProperty}
+                        onSelect={setSelectedProperty}
+                    />
 
-                    {/* <LinenHandlingForm /> */}
+                    <DatePicker
+                        selectedDate={selectedDate}
+                        onSelectDate={setSelectedDate}
+                    />
+
+                    <TimePicker
+                        startTime={startTime}
+                        endTime={endTime}
+                        setStartTime={setStartTime}
+                        setEndTime={setEndTime}
+                        cleaningTime={cleaningTime}
+                    />
 
                     <LinenHandlingForm
                         selectedOption={selectedOption}
@@ -85,23 +132,13 @@ export default function PropertyBookingScreens() {
                         setDropOffAddress={setDropOffAddress}
                     />
 
-
-                    {/* <BookingBottom
-                    rate={rate}
-                    setRate={setRate}
-                    sendToFavorites={sendToFavorites}
-                    setSendToFavorites={setSendToFavorites}
-                    onCreatePress={() => {
-                        // handle create button press here
-                        console.log('Booking created!');
-                    }}
-                /> */}
-                    <View>
+                    <View style={styles.bottomSection}>
                         <H5 style={styles.sectionTitle}>Select a rate</H5>
+
                         <View style={styles.rateSelector}>
                             <Pressable
                                 style={styles.rateButton}
-                                onPress={() => setRate(Math.max(0, rate - 5))}
+                                onPress={() => setRate(prev => Math.max(0, prev - 5))}
                             >
                                 <H3>-</H3>
                             </Pressable>
@@ -110,82 +147,64 @@ export default function PropertyBookingScreens() {
 
                             <Pressable
                                 style={styles.rateButton}
-                                onPress={() => setRate(rate + 5)}
+                                onPress={() => setRate(prev => prev + 5)}
                             >
-                                <H3 style={styles.rateButtonText}>+</H3>
+                                <H3>+</H3>
                             </Pressable>
                         </View>
 
-                        <Pressable style={styles.priceListButton}>
+                        <Pressable
+                            style={styles.priceListButton}
+                            onPress={() => setPriceListVisible(true)}
+                        >
                             <Body1 style={styles.priceListText}>Price List</Body1>
                         </Pressable>
 
                         <Pressable
                             style={styles.favoriteSection}
-                            onPress={() => setSendToFavorites(!sendToFavorites)}
+                            onPress={() => setSendToFavorites(prev => !prev)}
                         >
                             <View>
-                                <H5 style={styles.favoriteTitle}>Send To My Favorite Cleaners</H5>
-                                <Body2 style={styles.favoriteSubtitle}>Favorite Cleaners</Body2>
+                                <H5 style={styles.favoriteTitle}>
+                                    Send To My Favorite Cleaners
+                                </H5>
+                                <Body2 style={styles.favoriteSubtitle}>
+                                    Favorite Cleaners
+                                </Body2>
                             </View>
+
                             <View style={[styles.toggle, sendToFavorites && styles.toggleActive]}>
-                                <View style={[styles.toggleThumb, sendToFavorites && styles.toggleThumbActive]} />
+                                <View
+                                    style={[
+                                        styles.toggleThumb,
+                                        sendToFavorites && styles.toggleThumbActive
+                                    ]}
+                                />
                             </View>
                         </Pressable>
 
-                        <Pressable style={styles.createButton}>
-                            <ButtonText style={styles.createButtonText}>Create Now</ButtonText>
+                        <Pressable style={styles.createButton} onPress={handleCreateBooking}>
+                            <ButtonText style={styles.createButtonText}>
+                                Create Now
+                            </ButtonText>
                         </Pressable>
                     </View>
                 </View>
             </ScrollView>
-        </KeyboardAvoidingView>
 
+            <PriceListModal
+                visible={priceListVisible}
+                onClose={() => setPriceListVisible(false)}
+            />
+        </KeyboardAvoidingView>
     );
 }
 
-
 const styles = StyleSheet.create({
-    // Container
-    container: {
-        flex: 1,
-        backgroundColor: "#FAFAFA",
-    },
-    content: {
-        padding: "3%",
-        paddingTop: 22,
-    },
-
-    sectionTitle: {
-        marginBottom: 16,
-        marginTop: 30,
-    },
-    optionCard: {
-        // backgroundColor: 'white',
-        borderRadius: 8,
-        borderWidth: 1.5,
-        borderColor: Colors.BORDER_COLOR,
-        padding: 16,
-        marginBottom: 12,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    optionCardSelected: {
-        borderColor: Colors.PRIMARY,
-        borderWidth: 2,
-    },
-    optionIcon: {
-        width: 44,
-        height: 44,
-        borderRadius: 12,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: 12,
-    },
-    optionTitle: {
-        flex: 1,
-        lineHeight: 20,
-    },
+    container: { flex: 1, backgroundColor: '#FAFAFA' },
+    content: { padding: '4%', paddingTop: 22 },
+    bottomSection: { marginTop: 20 },
+    sectionTitle: { marginBottom: 16 },
     rateSelector: {
         borderRadius: 16,
         borderWidth: 1.5,
@@ -196,27 +215,22 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 16,
         marginBottom: 16,
+        backgroundColor: '#FFF'
     },
     rateButton: {
         width: 44,
         height: 44,
         borderRadius: 22,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#FFF',
         justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 1,
-        borderColor: Colors.BORDER_COLOR,
-        alignItems: 'center',
+        borderColor: '#E5E5E5',
     },
-
-    priceListButton: {
-        alignItems: 'center',
-        marginBottom: 24,
-    },
-    priceListText: {
-        textDecorationLine: 'underline',
-    },
+    priceListButton: { alignItems: 'center', marginBottom: 24 },
+    priceListText: { textDecorationLine: 'underline', marginTop: 30 },
     favoriteSection: {
-        backgroundColor: 'white',
+        backgroundColor: '#FFF',
         borderRadius: 16,
         borderWidth: 1.5,
         borderColor: '#E5E5E5',
@@ -226,12 +240,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    favoriteTitle: {
-        marginBottom: 4,
-    },
-    favoriteSubtitle: {
-        color: '#999',
-    },
+    favoriteTitle: { marginBottom: 4 },
+    favoriteSubtitle: { color: '#999' },
     toggle: {
         width: 50,
         height: 28,
@@ -240,31 +250,20 @@ const styles = StyleSheet.create({
         padding: 2,
         justifyContent: 'center',
     },
-    toggleActive: {
-        backgroundColor: '#1A1A1A',
-    },
+    toggleActive: { backgroundColor: '#1A1A1A' },
     toggleThumb: {
         width: 24,
         height: 24,
         borderRadius: 12,
-        backgroundColor: 'white',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 2,
+        backgroundColor: '#FFF',
     },
-    toggleThumbActive: {
-        alignSelf: 'flex-end',
-    },
+    toggleThumbActive: { alignSelf: 'flex-end' },
     createButton: {
-        backgroundColor: Colors.PRIMARY,
-        borderRadius: 8,
+        backgroundColor: Colors.PRIMARY || '#1A1A1A',
+        borderRadius: 12,
         padding: 18,
         alignItems: 'center',
         marginBottom: 32,
     },
-    createButtonText: {
-        color: 'white',
-    },
+    createButtonText: { color: '#FFF' },
 });
