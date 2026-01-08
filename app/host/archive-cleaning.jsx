@@ -1,5 +1,6 @@
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
+import { useTranslation } from 'react-i18next'
 import {
     FlatList,
     KeyboardAvoidingView,
@@ -15,10 +16,11 @@ import { Body1, Caption, H4, H5, H6 } from '../../components/typo/typography'
 import { cleanerDetailsData } from "../../store/CleanerRequestData"
 
 export default function ArchiveCleaning() {
+    const { t } = useTranslation();
     const router = useRouter()
 
     const renderItem = ({ item, index }) => (
-        <TouchableOpacity onPress={() => router.push("/host/property-overview")}>
+        <TouchableOpacity onPress={() => router.push(`/host/peopertyOverview/${item.id}`)}>
             <View style={[styles.card]}>
 
                 {/* Top Date */}
@@ -105,7 +107,7 @@ export default function ArchiveCleaning() {
             style={styles.mainContainer}
         >
             <View>
-                <Heading title="Archived Cleaning" />
+                <Heading title={t("cleanings.archived")} />
             </View>
             <FlatList
                     data={cleanerDetailsData}

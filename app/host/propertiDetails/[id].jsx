@@ -1,5 +1,6 @@
 import { Image } from 'expo-image';
 import { useLocalSearchParams } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Colors } from "../../../assets/Colors";
 import { BedIcon, CreatePropertyIcon, KeyIcon, LocationIcon, TikMarkIcon } from '../../../assets/icons/Icons';
@@ -9,6 +10,7 @@ import { Body2, Caption, H5 } from '../../../components/typo/typography';
 import { propertiesData } from '../../../store/PropertyData';
 
 export default function PropertiDetails() {
+      const { t } = useTranslation();
     const { id } = useLocalSearchParams();
     const propertyData = propertiesData.find((item) => item.id.toString() === id);
 
@@ -22,7 +24,7 @@ export default function PropertiDetails() {
     return (
         <>
             <View style={{paddingHorizontal:20}}>
-                <Heading title="Properties Overview" />
+               <Heading title={t("properties.overview")} />
             </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}

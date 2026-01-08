@@ -1,57 +1,57 @@
+import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { LineHandlinhgIcon, TissuIcon } from '../../assets/icons/Icons';
 import { Body1, Body2, H3, H4, H5 } from '../typo/typography';
 
 const PriceListModal = ({ visible, onClose }) => {
+    const { t } = useTranslation();
+
     const priceData = [
-        { type: 'Studio / T1', surface: '0-30m²', price: '20-35€' },
-        { type: '1 chambre / T2', surface: '31-45m²', price: '30-45€' },
-        { type: '2 chambres / T3', surface: '45-60m²', price: '40-60€' },
-        { type: '3 chambres / T4', surface: '61-80m²', price: '60-80€' },
-        { type: '4 chambres / T5', surface: '81-100m²', price: '80-100€' },
-        { type: 'Maison', surface: '100m²+', price: '100€ +' },
+        { type: t('price_list.studio'), surface: '0-30m²', price: '20-35€' },
+        { type: t('price_list.one_room'), surface: '31-45m²', price: '30-45€' },
+        { type: t('price_list.two_rooms'), surface: '45-60m²', price: '40-60€' },
+        { type: t('price_list.three_rooms'), surface: '61-80m²', price: '60-80€' },
+        { type: t('price_list.four_rooms'), surface: '81-100m²', price: '80-100€' },
+        { type: t('price_list.house'), surface: '100m²+', price: '100€ +' },
+    ];
+
+    const serviceData = [
+        { icon: <LineHandlinhgIcon />, text: t('price_list.change_bed'), price: '0€' },
+        { icon: <LineHandlinhgIcon />, text: t('price_list.wash_offsite'), price: '10€' },
+        { icon: <LineHandlinhgIcon />, text: t('price_list.collect_wash_deliver'), price: '20€' },
+        { icon: <TissuIcon />, text: t('price_list.consumables_refill'), price: '5-10€' },
     ];
 
     return (
-        <Modal
-            visible={visible}
-            transparent
-            animationType="fade"
-            onRequestClose={onClose}
-        >
+        <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
             <View style={styles.modalOverlay}>
-
                 {/* Backdrop */}
                 <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
 
                 {/* Modal */}
                 <View style={styles.modalContent}>
-
                     {/* Header */}
                     <View style={styles.modalHeader}>
-                        <H4>Price List</H4>
+                        <H4>{t('price_list.title')}</H4>
                         <Pressable onPress={onClose} hitSlop={20}>
                             <H3 style={styles.closeIcon}>✕</H3>
                         </Pressable>
                     </View>
 
                     {/* Scroll */}
-                    <ScrollView
-                        contentContainerStyle={styles.modalScroll}
-                        showsVerticalScrollIndicator={false}
-                    >
+                    <ScrollView contentContainerStyle={styles.modalScroll} showsVerticalScrollIndicator={false}>
                         {/* Table */}
                         <View style={styles.tableContainer}>
                             <View style={[styles.tableRow, styles.headerBackground]}>
                                 <View style={[styles.cell, styles.borderRight, { flex: 1.5 }]}>
-                                    <Body1 style={styles.headerText}>Property Type</Body1>
+                                    <Body1 style={styles.headerText}>{t('price_list.property_type')}</Body1>
                                 </View>
                                 <View style={[styles.cell, styles.borderRight, { flex: 1 }]}>
-                                    <Body1 style={styles.headerText}>Surface</Body1>
+                                    <Body1 style={styles.headerText}>{t('price_list.surface')}</Body1>
                                 </View>
                                 <View style={[styles.cell, { flex: 0.8 }]}>
-                                    <Body1 style={styles.headerText}>Price</Body1>
+                                    <Body1 style={styles.headerText}>{t('price_list.price')}</Body1>
                                 </View>
                             </View>
 
@@ -60,7 +60,7 @@ const PriceListModal = ({ visible, onClose }) => {
                                     key={index}
                                     style={[
                                         styles.tableRow,
-                                        index === priceData.length - 1 && { borderBottomWidth: 0 }
+                                        index === priceData.length - 1 && { borderBottomWidth: 0 },
                                     ]}
                                 >
                                     <View style={[styles.cell, styles.borderRight, { flex: 1.5 }]}>
@@ -77,29 +77,11 @@ const PriceListModal = ({ visible, onClose }) => {
                         </View>
 
                         {/* Services */}
-                        <H5 style={styles.subTitle}>Additional Services</H5>
-
+                        <H5 style={styles.subTitle}>{t('price_list.additional_services')}</H5>
                         <View style={styles.servicesSection}>
-                            <ServiceRow
-                                icon={<LineHandlinhgIcon />}
-                                text="Change the bed linens and place the used linens inside the property"
-                                price="0€"
-                            />
-                            <ServiceRow
-                                icon={<LineHandlinhgIcon />}
-                                text="Wash and dry linens off-site, then return them cleaner"
-                                price="10€"
-                            />
-                            <ServiceRow
-                                icon={<LineHandlinhgIcon />}
-                                text="Collect, wash, dry and deliver them to a specified location"
-                                price="20€"
-                            />
-                            <ServiceRow
-                                icon={<TissuIcon/>}
-                                text="Consumables Refill"
-                                price="5-10€"
-                            />
+                            {serviceData.map((service, index) => (
+                                <ServiceRow key={index} icon={service.icon} text={service.text} price={service.price} />
+                            ))}
                         </View>
 
                         <View style={{ height: 24 }} />
@@ -112,20 +94,15 @@ const PriceListModal = ({ visible, onClose }) => {
 
 const ServiceRow = ({ icon, text, price }) => (
     <View style={styles.serviceRowWrapper}>
-
-        {/* Left bordered card */}
         <View style={styles.serviceBorder}>
             <View style={styles.serviceItem}>
                 <View style={styles.serviceIcon}>{icon}</View>
                 <Body2 style={styles.serviceText}>{text}</Body2>
             </View>
         </View>
-
-        {/* Right price (outside border) */}
         <View style={styles.priceWrapper}>
             <Body1 style={styles.servicePrice}>{price}</Body1>
         </View>
-
     </View>
 );
 

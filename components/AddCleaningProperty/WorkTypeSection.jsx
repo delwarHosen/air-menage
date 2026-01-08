@@ -1,11 +1,13 @@
 
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { Colors } from "../../assets/Colors";
 import { CheckMarkIcon, DeleteIcon, DownForwardIcon, TikMarkIcon } from "../../assets/icons/Icons";
 import { Body2, H5 } from '../typo/typography';
 
 const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
+    const { t } = useTranslation();
     const [text, setText] = useState('');
 
     const handleAdd = () => {
@@ -48,7 +50,7 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
             <View style={styles.addWorkTypeContainer}>
                 <TextInput
                     style={styles.textInput}
-                    placeholder={`Add new ${title.toLowerCase()}...`}
+                    placeholder={t('work_type.add_placeholder', { title: title.toLowerCase() })}
                     placeholderTextColor="#999"
                     value={text}
                     onChangeText={setText}
@@ -63,6 +65,7 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
 };
 
 export default WorkTypeList;
+
 
 
 const styles = StyleSheet.create({
@@ -101,7 +104,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     minHeight: 44,
-    backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: Colors.BORDER_COLOR,
     borderRadius: 8,
@@ -109,14 +111,7 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingBottom: 10,
     paddingLeft: 8,
-
-    // iOS shadow (LOW)
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.2,   
-    shadowRadius: 4,       
-
-    elevation: 1,         
+         
 },
 
     textInput: {

@@ -26,6 +26,7 @@ export const FormInput = ({
     touched = false,
     required = false,
     maxLength,
+    placeholderTextColor,
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     // const [imageUri, setImageUri] = useState(null);
@@ -114,7 +115,7 @@ export const FormInput = ({
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
-                    placeholderTextColor="#3F3F46"
+                    placeholderTextColor=""
                     secureTextEntry={type === "password" && !showPassword}
                     keyboardType={getKeyboardType()}
                     autoCapitalize={type === "email" ? "none" : "sentences"}

@@ -1,23 +1,25 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import Heading from "../../components/Heading/Heading";
 import { Body1, Caption, H5, H6 } from '../../components/typo/typography';
 
 export default function CalenderProperty() {
+     const { t } = useTranslation();
     const router = useRouter();
     const year = 2026;
     const month = 0; // January
     const daysOfWeek = ['SA', 'SU', 'MO', 'TU', 'WE', 'TH', 'FRI'];
 
+   
     const [selectedDays, setSelectedDays] = useState([11, 18]);
 
     const monthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(year, month));
 
     // --- Calculation Logic ---
     const getDaysInMonth = (y, m) => new Date(y, m + 1, 0).getDate();
-
     const getFirstDayIndex = (y, m) => {
         const firstDay = new Date(y, m, 1).getDay();
         return (firstDay + 1) % 7;
@@ -30,8 +32,23 @@ export default function CalenderProperty() {
     for (let i = 0; i < prefixDays; i++) daysArray.push(null);
     for (let i = 1; i <= totalDays; i++) daysArray.push(i);
 
-    const toggleDay = (day) => {
+    // --- Navigation & Toggle Logic ---
+    const handleDayPress = (day) => {
         if (!day) return;
+
+       
+        if (selectedDays.includes(day)) {
+            router.push({
+                pathname: "/host/booking-details",
+                params: { date: day, month: monthName, year: year }
+            });
+        } else {
+            
+            toggleDay(day);
+        }
+    };
+
+    const toggleDay = (day) => {
         setSelectedDays(prev =>
             prev.includes(day)
                 ? prev.filter(d => d !== day)
@@ -41,11 +58,11 @@ export default function CalenderProperty() {
 
     return (
         <View style={styles.container}>
-
+            {/* Header Section */}
             <View style={{ marginHorizontal: 20, paddingTop: 10 }}>
-                <Heading title="Appartment Fleur De Lys" />
-                <TouchableOpacity onPress={()=>router.push("./archive-cleaning")}>
-                    <H6 style={styles.archiveText}>Archived Cleanings</H6>
+               <Heading title={t("properties.title")} />
+                <TouchableOpacity onPress={() => router.push("./archive-cleaning")}>
+                    <H6 style={styles.archiveText}>{t("cleanings.archived")}</H6>;
                 </TouchableOpacity>
             </View>
 
@@ -68,7 +85,7 @@ export default function CalenderProperty() {
                     {daysArray.map((day, index) => (
                         <TouchableOpacity
                             key={index}
-                            onPress={() => toggleDay(day)}
+                            onPress={() => handleDayPress(day)}
                             disabled={!day}
                             style={[
                                 styles.dayBox,
@@ -97,7 +114,7 @@ export default function CalenderProperty() {
                 </View>
             </ScrollView>
 
-
+            {/* Footer Section */}
             <View style={styles.footer}>
                 <View style={styles.topFooter}>
                     <TouchableOpacity style={styles.dateBtn}>
@@ -109,8 +126,11 @@ export default function CalenderProperty() {
                 </View>
 
                 <View style={styles.bottomFooter}>
-                    <TouchableOpacity style={styles.cleaningBtn}>
-                        <Text style={styles.cleaningText}>Create a{'\n'}Cleaning Request</Text>
+                    <TouchableOpacity
+                        style={styles.cleaningBtn}
+                        onPress={() => router.push("/host/create-cleaning-request")}
+                    >
+                        <Text style={styles.cleaningText}>{"Create a\nCleaning Request"}</Text>
                     </TouchableOpacity>
 
                     <View style={styles.guestSection}>
@@ -128,14 +148,14 @@ export default function CalenderProperty() {
             </View>
         </View>
     );
-};
-
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
     archiveText: {
         marginTop: 5,
+        paddingBottom:10,
         textAlign: "center",
         textDecorationLine: 'underline',
         color: Colors.SECONDARY

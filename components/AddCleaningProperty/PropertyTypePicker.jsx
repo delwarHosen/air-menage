@@ -16,7 +16,7 @@ const PropertyTypePicker = ({ value, onChange }) => {
                 onPress={() => onChange("Apartment")}
             >
                 <ApartmentIcon />
-                <Body2>Apartment</Body2>
+                <Body2 style={styles.title}>Apartment</Body2>
             </TouchableOpacity>
 
             {/* Home Option */}
@@ -28,7 +28,7 @@ const PropertyTypePicker = ({ value, onChange }) => {
                 onPress={() => onChange("Home")}
             >
                 <ApartmantHomeIcon />
-                <Body2>Home</Body2>
+                <Body2 style={styles.title}>Home</Body2>
             </TouchableOpacity>
         </View>
     );
@@ -37,9 +37,12 @@ const PropertyTypePicker = ({ value, onChange }) => {
 export default PropertyTypePicker;
 
 const styles = StyleSheet.create({
-    propertyContainer: { flexDirection: "row", gap: 10 },
+    propertyContainer: { flexDirection: "row", gap: 10,
+        justifyContent:"center",
+        alignItems:"center"
+     },
     propertyCard: {
-        flex: 1,
+        width:"30%",
         height: 100,
         borderWidth: 1,
         borderRadius: 12,
@@ -47,6 +50,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#fff",
         borderColor: Colors.BORDER_COLOR,
+        marginVertical:20
     },
-    active: { borderColor: Colors.PRIMARY },
+    title:{
+        marginTop:15
+    },
+    active: { borderColor: Colors.PRIMARY, },
 })

@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { LineHandlinhgIcon, TissuIcon } from '../../assets/icons/Icons';
 import { Body2, H5, H6 } from '../typo/typography';
 
 export default function LinenHandlingForm({ selectedOption, setSelectedOption, dropOffAddress, setDropOffAddress }) {
+    const { t } = useTranslation();
+
     const LinenOption = ({ id, icon, title, selected, onPress }) => (
         <Pressable
             style={[styles.optionCard, selected && styles.optionCardSelected]}
@@ -16,12 +19,12 @@ export default function LinenHandlingForm({ selectedOption, setSelectedOption, d
 
     return (
         <View>
-            <H5 style={styles.sectionTitle}>How would like the bed linens be handled?</H5>
+            <H5 style={styles.sectionTitle}>{t('linen.section_title')}</H5>
 
             <LinenOption
                 id="change"
                 icon={<LineHandlinhgIcon />}
-                title="Change the bed linens and place the used linens inside the property"
+                title={t('linen.change')}
                 selected={selectedOption === 'change'}
                 onPress={() => setSelectedOption('change')}
             />
@@ -29,7 +32,7 @@ export default function LinenHandlingForm({ selectedOption, setSelectedOption, d
             <LinenOption
                 id="collect"
                 icon={<LineHandlinhgIcon />}
-                title="Collect dirty linens and delivery them to a specified location"
+                title={t('linen.collect')}
                 selected={selectedOption === 'collect'}
                 onPress={() => setSelectedOption('collect')}
             />
@@ -37,24 +40,24 @@ export default function LinenHandlingForm({ selectedOption, setSelectedOption, d
             <LinenOption
                 id="wash"
                 icon={<LineHandlinhgIcon />}
-                title="Wash and dry linens off-site, then return them cleaner"
+                title={t('linen.wash')}
                 selected={selectedOption === 'wash'}
                 onPress={() => setSelectedOption('wash')}
             />
 
-            <H6 style={{marginTop:30,marginBottom:10}}>Drop -Off Address</H6>
+            <H6 style={{ marginTop: 30, marginBottom: 10 }}>{t('linen.dropoff_address')}</H6>
             <TextInput
                 style={styles.input}
-                placeholder="under home "
+                placeholder={t('linen.placeholder_address')}
                 placeholderTextColor="#999"
                 value={dropOffAddress}
                 onChangeText={setDropOffAddress}
             />
 
-              <LinenOption
+            <LinenOption
                 id="washs"
                 icon={<TissuIcon />}
-                title="Consumables Refill"
+                title={t('linen.consumables_refill')}
                 selected={selectedOption === 'washs'}
                 onPress={() => setSelectedOption('washs')}
             />

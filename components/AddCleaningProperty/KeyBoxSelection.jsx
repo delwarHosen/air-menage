@@ -1,15 +1,17 @@
 import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Colors } from "../../assets/Colors";
 import { KeyIcon, LockForPropertyIcon } from "../../assets/icons/Icons";
-import { FORM_FIELDS, FORM_PLACEHOLDERS } from "../../constants/form";
+import { FORM_FIELDS } from "../../constants/form";
 import { Body2, Caption } from "../typo/typography";
 import { FormInput } from "../ui/FormInput";
 
-const KeyBoxSelection = ({ control, errors }) => {
+export const KeyBoxSelection = ({ control, errors }) => {
+    const { t } = useTranslation();
+
     return (
         <View style={styles.keyBoxContainer}>
-            {/* Key Handover Type Selection */}
             <Controller
                 control={control}
                 name="keyHandover"
@@ -17,46 +19,39 @@ const KeyBoxSelection = ({ control, errors }) => {
                     <>
                         <TouchableOpacity
                             onPress={() => onChange("handover")}
-                            style={[
-                                styles.keyOption,
-                                value === "handover" && styles.activeBorder
-                            ]}
+                            style={[styles.keyOption, value === "handover" && styles.activeBorder]}
                         >
                             <KeyIcon />
                             <View style={styles.textContainer}>
-                                <Body2>In-person key handover</Body2>
-                                <Caption>Meet the cleaner to give keys</Caption>
+                                <Body2>{t("keybox.in_person")}</Body2>
+                                <Caption>{t("keybox.in_person_caption")}</Caption>
                             </View>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             onPress={() => onChange("lockbox")}
-                            style={[
-                                styles.keyOption,
-                                value === "lockbox" && styles.activeBorder
-                            ]}
+                            style={[styles.keyOption, value === "lockbox" && styles.activeBorder]}
                         >
                             <LockForPropertyIcon />
                             <View style={styles.textContainer}>
-                                <Body2>Lockbox</Body2>
-                                <Caption>Lockbox Code Released 24 Hours Before Mission</Caption>
+                                <Body2>{t("keybox.lockbox")}</Body2>
+                                <Caption>{t("keybox.lockbox_caption")}</Caption>
                             </View>
                         </TouchableOpacity>
                     </>
                 )}
             />
 
-            {/* KeyBox Location Input */}
             <Controller
                 control={control}
                 name={FORM_FIELDS.KEY_LOCATION}
                 render={({ field: { onChange, value } }) => (
                     <View>
-                        <Body2 style={styles.inputLabel}>Keybox Location</Body2>
+                        <Body2 style={styles.inputLabel}>{t("keybox.location")}</Body2>
                         <FormInput
                             value={value}
                             onChangeText={onChange}
-                            placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.KEY_LOCATION]}
+                            placeholder={t("keybox.placeholders.location")}
                             error={errors[FORM_FIELDS.KEY_LOCATION]?.message}
                             required
                         />
@@ -64,17 +59,16 @@ const KeyBoxSelection = ({ control, errors }) => {
                 )}
             />
 
-            {/* Lockbox Code Input */}
             <Controller
                 control={control}
                 name={FORM_FIELDS.KEY_PASSWORD}
                 render={({ field: { onChange, value } }) => (
                     <View>
-                        <Body2 style={styles.inputLabel}>Lockbox Code</Body2>
+                        <Body2 style={styles.inputLabel}>{t("keybox.code")}</Body2>
                         <FormInput
                             value={value}
                             onChangeText={onChange}
-                            placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.KEY_PASSWORD]}
+                            placeholder={t("keybox.placeholders.code")}
                             error={errors[FORM_FIELDS.KEY_PASSWORD]?.message}
                             required
                         />
@@ -85,7 +79,6 @@ const KeyBoxSelection = ({ control, errors }) => {
     );
 };
 
-export default KeyBoxSelection;
 
 
 const styles = StyleSheet.create({

@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    View
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View
 } from 'react-native';
 
 import { Colors } from '../../assets/Colors';
-import { Body1, Body2, ButtonText, H2, H3, H5, H6 } from '../typo/typography';
+import { Body1, Body2, ButtonText, H2, H3, H5 } from '../typo/typography';
 
 import { IMAGE_COMPONENTS } from '../../assets/image.index';
 import DatePicker from './DatePicker';
@@ -19,186 +20,164 @@ import PropertySelector from './PropertySelector';
 import TimePicker from './TimePicker';
 
 const properties = [
-    { id: '1', name: 'San Francisco', img: IMAGE_COMPONENTS.selectPropertiImage, area: '50 m²', beds: '2 Bed', featured: true },
-    { id: '2', name: 'New York Loft', img: IMAGE_COMPONENTS.selectPropertiImage, area: '75 m²', beds: '3 Bed', featured: true },
-    { id: '3', name: 'Miami Beach House', img: IMAGE_COMPONENTS.selectPropertiImage, area: '120 m²', beds: '4 Bed', featured: false },
-    { id: '4', name: 'Los Angeles Studio', img: IMAGE_COMPONENTS.selectPropertiImage, area: '35 m²', beds: '1 Bed', featured: false },
-    { id: '5', name: 'Chicago Apartment', img: IMAGE_COMPONENTS.selectPropertiImage, area: '60 m²', beds: '2 Bed', featured: true },
+  { id: '1', name: 'San Francisco', img: IMAGE_COMPONENTS.selectPropertiImage, area: '50 m²', beds: '2 Bed', featured: true },
+  { id: '2', name: 'New York Loft', img: IMAGE_COMPONENTS.selectPropertiImage, area: '75 m²', beds: '3 Bed', featured: true },
+  { id: '3', name: 'Miami Beach House', img: IMAGE_COMPONENTS.selectPropertiImage, area: '120 m²', beds: '4 Bed', featured: false },
+  { id: '4', name: 'Los Angeles Studio', img: IMAGE_COMPONENTS.selectPropertiImage, area: '35 m²', beds: '1 Bed', featured: false },
+  { id: '5', name: 'Chicago Apartment', img: IMAGE_COMPONENTS.selectPropertiImage, area: '60 m²', beds: '2 Bed', featured: true },
 ];
 
 export default function PropertyBookingScreens() {
-    const [selectedProperty, setSelectedProperty] = useState(properties[0]);
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [startTime, setStartTime] = useState('10:30');
-    const [endTime, setEndTime] = useState('12:00');
-    const [cleaningTime, setCleaningTime] = useState('');
-    const [selectedOption, setSelectedOption] = useState('collect');
-    const [dropOffAddress, setDropOffAddress] = useState('');
-    const [rate, setRate] = useState(50);
-    const [sendToFavorites, setSendToFavorites] = useState(false);
-    const [priceListVisible, setPriceListVisible] = useState(false);
+  const { t } = useTranslation();
 
-    
-    useEffect(() => {
-        const [sh, sm] = startTime.split(':').map(Number);
-        const [eh, em] = endTime.split(':').map(Number);
+  const [selectedProperty, setSelectedProperty] = useState(properties[0]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [startTime, setStartTime] = useState('10:30');
+  const [endTime, setEndTime] = useState('12:00');
+  const [cleaningTime, setCleaningTime] = useState('');
+  const [selectedOption, setSelectedOption] = useState('collect');
+  const [dropOffAddress, setDropOffAddress] = useState('');
+  const [rate, setRate] = useState(50);
+  const [sendToFavorites, setSendToFavorites] = useState(false);
+  const [priceListVisible, setPriceListVisible] = useState(false);
 
-        let startMinutes = sh * 60 + sm;
-        let endMinutes = eh * 60 + em;
+  useEffect(() => {
+    const [sh, sm] = startTime.split(':').map(Number);
+    const [eh, em] = endTime.split(':').map(Number);
 
-        if (endMinutes <= startMinutes) {
-            endMinutes += 12 * 60;
-        }
+    let startMinutes = sh * 60 + sm;
+    let endMinutes = eh * 60 + em;
 
-        const diff = endMinutes - startMinutes;
-        const hours = Math.floor(diff / 60);
-        const minutes = diff % 60;
+    if (endMinutes <= startMinutes) endMinutes += 12 * 60;
 
-        if (hours && minutes) {
-            setCleaningTime(`${hours} Hour${hours > 1 ? 's' : ''} ${minutes} min`);
-        } else if (hours) {
-            setCleaningTime(`${hours} Hour${hours > 1 ? 's' : ''}`);
-        } else {
-            setCleaningTime(`${minutes} min`);
-        }
-    }, [startTime, endTime]);
+    const diff = endMinutes - startMinutes;
+    const hours = Math.floor(diff / 60);
+    const minutes = diff % 60;
 
-    
-    const handleCreateBooking = () => {
-        const bookingPayload = {
-            propertyDetails: {
-                id: selectedProperty.id,
-                name: selectedProperty.name,
-                image: selectedProperty.img, 
-                area: selectedProperty.area,
-                beds: selectedProperty.beds
-            },
-            bookingDate: selectedDate.toDateString(),
-            timing: {
-                start: startTime,
-                end: endTime,
-                totalDuration: cleaningTime
-            },
-            linenService: {
-                type: selectedOption,
-                address: selectedOption === 'deliver' ? dropOffAddress : 'Inside Property'
-            },
-            rateDetails: {
-                amount: rate,
-                currency: '€'
-            },
-            settings: {
-                sendToFavorites: sendToFavorites
-            }
-        };
+    if (hours && minutes) {
+      setCleaningTime(
+        t('booking.duration_hours_minutes', { hours, minutes })
+      );
+    } else if (hours) {
+      setCleaningTime(
+        t('booking.duration_hours', { hours })
+      );
+    } else {
+      setCleaningTime(
+        t('booking.duration_minutes', { minutes })
+      );
+    }
+  }, [startTime, endTime, t]);
 
-        console.log("======= ALL BOOKING DATA (WITH IMAGE) =======");
-        console.log(JSON.stringify(bookingPayload, null, 2));
-        console.log("================================");
-    };
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          {/* <H6 style={{ marginBottom: 8 }}>
+            {t('booking.select_property')}
+          </H6> */}
 
-    return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-        >
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.content}>
-                    <H6 style={{ marginBottom: 8 }}>Select Property</H6>
-                    
-                    <PropertySelector
-                        properties={properties}
-                        selectedProperty={selectedProperty}
-                        onSelect={setSelectedProperty}
-                    />
+          <PropertySelector
+            properties={properties}
+            selectedProperty={selectedProperty}
+            onSelect={setSelectedProperty}
+          />
 
-                    <DatePicker
-                        selectedDate={selectedDate}
-                        onSelectDate={setSelectedDate}
-                    />
+          <DatePicker
+            selectedDate={selectedDate}
+            onSelectDate={setSelectedDate}
+          />
 
-                    <TimePicker
-                        startTime={startTime}
-                        endTime={endTime}
-                        setStartTime={setStartTime}
-                        setEndTime={setEndTime}
-                        cleaningTime={cleaningTime}
-                    />
+          <TimePicker
+            startTime={startTime}
+            endTime={endTime}
+            setStartTime={setStartTime}
+            setEndTime={setEndTime}
+            cleaningTime={cleaningTime}
+          />
 
-                    <LinenHandlingForm
-                        selectedOption={selectedOption}
-                        setSelectedOption={setSelectedOption}
-                        dropOffAddress={dropOffAddress}
-                        setDropOffAddress={setDropOffAddress}
-                    />
+          <LinenHandlingForm
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            dropOffAddress={dropOffAddress}
+            setDropOffAddress={setDropOffAddress}
+          />
 
-                    <View style={styles.bottomSection}>
-                        <H5 style={styles.sectionTitle}>Select a rate</H5>
+          <View style={styles.bottomSection}>
+            <H5 style={styles.sectionTitle}>
+              {t('booking.select_rate')}
+            </H5>
 
-                        <View style={styles.rateSelector}>
-                            <Pressable
-                                style={styles.rateButton}
-                                onPress={() => setRate(prev => Math.max(0, prev - 5))}
-                            >
-                                <H3>-</H3>
-                            </Pressable>
+            <View style={styles.rateSelector}>
+              <Pressable
+                style={styles.rateButton}
+                onPress={() => setRate(prev => Math.max(0, prev - 5))}
+              >
+                <H3>-</H3>
+              </Pressable>
 
-                            <H2>{rate}€</H2>
+              <H2>{rate}€</H2>
 
-                            <Pressable
-                                style={styles.rateButton}
-                                onPress={() => setRate(prev => prev + 5)}
-                            >
-                                <H3>+</H3>
-                            </Pressable>
-                        </View>
+              <Pressable
+                style={styles.rateButton}
+                onPress={() => setRate(prev => prev + 5)}
+              >
+                <H3>+</H3>
+              </Pressable>
+            </View>
 
-                        <Pressable
-                            style={styles.priceListButton}
-                            onPress={() => setPriceListVisible(true)}
-                        >
-                            <Body1 style={styles.priceListText}>Price List</Body1>
-                        </Pressable>
+            <Pressable
+              style={styles.priceListButton}
+              onPress={() => setPriceListVisible(true)}
+            >
+              <Body1 style={styles.priceListText}>
+                {t('booking.price_list')}
+              </Body1>
+            </Pressable>
 
-                        <Pressable
-                            style={styles.favoriteSection}
-                            onPress={() => setSendToFavorites(prev => !prev)}
-                        >
-                            <View>
-                                <H5 style={styles.favoriteTitle}>
-                                    Send To My Favorite Cleaners
-                                </H5>
-                                <Body2 style={styles.favoriteSubtitle}>
-                                    Favorite Cleaners
-                                </Body2>
-                            </View>
+            <Pressable
+              style={styles.favoriteSection}
+              onPress={() => setSendToFavorites(prev => !prev)}
+            >
+              <View>
+                <H5 style={styles.favoriteTitle}>
+                  {t('booking.send_to_favorites')}
+                </H5>
+                <Body2 style={styles.favoriteSubtitle}>
+                  {t('booking.favorite_cleaners')}
+                </Body2>
+              </View>
 
-                            <View style={[styles.toggle, sendToFavorites && styles.toggleActive]}>
-                                <View
-                                    style={[
-                                        styles.toggleThumb,
-                                        sendToFavorites && styles.toggleThumbActive
-                                    ]}
-                                />
-                            </View>
-                        </Pressable>
+              <View style={[styles.toggle, sendToFavorites && styles.toggleActive]}>
+                <View
+                  style={[
+                    styles.toggleThumb,
+                    sendToFavorites && styles.toggleThumbActive
+                  ]}
+                />
+              </View>
+            </Pressable>
 
-                        <Pressable style={styles.createButton} onPress={handleCreateBooking}>
-                            <ButtonText style={styles.createButtonText}>
-                                Create Now
-                            </ButtonText>
-                        </Pressable>
-                    </View>
-                </View>
-            </ScrollView>
+            <Pressable style={styles.createButton}>
+              <ButtonText style={styles.createButtonText}>
+                {t('booking.create_now')}
+              </ButtonText>
+            </Pressable>
+          </View>
+        </View>
+      </ScrollView>
 
-            <PriceListModal
-                visible={priceListVisible}
-                onClose={() => setPriceListVisible(false)}
-            />
-        </KeyboardAvoidingView>
-    );
+      <PriceListModal
+        visible={priceListVisible}
+        onClose={() => setPriceListVisible(false)}
+      />
+    </KeyboardAvoidingView>
+  );
 }
+
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#FAFAFA' },

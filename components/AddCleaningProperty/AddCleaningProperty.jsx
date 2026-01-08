@@ -23,7 +23,7 @@ import { Body2, H6 } from "../typo/typography";
 import { FormInput } from "../ui/FormInput";
 
 import CounterPropertySpecification from "./CounterPropertySpecification";
-import KeyBoxSelection from "./KeyBoxSelection";
+import { KeyBoxSelection } from "./KeyBoxSelection";
 import PropertyTypePicker from "./PropertyTypePicker";
 import WorkTypeList from "./WorkTypeSection";
 
@@ -150,12 +150,14 @@ export default function AddCleaningProperty() {
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView
-                style={{ flex: 1 }}
                 behavior={Platform.OS === "ios" ? "padding" : undefined}
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
             >
                 <ScrollView
-                    contentContainerStyle={styles.scrollContainer}
+                    contentContainerStyle={{ paddingBottom: 80 }}
                     keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}
                 >
                     {/* Property Title */}
                     <Controller
@@ -167,6 +169,7 @@ export default function AddCleaningProperty() {
                                 value={field.value}
                                 onChangeText={field.onChange}
                                 placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.PROPERTY_TITLE]}
+                                placeholderTextColor="#3F3F4680"
                                 required
                             />
                         )}
@@ -371,8 +374,16 @@ export default function AddCleaningProperty() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: "#FAFAFA" },
-    scrollContainer: { padding: 16 },
+    container: {
+        flex: 1,
+        backgroundColor: "#FAFAFA",
+        paddingHorizontal:"3%",
+        paddingTop:20
+    },
+    scrollContainer: {
+        padding: 16,
+        paddingBottom: 80
+    },
     label: { marginVertical: 10 },
 
 

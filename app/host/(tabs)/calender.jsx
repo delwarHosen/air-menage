@@ -9,6 +9,7 @@ import {
 
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../../assets/Colors";
 import { CalenderIconView } from "../../../assets/icons/Icons";
@@ -16,30 +17,33 @@ import { Body2, Caption, H5, H6 } from "../../../components/typo/typography";
 import { calenderCardData } from "../../../store/CalenderCard";
 
 export default function Home() {
+  const { t } = useTranslation();
   const router = useRouter();
 
-  // Render Item Function
   const renderItem = ({ item }) => (
-    <View style={styles.propertyCard}>
-      <Image 
-        source={item.Image} 
-        style={styles.image} 
-        contentFit="cover" 
+
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={styles.propertyCard}
+      onPress={() => router.push("/host/calender-property")}
+    >
+      <Image
+        source={item.Image}
+        style={styles.image}
+        contentFit="cover"
         transition={200}
       />
 
       <View style={styles.textContainer}>
-        <H6 style={styles.title} numberOfLines={1}>{item.Title}</H6>
-        <Body2 style={styles.host}>{item.HostName}</Body2>
-        <Caption>{item.Location}</Caption>
+        <H6 style={styles.title} numberOfLines={1}>{String(item.Title)}</H6>
+        <Body2 style={styles.host}>{String(item.HostName)}</Body2>
+        <Caption>{String(item.Location)}</Caption>
       </View>
 
-      <TouchableOpacity style={styles.iconWrapper}
-      onPress={()=>router.push("/host/calender-property")}
-      >
+      <View style={styles.iconWrapper}>
         <CalenderIconView />
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -55,7 +59,7 @@ export default function Home() {
           // Header section (Title) ekhane thakbe
           ListHeaderComponent={() => (
             <View style={styles.headerContainer}>
-              <H5>Calendar</H5>
+              <H5>{t("tabs.calender")}</H5>
             </View>
           )}
           // List-er side padding ekhane hobe
@@ -76,15 +80,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   listContent: {
-    paddingHorizontal: "2.5%", 
-    paddingBottom: 40,    
+    paddingHorizontal: "2.5%",
+    paddingBottom: 40,
   },
   propertyCard: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 8,
     marginVertical: 8,
-    paddingVertical: 8 ,
+    paddingVertical: 8,
     borderWidth: 1,
     borderColor: Colors.BORDER_COLOR || "#E5E5E5",
     borderRadius: 12,

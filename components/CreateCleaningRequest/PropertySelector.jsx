@@ -1,5 +1,6 @@
 import { Image } from 'expo-image';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Animated,
     Easing,
@@ -18,9 +19,9 @@ import {
 import { Caption, H6 } from '../typo/typography';
 
 export default function PropertySelector({ properties, selectedProperty, onSelect }) {
+    const { t } = useTranslation();
     const [modalVisible, setModalVisible] = useState(false);
 
-    // 👇 animation value
     const slideAnim = useRef(new Animated.Value(600)).current;
 
     const openModal = () => {
@@ -43,12 +44,14 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
     };
 
     const handleSelect = (property) => {
-        onSelect(property); // এটি মেইন স্ক্রিনের স্টেট আপডেট করবে
-        closeModal();       // সিলেক্ট করার পর মডাল বন্ধ হবে
+        onSelect(property);
+        closeModal();
     };
 
     return (
         <>
+            <H6 style={{ marginBottom: 8 }}>{t('property_selector.select_property')}</H6>
+
             {/* Selected Property Card */}
             <TouchableOpacity style={styles.propertyCard} onPress={openModal}>
                 <View style={styles.propertyImage}>
@@ -83,32 +86,29 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
             {/* Modal */}
             <Modal transparent visible={modalVisible} animationType="none">
                 <View style={styles.modalOverlay}>
-                    {/* Backdrop click to close */}
                     <TouchableOpacity
                         style={StyleSheet.absoluteFill}
                         activeOpacity={1}
                         onPress={closeModal}
                     />
-
                     <Animated.View
                         style={[
                             styles.modalContent,
                             { transform: [{ translateY: slideAnim }] }
                         ]}
                     >
-                        {/* মডালের ভেতরে লিস্ট */}
                         <FlatList
                             data={properties}
                             keyExtractor={(item) => item.id}
                             showsVerticalScrollIndicator={false}
                             contentContainerStyle={{ paddingVertical: 20 }}
                             renderItem={({ item }) => (
-                                <TouchableOpacity 
+                                <TouchableOpacity
                                     style={[
-                                        styles.modalPropertyCard, 
-                                        selectedProperty.id === item.id && styles.activeCardBorder // সিলেক্টেড বর্ডার
-                                    ]} 
-                                    onPress={() => handleSelect(item)} // ✅ এখানে handleSelect কল হবে
+                                        styles.modalPropertyCard,
+                                        selectedProperty.id === item.id && styles.activeCardBorder
+                                    ]}
+                                    onPress={() => handleSelect(item)}
                                 >
                                     <View style={styles.propertyImage}>
                                         <Image
@@ -145,6 +145,7 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
     );
 }
 
+
 const styles = StyleSheet.create({
     propertyCard: {
         backgroundColor: '#fff',
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        height: '60%', 
+        height: '60%',
     },
     modalPropertyCard: {
         flexDirection: 'row',
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     activeCardBorder: {
-        borderColor: '#1A1A1A', 
+        borderColor: '#1A1A1A',
         backgroundColor: '#F9F9F9'
     }
 });

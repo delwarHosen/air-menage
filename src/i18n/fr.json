@@ -1,61 +1,61 @@
 {
     "home": {
-        "title": "Commencez la Vérification",
-        "description": "Recevez des missions de nettoyage à proximité, choisissez les emplois qui conviennent à votre emploi du temps.",
+        "title": "Commencez avec la vérification",
+        "description": "Recevez des missions de nettoyage des hôtes à proximité, choisissez les tâches qui correspondent à votre emploi du temps.",
         "button": "Commencer"
     },
     "role_page": {
-        "title": "Travaillez à votre façon",
-        "description": "Acceptez les missions qui vous intéressent, gérez votre emploi du temps en toute simplicité et profitez-en !",
+        "title": "Travaillez à votre manière",
+        "description": "Acceptez les missions que vous souhaitez, gérez facilement votre emploi du temps et profitez-en",
         "button1": "Continuer en tant qu'hôte",
-        "button2": "Continue as Cleaner"
+        "button2": "Continuer en tant que nettoyeur"
     },
     "login": {
-        "title": "Se connecter avec un e-mail",
-        "label": "E-mail",
-        "placeholder": "Saisissez votre adresse e-mail",
-        "password": "Password",
-        "button": "Se connecter",
+        "title": "Connexion avec Email",
+        "label": "Email",
+        "placeholder": "Entrez votre email",
+        "password": "Mot de passe",
+        "button": "Connexion",
         "signup": "S'inscrire",
         "Forgot_Password": "Mot de passe oublié"
     },
     "signup": {
-        "title": "Inscrivez-vous avec Email",
+        "title": "S'inscrire avec Email",
         "fullName": "Nom complet",
         "email": "Email",
         "password": "Mot de passe",
         "confirmPassword": "Confirmer le mot de passe",
         "signUp": "S'inscrire",
-        "signingUp": "Inscription...",
-        "terms": "D'accord avec",
-        "teems_cond": "Conditions générales",
+        "signingUp": "Inscription en cours...",
+        "terms": "Accepter les ",
+        "teems_cond": "Termes et Conditions",
         "or": "ou",
         "errors": {
             "required": "Ce champ est requis",
-            "invalidEmail": "Adresse e-mail invalide",
+            "invalidEmail": "Adresse email invalide",
             "passwordMismatch": "Les mots de passe ne correspondent pas",
             "passwordMin": "Le mot de passe doit contenir au moins 6 caractères"
         }
     },
     "forgotPassword": {
         "title": "Mot de passe oublié",
-        "description": "Veuillez saisir votre adresse e-mail pour recevoir un code de vérification.",
-        "emailLabel": "Adresse e-mail",
-        "emailPlaceholder": "Entrez votre e-mail",
+        "description": "Veuillez entrer votre adresse e-mail pour recevoir un code de vérification.",
+        "emailLabel": "Adresse email",
+        "emailPlaceholder": "Entrez votre email",
         "getCode": "Obtenir le code",
         "sending": "Envoi...",
-        "enterEmailError": "Veuillez entrer votre e-mail",
+        "enterEmailError": "Veuillez entrer votre email",
         "verificationSent": "Code de vérification envoyé !",
         "verificationFailed": "Échec de l'envoi du code"
     },
     "verification": {
         "title": "Code de vérification",
-        "description": "Veuillez saisir le code à 4 chiffres envoyé à votre adresse e-mail.",
+        "description": "Veuillez entrer le code à 4 chiffres envoyé à votre adresse e-mail.",
         "notReceived": "Vous n'avez pas reçu le code ?",
         "resendCode": "Renvoyer le code",
         "resendIn": "Renvoyer dans",
         "verifyButton": "Vérifier",
-        "enterCodeError": "Veuillez saisir le code à 4 chiffres",
+        "enterCodeError": "Veuillez entrer le code à 4 chiffres",
         "verificationSuccess": "Vérification réussie !",
         "verificationResent": "Code de vérification renvoyé !"
     },
@@ -69,7 +69,7 @@
         "passwordsMismatch": "Les mots de passe ne correspondent pas",
         "resetButton": "Réinitialiser le mot de passe",
         "updating": "Mise à jour...",
-        "success": "Mot de passe réinitialisé avec succès !",
+        "success": "Réinitialisation du mot de passe réussie !",
         "failed": "Échec de la réinitialisation du mot de passe"
     },
     "menu": {
@@ -79,16 +79,16 @@
         "sections": {
             "accountSettings": "Paramètres du compte",
             "preferences": "Mes préférences",
-            "legal": "Mentions légales"
+            "legal": "Juridique"
         },
         "items": {
             "personalInfo": "Informations personnelles",
-            "payment": "Paiement et traduction",
-            "passwordSecurity": "Mot de passe et sécurité",
+            "payment": "Paiement & Traduction",
+            "passwordSecurity": "Mot de passe & Sécurité",
             "getHelp": "Obtenir de l'aide",
             "identityVerification": "Vérification d'identité",
             "language": "Langue",
-            "favoriteCleaner": "Nettoyeur favori",
+            "favoriteCleaner": "Nettoyeur préféré",
             "aboutUs": "À propos de nous",
             "terms": "Conditions d'utilisation",
             "privacy": "Politique de confidentialité",
@@ -104,7 +104,7 @@
         },
         "tabs": {
             "pending": "En attente",
-            "confirm": "Confirmées"
+            "confirm": "Confirmé"
         },
         "content": {
             "pending": "Affichage des demandes en attente...",
@@ -112,14 +112,14 @@
         },
         "empty": {
             "title": "Aucune demande pour le moment !",
-            "description": "Restez informé des dernières réservations correspondant à votre disponibilité."
+            "description": "Restez à jour avec les dernières réservations correspondant à votre disponibilité."
         }
     },
     "host_personal_info": {
         "title": "Informations personnelles",
         "fields": {
             "fullName": "Nom complet",
-            "email": "E-mail",
+            "email": "Email",
             "phone": "Numéro de téléphone",
             "address": "Adresse",
             "city": "Ville",
@@ -153,28 +153,28 @@
         }
     },
     "wallet_payment_summary": {
-        "title": "Portefeuille & Résumé des paiements",
+        "title": "Résumé du portefeuille & paiement",
         "tabs": {
-            "myPayment": "Mes Paiements",
+            "myPayment": "Mes paiements",
             "pending": "En attente",
-            "refound": "Remboursé"
+            "refound": "Remboursement"
         },
         "fields": {
             "totalPrice": "Prix total",
             "transactionId": "ID de transaction",
             "date": "Date",
-            "location": "Lieu",
+            "location": "Emplacement",
             "delete": "Supprimer"
         },
         "empty": "Aucune transaction trouvée.",
         "status": {
             "success": "Réussi",
             "pending": "En attente",
-            "refound": "Remboursé"
+            "refound": "Remboursement"
         }
     },
     "password_security": {
-        "title": "Mot de passe et sécurité",
+        "title": "Mot de passe & Sécurité",
         "actions": {
             "changePassword": "Changer le mot de passe",
             "deleteAccount": "Supprimer le compte"
@@ -201,9 +201,9 @@
                 "errorRequired": "Le nom complet est requis"
             },
             "email": {
-                "label": "E-mail",
-                "placeholder": "Entrez votre e-mail",
-                "errorInvalid": "Adresse e-mail invalide"
+                "label": "Email",
+                "placeholder": "Entrez votre email",
+                "errorInvalid": "Adresse email invalide"
             },
             "description": {
                 "label": "Message",
@@ -223,12 +223,12 @@
         }
     },
     "cleaner_details": {
-        "title": "Détails du Nettoyeur",
+        "title": "Détails du nettoyeur",
         "serviceDescription": "Description du service",
         "seeMore": "Voir plus",
         "reviews": "Avis",
         "notFound": "Nettoyeur introuvable",
-        "workManaged": "Travail géré",
+        "workManaged": "Travaux gérés",
         "evaluation": "Évaluation",
         "overallScore": "Score global"
     },
@@ -238,22 +238,22 @@
             {
                 "id": 1,
                 "title": "Portée du service",
-                "content": "MYTRAINERR fournit une plateforme en ligne qui met en relation les personnes recherchant un entraînement physique ('Clients') avec des entraîneurs personnels ('Trainers')."
+                "content": "MYTRAINERR fournit une plateforme en ligne qui connecte les individus cherchant un entraînement fitness ('Clients') avec des entraîneurs personnels ('Trainers')."
             },
             {
                 "id": 2,
-                "title": "Comptes utilisateurs et responsabilités",
-                "content": "Pour accéder à nos services, vous devez vous inscrire. Vous acceptez de fournir des informations exactes, actuelles et complètes lors de l'inscription."
+                "title": "Comptes utilisateurs & responsabilités",
+                "content": "Pour accéder à nos services, vous devez vous inscrire et fournir des informations exactes et complètes lors du processus d'inscription."
             },
             {
                 "id": 3,
                 "title": "Réservation et paiement",
-                "content": "Les clients peuvent réserver des séances avec les entraîneurs via l'application. Tous les paiements sont traités par un prestataire de paiement tiers."
+                "content": "Les clients peuvent réserver des sessions avec les entraîneurs via l'application. Tous les paiements sont traités par notre fournisseur de paiement tiers."
             },
             {
                 "id": 4,
-                "title": "Responsabilité et avertissements",
-                "content": "MYTRAINERR est un fournisseur de plateforme et n'est pas responsable de la qualité de la formation, des conseils ou des blessures pouvant survenir lors d'une séance. Les clients doivent effectuer leur propre diligence raisonnable."
+                "title": "Responsabilité & disclaimers",
+                "content": "MYTRAINERR est un fournisseur de plateforme et n'est pas responsable de la qualité de l'entraînement, des conseils ou de tout incident pouvant survenir lors d'une session. Les clients doivent faire preuve de diligence."
             },
             {
                 "id": 5,
@@ -262,16 +262,114 @@
             },
             {
                 "id": 6,
-                "title": "Informations de contact",
+                "title": "Coordonnées",
                 "content": "Pour toute question concernant ces conditions, veuillez nous contacter à legal@mytrainerr.app."
             }
         ]
     },
     "tabs": {
-    "home": "Accueil",
-    "calender": "Calendrier",
-    "properties": "Propriétés",
-    "message": "Messages",
-    "menu": "Menu"
-  }
+        "home": "Accueil",
+        "calender": "Calendrier",
+        "properties": "Propriétés",
+        "message": "Messages",
+        "menu": "Menu"
+    },
+    "property_tabs": {
+        "home": "Accueil",
+        "calender": "Calendrier",
+        "properties": "Propriétés",
+        "message": "Messages",
+        "menu": "Menu"
+    },
+    "properties": {
+        "my_properties": "Mes propriétés",
+        "create_cleaning_request": "Créer une demande de nettoyage",
+        "add_properties": "Ajouter des propriétés",
+        "overview": "Aperçu des propriétés",
+        "title": "Appartement Fleur De Lys"
+    },
+    "create_cleaning": {
+        "title": "Créer une demande de nettoyage"
+    },
+    "booking": {
+        "select_property": "Sélectionnez la propriété",
+        "select_rate": "Sélectionnez un tarif",
+        "price_list": "Liste des prix",
+        "send_to_favorites": "Envoyer à mes nettoyeurs favoris",
+        "favorite_cleaners": "Nettoyeurs favoris",
+        "create_now": "Créer maintenant",
+        "duration_hours_minutes": "{{hours}} Heure{{hours > 1 ? 's' : ''}} {{minutes}} min",
+        "duration_hours": "{{hours}} Heure{{hours > 1 ? 's' : ''}}",
+        "duration_minutes": "{{minutes}} min"
+    },
+    "property_selector": {
+        "select_property": "Sélectionnez la propriété"
+    },
+    "datepicker": {
+        "label": "Date",
+        "select_date": "Sélectionner une date",
+        "cancel": "Annuler",
+        "ok": "OK"
+    },
+    "timepicker": {
+        "loading": "Chargement...",
+        "start_time": "Heure de début",
+        "select_start_time": "Sélectionner l'heure de début",
+        "end_time": "Heure de fin",
+        "select_end_time": "Sélectionner l'heure de fin",
+        "select_start_time_first": "Sélectionnez d'abord l'heure de début",
+        "estimated_cleaning_time": "Temps de nettoyage estimé"
+    },
+    "linen": {
+        "section_title": "Comment souhaitez-vous que le linge de lit soit traité ?",
+        "change": "Changer le linge de lit et placer le linge usagé à l'intérieur de la propriété",
+        "collect": "Collecter le linge sale et le livrer à un endroit spécifié",
+        "wash": "Laver et sécher le linge hors site, puis le retourner plus propre",
+        "dropoff_address": "Adresse de dépôt",
+        "placeholder_address": "sous la maison",
+        "consumables_refill": "Ravitaillement des consommables"
+    },
+    "price_list": {
+        "title": "Liste des prix",
+        "property_type": "Type de propriété",
+        "surface": "Surface",
+        "price": "Prix",
+        "studio": "Studio / T1",
+        "one_room": "1 chambre / T2",
+        "two_rooms": "2 chambres / T3",
+        "three_rooms": "3 chambres / T4",
+        "four_rooms": "4 chambres / T5",
+        "house": "Maison",
+        "additional_services": "Services supplémentaires",
+        "change_bed": "Changer le linge de lit et placer le linge usagé à l'intérieur de la propriété",
+        "wash_offsite": "Laver et sécher le linge hors site, puis le retourner plus propre",
+        "collect_wash_deliver": "Collecter, laver, sécher et livrer le linge à un endroit spécifié",
+        "consumables_refill": "Ravitaillement des consommables"
+    },
+    "add_property": {
+        "title": "Ajouter des propriétés"
+    },
+    "property_counter": {
+        "bedrooms": "Chambres",
+        "bathrooms": "Salles de bain",
+        "beds": "Lits"
+    },
+    "keybox": {
+        "in_person": "Remise de clé en personne",
+        "in_person_caption": "Rencontrez le nettoyeur pour remettre les clés",
+        "lockbox": "Boîte à clés",
+        "lockbox_caption": "Code de la boîte à clés délivré 24 heures avant la mission",
+        "location": "Emplacement de la boîte à clés",
+        "code": "Code de la boîte à clés",
+        "placeholders": {
+            "location": "Entrez l'emplacement de la boîte à clés",
+            "code": "Entrez le code de la boîte à clés"
+        }
+    },
+    "work_type": {
+        "add_placeholder": "Ajouter un nouveau {{title}}..."
+    },
+    "cleanings": {
+        "archived": "Nettoyages archivés"
+    }
 }

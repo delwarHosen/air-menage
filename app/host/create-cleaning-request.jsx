@@ -1,28 +1,31 @@
+import { useTranslation } from 'react-i18next';
 import { Platform, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
 // import CreateCleaningRequest from "../../components/CreateCleaningRequest/CreateCleaningRequest";
 import CreateCleaningRequest from "../../components/CreateCleaningRequest/CreateCleaningRequest";
 import Heading from '../../components/Heading/Heading';
 
 export default function CreateCleaning() {
-    return (
-        // SafeAreaView ke mukhio container hisebe bebohar korun
-        < >
-            <ScrollView
-                stickyHeaderIndices={[0]}
-                contentContainerStyle={{ paddingBottom: 30 }}
-                showsVerticalScrollIndicator={false}
-            >
-                {/* Sticky Header */}
-                <View style={styles.headerContainer}>
-                    <Heading title="Create a Cleaning Request" />
-                </View>
+  const { t } = useTranslation();
 
-                {/* Scrollable content */}
-               <CreateCleaningRequest/>
-            </ScrollView>
-        </>
-    );
+  return (
+    <>
+      <ScrollView
+        stickyHeaderIndices={[0]}
+        contentContainerStyle={{ paddingBottom: 30 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Sticky Header */}
+        <View style={styles.headerContainer}>
+          <Heading title={t("create_cleaning.title")} />
+        </View>
+
+        {/* Scrollable content */}
+        <CreateCleaningRequest />
+      </ScrollView>
+    </>
+  );
 }
+
 
 const styles = StyleSheet.create({
     safeArea: {

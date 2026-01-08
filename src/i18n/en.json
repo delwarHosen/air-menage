@@ -273,5 +273,107 @@
         "properties": "Properties",
         "message": "Message",
         "menu": "Menu"
+    },
+    "property_tabs": {
+        "home": "Home",
+        "calender": "Calendar",
+        "properties": "Properties",
+        "message": "Message",
+        "menu": "Menu"
+    },
+    "properties": {
+        "my_properties": "My Properties",
+        "create_cleaning_request": "Create Cleaning Request",
+        "add_properties": "Add Properties",
+        "overview": "Properties Overview",
+        "title": "Appartement Fleur De Lys"
+    },
+    "create_cleaning": {
+        "title": "Create a Cleaning Request"
+    },
+    "booking": {
+        "select_property": "Select Property",
+        "select_rate": "Select a rate",
+        "price_list": "Price List",
+        "send_to_favorites": "Send To My Favorite Cleaners",
+        "favorite_cleaners": "Favorite Cleaners",
+        "create_now": "Create Now",
+        "duration_hours_minutes": "{{hours}} Hour{{hours > 1 ? 's' : ''}} {{minutes}} min",
+        "duration_hours": "{{hours}} Hour{{hours > 1 ? 's' : ''}}",
+        "duration_minutes": "{{minutes}} min"
+    },
+    "property_selector": {
+        "select_property": "Select Property"
+    },
+    "datepicker": {
+        "label": "Date",
+        "select_date": "Select Date",
+        "cancel": "Cancel",
+        "ok": "OK"
+    },
+    "timepicker": {
+        "loading": "Loading...",
+        "start_time": "Start Time",
+        "select_start_time": "Select Start Time",
+        "end_time": "End Time",
+        "select_end_time": "Select End Time",
+        "select_start_time_first": "Select Start Time First",
+        "estimated_cleaning_time": "Estimated Cleaning Time"
+    },
+    "linen": {
+        "section_title": "How would like the bed linens be handled?",
+        "change": "Change the bed linens and place the used linens inside the property",
+        "collect": "Collect dirty linens and delivery them to a specified location",
+        "wash": "Wash and dry linens off-site, then return them cleaner",
+        "dropoff_address": "Drop -Off Address",
+        "placeholder_address": "under home",
+        "consumables_refill": "Consumables Refill"
+    },
+    "price_list": {
+        "title": "Price List",
+        "property_type": "Property Type",
+        "surface": "Surface",
+        "price": "Price",
+        "studio": "Studio / T1",
+        "one_room": "1 chambre / T2",
+        "two_rooms": "2 chambres / T3",
+        "three_rooms": "3 chambres / T4",
+        "four_rooms": "4 chambres / T5",
+        "house": "Maison",
+        "additional_services": "Additional Services",
+        "change_bed": "Change the bed linens and place the used linens inside the property",
+        "wash_offsite": "Wash and dry linens off-site, then return them cleaner",
+        "collect_wash_deliver": "Collect, wash, dry and deliver them to a specified location",
+        "consumables_refill": "Consumables Refill"
+    },
+    "add_property": {
+        "title": "Add Properties"
+    },
+    "property_counter": {
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "beds": "Beds"
+    },
+    "keybox": {
+        "in_person": "In-person key handover",
+        "in_person_caption": "Meet the cleaner to give keys",
+        "lockbox": "Lockbox",
+        "lockbox_caption": "Lockbox Code Released 24 Hours Before Mission",
+        "location": "Keybox Location",
+        "code": "Lockbox Code",
+        "placeholders": {
+            "location": "Enter keybox location",
+            "code": "Enter lockbox code"
+        }
+    },
+    "cleanings": {
+        "archived": "Archived Cleanings"
+    },
+    "common": {
+        "create_now": "Create Now",
+        "error_occurred": "Something went wrong"
     }
+   
 }
+
+

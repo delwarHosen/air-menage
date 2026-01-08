@@ -1,17 +1,19 @@
 import { Syne_500Medium, useFonts } from '@expo-google-fonts/syne';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { H5 } from '../typo/typography';
 
 export default function TimePicker({ startTime, endTime, setStartTime, setEndTime, cleaningTime }) {
+    const { t } = useTranslation();
     let [fontsLoaded] = useFonts({ Syne_500Medium });
     const [showStartModal, setShowStartModal] = useState(false);
     const [showEndModal, setShowEndModal] = useState(false);
 
     const timeOptions = [
-        '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00',
-        '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
+        '08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00',
+        '12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00'
     ];
 
     const getEndTimeOptions = () => {
@@ -20,9 +22,7 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
         return timeOptions.slice(startIndex + 1);
     };
 
-    if (!fontsLoaded) {
-        return <Text>Loading...</Text>;
-    }
+    if (!fontsLoaded) return <Text>{t('timepicker.loading')}</Text>;
 
     const TimePickerModal = ({ visible, onClose, options, onSelect, title }) => (
         <Modal visible={visible} transparent animationType="fade">
@@ -34,10 +34,7 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
                             <Pressable
                                 key={time}
                                 style={styles.optionItem}
-                                onPress={() => {
-                                    onSelect(time);
-                                    onClose();
-                                }}
+                                onPress={() => { onSelect(time); onClose(); }}
                             >
                                 <Text style={styles.optionText}>{time}</Text>
                             </Pressable>
@@ -51,16 +48,13 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
     return (
         <>
             <View style={styles.formGroup}>
-                <H5 style={styles.label}>Start Time</H5>
+                <H5 style={styles.label}>{t('timepicker.start_time')}</H5>
                 <Pressable 
                     style={styles.pickerContainer}
                     onPress={() => setShowStartModal(true)}
                 >
-                    <H5 style={[
-                        styles.pickerText,
-                        !startTime && styles.placeholderText
-                    ]}>
-                        {startTime || 'Select Start Time'}
+                    <H5 style={[styles.pickerText, !startTime && styles.placeholderText]}>
+                        {startTime || t('timepicker.select_start_time')}
                     </H5>
                 </Pressable>
             </View>
@@ -70,25 +64,19 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
                 onClose={() => setShowStartModal(false)}
                 options={timeOptions}
                 onSelect={setStartTime}
-                title="Select Start Time"
+                title={t('timepicker.select_start_time')}
             />
 
             <View style={styles.formGroup}>
-                <H5 style={styles.label}>End Time</H5>
+                <H5 style={styles.label}>{t('timepicker.end_time')}</H5>
                 <Pressable 
-                    style={[
-                        styles.pickerContainer,
-                        !startTime && styles.disabledPicker
-                    ]}
+                    style={[styles.pickerContainer, !startTime && styles.disabledPicker]}
                     onPress={() => startTime && setShowEndModal(true)}
                     disabled={!startTime}
                 >
-                    <Text style={[
-                        styles.pickerText,
-                        !endTime && styles.placeholderText
-                    ]}>
-                        {endTime || (startTime ? 'Select End Time' : 'Select Start Time First')}
-                    </Text>
+                    <H5 style={[styles.pickerText, !endTime && styles.placeholderText]}>
+                        {endTime || (startTime ? t('timepicker.select_end_time') : t('timepicker.select_start_time_first'))}
+                    </H5>
                 </Pressable>
             </View>
 
@@ -97,11 +85,11 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
                 onClose={() => setShowEndModal(false)}
                 options={getEndTimeOptions()}
                 onSelect={setEndTime}
-                title="Select End Time"
+                title={t('timepicker.select_end_time')}
             />
 
             <View style={styles.formGroup}>
-                <H5 style={styles.label}>Estimated Cleaning Time</H5>
+                <H5 style={styles.label}>{t('timepicker.estimated_cleaning_time')}</H5>
                 <View style={[styles.inputContainer, styles.readonlyInput]}>
                     <H5 style={styles.inputText}>{cleaningTime}</H5>
                 </View>

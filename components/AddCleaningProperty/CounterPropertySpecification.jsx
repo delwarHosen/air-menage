@@ -1,28 +1,22 @@
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
-import { Body2 } from '../typo/typography'; // আপনার পাথ অনুযায়ী দিন
+import { Body2 } from '../typo/typography';
 
-const CounterPropertySpecification = ({ label, value, onIncrement, onDecrement }) => {
+const CounterPropertySpecification = ({ labelKey, value, onIncrement, onDecrement }) => {
+    const { t } = useTranslation();
+
     return (
         <View style={styles.specItem}>
-            <Body2 style={styles.specLabel}>{label}</Body2>
+            <Body2 style={styles.specLabel}>{t(`property_counter.${labelKey}`)}</Body2>
             <View style={styles.counterContainer}>
-
-                <TouchableOpacity
-                    onPress={onDecrement}
-                    style={styles.counterButton}
-                >
+                <TouchableOpacity onPress={onDecrement} style={styles.counterButton}>
                     <Body2 style={styles.buttonText}>-</Body2>
                 </TouchableOpacity>
 
-
                 <Body2 style={styles.counterValue}>{value}</Body2>
 
-
-                <TouchableOpacity
-                    onPress={onIncrement}
-                    style={styles.counterButton}
-                >
+                <TouchableOpacity onPress={onIncrement} style={styles.counterButton}>
                     <Body2 style={styles.buttonText}>+</Body2>
                 </TouchableOpacity>
             </View>
@@ -31,6 +25,7 @@ const CounterPropertySpecification = ({ label, value, onIncrement, onDecrement }
 };
 
 export default CounterPropertySpecification;
+
 
 const styles = StyleSheet.create({
     specItem: {
