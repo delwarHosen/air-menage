@@ -104,7 +104,7 @@
         },
         "tabs": {
             "pending": "En attente",
-            "confirm": "Confirmé"
+            "confirm": "Terminé"
         },
         "content": {
             "pending": "Affichage des demandes en attente...",
@@ -225,7 +225,7 @@
     "cleaner_details": {
         "title": "Détails du nettoyeur",
         "serviceDescription": "Description du service",
-        "seeMore": "Voir plus",
+        "seeMore": "Voir plus d’avis",
         "reviews": "Avis",
         "notFound": "Nettoyeur introuvable",
         "workManaged": "Travaux gérés",

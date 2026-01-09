@@ -2,77 +2,35 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Body2 } from "../typo/typography";
 
-export default function HostTabs({ activeTab, setActiveTab}) {
+export default function HostTabs({ activeTab, setActiveTab }) {
     const { t } = useTranslation();
-    // const [activeTab, setActiveTab] = useState("pending");
-
     return (
-        <>
-            {/* Tabs */}
-            <View style={styles.tabWrapper}>
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={[
-                        styles.tabButton,
-                        activeTab === "pending"
-                            ? styles.activeTab
-                            : styles.inactiveTab
-                    ]}
-                    onPress={() => setActiveTab("pending")}
-                >
-                    <Body2
-                        style={[
-                            styles.tabText,
-                            activeTab === "pending"
-                                ? styles.activeTabText
-                                : styles.inactiveTabText
-                        ]}
-                    >
-                        {t("host_home.tabs.pending")}
-                    </Body2>
-                </TouchableOpacity>
+        <View style={styles.tabWrapper}>
+            <TouchableOpacity
+                style={[styles.tabButton, activeTab === "pending" && styles.activeTab]}
+                onPress={() => setActiveTab("pending")}
+            >
+                <Body2 style={[styles.tabText, activeTab === "pending" && styles.activeTabText]}>
+                    {t("host_home.tabs.pending")}
+                </Body2>
+            </TouchableOpacity>
 
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={[
-                        styles.tabButton,
-                        activeTab === "confirm"
-                            ? styles.activeTab
-                            : styles.inactiveTab
-                    ]}
-                    onPress={() => setActiveTab("confirm")}
-                >
-                    <Body2
-                        style={[
-                            styles.tabText,
-                            activeTab === "confirm"
-                                ? styles.activeTabText
-                                : styles.inactiveTabText
-                        ]}
-                    >
-                        {t("host_home.tabs.confirm")}
-                    </Body2>
-                </TouchableOpacity>
-            </View>
-
-            {/* Tab Content */}
-            <View style={styles.contentBody}>
-                {activeTab === "pending" ? (
-                    <Body2>{t("host_home.content.pending")}</Body2>
-                ) : (
-                    <Body2>{t("host_home.content.confirm")}</Body2>
-                )}
-            </View>
-        </>
+            <TouchableOpacity
+                style={[styles.tabButton, activeTab === "confirm" && styles.activeTab]}
+                onPress={() => setActiveTab("confirm")}
+            >
+                <Body2 style={[styles.tabText, activeTab === "confirm" && styles.activeTabText]}>
+                    {t("host_home.tabs.confirm")}
+                </Body2>
+            </TouchableOpacity>
+        </View>
     );
 }
-
-
 
 const styles = StyleSheet.create({
 
 
-    // --- New Tab Styles ---
+
     tabWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -105,5 +63,5 @@ const styles = StyleSheet.create({
     inactiveTabText: {
         color: '#4B5563',
     },
-   
+
 });

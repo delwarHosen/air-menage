@@ -7,10 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Colors } from '../../assets/Colors';
 import { ForwarAngleIcon } from '../../assets/icons/Icons';
 import { Body1, Body2, H5 } from '../../components/typo/typography';
-// import { StyleSheet, View, TouchableOpacity } from "react-native";
-// import { Colors } from "../../assets/Colors";
-// import { Body1, Body2 } from "../typo/typography";
-// import { ForwarAngleIcon } from "../../assets/icons/Icons";
+
 export default function BookingDetails() {
     const { t } = useTranslation();
     const route = useRouter();

@@ -104,7 +104,7 @@
         },
         "tabs": {
             "pending": "Pending",
-            "confirm": "Confirmed"
+            "confirm": "Completed"
         },
         "content": {
             "pending": "Showing pending requests...",
@@ -225,7 +225,7 @@
     "cleaner_details": {
         "title": "Cleaner Details",
         "serviceDescription": "Service Description",
-        "seeMore": "See More",
+        "seeMore": "See More Reviews",
         "reviews": "Reviews",
         "notFound": "Cleaner not found",
         "workManaged": "Work Managed",

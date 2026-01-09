@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: "hidden",
     backgroundColor: "#FFF",
-    elevation: 2,
   },
 
   image: {

@@ -61,7 +61,10 @@ export default function CalenderProperty() {
             {/* Header Section */}
             <View style={{ marginHorizontal: 20, paddingTop: 10 }}>
                <Heading title={t("properties.title")} />
-                <TouchableOpacity onPress={() => router.push("./archive-cleaning")}>
+                <TouchableOpacity 
+                onPress={() => router.push("./archive-cleaning")}
+                // onPress={() => router.push("./cleaning-request")}
+                >
                     <H6 style={styles.archiveText}>{t("cleanings.archived")}</H6>;
                 </TouchableOpacity>
             </View>

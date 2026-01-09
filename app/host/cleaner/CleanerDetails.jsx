@@ -2,6 +2,7 @@ import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../../../assets/Colors";
 import { BlueVerifyIcon } from "../../../assets/icons/Icons";
 import { Body2 } from "../../../components/typo/typography";
@@ -13,15 +14,26 @@ export default function CleanerDetails({ cleaner }) {
         <View style={styles.profileCardRow}>
             {/* Profile Info */}
             <View style={styles.profileInfo}>
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={{ uri: cleaner.profileImg }}
-                        style={styles.profileImage}
-                    />
-                    <View style={styles.verifyBadge}>
-                        <BlueVerifyIcon/>
+
+                <LinearGradient
+                    colors={['#FAFF0A', '#FEAD4E', '#ED1B1B', '#FB1274', '#A61D5F', '#F109DA']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.gradientBorder}
+                >
+
+                    <View style={styles.whiteInnerCircle}>
+                        <Image
+                            source={{ uri: cleaner.profileImg }}
+                            style={styles.profileImage}
+                        />
                     </View>
-                </View>
+
+
+                    <View style={styles.verifyBadge}>
+                        <BlueVerifyIcon />
+                    </View>
+                </LinearGradient>
 
                 <Body2 style={styles.cleanerName}>{cleaner.name}</Body2>
                 <Body2 style={styles.cleanerEmail}>
@@ -58,15 +70,12 @@ const styles = StyleSheet.create({
     profileCardRow: {
         width: "100%",
         flexDirection: "row",
-        backgroundColor: "#ffffff",
         padding: 16,
-        borderRadius: 14,
+        borderRadius: 8,
         justifyContent: "space-between",
         alignItems: "center",
-        elevation: 3,
-        shadowColor: "#000",
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
+        borderWidth: 1,
+        borderColor: Colors.BORDER_COLOR
     },
 
     /* Profile Info */
@@ -75,33 +84,41 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
 
-    imageContainer: {
-        position: "relative",
-        height: 90,
-        width: 90,
-        marginBottom: 10,
+    gradientBorder: {
+        height: 98, 
+        width: 98,
+        borderRadius: 49,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative', 
+    },
+
+    whiteInnerCircle: {
+        height: 94, 
+        width: 94,
+        borderRadius: 47,
+        // backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
     },
 
     profileImage: {
-        height: 90,
-        width: 90,
+        height: 92, 
+        width: 92,
         borderRadius: 45,
-        borderWidth: 1,
-        borderColor: "#ddd",
     },
 
     verifyBadge: {
         position: "absolute",
-        bottom: 2,
-        right: 2,
-        backgroundColor: "#fff",
-        borderRadius: 12,
+        bottom: 8,
+        right: 0,
         height: 24,
         width: 24,
+        borderRadius: 12,
         justifyContent: "center",
         alignItems: "center",
     },
-
     cleanerName: {
         fontSize: 18,
         fontWeight: "500",
