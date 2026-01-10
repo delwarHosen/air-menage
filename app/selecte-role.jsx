@@ -12,7 +12,7 @@ export default function SelectRole() {
         router.push(
             role === "host"
                 ? { pathname: "/(auth)/login", params: { selectedRole: role } }
-                : { pathname: "/cleaner/index", params: { selectedRole: role } }
+                : { pathname: "/(auth)/login", params: { selectedRole: role } }
         );
     };
 

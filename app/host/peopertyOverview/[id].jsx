@@ -37,7 +37,6 @@ export default function PropertyOverviewDetails() {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        // backgroundColor: '#fff', 
     },
     headerWrapper: {
         backgroundColor: '#fff', 

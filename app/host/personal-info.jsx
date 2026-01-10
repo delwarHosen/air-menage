@@ -91,7 +91,8 @@ export default function PersonalInfo() {
 const styles = StyleSheet.create({
  
   scrollContainer: {
-    paddingHorizontal: "2.5%"
+    paddingHorizontal: "2.5%",
+    backgroundColor:"#FAFAFA",
   },
   profileSection: {
     alignItems: "center",
@@ -102,16 +103,13 @@ const styles = StyleSheet.create({
     width: 120,
     borderRadius: 60,
     borderWidth: 1,
-    borderColor: Colors.PRIMARY,
-    backgroundColor: "#E1E1E1"
   },
   infoCard: {
     width: "100%",
-    height: 50,
+    height: 65,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#CACACB",
-    backgroundColor: "#FFFFFF",
+    borderColor: Colors.BORDER_COLOR,
     paddingVertical: 6,
     paddingHorizontal: 12,
     justifyContent: "center"
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     width: "100%",
-    backgroundColor: "#00AFF5",
+    backgroundColor: Colors.PRIMARY,
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",

@@ -26,10 +26,10 @@ export default function PasswordSecurity() {
 
     const openModal = () => {
         setDeleteModalVisible(true);
-        
+        // Niche theke upore uthbe (0 position e)
         Animated.timing(slideAnim, {
             toValue: 0,
-            duration: 500, 
+            duration: 500, // Ekhane duration bariye slow kora hoyeche
             easing: Easing.out(Easing.poly(4)),
             useNativeDriver: true,
         }).start();
@@ -51,7 +51,7 @@ export default function PasswordSecurity() {
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <TouchableOpacity
-                    onPress={() => router.push("/host/change-password")}
+                    onPress={() => router.push("/cleaner/change-password")}
                     style={styles.buttonContainer}
                 >
                     <View style={styles.leftContent}>
@@ -84,7 +84,7 @@ export default function PasswordSecurity() {
                     <Animated.View
                         style={[
                             styles.bottomSheet,
-                            { transform: [{ translateY: slideAnim }] }
+                            { transform: [{ translateY: slideAnim }] } // Animation applied here
                         ]}
                     >
                         <View style={styles.dragIndicator} />

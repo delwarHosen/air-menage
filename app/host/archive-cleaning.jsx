@@ -11,7 +11,6 @@ import {
 } from 'react-native'
 import { Colors } from '../../assets/Colors'
 import { BedIcon, ClockIcon, CreatePropertyIcon, LocationIcon } from '../../assets/icons/Icons'
-import Heading from '../../components/Heading/Heading'
 import { Body1, Caption, H4, H5, H6 } from '../../components/typo/typography'
 import { cleanerDetailsData } from "../../store/CleanerRequestData"
 
@@ -106,16 +105,16 @@ export default function ArchiveCleaning() {
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={styles.mainContainer}
         >
-            <View>
+            {/* <View>
                 <Heading title={t("cleanings.archived")} />
-            </View>
+            </View> */}
             <FlatList
-                    data={cleanerDetailsData}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={renderItem}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: 30 }}
-                />
+                data={cleanerDetailsData}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={renderItem}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 30 }}
+            />
         </KeyboardAvoidingView>
     )
 }
@@ -123,12 +122,15 @@ export default function ArchiveCleaning() {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
+
+        marginTop: 25
     },
     card: {
-        borderRadius: 12,
+
         padding: 12,
         marginBottom: 20,
-        marginHorizontal: 16,
+        width: '100%',
+        borderBottomColor: Colors.BORDER_COLOR,
     },
     divider: {
         height: 2,

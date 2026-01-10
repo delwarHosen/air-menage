@@ -92,7 +92,9 @@
             "aboutUs": "À propos de nous",
             "terms": "Conditions d'utilisation",
             "privacy": "Politique de confidentialité",
-            "legalNotices": "Mentions légales"
+            "legalNotices": "Mentions légales",
+            "rating": "Évaluation et avis",
+            "contact": "Contact","myIncome": "Mes revenus"
         },
         "actions": {
             "logout": "Se déconnecter"
@@ -123,29 +125,38 @@
             "phone": "Numéro de téléphone",
             "address": "Adresse",
             "city": "Ville",
-            "country": "Pays"
+            "country": "Pays",
+            "Age": "Âge",
+            "verification_Your_SIRET_Number": "Vérification du numéro SIRET",
+            "Gender": "Genre"
         },
         "actions": {
             "edit": "Modifier le profil"
         }
     },
     "edit_personal_info": {
-        "title": "Modifier les informations",
+        "title": "Modifier les informations personnelles",
         "fields": {
             "fullName": "Nom complet",
+            "age": "Âge",
             "email": "Email",
-            "phone": "Téléphone",
+            "verification_Your_SIRET_Number": "Vérification du numéro SIRET",
+            "gender": "Genre",
+            "phone": "Numéro de téléphone",
             "address": "Adresse",
             "city": "Ville",
             "country": "Pays"
         },
         "placeholders": {
             "fullName": "Entrez votre nom complet",
+            "age": "Entrez votre âge",
             "email": "Entrez votre email",
-            "phone": "Entrez votre numéro de téléphone",
-            "address": "Entrez votre adresse",
-            "city": "Entrez votre ville",
-            "country": "Entrez votre pays"
+            "verification_Your_SIRET_Number": "Entrez le numéro SIRET",
+            "gender": "Entrez le genre",
+            "phone": "Entrez le numéro de téléphone",
+            "address": "Entrez l’adresse",
+            "city": "Entrez la ville",
+            "country": "Entrez le pays"
         },
         "actions": {
             "saveChanges": "Enregistrer les modifications",
@@ -230,7 +241,8 @@
         "notFound": "Nettoyeur introuvable",
         "workManaged": "Travaux gérés",
         "evaluation": "Évaluation",
-        "overallScore": "Score global"
+        "overallScore": "Score global",
+        "titles": "Toutes les demandes de nettoyeurs"
     },
     "about_us": {
         "title": "À propos de nous",
@@ -272,7 +284,8 @@
         "calender": "Calendrier",
         "properties": "Propriétés",
         "message": "Messages",
-        "menu": "Menu"
+        "menu": "Menu",
+        "job": "Emplois"
     },
     "property_tabs": {
         "home": "Accueil",
@@ -285,8 +298,20 @@
         "my_properties": "Mes propriétés",
         "create_cleaning_request": "Créer une demande de nettoyage",
         "add_properties": "Ajouter des propriétés",
-        "overview": "Aperçu des propriétés",
-        "title": "Appartement Fleur De Lys"
+        "title": "Appartement Fleur De Lys",
+        "overview": "Vue d'ensemble des propriétés",
+        "location": "Emplacement",
+        "bedrooms": "Chambres",
+        "meetKey": "Rencontrez le nettoyeur pour remettre les clés",
+        "allCleanerRequests": "Toutes les demandes de nettoyeurs ({{count}})",
+        "beds": "Lits",
+        "bathrooms": "Salles de bain",
+        "assign_cleaner": "Attribuer un nettoyeur",
+        "general": "Général",
+        "bedroom": "Chambre",
+        "bathroom": "Salle de bain",
+        "kitchen": "Cuisine",
+        "estimated_cleaning_time": "Temps de nettoyage estimé"
     },
     "create_cleaning": {
         "title": "Créer une demande de nettoyage"
@@ -371,5 +396,21 @@
     },
     "cleanings": {
         "archived": "Nettoyages archivés"
+    },
+    "tasks": {
+        "yourConfirmedTasks": "Vos tâches confirmées",
+        "propertyName": "Nom de la propriété",
+        "taskTitle": "Titre de la tâche",
+        "accept": "Accepter",
+        "delete": "Supprimer",
+        "notFound": "Propriété non trouvée"
+    },
+    "cleaner_requests": {
+        "accept": "Accepter",
+        "delete": "Supprimer",
+        "confirmTitle": "Êtes-vous sûr ?",
+        "confirmText": "Voulez-vous vraiment supprimer la demande de {{name}} ?",
+        "cancel": "Annuler",
+        "confirmDelete": "Oui, Supprimer"
     }
 }

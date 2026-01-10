@@ -92,7 +92,10 @@
             "aboutUs": "About us",
             "terms": "Terms of use",
             "privacy": "Privacy policy",
-            "legalNotices": "Legal notices"
+            "legalNotices": "Legal notices",
+            "rating": "Rating Review",
+            "contact": "Contact",
+            "myIncome": "My Income"
         },
         "actions": {
             "logout": "Logout"
@@ -123,29 +126,38 @@
             "phone": "Phone Number",
             "address": "Address",
             "city": "City",
-            "country": "Country"
+            "country": "Country",
+            "Age": "Age",
+            "verification_Your_SIRET_Number": "Verification Your SIRET Number",
+            "Gender": "Gender"
         },
         "actions": {
             "edit": "Edit Profile"
         }
     },
     "edit_personal_info": {
-        "title": "Edit Information",
+        "title": "Edit Personal Information",
         "fields": {
             "fullName": "Full Name",
+            "age": "Age",
             "email": "Email",
-            "phone": "Phone",
+            "verification_Your_SIRET_Number": "Verification Your SIRET Number",
+            "gender": "Gender",
+            "phone": "Phone Number",
             "address": "Address",
             "city": "City",
             "country": "Country"
         },
         "placeholders": {
             "fullName": "Enter your full name",
+            "age": "Enter your age",
             "email": "Enter your email",
-            "phone": "Enter your phone number",
-            "address": "Enter your address",
-            "city": "Enter your city",
-            "country": "Enter your country"
+            "verification_Your_SIRET_Number": "Enter your SIRET number",
+            "gender": "Enter gender",
+            "phone": "Enter phone number",
+            "address": "Enter address",
+            "city": "Enter city",
+            "country": "Enter country"
         },
         "actions": {
             "saveChanges": "Save Changes",
@@ -230,7 +242,10 @@
         "notFound": "Cleaner not found",
         "workManaged": "Work Managed",
         "evaluation": "Evaluation",
-        "overallScore": "Overall Score"
+        "overallScore": "Overall Score",
+        "titles": "All Cleaner Requests",
+        "accepted": "Accepted:",
+        "deleted": "Deleted:"
     },
     "about_us": {
         "title": "About Us",
@@ -272,7 +287,8 @@
         "calender": "Calendar",
         "properties": "Properties",
         "message": "Message",
-        "menu": "Menu"
+        "menu": "Menu",
+        "job": "Jobs"
     },
     "property_tabs": {
         "home": "Home",
@@ -285,17 +301,29 @@
         "my_properties": "My Properties",
         "create_cleaning_request": "Create Cleaning Request",
         "add_properties": "Add Properties",
+        "title": "Flower Apartment",
         "overview": "Properties Overview",
-        "title": "Appartement Fleur De Lys"
+        "location": "Location",
+        "bedrooms": "Bedrooms",
+        "meetKey": "Meet the cleaner to give keys",
+        "allCleanerRequests": "All Cleaner Requests ({{count}})",
+        "beds": "Beds",
+        "bathrooms": "Bathrooms",
+        "assign_cleaner": "Assign Cleaner",
+        "general": "General",
+        "bedroom": "Bedroom",
+        "bathroom": "Bathroom",
+        "kitchen": "Kitchen",
+        "estimated_cleaning_time": "Estimated Cleaning Time"
     },
     "create_cleaning": {
-        "title": "Create a Cleaning Request"
+        "title": "Create Cleaning Request"
     },
     "booking": {
         "select_property": "Select Property",
-        "select_rate": "Select a rate",
+        "select_rate": "Select Rate",
         "price_list": "Price List",
-        "send_to_favorites": "Send To My Favorite Cleaners",
+        "send_to_favorites": "Send to My Favorite Cleaners",
         "favorite_cleaners": "Favorite Cleaners",
         "create_now": "Create Now",
         "duration_hours_minutes": "{{hours}} Hour{{hours > 1 ? 's' : ''}} {{minutes}} min",
@@ -321,12 +349,12 @@
         "estimated_cleaning_time": "Estimated Cleaning Time"
     },
     "linen": {
-        "section_title": "How would like the bed linens be handled?",
-        "change": "Change the bed linens and place the used linens inside the property",
-        "collect": "Collect dirty linens and delivery them to a specified location",
-        "wash": "Wash and dry linens off-site, then return them cleaner",
-        "dropoff_address": "Drop -Off Address",
-        "placeholder_address": "under home",
+        "section_title": "How would you like the bed linen to be handled?",
+        "change": "Change the bed linen and place the used linen inside the property",
+        "collect": "Collect the dirty linen and deliver to a specified place",
+        "wash": "Wash and dry linen offsite and return it cleaner",
+        "dropoff_address": "Drop-off Address",
+        "placeholder_address": "under the house",
         "consumables_refill": "Consumables Refill"
     },
     "price_list": {
@@ -335,15 +363,15 @@
         "surface": "Surface",
         "price": "Price",
         "studio": "Studio / T1",
-        "one_room": "1 chambre / T2",
-        "two_rooms": "2 chambres / T3",
-        "three_rooms": "3 chambres / T4",
-        "four_rooms": "4 chambres / T5",
-        "house": "Maison",
+        "one_room": "1 Room / T2",
+        "two_rooms": "2 Rooms / T3",
+        "three_rooms": "3 Rooms / T4",
+        "four_rooms": "4 Rooms / T5",
+        "house": "House",
         "additional_services": "Additional Services",
-        "change_bed": "Change the bed linens and place the used linens inside the property",
-        "wash_offsite": "Wash and dry linens off-site, then return them cleaner",
-        "collect_wash_deliver": "Collect, wash, dry and deliver them to a specified location",
+        "change_bed": "Change the bed linen and place the used linen inside the property",
+        "wash_offsite": "Wash and dry linen offsite and return it cleaner",
+        "collect_wash_deliver": "Collect, wash, dry, and deliver linen to a specified place",
         "consumables_refill": "Consumables Refill"
     },
     "add_property": {
@@ -355,25 +383,37 @@
         "beds": "Beds"
     },
     "keybox": {
-        "in_person": "In-person key handover",
+        "in_person": "In-person Key Handover",
         "in_person_caption": "Meet the cleaner to give keys",
         "lockbox": "Lockbox",
-        "lockbox_caption": "Lockbox Code Released 24 Hours Before Mission",
-        "location": "Keybox Location",
+        "lockbox_caption": "Lockbox code delivered 24h before task",
+        "location": "Lockbox Location",
         "code": "Lockbox Code",
         "placeholders": {
-            "location": "Enter keybox location",
-            "code": "Enter lockbox code"
+            "location": "Enter Lockbox Location",
+            "code": "Enter Lockbox Code"
         }
+    },
+    "work_type": {
+        "add_placeholder": "Add new {{title}}..."
     },
     "cleanings": {
         "archived": "Archived Cleanings"
     },
-    "common": {
-        "create_now": "Create Now",
-        "error_occurred": "Something went wrong"
+    "tasks": {
+        "yourConfirmedTasks": "Your Confirmed Tasks",
+        "propertyName": "Property Name",
+        "taskTitle": "Task Title",
+        "accept": "Accept",
+        "delete": "Delete",
+        "notFound": "Property Not Found"
+    },
+    "cleaner_requests": {
+        "accept": "Accept",
+        "delete": "Delete",
+        "confirmTitle": "Are you sure?",
+        "confirmText": "Do you really want to delete {{name}}'s request?",
+        "cancel": "Cancel",
+        "confirmDelete": "Yes, Delete"
     }
-   
 }
-
-

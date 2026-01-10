@@ -95,7 +95,7 @@ export default function PersonalEditInfo() {
                     ListFooterComponent={() => (
                         <TouchableOpacity 
                         // onPress={handleSubmit(onFormSubmit)}  
-                        onPress={()=>router.back()}
+                        onPress={()=>router.push("/host/menu")}
                         style={styles.submitButton}>
                             <ButtonText style={styles.buttonText}>
                                 {isSubmitting ? t("edit_personal_info.actions.saving") : t("edit_personal_info.actions.saveChanges")}

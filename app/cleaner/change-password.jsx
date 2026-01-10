@@ -1,18 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
     Dimensions,
-    FlatList,
     KeyboardAvoidingView,
     Platform,
+    ScrollView,
     StyleSheet,
     TextInput,
     TouchableOpacity,
     View
 } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
@@ -30,33 +31,46 @@ export default function ChangePassword() {
         confirm: false
     });
 
-    const { values = {}, isSubmitting, handleChange, handleSubmit } = useForm({
-        initialValues: {
-            [FORM_FIELDS.CURRENT_PASSWORD]: "",
-            [FORM_FIELDS.PASSWORD]: "",
-            [FORM_FIELDS.CONFIRM_PASSWORD]: "",
-        }
-    });
-
     const passwordFields = [
         { id: '1', key: FORM_FIELDS.CURRENT_PASSWORD, stateKey: 'current', label: t("change_password.fields.currentPassword") },
         { id: '2', key: FORM_FIELDS.PASSWORD, stateKey: 'new', label: t("change_password.fields.newPassword") },
         { id: '3', key: FORM_FIELDS.CONFIRM_PASSWORD, stateKey: 'confirm', label: t("change_password.fields.confirmPassword") },
     ];
 
+    const { control, handleSubmit, formState: { isSubmitting } } = useForm({
+        defaultValues: {
+            [FORM_FIELDS.CURRENT_PASSWORD]: "",
+            [FORM_FIELDS.PASSWORD]: "",
+            [FORM_FIELDS.CONFIRM_PASSWORD]: "",
+        }
+    });
+
     const toggleVisibility = (key) => {
         setShowPassword(prev => ({ ...prev, [key]: !prev[key] }));
+    };
+
+    const onSubmit = (data) => {
+        console.log("Form Data:", data);
+        router.replace("/cleaner/menu");
     };
 
     const renderItem = ({ item }) => (
         <View style={styles.inputWrapper}>
             <Body2 style={styles.labelOutside}>{item.label}</Body2>
             <View style={styles.inputCard}>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder={FORM_PLACEHOLDERS[item.key]}
-                    placeholderTextColor="#7E8792"
-                    secureTextEntry={!showPassword[item.stateKey]}
+                <Controller
+                    control={control}
+                    name={item.key}
+                    render={({ field: { onChange, value } }) => (
+                        <TextInput
+                            style={styles.textInput}
+                            value={value}
+                            onChangeText={onChange}
+                            placeholder={FORM_PLACEHOLDERS[item.key]}
+                            placeholderTextColor="#7E8792"
+                            secureTextEntry={!showPassword[item.stateKey]}
+                        />
+                    )}
                 />
                 <TouchableOpacity onPress={() => toggleVisibility(item.stateKey)}>
                     <Ionicons
@@ -70,18 +84,21 @@ export default function ChangePassword() {
     );
 
     return (
-        <>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-                <View style={{ marginHorizontal: 20 }}>
-                    <Heading title={t("change_password.title")} />
-                </View>
-                <FlatList
-                    data={passwordFields}
-                    keyExtractor={item => item.id}
-                    renderItem={renderItem}
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF' }} edges={['top']}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={0}
+            >
+                <ScrollView
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
-                    ListHeaderComponent={() => (
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <View style={{ width: '100%' }}>
+                        <View style={{ marginHorizontal: 20 }}>
+                            <Heading title={t("change_password.title")} />
+                        </View>
                         <View style={styles.headerContainer}>
                             <View style={styles.iconSection}>
                                 <View style={styles.lockCircle}>
@@ -89,59 +106,39 @@ export default function ChangePassword() {
                                 </View>
                             </View>
                         </View>
-                    )}
-                    ListFooterComponent={() => (
-                        <View style={{ width: '100%', alignItems: 'center' }}>
-                            <TouchableOpacity 
-                            // onPress={handleSubmit} 
-                            onPress={()=>router.push("/host/menu")} 
-                            style={styles.submitButton}>
-                                <ButtonText style={styles.buttonText}>
-                                    {isSubmitting ? t("change_password.buttons.updating") : t("change_password.buttons.saveChanges")}
-                                </ButtonText>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                />
+                    </View>
+
+                    {passwordFields.map((item) => renderItem({ item }))}
+
+                    <View style={styles.footerContainer}>
+                        <TouchableOpacity
+                            onPress={handleSubmit(onSubmit)}
+                            style={styles.submitButton}
+                        >
+                            <ButtonText style={styles.buttonText}>
+                                {isSubmitting ? t("change_password.buttons.updating") : t("change_password.buttons.saveChanges")}
+                            </ButtonText>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             </KeyboardAvoidingView>
-        </>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-   
     scrollContainer: {
         paddingBottom: 40,
-        width: width,
         alignItems: 'center',
+        flexGrow: 1,
     },
     headerContainer: {
         width: '100%',
         alignItems: 'center',
     },
-    headerRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: '100%',
-        height: 50,
-        marginTop: 10,
-        paddingHorizontal: 16,
+    iconSection: {
+        marginVertical: 30
     },
-    backIconContainer: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: "#EBEBEE",
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: "#CACACB",
-    },
-    titleWrapper: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-    headerTitle: { fontSize: 18, fontWeight: "600", color: Colors.TEXT_COLOR },
-
-    iconSection: { marginVertical: 30 },
     lockCircle: {
         width: 80,
         height: 80,
@@ -150,19 +147,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
     inputWrapper: {
         width: width * 0.92,
         marginBottom: 20,
     },
-    labelOutside: { fontSize: 14, color: "#0F243E", marginBottom: 8, fontWeight: '500' },
+    labelOutside: {
+        fontSize: 14,
+        color: "#0F243E",
+        marginBottom: 8,
+        fontWeight: '500'
+    },
     inputCard: {
         flexDirection: 'row',
         height: 52,
         borderRadius: 12,
         borderWidth: 1,
         borderColor: "#CACACB",
-        backgroundColor: Colors.BACKGROUND_COLOR,
+        backgroundColor: "#FFF",
         paddingHorizontal: 15,
         alignItems: "center",
         width: '100%',
@@ -170,16 +171,24 @@ const styles = StyleSheet.create({
     textInput: {
         flex: 1,
         fontSize: 14,
-        color: Colors.TEXT_COLOR
+        color: "#0F243E"
     },
-
+    footerContainer: {
+        width: '100%',
+        alignItems: 'center',
+        paddingBottom: 20,
+        marginTop: 10,
+    },
     submitButton: {
         width: width * 0.92,
         backgroundColor: Colors.PRIMARY,
         paddingVertical: 14,
         borderRadius: 12,
         alignItems: "center",
-        marginTop: 20,
+        marginTop: 10,
     },
-    buttonText: { color: "#FFF", fontWeight: "500" },
+    buttonText: {
+        color: "#FFF",
+        fontWeight: "600"
+    },
 });

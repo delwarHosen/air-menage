@@ -8,7 +8,6 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
@@ -23,7 +22,7 @@ export default function SignUpScreen() {
     const { t } = useTranslation();
     const [checked, setChecked] = useState(false);
 
-    const { control, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({
+    const { control } = useForm({
         defaultValues: {
             fullName: "",
             email: "",
@@ -32,23 +31,9 @@ export default function SignUpScreen() {
         }
     });
 
-    const passwordsMatch = watch("password") === watch("confirmPassword");
-
-    const isFormValid = watch("fullName") && watch("email") && watch("password") && watch("confirmPassword") && passwordsMatch && checked;
-
-    const onSubmit = async (data) => {
-        if (!checked) {
-            ToastAndroid.show("Please accept Terms & Conditions", ToastAndroid.SHORT);
-            return;
-        }
-
-        if (!passwordsMatch) {
-            ToastAndroid.show(t("signup.errors.passwordMismatch"), ToastAndroid.SHORT);
-            return;
-        }
-
-        ToastAndroid.show(t("signup.signingUp"), ToastAndroid.SHORT);
-        router.push("/(app)/login");
+    // On submit, just navigate to login
+    const onSubmit = () => {
+        router.push("/(auth)/login");
     };
 
     return (
@@ -69,7 +54,6 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name="fullName"
-                                rules={{ required: t("signup.errors.required") }}
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <FormInput
                                         label={t("signup.fullName")}
@@ -77,7 +61,6 @@ export default function SignUpScreen() {
                                         onChangeText={onChange}
                                         onBlur={onBlur}
                                         placeholder={t("signup.fullName")}
-                                        error={errors.fullName?.message}
                                     />
                                 )}
                             />
@@ -85,10 +68,6 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name="email"
-                                rules={{
-                                    required: t("signup.errors.required"),
-                                    pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: t("signup.errors.invalidEmail") }
-                                }}
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <FormInput
                                         label={t("signup.email")}
@@ -97,7 +76,6 @@ export default function SignUpScreen() {
                                         onBlur={onBlur}
                                         placeholder={t("signup.email")}
                                         type="email"
-                                        error={errors.email?.message}
                                     />
                                 )}
                             />
@@ -105,10 +83,6 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name="password"
-                                rules={{
-                                    required: t("signup.errors.required"),
-                                    minLength: { value: 6, message: t("signup.errors.passwordMin") }
-                                }}
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <FormInput
                                         label={t("signup.password")}
@@ -117,7 +91,6 @@ export default function SignUpScreen() {
                                         onBlur={onBlur}
                                         placeholder={t("signup.password")}
                                         type="password"
-                                        error={errors.password?.message}
                                     />
                                 )}
                             />
@@ -125,7 +98,6 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name="confirmPassword"
-                                rules={{ required: t("signup.errors.required") }}
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <FormInput
                                         label={t("signup.confirmPassword")}
@@ -134,19 +106,16 @@ export default function SignUpScreen() {
                                         onBlur={onBlur}
                                         placeholder={t("signup.confirmPassword")}
                                         type="password"
-                                        error={!passwordsMatch ? t("signup.errors.passwordMismatch") : errors.confirmPassword?.message}
                                     />
                                 )}
                             />
 
-                            {/* Button + Terms + Divider + Social */}
                             <TouchableOpacity
-                                onPress={handleSubmit(onSubmit)}
-                                disabled={!isFormValid || isSubmitting}
-                                style={[styles.submitButton, (!isFormValid || isSubmitting) && styles.disabledButton]}
+                                onPress={onSubmit}
+                                style={styles.submitButton}
                             >
                                 <ButtonText style={styles.buttonText}>
-                                    {isSubmitting ? t("signup.signingUp") : t("signup.signUp")}
+                                    {t("signup.signUp")}
                                 </ButtonText>
                             </TouchableOpacity>
 
@@ -168,17 +137,17 @@ export default function SignUpScreen() {
                                     {checked && <Ionicons name="checkmark" size={14} color="#fff" />}
                                 </TouchableOpacity>
 
-
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <Body1>{t("signup.terms")}{" "}</Body1>
-                                    <Body2
-                                        style={{ color: "#2DBEFF" }}
-                                        onPress={() => router.push("/terms")}
-                                    >
-                                        {t("signup.teems_cond")}
-                                    </Body2>
+                                <View style={{ flexDirection: "row", alignItems: "center", flexWrap: 'wrap' }}>
+                                    <Body1>
+                                        {t("signup.terms")}{" "}
+                                        <Body2
+                                            style={{ color: "#2DBEFF" }}
+                                            onPress={() => router.push("/terms")}
+                                        >
+                                            {t("signup.teems_cond")}
+                                        </Body2>
+                                    </Body1>
                                 </View>
-
                             </View>
 
                             <View style={styles.dividerContainer}>
@@ -195,7 +164,6 @@ export default function SignUpScreen() {
                                     <AppleIcons />
                                 </View>
                             </View>
-
                         </View>
                     </View>
                 </ScrollView>
@@ -207,65 +175,75 @@ export default function SignUpScreen() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
     },
+
     container: {
-        flex: 1
+        flex: 1,
     },
+
     scrollContent: {
-        flexGrow: 1
+        flexGrow: 1,
     },
+
     content: {
         flex: 1,
         paddingHorizontal: 24,
-        paddingVertical: 50
+        paddingVertical: 50,
     },
+
     title: {
-        marginBottom: 50
+        marginBottom: 50,
     },
+
     form: {
-        marginBottom: 40
+        marginBottom: 40,
     },
+
     submitButton: {
         backgroundColor: Colors.PRIMARY,
         paddingVertical: 16,
         borderRadius: 12,
         alignItems: "center",
-        marginTop: 10
+        marginTop: 10,
     },
-    disabledButton: {
-        backgroundColor: "#6fd6ffff"
-    },
+
     buttonText: {
         color: "#fff",
     },
+
     dividerContainer: {
         flexDirection: "row",
         alignItems: "center",
-        marginVertical: 25
+        marginVertical: 25,
     },
+
     divider: {
         flex: 1,
         height: 1,
-        backgroundColor: Colors.PRIMARY
+        backgroundColor: Colors.PRIMARY,
     },
+
     dividerText: {
         marginHorizontal: 16,
-        color: "#94A3B8"
+        color: "#94A3B8",
     },
+
     socialContaier: {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
         gap: 12,
-        marginTop: 20
+        marginTop: 20,
     },
+
     socialIcon: {
         backgroundColor: "#F7F7F7",
         height: 60,
         width: 60,
         borderRadius: 30,
         justifyContent: "center",
-        alignItems: "center"
-    }
+        alignItems: "center",
+    },
 });
+

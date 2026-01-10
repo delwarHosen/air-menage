@@ -1,4 +1,4 @@
-import { Link, useRouter } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { Colors } from "../../assets/Colors";
 import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { ButtonText, H3, H4 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
@@ -19,7 +20,9 @@ import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/for
 export default function LoginScreen() {
     const { t } = useTranslation();
     const router = useRouter();
-
+    
+   
+    const { selectedRole } = useLocalSearchParams();
 
     const {
         control,
@@ -33,21 +36,36 @@ export default function LoginScreen() {
     });
 
     const onSubmit = (values) => {
-
         try {
             const payload = {
                 email: values[FORM_FIELDS.EMAIL],
                 password: values[FORM_FIELDS.PASSWORD],
+                role: selectedRole // Role-ti payload-e rakha holo
             };
 
             console.log("Submitted Data:", payload);
+
+            // Role based Navigation Logic
+            if (selectedRole === "cleaner") {
+                // Cleaner hole cleaner folder-er home-e jabe
+                router.replace("/cleaner/home");
+            } else {
+                // Default host hole host folder-e jabe
+                router.replace("/host/home");
+            }
+
         } catch (err) {
-            ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+            // Android-er jonno toast, iOS-er jonno Alert use kora bhalo
+            if (Platform.OS === 'android') {
+                ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+            } else {
+                console.log("Error logic here");
+            }
         }
     };
 
     return (
-        < >
+        <View style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.container}
@@ -63,10 +81,10 @@ export default function LoginScreen() {
                         </View>
 
                         <View style={styles.form}>
-                            {/* Email Title */}
+                            {/* Email Input */}
                             <Controller
                                 control={control}
-                                name={FORM_FIELDS.PROPERTY_TITLE}
+                                name={FORM_FIELDS.EMAIL}
                                 render={({ field }) => (
                                     <FormInput
                                         label={FORM_LABELS[FORM_FIELDS.EMAIL]}
@@ -88,14 +106,15 @@ export default function LoginScreen() {
                                         value={field.value}
                                         onChangeText={field.onChange}
                                         placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.PASSWORD]}
+                                        secureTextEntry={true} // Password hide korar jonno
                                         required
                                     />
                                 )}
                             />
 
-                            {/* Login Button */}
+                            {/* Login Button - Ekhane handleSubmit use kora hoyeche */}
                             <TouchableOpacity
-                                onPress={() => router.push("/host/home")}
+                                onPress={handleSubmit(onSubmit)}
                                 style={styles.submitButton}
                             >
                                 <ButtonText style={styles.buttonText}>{t("login.button")}</ButtonText>
@@ -103,7 +122,7 @@ export default function LoginScreen() {
 
                             {/* Sign Up / Forgot Password */}
                             <View style={styles.footerLinksContainer}>
-                                <View style={styles.signUpContainer}>
+                                <View>
                                     <Link href="/(auth)/register" asChild>
                                         <TouchableOpacity>
                                             <H4 style={{ fontWeight: '500', textDecorationLine: 'underline' }}>{t("login.signup")}</H4>
@@ -126,26 +145,27 @@ export default function LoginScreen() {
                                 <View style={styles.divider} />
                             </View>
 
-                            {/* Social icon */}
+                            {/* Social icons */}
                             <View style={styles.socialContaier}>
-                                <View style={styles.socialIcon}>
+                                <TouchableOpacity style={styles.socialIcon}>
                                     <GoogleIcon />
-                                </View>
-                                <View style={styles.socialIcon}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.socialIcon}>
                                     <AppleIcons/>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fff'
     },
     scrollContent: {
         flexGrow: 1
@@ -164,15 +184,8 @@ const styles = StyleSheet.create({
     form: {
         marginBottom: 40
     },
-    fakeInput: {
-        height: 50,
-        borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 8,
-        marginTop: 8
-    },
     submitButton: {
-        backgroundColor: "#00AFF5",
+        backgroundColor:Colors.PRIMARY,
         paddingVertical: 16,
         borderRadius: 12,
         alignItems: "center",
@@ -191,7 +204,7 @@ const styles = StyleSheet.create({
     divider: {
         flex: 1,
         height: 1,
-        backgroundColor: "#2DBEFF"
+        backgroundColor: Colors.PRIMARY
     },
     dividerText: {
         marginHorizontal: 16,

@@ -1,5 +1,7 @@
 import { Image } from "expo-image";
-import { StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Colors } from "../../assets/Colors";
 import {
     BedIcon,
@@ -13,9 +15,12 @@ import {
     TikMarkIcon
 } from "../../assets/icons/Icons";
 import PropertyTypePicker from "../AddCleaningProperty/PropertyTypePicker";
-import { Body1, Body2, H4, H5 } from "../typo/typography";
+import { Body1, Body2, ButtonText, H4, H5 } from "../typo/typography";
 
 export default function PeopertyOverviewPage({ cleanerRequest }) {
+    const { t } = useTranslation();
+    const router = useRouter();
+
     if (!cleanerRequest) return null;
 
     return (
@@ -46,7 +51,7 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
             <View style={styles.infoRow}>
                 <ClockIcon />
                 <View>
-                    <Body2 style={styles.infoSubText}>Estimated Cleaning Time</Body2>
+                    <Body2 style={styles.infoSubText}>{t("properties.estimated_cleaning_time")}</Body2>
                     <Body1 style={styles.infoText}>{cleanerRequest.duration}</Body1>
                 </View>
             </View>
@@ -54,7 +59,7 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
             <View style={styles.infoRow}>
                 <LocationIcon />
                 <View>
-                    <Body2 style={styles.infoSubText}>Location</Body2>
+                    <Body2 style={styles.infoSubText}>{t("properties.location")}</Body2>
                     <Body1 style={styles.infoText}>{`${cleanerRequest.city}, ${cleanerRequest.country}`}</Body1>
                 </View>
             </View>
@@ -66,21 +71,21 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
 
             <View style={styles.infoRow}>
                 <BedIcon />
-                <Body1 style={styles.infoText}>{`${cleanerRequest.bedrooms} Bedrooms`}</Body1>
+                <Body1 style={styles.infoText}>{`${cleanerRequest.bedrooms} ${t("properties.bedrooms")}`}</Body1>
             </View>
 
             <View style={styles.infoRow}>
                 <BedIcon />
-                <Body1 style={styles.infoText}>{`${cleanerRequest.beds} Beds`}</Body1>
+                <Body1 style={styles.infoText}>{`${cleanerRequest.beds} ${t("properties.beds")}`}</Body1>
             </View>
 
             <View style={styles.infoRow}>
                 <BedIcon />
-                <Body1 style={styles.infoText}>{`${cleanerRequest.bathrooms} Bathrooms`}</Body1>
+                <Body1 style={styles.infoText}>{`${cleanerRequest.bathrooms} ${t("properties.bathrooms")}`}</Body1>
             </View>
 
             <View style={styles.infoRow}>
-                <H4 style={styles.infoText}>{`${cleanerRequest.price}€`}</H4>
+                <H4>{`${cleanerRequest.price}€`}</H4>
             </View>
 
             <View style={styles.infoRowkey}>
@@ -89,9 +94,11 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
                 <TikMarkIcon />
             </View>
 
-            {/* Assign Cleaner - Border Removed */}
-            <H5 style={{ marginTop: 25 }}>Assign Cleaner</H5>
-            <View style={styles.profileContainer}>
+            {/* Assign Cleaner */}
+            <H5 style={{ marginTop: 25 }}>{t("properties.assign_cleaner")}</H5>
+            <TouchableOpacity
+                onPress={() => router.push(`/host/cleaner/${cleanerRequest?.id}`)}
+                style={styles.profileContainer}>
                 <View style={{ flexDirection: "row", gap: 10, alignItems: 'center' }}>
                     <Image
                         source={{ uri: cleanerRequest.cleanerImage }}
@@ -103,20 +110,24 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
                     </View>
                 </View>
                 <ForwarAngleIcon />
-            </View>
+            </TouchableOpacity>
 
-            <ServiceSection title="General" data={cleanerRequest.general_types} />
-            <ServiceSection title="Bedroom" data={cleanerRequest.bed_room} />
-            <ServiceSection title="Bathroom" data={cleanerRequest.living_room} />
-            <ServiceSection title="Kitchen" data={cleanerRequest.kitchen_room} />
+            <ServiceSection title={t("properties.general")} data={cleanerRequest.general_types} />
+            <ServiceSection title={t("properties.bedroom")} data={cleanerRequest.bed_room} />
+            <ServiceSection title={t("properties.bathroom")} data={cleanerRequest.living_room} />
+            <ServiceSection title={t("properties.kitchen")} data={cleanerRequest.kitchen_room} />
 
             <View style={styles.gallery}>
                 <Image source={cleanerRequest.images[0]} style={styles.galleryLarge} />
                 <View style={styles.galleryRow}>
-                    <Image source={cleanerRequest.images[1]} style={styles.gallerySmall} />
-                    <Image source={cleanerRequest.images[2]} style={styles.gallerySmall} />
+                    {cleanerRequest.images[1] && <Image source={cleanerRequest.images[1]} style={styles.gallerySmall} />}
+                    {cleanerRequest.images[2] && <Image source={cleanerRequest.images[2]} style={styles.gallerySmall} />}
                 </View>
             </View>
+
+            <TouchableOpacity style={styles.validateButton}>
+                <ButtonText style={{textAlign:"center",color:"white"}}>Validate</ButtonText>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -137,22 +148,10 @@ function ServiceSection({ title, data }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    mainImage: {
-        width: "100%",
-        height: 234,
-        borderRadius: 12,
-        marginBottom: 12,
-    },
-    body2: {
-        fontSize: 14,
-        color: "#5E5E5E",
-    },
-    propertyType: {
-        marginVertical: 12,
-    },
+    container: { flex: 1 },
+    mainImage: { width: "100%", height: 234, borderRadius: 12, marginBottom: 12 },
+    body2: { fontSize: 14, color: "#5E5E5E" },
+    propertyType: { marginVertical: 12 },
     infoRow: {
         flexDirection: "row",
         alignItems: "center",
@@ -177,66 +176,31 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: 10,
     },
-    infoText: {
-        fontSize: 14,
-        color: "#5E5E5E",
-    },
-    infoSubText: {
-        fontSize: 10, 
-        fontWeight: "bold", 
-        color: "#A3A9B0"
-    },
-    sectionTitle: {
-        fontSize: 16,
-        fontWeight: "600",
-        marginTop: 22,
-        marginBottom: 8,
-    },
+    infoText: { fontSize: 14, color: "#5E5E5E" },
+    infoSubText: { fontSize: 10, fontWeight: "bold", color: "#A3A9B0" },
+    sectionTitle: { fontSize: 16, fontWeight: "600", marginTop: 22, marginBottom: 8 },
     profileContainer: {
-        backgroundColor:"#FFFFFF",
-        padding:10,
-        borderRadius:8,
+        backgroundColor: "#FFFFFF",
+        padding: 10,
+        borderRadius: 8,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         marginTop: 10,
-        // Border removed as requested
     },
-    cleanerImage: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-    },
-    cleanerName: {
-        fontSize: 14,
-        fontWeight: "600",
-    },
-    cleanerLocation: {
-        fontSize: 12,
-        color: "#6B7280",
-    },
-    serviceRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 8,
-        marginBottom: 10,
-    },
-    gallery: {
-        marginTop: 30,
-    },
-    galleryLarge: {
-        width: "100%",
-        height: 200,
-        borderRadius: 12,
-        marginBottom: 8,
-    },
-    galleryRow: {
-        flexDirection: "row",
-        gap: 8,
-    },
-    gallerySmall: {
-        flex: 1,
-        height: 100,
-        borderRadius: 12,
-    },
+    cleanerImage: { width: 40, height: 40, borderRadius: 20 },
+    cleanerName: { fontSize: 14, fontWeight: "600" },
+    cleanerLocation: { fontSize: 12, color: "#6B7280" },
+    serviceRow: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 10 },
+    gallery: { marginTop: 30 },
+    galleryLarge: { width: "100%", height: 200, borderRadius: 12, marginBottom: 8 },
+    galleryRow: { flexDirection: "row", gap: 8 },
+    gallerySmall: { flex: 1, height: 100, borderRadius: 12 },
+    validateButton:{
+        width:"100%", 
+        backgroundColor:Colors.PRIMARY,
+        borderRadius:10,
+        marginTop:50,
+padding:20
+    }
 });

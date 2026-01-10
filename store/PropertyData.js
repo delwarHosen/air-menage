@@ -13,7 +13,12 @@ export const propertiesData = [
     bedrooms: 3,
     bedroomElements: ["Bed", "Wardrobe", "AC", "Study Table"],
     lockType: "Smart Digital Lock",
-    meetkeyType:"Meet the cleaner to give keys"
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 101, profile_img: "https://i.pravatar.cc/150?img=11", name: "Sophia Martinez",location:"France" },
+      { id: 102, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" ,location:"France"},
+      { id: 103, profile_img: "https://i.pravatar.cc/150?img=13", name: "John Doe" ,location:"France"},
+    ]
   },
   {
     id: 2,
@@ -27,7 +32,11 @@ export const propertiesData = [
     bedrooms: 4,
     bedroomElements: ["King Bed", "Wardrobe", "AC", "Attached Bathroom"],
     lockType: "Biometric Lock",
-    meetkeyType:"Meet the cleaner to give keys"
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 201, profile_img: "https://i.pravatar.cc/150?img=14", name: "Alex Brown",location:"France" },
+      { id: 202, profile_img: "https://i.pravatar.cc/150?img=15", name: "Marie Claire",location:"France" },
+    ]
   },
   {
     id: 3,
@@ -41,7 +50,11 @@ export const propertiesData = [
     bedrooms: 1,
     bedroomElements: ["Single Bed", "Wardrobe", "AC"],
     lockType: "Key Lock",
-    meetkeyType:"Meet the cleaner to give keys"
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 301, profile_img: "https://i.pravatar.cc/150?img=16", name: "Sara Lee",location:"France",location:"France" },
+      { id: 302, profile_img: "https://i.pravatar.cc/150?img=17", name: "John Smith", location:"France",location:"France"},
+    ]
   },
   {
     id: 4,
@@ -55,6 +68,9 @@ export const propertiesData = [
     bedrooms: 3,
     bedroomElements: ["Bed", "Wardrobe", "Fan"],
     lockType: "Manual Deadbolt Lock",
-    meetkeyType:"Meet the cleaner to give keys"
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
   }
 ];

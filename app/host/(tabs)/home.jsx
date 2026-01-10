@@ -18,21 +18,21 @@ import HostTabs from "../../../components/HostTabs/HostTabs";
 import { Body2, Caption, H4 } from "../../../components/typo/typography";
 import { cleanerDetailsData } from '../../../store/CleanerRequestData';
 import { cleaners } from '../../../store/Cleaners';
+import ArchiveCleaning from '../archive-cleaning';
 import CleaningRequest from '../cleaning-request';
-// 1. Data import korun
-// import { cleanerDetailsData } from '../../../store/cleanerDetailsData';
+
 
 export default function Home() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("pending");
   const { t } = useTranslation();
 
-  // Ashol data (cleanerDetailsData) modify hobe na, shudhu dekhate filter kora hobe
+
   const displayData = cleanerDetailsData.filter((item) => {
     if (activeTab === "pending") {
       return item.status.toLowerCase() === "pending";
     } else if (activeTab === "confirm") {
-      // Tab jodi confirm hoy, tahole Completed status er data dekhabe
+
       return item.status.toLowerCase() === "completed";
     }
     return true;
@@ -115,12 +115,18 @@ export default function Home() {
     } else if (index === 2) {
       return (
         <View style={{ marginVertical: 10 }}>
-          
-          <CleaningRequest
-            data={displayData}
-            allData={cleanerDetailsData}
-            activeTab={activeTab}
-          />
+          {activeTab === "pending" ? (
+            <CleaningRequest
+              data={displayData}
+              allData={cleanerDetailsData}
+              activeTab={activeTab}
+            />
+          ) : (
+
+            <View>
+              <ArchiveCleaning />
+            </View>
+          )}
         </View>
       );
     }

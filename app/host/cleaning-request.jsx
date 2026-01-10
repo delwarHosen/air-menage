@@ -8,7 +8,7 @@ import { BedIcon, ClockIcon, CreatePropertyIcon, LocationIcon } from '../../asse
 import { Body1, Caption, H4, H5, H6 } from '../../components/typo/typography';
 
 // { data } receive kora hoyeche Home theke
-export default function CleaningRequest({  data, allData, activeTab  }) {
+export default function CleaningRequest({ data, allData, activeTab }) {
     const { t } = useTranslation();
     const router = useRouter();
 
@@ -21,7 +21,7 @@ export default function CleaningRequest({  data, allData, activeTab  }) {
                 <H5>{item.date}</H5>
                 <View style={styles.divider} />
                 <View style={styles.middleRow}>
-                    <Image source={item.image} style={styles.propertyImage} />
+                    <Image source={item?.image} style={styles.propertyImage} />
                     <View style={styles.rightContent}>
                         <Body1>{item.city}</Body1>
                         <View style={styles.propeertiDetailcontent}>
@@ -34,6 +34,16 @@ export default function CleaningRequest({  data, allData, activeTab  }) {
                                 <Caption>{item.beds} {t('Beds')}</Caption>
                             </View>
                         </View>
+                        <View style={styles.propeertiDetailcontent}>
+                            <View style={styles.propertiContent}>
+                                <BedIcon />
+                                <Caption>{item.bathrooms} bathrooms</Caption>
+                            </View>
+                            <View style={styles.propertiContent}>
+                                <BedIcon />
+                                <Caption>{item.bedrooms} bedrooms</Caption>
+                            </View>
+                        </View>
                         <View style={styles.propertiContent}>
                             <LocationIcon />
                             <Caption>{item.buildingName}</Caption>
@@ -41,6 +51,10 @@ export default function CleaningRequest({  data, allData, activeTab  }) {
                         <View style={styles.propertiContent}>
                             <ClockIcon />
                             <Caption>{item.timeSlot} ({item.duration})</Caption>
+                        </View>
+                        <View style={styles.propertiContent}>
+                            <ClockIcon />
+                            <Caption>({item.duration})</Caption>
                         </View>
                     </View>
                 </View>
@@ -51,7 +65,7 @@ export default function CleaningRequest({  data, allData, activeTab  }) {
                             {String(item.cleaner_request ? item.cleaner_request.length : 0)}
                         </H6>
                     </View>
-                    <H4 style={{ color: "#6B7280" }}>{item.price} €</H4>
+                    <H4 style={{ color: "#6B7280" }}>{item?.price} €</H4>
                 </View>
             </View>
         </TouchableOpacity>
@@ -59,38 +73,61 @@ export default function CleaningRequest({  data, allData, activeTab  }) {
 
 
     const renderFooter = () => {
-       
         if (activeTab !== "pending") return null;
 
         return (
-            <View style={{ marginTop: 20 }}>
-                <H4 style={{ marginBottom: 15 }}>Your Confirm Tasks</H4>
-                {allData.map((item) => (
-                   
-                    item.status.toLowerCase() === "completed" &&
-                    item.completed_tasks?.map((task) => (
-                        <View key={task.id} style={styles.completeCliningCard}>
-                            <View style={styles.completeTaskInfo}>
-                                <Body1 style={{ color: "#323135" }}>{task.property_name}</Body1>
-                                <Caption style={{ color: "#64748B" }}>{task.task_title}</Caption>
-                            </View>
-                            <View style={styles.imageStackContainer}>
-                                <LinearGradient
-                                    colors={['#FAFF0A', '#FEAD4E', '#ED1B1B', '#FB1274', '#A61D5F', '#F109DA']}
-                                    style={styles.gradientBorder}
-                                >
-                                    <Image source={{ uri: item.cleanerImage }} style={styles.cleanerImg} />
-                                </LinearGradient>
-                                <View style={styles.taskOverlayWrapper}>
-                                    <Image source={task.task_image} style={styles.smallTaskImg} />
+            <>
+                <View style={{ marginTop: 20 }}>
+                    <H4 style={{ marginBottom: 15 }}> {t("tasks.yourConfirmedTasks")}</H4>
+
+                    {allData?.map((item) =>
+                        item.completed_tasks?.map((task) => (
+                            <View key={task.id} style={styles.completeCliningCard}>
+                                <View style={styles.completeTaskInfo}>
+                                    <Body1 style={{ color: "#323135" }}>
+                                        {task.property_name}
+                                    </Body1>
+                                    <Caption style={{ color: "#64748B" }}>
+                                        {task.task_title}
+                                    </Caption>
+                                </View>
+
+                                <View style={styles.imageStackContainer}>
+                                    <LinearGradient
+                                        colors={[
+                                            '#FAFF0A',
+                                            '#FEAD4E',
+                                            '#ED1B1B',
+                                            '#FB1274',
+                                            '#A61D5F',
+                                            '#F109DA'
+                                        ]}
+                                        style={styles.gradientBorder}
+                                    >
+                                        <Image
+                                            source={{ uri: item?.cleanerImage }}
+                                            style={styles.cleanerImg}
+                                        />
+                                    </LinearGradient>
+
+                                    <View style={styles.taskOverlayWrapper}>
+                                        <Image
+                                            source={task?.task_image}
+                                            style={styles.smallTaskImg}
+                                        />
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    ))
-                ))}
-            </View>
+                        ))
+                    )}
+                </View>
+            </>
+
+
+
         );
     };
+
 
     return (
         <FlatList

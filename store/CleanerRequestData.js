@@ -3,49 +3,6 @@ import { IMAGE_COMPONENTS } from "../assets/image.index";
 export const cleanerDetailsData = [
   {
     id: 1,
-    status: "Completed",
-    date: "Vendredi 15th December",
-    day: "Friday",
-    city: "San Francisco",
-    image: IMAGE_COMPONENTS.archiveImage,
-    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
-    images: [IMAGE_COMPONENTS.propertyImage, IMAGE_COMPONENTS.propertyImage],
-    description: "Comfortable and well maintained property located in a prime area...",
-    country: "France",
-    area: "20–500 m²",
-    beds: 2,
-    bedrooms: 2,
-    bathrooms: 2,
-    buildingName: "B. Berlin / Peak Fit",
-    property_type: "Apartment",
-    lock_system: "Keypad",
-    timeSlot: "10:00-16:00",
-    duration: "2Hours 30Min",
-    equipmentProvided: true,
-    laundryIncluded: true,
-    cleanerName: "Rushna",
-    price: 50.25,
-    cleanerImage: "https://i.pravatar.cc/150?img=12",
-    // Completed status tai task details ache
-    completed_tasks: [
-      {
-        id: "ct1",
-        property_name: "B. Berlin / Peak Fit",
-        task_title: "Full House Deep Cleaning",
-        task_image: IMAGE_COMPONENTS.propertyDetailsImage,
-        status: "Completed"
-      }
-    ],
-    cleaner_request: [
-      { id: 101, profile_img: "https://i.pravatar.cc/150?img=21", name: "Sophia Martinez", location: "Los Angeles, USA" }
-    ],
-    general_types: [{ id: 1, name: "Living Room Cleaning" }],
-    bed_room: [{ id: 1, name: "Bed Making" }],
-    kitchen_room: [{ id: 1, name: "Dishwashing" }],
-    living_room: [{ id: 1, name: "Dusting" }],
-  },
-  {
-    id: 2,
     status: "Pending",
     date: "Lundi 18th December",
     day: "Monday",
@@ -69,60 +26,44 @@ export const cleanerDetailsData = [
     cleanerName: "Alex",
     price: 65.0,
     cleanerImage: "https://i.pravatar.cc/150?img=32",
-    // Pending status tai completed task khali
-    completed_tasks: [],
+
     cleaner_request: [
-      { id: 201, profile_img: "https://i.pravatar.cc/150?img=31", name: "Mia Anderson", location: "Stockholm, Sweden" }
+      { id: 101, profile_img: "https://i.pravatar.cc/150?img=11", name: "Sophia Martinez" },
+      { id: 102, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
+      { id: 103, profile_img: "https://i.pravatar.cc/150?img=12", name: "Jhon Doe" },
+      { id: 104, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
     ],
-    general_types: [{ id: 1, name: "Full Cleaning" }],
-    bed_room: [{ id: 1, name: "Bed Making" }],
-    kitchen_room: [{ id: 1, name: "Appliance Cleaning" }],
-    living_room: [{ id: 1, name: "Vacuum" }],
-  },
-  {
-    id: 3,
-    status: "Completed",
-    date: "Mercredi 20th December",
-    day: "Wednesday",
-    city: "Paris",
-    image: IMAGE_COMPONENTS.archiveImage,
-    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
-    images: [IMAGE_COMPONENTS.propertyImage],
-    description: "Central loft ideal for quick services...",
-    country: "France",
-    area: "30–80 m²",
-    beds: 1,
-    bedrooms: 1,
-    bathrooms: 1,
-    buildingName: "Central Loft",
-    property_type: "Studio",
-    lock_system: "Smart Lock",
-    timeSlot: "11:00-14:30",
-    duration: "2Hours 30Min",
-    equipmentProvided: true,
-    laundryIncluded: false,
-    cleanerName: "Marie",
-    price: 40.75,
-    cleanerImage: "https://i.pravatar.cc/150?img=47",
+
+    general_types: [
+      { id: 1, name: "Full Cleaning" },
+      { id: 2, name: "Dust Removal" },
+    ],
+    bed_room: [
+      { id: 1, name: "Bed Making" },
+      { id: 2, name: "Sheet Changing" },
+    ],
+    living_room: [
+      { id: 1, name: "Vacuum Cleaning" },
+      { id: 2, name: "Mopping" },
+    ],
+    kitchen_room: [
+      { id: 1, name: "Dish Washing" },
+      { id: 2, name: "Appliance Cleaning" },
+    ],
+
     completed_tasks: [
       {
-        id: "ct3",
-        property_name: "Central Loft",
-        task_title: "Window and Floor Polishing",
+        id: "ct5",
+        property_name: "Colosseum View",
+        task_title: "Balcony and Living Area Deep Clean",
         task_image: IMAGE_COMPONENTS.propertyDetailsImage,
-        status: "Completed"
-      }
+        status: "Completed",
+      },
     ],
-    cleaner_request: [
-      { id: 301, profile_img: "https://i.pravatar.cc/150?img=41", name: "Sophia Lee", location: "San Francisco, USA" }
-    ],
-    general_types: [{ id: 1, name: "Quick Cleaning" }],
-    bed_room: [{ id: 1, name: "Bed Making" }],
-    kitchen_room: [{ id: 1, name: "Counter Cleaning" }],
-    living_room: [{ id: 1, name: "Vacuum" }],
   },
+
   {
-    id: 4,
+    id: 2,
     status: "Pending",
     date: "Vendredi 22nd December",
     day: "Friday",
@@ -146,26 +87,87 @@ export const cleanerDetailsData = [
     cleanerName: "Carlos",
     price: 90.0,
     cleanerImage: "https://i.pravatar.cc/150?img=18",
-    // Pending status tai completed task khali
-    completed_tasks: [],
-    cleaner_request: [
-      { id: 401, profile_img: "https://i.pravatar.cc/150?img=51", name: "Emma Stone", location: "Berlin, Germany" }
+
+     cleaner_request: [
+      { id: 101, profile_img: "https://i.pravatar.cc/150?img=11", name: "Sophia Martinez" },
+      { id: 102, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
+      { id: 103, profile_img: "https://i.pravatar.cc/150?img=12", name: "Jhon Doe" },
+      { id: 104, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
     ],
     general_types: [{ id: 1, name: "Deep Cleaning" }],
     bed_room: [{ id: 1, name: "Bed Making" }],
-    kitchen_room: [{ id: 1, name: "Appliance Cleaning" }],
     living_room: [{ id: 1, name: "Dusting" }],
+    kitchen_room: [{ id: 1, name: "Appliance Cleaning" }],
+
+    completed_tasks: [
+      {
+        id: "ct5",
+        property_name: "Colosseum View",
+        task_title: "Balcony and Living Area Deep Clean",
+        task_image: IMAGE_COMPONENTS.propertyDetailsImage,
+        status: "Completed",
+      },
+    ],
   },
+
   {
-    id: 5,
-    status: "Completed",
-    date: "Lundi 25th December",
-    day: "Monday",
+    id: 3,
+    status: "Pending",
+    date: "Mardi 26th December",
+    day: "Tuesday",
+    city: "Paris",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description: "City apartment quick cleaning...",
+    country: "France",
+    area: "30–80 m²",
+    beds: 1,
+    bedrooms: 1,
+    bathrooms: 1,
+    buildingName: "Central Loft",
+    property_type: "Studio",
+    lock_system: "Smart Lock",
+    timeSlot: "11:00-14:30",
+    duration: "2Hours 30Min",
+    equipmentProvided: true,
+    laundryIncluded: false,
+    cleanerName: "Marie",
+    price: 40.75,
+    cleanerImage: "https://i.pravatar.cc/150?img=47",
+
+    cleaner_request: [
+      { id: 301, profile_img: "https://i.pravatar.cc/150?img=31", name: "John Doe" },
+      { id: 302, profile_img: "https://i.pravatar.cc/150?img=32", name: "Alex Brown" },
+      { id: 303, profile_img: "https://i.pravatar.cc/150?img=33", name: "Sara Lee" },
+    ],
+
+    general_types: [{ id: 1, name: "Quick Cleaning" }],
+    bed_room: [{ id: 1, name: "Bed Making" }],
+    living_room: [{ id: 1, name: "Vacuum" }],
+    kitchen_room: [{ id: 1, name: "Counter Cleaning" }],
+
+    completed_tasks: [
+      {
+        id: "ct5",
+        property_name: "Colosseum View",
+        task_title: "Balcony and Living Area Deep Clean",
+        task_image: IMAGE_COMPONENTS.propertyDetailsImage,
+        status: "Completed",
+      },
+    ],
+  },
+
+  {
+    id: 4,
+    status: "Pending",
+    date: "Jeudi 28th December",
+    day: "Thursday",
     city: "Rome",
     image: IMAGE_COMPONENTS.archiveImage,
     propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
     images: [IMAGE_COMPONENTS.propertyImage],
-    description: "Beautiful historical apartment cleaning...",
+    description: "Historical apartment cleaning...",
     country: "Italy",
     area: "40–100 m²",
     beds: 2,
@@ -179,23 +181,26 @@ export const cleanerDetailsData = [
     equipmentProvided: true,
     laundryIncluded: true,
     cleanerName: "Lucia",
-    price: 55.50,
+    price: 55.5,
     cleanerImage: "https://i.pravatar.cc/150?img=25",
+
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=41", name: "Marco Rossi" },
+    ],
+
+    general_types: [{ id: 1, name: "Standard Cleaning" }],
+    bed_room: [{ id: 1, name: "Bed Making" }],
+    living_room: [{ id: 1, name: "Mopping" }],
+    kitchen_room: [{ id: 1, name: "Trash Removal" }],
+
     completed_tasks: [
       {
         id: "ct5",
         property_name: "Colosseum View",
         task_title: "Balcony and Living Area Deep Clean",
         task_image: IMAGE_COMPONENTS.propertyDetailsImage,
-        status: "Completed"
-      }
+        status: "Completed",
+      },
     ],
-    cleaner_request: [
-      { id: 501, profile_img: "https://i.pravatar.cc/150?img=55", name: "John Doe", location: "Rome, Italy" }
-    ],
-    general_types: [{ id: 1, name: "Standard Cleaning" }],
-    bed_room: [{ id: 1, name: "Bed Making" }],
-    kitchen_room: [{ id: 1, name: "Trash Removal" }],
-    living_room: [{ id: 1, name: "Mopping" }],
-  }
+  },
 ];
