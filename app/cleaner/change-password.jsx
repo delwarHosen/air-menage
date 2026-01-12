@@ -17,7 +17,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
-import { FORM_FIELDS, FORM_PLACEHOLDERS } from "../../constants/form";
+import { FORM_FIELDS } from "../../constants/form";
 
 const { width } = Dimensions.get('window');
 
@@ -32,9 +32,27 @@ export default function ChangePassword() {
     });
 
     const passwordFields = [
-        { id: '1', key: FORM_FIELDS.CURRENT_PASSWORD, stateKey: 'current', label: t("change_password.fields.currentPassword") },
-        { id: '2', key: FORM_FIELDS.PASSWORD, stateKey: 'new', label: t("change_password.fields.newPassword") },
-        { id: '3', key: FORM_FIELDS.CONFIRM_PASSWORD, stateKey: 'confirm', label: t("change_password.fields.confirmPassword") },
+        {
+            id: '1',
+            key: FORM_FIELDS.CURRENT_PASSWORD,
+            stateKey: 'current',
+            label: t("change_password.fields.currentPassword"),
+            placeholder: t("form.placeholders.currentPassword")
+        },
+        {
+            id: '2',
+            key: FORM_FIELDS.PASSWORD,
+            stateKey: 'new',
+            label: t("change_password.fields.newPassword"),
+            placeholder: t("form.placeholders.password")
+        },
+        {
+            id: '3',
+            key: FORM_FIELDS.CONFIRM_PASSWORD,
+            stateKey: 'confirm',
+            label: t("change_password.fields.confirmPassword"),
+            placeholder: t("form.placeholders.confirmPassword")
+        }
     ];
 
     const { control, handleSubmit, formState: { isSubmitting } } = useForm({
@@ -66,7 +84,7 @@ export default function ChangePassword() {
                             style={styles.textInput}
                             value={value}
                             onChangeText={onChange}
-                            placeholder={FORM_PLACEHOLDERS[item.key]}
+                            placeholder={item.placeholder}
                             placeholderTextColor="#7E8792"
                             secureTextEntry={!showPassword[item.stateKey]}
                         />
@@ -88,7 +106,6 @@ export default function ChangePassword() {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
-                keyboardVerticalOffset={0}
             >
                 <ScrollView
                     contentContainerStyle={styles.scrollContainer}
@@ -99,16 +116,21 @@ export default function ChangePassword() {
                         <View style={{ marginHorizontal: 20 }}>
                             <Heading title={t("change_password.title")} />
                         </View>
+
                         <View style={styles.headerContainer}>
                             <View style={styles.iconSection}>
                                 <View style={styles.lockCircle}>
-                                    <Ionicons name="lock-closed" size={40} color={Colors.PRIMARY} />
+                                    <Ionicons
+                                        name="lock-closed"
+                                        size={40}
+                                        color={Colors.PRIMARY}
+                                    />
                                 </View>
                             </View>
                         </View>
                     </View>
 
-                    {passwordFields.map((item) => renderItem({ item }))}
+                    {passwordFields.map(item => renderItem({ item }))}
 
                     <View style={styles.footerContainer}>
                         <TouchableOpacity
@@ -116,7 +138,9 @@ export default function ChangePassword() {
                             style={styles.submitButton}
                         >
                             <ButtonText style={styles.buttonText}>
-                                {isSubmitting ? t("change_password.buttons.updating") : t("change_password.buttons.saveChanges")}
+                                {isSubmitting
+                                    ? t("change_password.buttons.updating")
+                                    : t("change_password.buttons.saveChanges")}
                             </ButtonText>
                         </TouchableOpacity>
                     </View>

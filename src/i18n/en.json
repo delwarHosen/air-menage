@@ -314,7 +314,9 @@
         "bedroom": "Bedroom",
         "bathroom": "Bathroom",
         "kitchen": "Kitchen",
-        "estimated_cleaning_time": "Estimated Cleaning Time"
+        "estimated_cleaning_time": "Estimated Cleaning Time",
+        "view_map": "View Map",
+        "apply": "Apply"
     },
     "create_cleaning": {
         "title": "Create Cleaning Request"
@@ -415,5 +417,70 @@
         "confirmText": "Do you really want to delete {{name}}'s request?",
         "cancel": "Cancel",
         "confirmDelete": "Yes, Delete"
+    },
+    "form": {
+        "labels": {
+            "email": "Email Address",
+            "password": "Password",
+            "confirmPassword": "Confirm Password",
+            "currentPassword": "Current Password",
+            "fullName": "Full Name",
+            "userName": "User Name",
+            "phone": "Number",
+            "address": "Address",
+            "description": "Description",
+            "city": "City",
+            "country": "Country",
+            "dob": "Date of Birth",
+            "contactNo": "Contact Number",
+            "location": "Location",
+            "tax": "Tax ID (Add your tax id for buying wholesaling products)",
+            "documentation": "Tax ID (Add your tax id for buying wholesaling products)",
+            "propertyTitle": "Property title",
+            "propertyImage": "Property Image",
+            "floorNumber": "Floor",
+            "apartmentNumber": "Apartment Number",
+            "propertySize": "Property Size"
+        },
+        "placeholders": {
+            "email": "Enter your email address",
+            "password": "Enter your password",
+            "confirmPassword": "Enter your Confirm Password",
+            "currentPassword": "Enter your Current Password",
+            "fullName": "Enter your full name",
+            "userName": "Enter your username",
+            "dob": "Select your date of birth",
+            "contactNo": "+99 54196 418164",
+            "documentation": "1485 482895632 86885938",
+            "location": "France",
+            "tax": "1485 482895632 86885938",
+            "propertyTitle": "Le Central",
+            "propertyImage": "➕  Add photos",
+            "floorNumber": "3rd",
+            "apartmentNumber": "301",
+            "propertySize": "50 m2",
+            "keyLocation": "e.g. B. Berlin or",
+            "keyPassword": "******"
+        }
+    },
+    "income": {
+        "Revenue": "Revenue",
+        "thisMonth": "this Month",
+        "comingSoon": "coming Soon",
+        "showSummary": "Show Revenue Summary",
+        "transactionsToCome": "Transaction to come",
+        "transactionsEffected": "Transaction effected",
+        "showAllTransactions": "Show all effected transactions",
+        "consultReports": "Consult all reports"
+    },
+    "chart": {
+        "Ja": "Jan",
+        "Feb": "Feb",
+        "Mar": "Mar",
+        "Apr": "Apr",
+        "May": "May"
+    },
+    "transactions": {
+        "Programme": "Programme"
     }
 }

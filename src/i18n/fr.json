@@ -94,7 +94,8 @@
             "privacy": "Politique de confidentialité",
             "legalNotices": "Mentions légales",
             "rating": "Évaluation et avis",
-            "contact": "Contact","myIncome": "Mes revenus"
+            "contact": "Contact",
+            "myIncome": "Mes revenus"
         },
         "actions": {
             "logout": "Se déconnecter"
@@ -311,7 +312,8 @@
         "bedroom": "Chambre",
         "bathroom": "Salle de bain",
         "kitchen": "Cuisine",
-        "estimated_cleaning_time": "Temps de nettoyage estimé"
+        "view_map": "Voir la carte",
+        "apply": "Appliquer"
     },
     "create_cleaning": {
         "title": "Créer une demande de nettoyage"
@@ -412,5 +414,70 @@
         "confirmText": "Voulez-vous vraiment supprimer la demande de {{name}} ?",
         "cancel": "Annuler",
         "confirmDelete": "Oui, Supprimer"
+    },
+    "form": {
+        "labels": {
+            "email": "Adresse e-mail",
+            "password": "Mot de passe",
+            "confirmPassword": "Confirmer le mot de passe",
+            "currentPassword": "Mot de passe actuel",
+            "fullName": "Nom complet",
+            "userName": "Nom d'utilisateur",
+            "phone": "Numéro",
+            "address": "Adresse",
+            "description": "Description",
+            "city": "Ville",
+            "country": "Pays",
+            "dob": "Date de naissance",
+            "contactNo": "Numéro de contact",
+            "location": "Localisation",
+            "tax": "ID fiscal (Ajoutez votre ID fiscal pour acheter des produits en gros)",
+            "documentation": "ID fiscal (Ajoutez votre ID fiscal pour acheter des produits en gros)",
+            "propertyTitle": "Titre de la propriété",
+            "propertyImage": "Image de la propriété",
+            "floorNumber": "Étage",
+            "apartmentNumber": "Numéro d'appartement",
+            "propertySize": "Superficie de la propriété"
+        },
+        "placeholders": {
+            "email": "Entrez votre adresse e-mail",
+            "password": "Entrez votre mot de passe",
+            "confirmPassword": "Entrez votre mot de passe de confirmation",
+            "currentPassword": "Entrez votre mot de passe actuel",
+            "fullName": "Entrez votre nom complet",
+            "userName": "Entrez votre nom d'utilisateur",
+            "dob": "Sélectionnez votre date de naissance",
+            "contactNo": "+99 54196 418164",
+            "documentation": "1485 482895632 86885938",
+            "location": "France",
+            "tax": "1485 482895632 86885938",
+            "propertyTitle": "Le Central",
+            "propertyImage": "➕  Ajouter des photos",
+            "floorNumber": "3e",
+            "apartmentNumber": "301",
+            "propertySize": "50 m2",
+            "keyLocation": "ex. B. Berlin ou",
+            "keyPassword": "******"
+        }
+    },
+    "income": {
+        "Revenue": "Revenu",
+        "thisMonth": "ce Mois",
+        "comingSoon": "à venir",
+        "showSummary": "Afficher Le récapitulatif revenus",
+        "transactionsToCome": "Transaction à venir",
+        "transactionsEffected": "Transaction effectuée",
+        "showAllTransactions": "Afficher toutes les transactions effectuées",
+        "consultReports": "Consulter tous les rapports"
+    },
+    "chart": {
+        "Ja": "Janv",
+        "Feb": "Févr",
+        "Mar": "Mars",
+        "Apr": "Avr",
+        "May": "Mai"
+    },
+    "transactions": {
+        "Programme": "Programme"
     }
 }

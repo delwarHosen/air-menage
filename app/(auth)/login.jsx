@@ -15,13 +15,12 @@ import { Colors } from "../../assets/Colors";
 import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { ButtonText, H3, H4 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
-import { FORM_FIELDS, FORM_LABELS, FORM_PLACEHOLDERS } from "../../constants/form";
+import { FORM_FIELDS } from "../../constants/form";
 
 export default function LoginScreen() {
     const { t } = useTranslation();
     const router = useRouter();
-    
-   
+
     const { selectedRole } = useLocalSearchParams();
 
     const {
@@ -40,24 +39,20 @@ export default function LoginScreen() {
             const payload = {
                 email: values[FORM_FIELDS.EMAIL],
                 password: values[FORM_FIELDS.PASSWORD],
-                role: selectedRole // Role-ti payload-e rakha holo
+                role: selectedRole
             };
 
             console.log("Submitted Data:", payload);
 
-            // Role based Navigation Logic
             if (selectedRole === "cleaner") {
-                // Cleaner hole cleaner folder-er home-e jabe
                 router.replace("/cleaner/home");
             } else {
-                // Default host hole host folder-e jabe
                 router.replace("/host/home");
             }
 
         } catch (err) {
-            // Android-er jonno toast, iOS-er jonno Alert use kora bhalo
             if (Platform.OS === 'android') {
-                ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+                ToastAndroid.show(t("common.somethingWrong"), ToastAndroid.SHORT);
             } else {
                 console.log("Error logic here");
             }
@@ -87,10 +82,10 @@ export default function LoginScreen() {
                                 name={FORM_FIELDS.EMAIL}
                                 render={({ field }) => (
                                     <FormInput
-                                        label={FORM_LABELS[FORM_FIELDS.EMAIL]}
+                                        label={t("form.labels.email")}
                                         value={field.value}
                                         onChangeText={field.onChange}
-                                        placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.EMAIL]}
+                                        placeholder={t("form.placeholders.email")}
                                         required
                                     />
                                 )}
@@ -102,22 +97,24 @@ export default function LoginScreen() {
                                 name={FORM_FIELDS.PASSWORD}
                                 render={({ field }) => (
                                     <FormInput
-                                        label={FORM_LABELS[FORM_FIELDS.PASSWORD]}
+                                        label={t("form.labels.password")}
                                         value={field.value}
                                         onChangeText={field.onChange}
-                                        placeholder={FORM_PLACEHOLDERS[FORM_FIELDS.PASSWORD]}
-                                        secureTextEntry={true} // Password hide korar jonno
+                                        placeholder={t("form.placeholders.password")}
+                                        secureTextEntry
                                         required
                                     />
                                 )}
                             />
 
-                            {/* Login Button - Ekhane handleSubmit use kora hoyeche */}
+                            {/* Login Button */}
                             <TouchableOpacity
                                 onPress={handleSubmit(onSubmit)}
                                 style={styles.submitButton}
                             >
-                                <ButtonText style={styles.buttonText}>{t("login.button")}</ButtonText>
+                                <ButtonText style={styles.buttonText}>
+                                    {t("login.button")}
+                                </ButtonText>
                             </TouchableOpacity>
 
                             {/* Sign Up / Forgot Password */}
@@ -125,14 +122,18 @@ export default function LoginScreen() {
                                 <View>
                                     <Link href="/(auth)/register" asChild>
                                         <TouchableOpacity>
-                                            <H4 style={{ fontWeight: '500', textDecorationLine: 'underline' }}>{t("login.signup")}</H4>
+                                            <H4 style={{ fontWeight: '500', textDecorationLine: 'underline' }}>
+                                                {t("login.signup")}
+                                            </H4>
                                         </TouchableOpacity>
                                     </Link>
                                 </View>
                                 <View>
                                     <Link href="/(auth)/forgot-password" asChild>
                                         <TouchableOpacity>
-                                            <H4 style={{ textDecorationLine: 'underline' }}>{t("login.Forgot_Password")}?</H4>
+                                            <H4 style={{ textDecorationLine: 'underline' }}>
+                                                {t("login.forgotPassword")}?
+                                            </H4>
                                         </TouchableOpacity>
                                     </Link>
                                 </View>
@@ -141,7 +142,9 @@ export default function LoginScreen() {
                             {/* Divider */}
                             <View style={styles.dividerContainer}>
                                 <View style={styles.divider} />
-                                <Text style={styles.dividerText}>or</Text>
+                                <Text style={styles.dividerText}>
+                                    {t("common.or")}
+                                </Text>
                                 <View style={styles.divider} />
                             </View>
 
@@ -151,7 +154,7 @@ export default function LoginScreen() {
                                     <GoogleIcon />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.socialIcon}>
-                                    <AppleIcons/>
+                                    <AppleIcons />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -161,6 +164,7 @@ export default function LoginScreen() {
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -185,7 +189,7 @@ const styles = StyleSheet.create({
         marginBottom: 40
     },
     submitButton: {
-        backgroundColor:Colors.PRIMARY,
+        backgroundColor: Colors.PRIMARY,
         paddingVertical: 16,
         borderRadius: 12,
         alignItems: "center",

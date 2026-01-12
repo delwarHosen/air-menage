@@ -110,11 +110,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#F3F4F6",
         // Shadow add kora hoyeche card ke better dekhate
-        elevation: 2,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
     },
     reviewHeader: {
         flexDirection: "row",

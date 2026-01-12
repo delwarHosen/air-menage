@@ -24,7 +24,7 @@ export default function Language() {
 
         // Change app language
         if (lang === "English") changeLanguage("en");
-        else if (lang === "French") changeLanguage("fr");
+        else if (lang === "Frence") changeLanguage("fr");
     };
 
     return (

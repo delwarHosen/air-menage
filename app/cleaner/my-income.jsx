@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dimensions, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import Heading from '../../components/Heading/Heading';
@@ -27,6 +28,7 @@ const effectedTransactions = [
 ];
 
 export default function MyIncome() {
+    const { t } = useTranslation();
 
     const renderTransactionItem = (item) => (
         <View key={item.id} style={styles.transactionItem}>
@@ -34,7 +36,7 @@ export default function MyIncome() {
                 <H5 style={styles.transDate}>{item.date}</H5>
                 <Body2 style={styles.transAmount}>{item.amount} €</Body2>
             </View>
-            <Body2 style={styles.transLabel}>{item.label}</Body2>
+            <Body2 style={styles.transLabel}>{t(`transactions.${item.label}`)}</Body2>
         </View>
     );
 
@@ -42,20 +44,19 @@ export default function MyIncome() {
         <ScrollView
             style={styles.mainContainer}
             showsVerticalScrollIndicator={false}
-            // 1. Sticky header index set korun (0 mane prothom View-ti sticky hobe)
             stickyHeaderIndices={[0]}
         >
-            {/* 2. Header Section: Eti ekhon sticky thakbe scroll korleও */}
+            {/* Header Section */}
             <View style={{ backgroundColor: "#FAFAFA", paddingHorizontal: 15, paddingBottom: 10 }}>
-                <Heading title={"Revenue"} />
+                <Heading title={t("income.Revenue")} />
             </View>
 
             <View style={{ marginHorizontal: 15 }}>
                 <View style={styles.headerRow}>
-                    <H3 style={styles.mainHeading}>Revenue</H3>
-                    <H3 style={styles.mainHeading}>this Month:</H3>
+                    <H3 style={styles.mainHeading}>{t("income.Revenue")}</H3>
+                    <H3 style={styles.mainHeading}>{t("income.thisMonth")}</H3>
                     <H3 style={styles.boldAmount}>50,25 €</H3>
-                    <Body2 style={styles.grayText}>coming Soon: 50,25 €</Body2>
+                    <Body2 style={styles.grayText}>{t("income.comingSoon")}: 50,25 €</Body2>
                 </View>
 
                 {/* --- CUSTOM BAR CHART --- */}
@@ -80,7 +81,7 @@ export default function MyIncome() {
                                         }
                                     ]} />
                                 </View>
-                                <Body2 style={styles.xLabel}>{item.label}</Body2>
+                                <Body2 style={styles.xLabel}>{t(`${item.label}`)}</Body2>
                             </View>
                         ))}
                         <View style={styles.dottedLine} />
@@ -89,27 +90,27 @@ export default function MyIncome() {
 
                 {/* --- RECAP LINK --- */}
                 <TouchableOpacity style={styles.recapBtn}>
-                    <Body1 style={styles.recapText}>Afficher Le récapitulatif revenus</Body1>
+                    <Body1 style={styles.recapText}>{t("income.showSummary")}</Body1>
                 </TouchableOpacity>
 
                 {/* --- TRANSACTIONS --- */}
                 <View style={styles.sectionContainer}>
-                    <H5 style={styles.sectionTitle}>Transaction to come</H5>
+                    <H5 style={styles.sectionTitle}>{t("income.transactionsToCome")}</H5>
                     {toComeTransactions.map(renderTransactionItem)}
                 </View>
 
                 <View style={styles.sectionContainer}>
-                    <H5 style={styles.sectionTitle}>Transaction effected</H5>
+                    <H5 style={styles.sectionTitle}>{t("income.transactionsEffected")}</H5>
                     {effectedTransactions.map(renderTransactionItem)}
                 </View>
 
                 <View style={styles.footer}>
                     <TouchableOpacity style={styles.recapBtn}>
-                        <Body1 style={styles.recapText}>Afficher toutes les transactions effected</Body1>
+                        <Body1 style={styles.recapText}>{t("income.showAllTransactions")}</Body1>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.blueButton}>
-                        <Body2 style={styles.blueBtnText}>Consult tous les rapports</Body2>
+                        <Body2 style={styles.blueBtnText}>{t("income.consultReports")}</Body2>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -117,6 +118,7 @@ export default function MyIncome() {
     );
 }
 
+// === STYLES (UNCHANGED) ===
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
@@ -137,8 +139,6 @@ const styles = StyleSheet.create({
         color: "#6B7280",
         marginTop: 5
     },
-
-    // --- CHART STYLES (MATCHING IMAGE) ---
     chartWrapper: {
         flexDirection: 'row',
         height: 200,
@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
     },
     barBackground: {
         width: 45,
-
         height: '85%',
         borderRadius: 10,
         overflow: 'hidden',
@@ -192,8 +191,6 @@ const styles = StyleSheet.create({
         top: -40,
         height: 40,
     },
-
-    // --- REST OF STYLES ---
     recapBtn: {
         marginTop: 12,
         alignItems: 'center',
@@ -230,7 +227,6 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     transAmount: {
-
         color: '#6B7280'
     },
     transLabel: {

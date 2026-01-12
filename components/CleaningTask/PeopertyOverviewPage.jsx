@@ -1,0 +1,156 @@
+import { Image } from "expo-image";
+import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Colors } from "../../assets/Colors";
+import {
+    BedIcon,
+    CalenderIcon,
+    ClockIcon,
+    CreatePropertyIcon,
+    KeyIcon,
+    LocationIcon,
+    TikMarkIcon
+} from "../../assets/icons/Icons";
+import PropertyTypePicker from "../AddCleaningProperty/PropertyTypePicker";
+import { Body1, Body2, ButtonText, Caption, H4 } from "../typo/typography";
+
+export default function PeopertyOverviewPage({ cleanerRequest }) {
+    const { t } = useTranslation('properties'); // namespace 'properties' set
+    const router = useRouter();
+
+    if (!cleanerRequest) return null;
+
+    return (
+        <View style={styles.container}>
+            <Image
+                source={cleanerRequest.propertyImage}
+                style={styles.mainImage}
+                contentFit="cover"
+            />
+            <H4 style={{ marginVertical: 10 }}>{cleanerRequest.city}</H4>
+
+            <Body2 style={styles.body2}>{cleanerRequest.description}</Body2>
+
+            <View style={styles.propertyType}>
+                <PropertyTypePicker />
+            </View>
+
+            <View style={styles.infoRow}>
+                <CalenderIcon />
+                <Body1 style={styles.infoText}>{cleanerRequest.day}</Body1>
+            </View>
+
+            <View style={styles.infoRow}>
+                <ClockIcon />
+                <Body1 style={styles.infoText}>{cleanerRequest.timeSlot}</Body1>
+            </View>
+
+            <View style={styles.infoRow}>
+                <ClockIcon />
+                <View>
+                    <Body2 style={styles.infoSubText}>{t("estimated_cleaning_time")}</Body2>
+                    <Body1 style={styles.infoText}>{cleanerRequest.duration}</Body1>
+                </View>
+            </View>
+
+            {/* Map button */}
+            <View style={styles.infoMapRow}>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                    <LocationIcon />
+                    <View>
+                        <Body2 style={styles.infoSubText}>{t("location")}</Body2>
+                        <Body1 style={styles.infoText}>{`${cleanerRequest.city}, ${cleanerRequest.country}`}</Body1>
+                    </View>
+                </View>
+                <TouchableOpacity
+                    onPress={() => router.push("/cleaner/map")}
+                    style={styles.mapBtn}>
+                    <Caption style={{ textAlign: "center", color: "white" }}>{t("view_map")}</Caption>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.infoRow}>
+                <CreatePropertyIcon />
+                <Body1 style={styles.infoText}>{cleanerRequest.area}</Body1>
+            </View>
+
+            <View style={styles.infoRow}>
+                <BedIcon />
+                <Body1 style={styles.infoText}>{`${cleanerRequest.bedrooms} ${t("bedrooms")}`}</Body1>
+            </View>
+
+            <View style={styles.infoRow}>
+                <BedIcon />
+                <Body1 style={styles.infoText}>{`${cleanerRequest.beds} ${t("beds")}`}</Body1>
+            </View>
+
+            <View style={styles.infoRow}>
+                <BedIcon />
+                <Body1 style={styles.infoText}>{`${cleanerRequest.bathrooms} ${t("bathrooms")}`}</Body1>
+            </View>
+
+            <View style={styles.infoRow}>
+                <H4>{`${cleanerRequest.price}€`}</H4>
+            </View>
+
+            <View style={styles.infoRowkey}>
+                <KeyIcon />
+                <Body1 style={styles.infoText}>{cleanerRequest.lock_system}</Body1>
+                <TikMarkIcon />
+            </View>
+
+            <TouchableOpacity style={styles.validateButton}>
+                <ButtonText style={{ textAlign: "center", color: "white" }}>{t("apply")}</ButtonText>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: { flex: 1 },
+    mainImage: { width: "100%", height: 234, borderRadius: 12, marginBottom: 12 },
+    body2: { fontSize: 14, color: "#5E5E5E" },
+    propertyType: { marginVertical: 12 },
+    infoRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+        height: 56,
+        borderWidth: 1,
+        borderColor: Colors.BORDER_COLOR,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 10,
+        paddingHorizontal: 12,
+        marginTop: 10,
+    },
+    infoRowkey: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: 56,
+        borderWidth: 1,
+        borderColor: Colors.BORDER_COLOR,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 10,
+        paddingHorizontal: 12,
+        marginTop: 10,
+    },
+    infoText: { fontSize: 14, color: "#5E5E5E" },
+    infoSubText: { fontSize: 10, fontWeight: "bold", color: "#A3A9B0" },
+    infoMapRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 10,
+        height: 56,
+        borderWidth: 1,
+        borderColor: Colors.BORDER_COLOR,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 10,
+        paddingHorizontal: 12,
+        marginTop: 10,
+    },
+    mapBtn: { width: "20%", height: 32, padding: 10, borderRadius: 14, backgroundColor: Colors.PRIMARY },
+    validateButton: { width: "100%", backgroundColor: Colors.PRIMARY, borderRadius: 10, marginTop: 50, padding: 20 }
+});
