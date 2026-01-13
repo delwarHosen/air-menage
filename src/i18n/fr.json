@@ -313,7 +313,8 @@
         "bathroom": "Salle de bain",
         "kitchen": "Cuisine",
         "view_map": "Voir la carte",
-        "apply": "Appliquer"
+        "apply": "Appliquer",
+        "completed_job": "Travail terminé"
     },
     "create_cleaning": {
         "title": "Créer une demande de nettoyage"
@@ -479,5 +480,32 @@
     },
     "transactions": {
         "Programme": "Programme"
+    },
+    "jobs": {
+        "all": "Tous les emplois",
+        "accept": "Accepté",
+        "progress": "En cours",
+        "urgent": "Urgent"
+    },
+    "allJobs": {
+        "laundry": "Linge",
+        "included": "Inclus",
+        "no": "Non",
+        "validate": "Valider",
+        "leaveReview": "Laisser un avis",
+        "propertiesOverview": "Aperçu des propriétés",
+        "estimated_cleaning_time": "Durée estimée du nettoyage",
+        "location": "Emplacement",
+        "view_map": "Voir la carte",
+        "bedrooms": "Chambres",
+        "beds": "Lits",
+        "bathrooms": "Salles de bain",
+        "send_message": "Envoyer un message",
+        "call": "Appeler",
+        "apply": "Appliquer",
+        "currency": "€",
+        "checklist": "Liste de contrôle",
+        "report_problem": "Signaler un problème",
+        "extra_fee_requested": "Votre agent de nettoyage a demandé des frais supplémentaires"
     }
 }

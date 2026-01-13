@@ -1,11 +1,12 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
-import PeopertyOverviewPage from '../../../components/CleaningTask/PeopertyOverviewPage';
+import LeaveReviewPageView from '../../../components/AllJobs/LeaveReviewPageView';
 import Heading from '../../../components/Heading/Heading';
 import { cleanerDetailsData } from '../../../store/CleanerRequestData';
 
-export default function PropertyOverviewDetails() {
+
+export default function leaveReview() {
     const { t } = useTranslation();
     const { id } = useLocalSearchParams();
     const cleanerRequest = cleanerDetailsData.find((item) => item.id.toString() === id);
@@ -20,11 +21,16 @@ export default function PropertyOverviewDetails() {
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
+
                 <View style={styles.headerWrapper}>
-                    <Heading title={t("allJobs.propertiesOverview")} />
+                    <Heading title={t('properties.completed_job')} />
                 </View>
+
+
                 <View style={styles.contentWrapper}>
-                    <PeopertyOverviewPage cleanerRequest={cleanerRequest} />
+
+                    <LeaveReviewPageView cleanerRequest={cleanerRequest} />
+                    
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

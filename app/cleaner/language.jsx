@@ -7,14 +7,13 @@ import { Body1, H5 } from '../../components/typo/typography';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage } from '../../src/i18n';
 
-
 export default function Language() {
     const router = useRouter();
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
 
-    // Set initial language from i18n
+   
     const [selectedLanguage, setSelectedLanguage] = useState(
-        i18n.language === "fr" ? "French" : "English"
+        i18n.language.startsWith("fr") ? "French" : "English"
     );
 
     const languages = ["English", "French"];
@@ -22,16 +21,19 @@ export default function Language() {
     const onSelectLanguage = (lang) => {
         setSelectedLanguage(lang);
 
-        // Change app language
-        if (lang === "English") changeLanguage("en");
-        else if (lang === "Frence") changeLanguage("fr");
+        // ভাষা পরিবর্তনের লজিক
+        if (lang === "English") {
+            changeLanguage("en");
+        } else if (lang === "French") {
+            changeLanguage("fr");
+        }
     };
 
     return (
         <>
             <View style={{ margin: "2.5%" }}>
-                {/* Header */}
-                <Heading title={"Language"} />
+               
+                <Heading title={t("Language", "Language")} />
 
                 {/* Language Radio Buttons */}
                 <View style={styles.languageContainer}>
@@ -49,8 +51,10 @@ export default function Language() {
                                 <H5 style={styles.topLabel}>{lang}</H5>
                             </View>
 
-                            {/* Bottom label */}
-                            <Body1 style={styles.bottomLabel}>{lang}</Body1>
+                          
+                            <Body1 style={styles.bottomLabel}>
+                                {lang === "French" ? "Français" : "English"}
+                            </Body1>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -60,21 +64,17 @@ export default function Language() {
 }
 
 const styles = StyleSheet.create({
-
-
     languageContainer: {
         flexDirection: "column",
         marginTop: 32,
     },
-
     languageColumn: {
         marginLeft: 20
     },
-
     topRow: {
         flexDirection: "row",
+        alignItems: "center", 
     },
-
     radioCircle: {
         height: 24,
         width: 24,
@@ -83,28 +83,24 @@ const styles = StyleSheet.create({
         borderColor: "#4A4F61",
         alignItems: "center",
         justifyContent: "center",
-        marginRight: 6,
+        marginRight: 10, 
     },
-
     selectedRb: {
         width: 14,
         height: 14,
         borderRadius: 7,
         backgroundColor: "#4A4F61",
     },
-
     topLabel: {
         fontSize: 16,
         color: "#333",
         fontWeight: "500",
-        marginLeft: 0
     },
-
     bottomLabel: {
         fontSize: 12,
         color: "#6E7179",
         fontWeight: "400",
-        marginLeft: 30,
+        marginLeft: 34, 
         marginBottom: 20
     },
 });

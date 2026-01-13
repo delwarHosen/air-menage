@@ -16,16 +16,17 @@ export default function PropertyOverviewDetails() {
             style={styles.mainContainer}
         >
             <ScrollView
-                stickyHeaderIndices={[0]} 
+                stickyHeaderIndices={[0]}
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
-              
+
                 <View style={styles.headerWrapper}>
                     <Heading title={t("properties.overview")} />
+
                 </View>
 
-                
+
                 <View style={styles.contentWrapper}>
                     <PeopertyOverviewPage cleanerRequest={cleanerRequest} />
                 </View>
@@ -39,9 +40,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     headerWrapper: {
-        backgroundColor: '#fff', 
+        backgroundColor: '#fff',
         paddingHorizontal: "2.5%",
-        paddingTop: Platform.OS === 'ios' ? 50 : 10, 
+        paddingTop: Platform.OS === 'ios' ? 50 : 10,
     },
     scrollContent: {
         paddingBottom: 30,

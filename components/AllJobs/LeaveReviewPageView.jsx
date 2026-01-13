@@ -3,20 +3,15 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Colors } from "../../assets/Colors";
-import {
-    BedIcon,
-    CalenderIcon,
-    ClockIcon,
-    CreatePropertyIcon,
-    KeyIcon,
-    LocationIcon,
-    TikMarkIcon
-} from "../../assets/icons/Icons";
+import { BedIcon, CalenderIcon, ClockIcon, CreatePropertyIcon, ForwarArrowIcon, KeyIcon, LocationIcon, TikMarkIcon } from "../../assets/icons/Icons";
+import { IMAGE_COMPONENTS } from "../../assets/image.index";
 import PropertyTypePicker from "../AddCleaningProperty/PropertyTypePicker";
 import { Body1, Body2, ButtonText, Caption, H4 } from "../typo/typography";
 
-export default function PeopertyOverviewPage({ cleanerRequest }) {
-    const { t } = useTranslation(); 
+
+
+export default function LeaveReviewPageView({ cleanerRequest }) {
+    const { t } = useTranslation();
     const router = useRouter();
 
     if (!cleanerRequest) return null;
@@ -96,13 +91,43 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
 
             <View style={styles.infoRowkey}>
                 <KeyIcon />
-                <Body1 style={styles.infoText}>{cleanerRequest.lock_system}</Body1>
+                <View>
+                    <Body1 style={styles.infoText}>{cleanerRequest.lock_system}</Body1>
+                    <Caption>{cleanerRequest.password}</Caption>
+                </View>
                 <TikMarkIcon />
             </View>
 
-            <TouchableOpacity style={styles.validateButton}>
-                <ButtonText style={{ textAlign: "center", color: "white" }}>{t("allJobs.apply")}</ButtonText>
+            <TouchableOpacity
+                onPress={() => router.push("/cleaner/report-problem")}
+                style={styles.infoRowkey}>
+                <Image
+                    source={IMAGE_COMPONENTS.warniongImage}
+                    style={{ height: 40, width: 40 }}
+                />
+                <View>
+                    <Body1>
+                        {t('allJobs.report_problem')}
+                    </Body1>
+
+                    <Caption>
+                        {t('allJobs.extra_fee_requested')}
+                    </Caption>
+                </View>
+                <ForwarArrowIcon />
             </TouchableOpacity>
+
+
+            <View>
+                <TouchableOpacity
+                    onPress={() => router.push("/cleaner/checList")}
+                    style={styles.validateButton}>
+                    <ButtonText style={{ textAlign: "center", color: "white" }}>
+                        {t('allJobs.checklist')}
+                    </ButtonText>
+                </TouchableOpacity>
+            </View>
+
         </View>
     );
 }
@@ -136,6 +161,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: 10,
     },
+
     infoText: { fontSize: 14, color: "#5E5E5E" },
     infoSubText: { fontSize: 10, fontWeight: "bold", color: "#A3A9B0" },
     infoMapRow: {
@@ -151,6 +177,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: 10,
     },
-    mapBtn: { width: "30%", height: 36, padding: 10, borderRadius: 14, backgroundColor: Colors.PRIMARY },
-    validateButton: { width: "100%", backgroundColor: Colors.PRIMARY, borderRadius: 10, marginTop: 50, padding: 20 }
+    mapBtn: {
+        width: "30%",
+        height: 36,
+        padding: 10,
+        borderRadius: 14,
+        backgroundColor: Colors.PRIMARY
+    },
+
+    validateButton: {
+        width: "100%",
+        backgroundColor: Colors.PRIMARY,
+        borderRadius: 10,
+        marginTop: 55,
+        padding: 20
+    }
 });

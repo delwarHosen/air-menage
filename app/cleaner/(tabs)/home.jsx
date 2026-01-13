@@ -1,5 +1,4 @@
 import { useRouter } from 'expo-router';
-import { useState } from 'react'; // useState import korte hobe
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FilterIcon } from '../../../assets/icons/Icons';
 import Calendar from '../../../components/CleanerDetails/Calender';
@@ -8,7 +7,7 @@ import CleaningTask from '../../../components/CleaningTask/CleaningTask';
 
 export default function Home() {
   const router = useRouter()
-  const [modalVisible, setModalVisible] = useState(false);
+ 
 
   return (
     <View style={styles.container}>

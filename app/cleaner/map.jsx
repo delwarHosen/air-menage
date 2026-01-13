@@ -3,10 +3,7 @@ import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Colors } from '../../assets/Colors';
 import { LocationIcon } from '../../assets/icons/Icons';
-import { Body1 } from '../../components/typo/typography';
-// import { Colors } from '../../../assets/Colors';
-// import { LocationIcon } from '../../../assets/icons/Icons';
-// import { Body1 } from '../../../components/typo/typography';
+import Heading from "../../components/Heading/Heading";
 
 export default function CleanerMap() {
     const router = useRouter();
@@ -40,9 +37,8 @@ export default function CleanerMap() {
             {/* Back Button */}
             <TouchableOpacity
                 onPress={() => router.back()}
-                style={styles.backButton}
             >
-                <Body1 style={{ color: 'white' }}>Back</Body1>
+                <Heading title="Map Overview" />
             </TouchableOpacity>
         </View>
     );
@@ -56,15 +52,6 @@ const styles = StyleSheet.create({
     map: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
-    },
-    backButton: {
-        position: 'absolute',
-        top: 50,
-        left: 20,
-        backgroundColor: Colors.PRIMARY,
-        padding: 10,
-        borderRadius: 8,
-        elevation: 5,
     },
     customMarker: {
         backgroundColor: Colors.SECONDARY,

@@ -15,8 +15,8 @@ import {
 import PropertyTypePicker from "../AddCleaningProperty/PropertyTypePicker";
 import { Body1, Body2, ButtonText, Caption, H4 } from "../typo/typography";
 
-export default function PeopertyOverviewPage({ cleanerRequest }) {
-    const { t } = useTranslation(); 
+export default function AcceptJobOverView({ cleanerRequest }) {
+    const { t } = useTranslation();
     const router = useRouter();
 
     if (!cleanerRequest) return null;
@@ -100,19 +100,46 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
                 <TikMarkIcon />
             </View>
 
-            <TouchableOpacity style={styles.validateButton}>
-                <ButtonText style={{ textAlign: "center", color: "white" }}>{t("allJobs.apply")}</ButtonText>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity
+                    onPress={() => router.push("/cleaner/message")}
+                    style={styles.contactButton}>
+                    <ButtonText style={{ textAlign: "center", }}>Send a Message</ButtonText>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => router.push("/cleaner/message")}
+                    style={styles.contactButton}>
+                    <ButtonText style={{ textAlign: "center", }}>Call</ButtonText>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity style={styles.validateButton}>
+                    <ButtonText style={{ textAlign: "center", color: "white" }}>{t("allJobs.apply")}</ButtonText>
+                </TouchableOpacity>
+            </View>
+
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: { flex: 1 },
-    mainImage: { width: "100%", height: 234, borderRadius: 12, marginBottom: 12 },
-    body2: { fontSize: 14, color: "#5E5E5E" },
-    propertyType: { marginVertical: 12 },
+    mainImage: {
+        width: "100%",
+        height: 234,
+        borderRadius: 12,
+        marginBottom: 12
+    },
+    body2: {
+        fontSize: 14,
+        color: "#5E5E5E"
+    },
+    propertyType: {
+        marginVertical: 12
+    },
     infoRow: {
+
         flexDirection: "row",
         alignItems: "center",
         gap: 10,
@@ -151,6 +178,26 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: 10,
     },
-    mapBtn: { width: "30%", height: 36, padding: 10, borderRadius: 14, backgroundColor: Colors.PRIMARY },
-    validateButton: { width: "100%", backgroundColor: Colors.PRIMARY, borderRadius: 10, marginTop: 50, padding: 20 }
+    mapBtn: {
+        width: "30%",
+        height: 36,
+        padding: 10,
+        borderRadius: 14,
+        backgroundColor: Colors.PRIMARY
+    },
+    contactButton: {
+        width: "100%",
+        borderWidth: 1,
+        borderColor: Colors.BORDER_COLOR,
+        borderRadius: 10,
+        marginTop: 20,
+        padding: 20
+    },
+    validateButton: {
+        width: "100%",
+        backgroundColor: Colors.PRIMARY,
+        borderRadius: 10,
+        marginTop: 55,
+        padding: 20
+    }
 });

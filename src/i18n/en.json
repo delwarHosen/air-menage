@@ -316,7 +316,8 @@
         "kitchen": "Kitchen",
         "estimated_cleaning_time": "Estimated Cleaning Time",
         "view_map": "View Map",
-        "apply": "Apply"
+        "apply": "Apply",
+        "completed_job": "Completed Job"
     },
     "create_cleaning": {
         "title": "Create Cleaning Request"
@@ -482,5 +483,32 @@
     },
     "transactions": {
         "Programme": "Programme"
+    },
+    "jobs": {
+        "all": "All Jobs",
+        "accept": "Accept",
+        "progress": "In Progress",
+        "urgent": "Urgent"
+    },
+    "allJobs": {
+        "beds": "Beds",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "laundry": "Laundry",
+        "included": "Included",
+        "no": "No",
+        "validate": "Validate",
+        "leaveReview": "Leave Review",
+        "propertiesOverview": "Properties Overview",
+        "estimated_cleaning_time": "Estimated Cleaning Time",
+        "location": "Location",
+        "view_map": "View Map",
+        "send_message": "Send a Message",
+        "call": "Call",
+        "apply": "Apply",
+        "currency": "€",
+        "checklist": "Checklist",
+        "report_problem": "Report a problem",
+        "extra_fee_requested": "Your cleaner requested an extra fee"
     }
 }

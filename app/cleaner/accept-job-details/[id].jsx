@@ -1,12 +1,12 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
-import PeopertyOverviewPage from '../../../components/CleaningTask/PeopertyOverviewPage';
+import AcceptJobOverView from '../../../components/AllJobs/AcceptJobOverView';
 import Heading from '../../../components/Heading/Heading';
 import { cleanerDetailsData } from '../../../store/CleanerRequestData';
 
-export default function PropertyOverviewDetails() {
-    const { t } = useTranslation();
+export default function AcceptJobDetails() {
+    const { t } = useTranslation(); // use the 'allJobs' namespace
     const { id } = useLocalSearchParams();
     const cleanerRequest = cleanerDetailsData.find((item) => item.id.toString() === id);
 
@@ -20,11 +20,12 @@ export default function PropertyOverviewDetails() {
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
+
                 <View style={styles.headerWrapper}>
                     <Heading title={t("allJobs.propertiesOverview")} />
                 </View>
                 <View style={styles.contentWrapper}>
-                    <PeopertyOverviewPage cleanerRequest={cleanerRequest} />
+                    <AcceptJobOverView cleanerRequest={cleanerRequest} />
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

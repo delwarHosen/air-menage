@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         textAlign: "center",
         color:Colors.AUTH_HED_COLOR,
-        // color:"#040404",
     },
 })
