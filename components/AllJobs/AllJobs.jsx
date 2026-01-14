@@ -90,9 +90,11 @@ export default function AllJobs({ data, activeTab }) {
                     </View>
                 </View>
 
-                <View style={styles.priceActionWrapper}>
-                    <H4>€ {item.price}</H4>
+                <View>
+                    <H4 style={{color:"#6B7280"}}> {item.price} €</H4>
+                </View>
 
+                <View style={styles.priceActionWrapper}>
                     <View style={[styles.btn, { backgroundColor: activeTab === 'progress' ? Colors.SECONDARY : Colors.PRIMARY }]}>
                         <Caption style={styles.btnText}>
                             {activeTab === 'progress' ? t('allJobs.leaveReview') : t('allJobs.validate')}

@@ -510,5 +510,33 @@
         "checklist": "Checklist",
         "report_problem": "Report a problem",
         "extra_fee_requested": "Your cleaner requested an extra fee"
+    },
+    "checklist": {
+        "checklistTitle": "Checklist",
+        "General": "General",
+        "Bedroom(s)": "Bedroom(s)",
+        "Bathroom / WC": "Bathroom / WC",
+        "Kitchen / Kitchen Area": "Kitchen / Kitchen Area",
+        "Living Room": "Living Room"
+    },
+    "feedback": {
+        "title": "Your Feedback",
+        "label": "How Do You Feel About This Service?",
+        "placeholder": "Type....",
+        "skip": "Skip",
+        "submit": "Submit"
+    },
+    "reportProblem": {
+        "title": "Report a Problem",
+        "reportTitleLabel": "Type of Problem",
+        "reportTitlePlaceholder": "Enter problem type...",
+        "reportReasonLabel": "Reason",
+        "reportReasonPlaceholder": "Explain the issue...",
+        "addPhotos": "Add Photos",
+        "imageUpload": "Image +",
+        "sendRequest": "Send Request"
+    },
+    "common": {
+        "somethingWrong": "Something went wrong"
     }
 }

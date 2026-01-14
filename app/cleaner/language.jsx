@@ -21,7 +21,6 @@ export default function Language() {
     const onSelectLanguage = (lang) => {
         setSelectedLanguage(lang);
 
-        // ভাষা পরিবর্তনের লজিক
         if (lang === "English") {
             changeLanguage("en");
         } else if (lang === "French") {

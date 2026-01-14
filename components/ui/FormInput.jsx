@@ -10,7 +10,7 @@ import {
 import { Colors } from "../../assets/Colors";
 // import { CloseEyeIcons, EyeIcons } from "../../assets/icons/eye";
 import { CloseEyeIcons, EyeIcons } from "../../assets/icons/Icons";
-import { Body1, Caption } from "../typo/typography";
+import { Body1, Caption, H6 } from "../typo/typography";
 // import { Caption } from "../typo/typography";
 // import { Caption } from "../typo/Typography.jsx";
 // import { Caption } from "../typo/typography.jsx";
@@ -27,6 +27,8 @@ export const FormInput = ({
     required = false,
     maxLength,
     placeholderTextColor,
+    multiline = false,
+    style,
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     // const [imageUri, setImageUri] = useState(null);
@@ -99,9 +101,9 @@ export const FormInput = ({
     return (
         <View style={styles.container}>
             <View style={styles.labelContainer}>
-                <Body1 weight="regular" color={Colors.LABEL_COLOR}>
+                <H6 color={Colors.TEXT_COLOR}>
                     {label}{required && <Body1 style={{ color: "red" }}></Body1>}
-                </Body1>
+                </H6>
                 {/* {required && (
                     <Body1 weight="regular" style={[styles.required, { color: 'red' }]}>
                         *
@@ -111,16 +113,21 @@ export const FormInput = ({
 
             <View style={[styles.inputContainer, getError() && styles.inputError]}>
                 <TextInput
-                    style={styles.input}
+                    style={[
+                        styles.input,
+                        multiline && { height: 96, textAlignVertical: 'top' },
+                        style,
+                    ]}
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
-                    placeholderTextColor=""
+                    placeholderTextColor="#949494"
                     secureTextEntry={type === "password" && !showPassword}
                     keyboardType={getKeyboardType()}
                     autoCapitalize={type === "email" ? "none" : "sentences"}
                     autoCorrect={false}
                     maxLength={maxLength}
+                    multiline={multiline}
                 />
 
                 {type === "password" && (
@@ -164,7 +171,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         flexDirection: "row",
-        alignItems: "center",
         borderRadius: 8,
         borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
@@ -173,10 +179,16 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        paddingVertical: 14,
         fontSize: 16,
         color: Colors.TEXT_COLOR,
         fontFamily: "SyneRegular",
-        textAlignVertical: 'center',
+        textAlignVertical: 'top',
+        paddingTop: 12,
+        paddingBottom: 12,
+    },
+    iconButton: {
+        flexDirection:"row",
+        alignItems:"center"
     }
+
 })

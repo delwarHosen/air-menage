@@ -20,10 +20,12 @@ export const FORM_FIELDS = {
   PROPERTY_IMAGE: "propertyImage",
   FLOOR_NUMBER: "floorNumber",
   APARTMENT_NUMBER: "apartmentNumber",
-  PROPERTY_SIZE:"propertySize",
-  LOCATION:"location",
-  KEY_LOCATION:"keyLocation",
-  KEY_PASSWORD:"keyPassword"
+  PROPERTY_SIZE: "propertySize",
+  LOCATION: "location",
+  KEY_LOCATION: "keyLocation",
+  KEY_PASSWORD: "keyPassword",
+  REPORT_TITLE: "reportTitle",
+  REPORT_REASON: "reportReason"
 };
 
 export const FORM_LABELS = {
@@ -48,7 +50,10 @@ export const FORM_LABELS = {
   [FORM_FIELDS.FLOOR_NUMBER]: "Floor",
   [FORM_FIELDS.APARTMENT_NUMBER]: "Apartment Number",
   [FORM_FIELDS.PROPERTY_SIZE]: "Property Size",
-  [FORM_FIELDS.LOCATION]:"Location"
+  [FORM_FIELDS.LOCATION]: "Location",
+  [FORM_FIELDS.REPORT_TITLE]: "Type of problem",
+  [FORM_FIELDS.REPORT_REASON]: "Reson"
+
 };
 
 export const FORM_PLACEHOLDERS = {
@@ -67,9 +72,11 @@ export const FORM_PLACEHOLDERS = {
   [FORM_FIELDS.PROPERTY_TITLE]: "Le Central",
   [FORM_FIELDS.PROPERTY_IMAGE]: `➕  Add photos`,
   [FORM_FIELDS.FLOOR_NUMBER]: "3rd",
-  [FORM_FIELDS.APARTMENT_NUMBER]:"301",
-  [FORM_FIELDS.PROPERTY_SIZE]:"50 m2",
-  [FORM_FIELDS.LOCATION]:"France",
-  [FORM_FIELDS.KEY_LOCATION]:"e.g. B. Berlin or",
-  [FORM_FIELDS.KEY_PASSWORD]:"******"
+  [FORM_FIELDS.APARTMENT_NUMBER]: "301",
+  [FORM_FIELDS.PROPERTY_SIZE]: "50 m2",
+  [FORM_FIELDS.LOCATION]: "France",
+  [FORM_FIELDS.KEY_LOCATION]: "e.g. B. Berlin or",
+  [FORM_FIELDS.KEY_PASSWORD]: "******",
+  [FORM_FIELDS.REPORT_TITLE]: "Damaged item",
+  [FORM_FIELDS.REPORT_REASON]:"Type your text.."
 };

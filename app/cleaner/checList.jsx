@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-// import { Colors } from '../../assets/Colors';
 import { router } from 'expo-router';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { CheckMarkIcon } from '../../assets/icons/Icons';
 import Heading from "../../components/Heading/Heading";
 import { Caption, H5 } from '../../components/typo/typography';
-// import { Caption, H5 } from '../typo/typography';
 
+// Section data (items remain untranslated)
 const CHECKLIST_DATA = [
   { id: '1', title: 'General', items: ["Take out the trash", "Air out the accommodation", "Check for odors (fresh accommodation)", "Ensure lights are turned off", "Ensure doors and windows are closed", "Check that nothing has been left behind by travelers"] },
   { id: '2', title: 'Bedroom(s)', items: ["Make the bed with clean linens", "Change the sheets and pillowcases", "Dust furniture and surfaces", "Vacuum / sweep the floor"] },
@@ -17,19 +17,23 @@ const CHECKLIST_DATA = [
 ];
 
 export default function CheckList() {
+  const { t } = useTranslation();
   const [checkedItems, setCheckedItems] = useState({});
 
   const toggleCheck = (sectionId, itemIndex) => {
     const key = `${sectionId}-${itemIndex}`;
     setCheckedItems(prev => ({
       ...prev,
-      [key]: !prev[key] 
+      [key]: !prev[key]
     }));
   };
 
   const renderSection = ({ item: section }) => (
     <View style={styles.section}>
-      <H5 style={styles.sectionTitle}>{section.title}</H5>
+      <H5 style={styles.sectionTitle}>
+        {t(`checklist.${section.title}`, section.title)}
+      </H5>
+
       {section.items.map((checkText, index) => {
         const isChecked = !!checkedItems[`${section.id}-${index}`];
 
@@ -44,7 +48,6 @@ export default function CheckList() {
               styles.checkboxContainer,
               isChecked ? styles.checkboxActive : styles.checkboxInactive
             ]}>
-             
               {isChecked && <CheckMarkIcon size={14} color={Colors.WHITE} />}
             </View>
 
@@ -59,25 +62,29 @@ export default function CheckList() {
 
   return (
     <View style={styles.mainContainer}>
+      {/* Sticky Heading */}
+      <View style={styles.stickyHeader}>
+        <Heading title={t("checklist.checklistTitle", "Checklist")} />
+      </View>
+
       <FlatList
         data={CHECKLIST_DATA}
         renderItem={renderSection}
         keyExtractor={(item) => item.id}
-        ListHeaderComponent={<Heading title="Checklist" />}
+        contentContainerStyle={styles.flatListContent}
+        showsVerticalScrollIndicator={false}
         ListFooterComponent={
           <View style={styles.footer}>
             <TouchableOpacity style={styles.uploadBox}>
               <Caption style={{ color: Colors.GRAY }}>Image Upload +</Caption>
             </TouchableOpacity>
-            <TouchableOpacity 
-            onPress={()=>router.push("/cleaner/feedback")}
-            style={styles.submitBtn}>
+            <TouchableOpacity
+              onPress={() => router.push("/cleaner/feedback")}
+              style={styles.submitBtn}>
               <H5 style={{ color: '#FFF' }}>Submit</H5>
             </TouchableOpacity>
           </View>
         }
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.flatListContent}
       />
     </View>
   );
@@ -85,32 +92,36 @@ export default function CheckList() {
 
 const styles = StyleSheet.create({
   mainContainer: { flex: 1, backgroundColor: "#FAFAFA" },
+  stickyHeader: {
+    backgroundColor: "#FAFAFA",
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 5,
+    zIndex: 0,
+  },
   flatListContent: { paddingHorizontal: 20, paddingBottom: 40 },
   section: { marginTop: 25 },
   sectionTitle: { marginBottom: 15, color: Colors.SECONDARY },
   checkItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 16,
-    gap: 12,
+    marginBottom: 12,
+    gap: 6,
   },
   checkboxContainer: {
     width: 16,
     height: 16,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor:Colors.BORDER_COLOR,
+    borderColor: Colors.BORDER_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 2,
   },
   checkboxInactive: {
-    borderColor: Colors.GRAY, 
-    // backgroundColor: 'transparent',
+    borderColor: Colors.GRAY,
   },
-  checkboxActive: {
-  
-  },
+  checkboxActive: {},
   itemText: {
     color: Colors.TEXT_COLOR,
     flex: 1,
@@ -136,3 +147,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 });
+

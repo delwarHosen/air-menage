@@ -21,16 +21,12 @@ export default function leaveReview() {
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
-
                 <View style={styles.headerWrapper}>
                     <Heading title={t('properties.completed_job')} />
                 </View>
 
-
                 <View style={styles.contentWrapper}>
-
                     <LeaveReviewPageView cleanerRequest={cleanerRequest} />
-                    
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

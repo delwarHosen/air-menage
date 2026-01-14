@@ -507,5 +507,33 @@
         "checklist": "Liste de contrôle",
         "report_problem": "Signaler un problème",
         "extra_fee_requested": "Votre agent de nettoyage a demandé des frais supplémentaires"
+    },
+    "checklist": {
+        "checklistTitle": "Liste de contrôle",
+        "General": "Général",
+        "Bedroom(s)": "Chambre(s)",
+        "Bathroom / WC": "Salle de bain / WC",
+        "Kitchen / Kitchen Area": "Cuisine / Zone cuisine",
+        "Living Room": "Salon"
+    },
+    "feedback": {
+        "title": "Vos commentaires",
+        "label": "Que pensez-vous de ce service ?",
+        "placeholder": "Tapez....",
+        "skip": "Passer",
+        "submit": "Soumettre"
+    },
+    "reportProblem": {
+        "title": "Signaler un problème",
+        "reportTitleLabel": "Type de problème",
+        "reportTitlePlaceholder": "Entrez le type de problème...",
+        "reportReasonLabel": "Raison",
+        "reportReasonPlaceholder": "Expliquez le problème...",
+        "addPhotos": "Ajouter des photos",
+        "imageUpload": "Image +",
+        "sendRequest": "Envoyer la demande"
+    },
+    "common": {
+        "somethingWrong": "Une erreur s'est produite"
     }
 }
