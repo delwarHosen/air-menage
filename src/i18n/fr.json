@@ -535,5 +535,90 @@
     },
     "common": {
         "somethingWrong": "Une erreur s'est produite"
+    },
+    "identityVerification": {
+        "title": "Vérification d'identité",
+        "description": "Complétez la vérification d'identité pour renforcer la sécurité de votre compte et accéder à plus de services.",
+        "getVerified": "Se faire vérifier",
+        "unlockText": "Débloquez des limites et des fonctionnalités après vérification",
+        "features": {
+            "spotTrading": "Trading Spot",
+            "apiTrading": "Trading API",
+            "depositWithdraw": "Dépôt et Retrait",
+            "withdraw": "Retrait"
+        }
+    },
+    "identityVerificationStep2": {
+        "title": "Avant de prendre une photo de votre passeport, veuillez vous assurer que",
+        "rules": {
+            "notExpired": "Votre pièce d’identité n’est pas expirée",
+            "clearPhoto": "Prenez une photo claire",
+            "goodLighting": "Utilisez un bon éclairage et évitez le flou"
+        },
+        "takePhoto": "Prendre une photo"
+    },
+    "scanNid": {
+        "loading": "Chargement...",
+        "permissionTitle": "Nous avons besoin de l'autorisation de la caméra",
+        "permissionButton": "Autoriser la caméra",
+        "instruction": {
+            "before": "Placez la ",
+            "highlight": "page d'information du recto de la carte NID",
+            "after": " dans le cadre"
+        },
+        "problem": "Problème de numérisation ?"
+    },
+    "scanNidBack": {
+        "loading": "Chargement...",
+        "permissionTitle": "Nous avons besoin de l'autorisation de la caméra",
+        "permissionButton": "Autoriser la caméra",
+        "instruction": {
+            "before": "Placez la ",
+            "highlight": "page d'information du verso de la carte NID",
+            "after": " dans le cadre"
+        },
+        "problem": "Problème de numérisation ?"
+    },
+    "confirmNidFront": {
+        "placeholder": "Recto de la carte NID",
+        "detectedTitle": "Après la détection, votre photo est",
+        "confirmTitle": "Veuillez confirmer que",
+        "confirm": "Confirmer",
+        "retake": "Reprendre",
+        "checks": {
+            "readable": "Lisible, claire et non floue",
+            "light": "Bien éclairée, non réfléchissante, pas trop sombre",
+            "occupies": "La carte occupe la majeure partie de l'image",
+            "notExpired": "La carte n'est pas expirée"
+        }
+    },
+    "confirmNidBack": {
+        "placeholder": "Verso de la carte NID",
+        "detectedTitle": "Après la détection, votre photo est",
+        "confirmTitle": "Veuillez confirmer que",
+        "confirm": "Confirmer",
+        "retake": "Reprendre",
+        "checks": {
+            "readable": "Lisible, claire et non floue",
+            "light": "Bien éclairée, non réfléchissante, pas trop sombre",
+            "occupies": "La carte occupe la majeure partie de l'image",
+            "notExpired": "La carte n'est pas expirée"
+        }
+    },
+    "facialRecognition": {
+        "title": "Reconnaissance faciale",
+        "description": "Afin d'améliorer le taux de réussite de la reconnaissance faciale, veuillez suivre les exigences ci-dessous",
+        "continue": "Continuer",
+        "keepFace": "Gardez votre visage dans le cercle",
+        "requirements": {
+            "upright": "Tenez le téléphone droit",
+            "wellLit": "Bien éclairé",
+            "noOcclusion": "Ne couvrez pas le visage"
+        }
+    },
+    "verificationSuccess": {
+        "title": "Vérifié",
+        "description": "Vous avez actuellement accès à toutes les fonctionnalités de VAEX et à des limites élevées",
+        "done": "Terminé"
     }
 }

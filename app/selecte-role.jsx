@@ -1,20 +1,23 @@
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { Colors } from "../assets/Colors";
 import { ButtonText, H1, H5 } from '../components/typo/typography';
+import { setRole } from "../redux/roleSlice";
 
 export default function SelectRole() {
     const router = useRouter();
     const { t } = useTranslation();
 
+    const dispatch = useDispatch(); 
+
     const handleRolePress = (role) => {
-        router.push(
-            role === "host"
-                ? { pathname: "/(auth)/login", params: { selectedRole: role } }
-                : { pathname: "/(auth)/login", params: { selectedRole: role } }
-        );
-    };
+        console.log("Dispatching role:", role); 
+        dispatch(setRole(role)); 
+        router.push("/(auth)/login");
+    }
+
 
     return (
         <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>

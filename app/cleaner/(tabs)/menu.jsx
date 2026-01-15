@@ -79,7 +79,7 @@ export default function Menu() {
                         <MenuItem
                             icon={<IdentityIcon />}
                             label={t("menu.items.identityVerification")}
-                            onPress={() => router.push("/cleaner/identity-verification")
+                            onPress={() => router.push("/identity-verification/identity-verification-banner1")
                             }
                         />
 

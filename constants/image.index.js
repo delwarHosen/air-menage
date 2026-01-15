@@ -5,5 +5,7 @@ export const IMAGE_CONSTANTS = {
   profile: require("../assets/images/profile.png"),
   icon: <Ionicons name="chevron-forward" color={Colors.icon} />,
   clientImg: require("../assets/images/clientPP.jpg"),
-  contactImage: require("../assets/images/contactImage.png")
+  contactImage: require("../assets/images/contactImage.png"),
+  verificationBanner1: require("../assets/images/verificationbanner1.png"),
+  verifySeccessImg:require("../assets/images/verifySeccessImg.png")
 }

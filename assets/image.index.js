@@ -12,4 +12,7 @@ export const IMAGE_COMPONENTS = {
     profileImage3: require("./images/profile3.png"),
     profileImage4: require("./images/profile4.png"),
     profileImage5: require("./images/profile5.png"),
+    verifySeccessImg:require("./images/verifySeccessImg.png"),
+    faceImage:require("./images/faceImg.png"),
+     verificationBanner1: require("./images/verificationbanner1.png"),
 }

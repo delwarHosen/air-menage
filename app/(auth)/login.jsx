@@ -1,4 +1,4 @@
-import { Link, useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -7,10 +7,10 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
+import { useSelector } from "react-redux";
 import { Colors } from "../../assets/Colors";
 import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { ButtonText, H3, H4 } from "../../components/typo/typography";
@@ -21,7 +21,7 @@ export default function LoginScreen() {
     const { t } = useTranslation();
     const router = useRouter();
 
-    const { selectedRole } = useLocalSearchParams();
+    const selectedRole = useSelector((state) => state.role.selectedRole);
 
     const {
         control,
@@ -34,12 +34,13 @@ export default function LoginScreen() {
         },
     });
 
+
     const onSubmit = (values) => {
         try {
             const payload = {
                 email: values[FORM_FIELDS.EMAIL],
                 password: values[FORM_FIELDS.PASSWORD],
-                role: selectedRole
+                role: selectedRole 
             };
 
             console.log("Submitted Data:", payload);
@@ -51,13 +52,10 @@ export default function LoginScreen() {
             }
 
         } catch (err) {
-            if (Platform.OS === 'android') {
-                ToastAndroid.show(t("common.somethingWrong"), ToastAndroid.SHORT);
-            } else {
-                console.log("Error logic here");
-            }
+            // Error handling...
         }
     };
+
 
     return (
         <View style={styles.container}>

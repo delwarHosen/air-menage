@@ -38,7 +38,7 @@ export default function Menu() {
 
                     <View style={styles.statsContainer}>
                         <View style={styles.row}>
-                           <ProfileVerifiedIconWithPrimary/>
+                            <ProfileVerifiedIconWithPrimary />
                             <Body1 style={styles.statText}>4.72</Body1>
                         </View>
                         <Body1 style={styles.hostContent}>
@@ -64,26 +64,27 @@ export default function Menu() {
                         />
 
                         <MenuItem
-                            icon={<PaymentIcon/>}
+                            icon={<PaymentIcon />}
                             label={t("menu.items.payment")}
                             onPress={() => router.push("/host/payment")}
                         />
 
                         <MenuItem
-                            icon={<PasswrodIcon/>}
+                            icon={<PasswrodIcon />}
                             label={t("menu.items.passwordSecurity")}
                             onPress={() => router.push("/host/password-security")}
                         />
 
                         <MenuItem
-                            icon={<GetHeloIcon/>}
+                            icon={<GetHeloIcon />}
                             label={t("menu.items.getHelp")}
                             onPress={() => router.push("/host/contact")}
                         />
 
                         <MenuItem
-                            icon={<IdentityIcon/>}
+                            icon={<IdentityIcon />}
                             label={t("menu.items.identityVerification")}
+                            onPress={() => router.push("/identity-verification/identity-verification-banner1")}
                         />
                     </View>
 
@@ -94,13 +95,13 @@ export default function Menu() {
                         </H5>
 
                         <MenuItem
-                            icon={<LanguageIcon/>}
+                            icon={<LanguageIcon />}
                             label={t("menu.items.language")}
                             onPress={() => router.push("/host/language")}
                         />
 
                         <MenuItem
-                            icon={<HeartIcon/>}
+                            icon={<HeartIcon />}
                             label={t("menu.items.favoriteCleaner")}
                             onPress={() => router.push("/host/favourite-cleaner")}
                         />
@@ -113,25 +114,25 @@ export default function Menu() {
                         </H5>
 
                         <MenuItem
-                            icon={<AboutUsIcon/>}
+                            icon={<AboutUsIcon />}
                             label={t("menu.items.aboutUs")}
                             onPress={() => router.push("/host/about-us")}
                         />
 
                         <MenuItem
-                            icon={<TermsUsesIcon/>}
+                            icon={<TermsUsesIcon />}
                             label={t("menu.items.terms")}
                             onPress={() => router.push("/host/Term-and-uses")}
                         />
 
                         <MenuItem
-                            icon={<PrivecyIcon/>}
+                            icon={<PrivecyIcon />}
                             label={t("menu.items.privacy")}
-                             onPress={() => router.push("/host/privecy-pilicy")}
+                            onPress={() => router.push("/host/privecy-pilicy")}
                         />
 
                         <MenuItem
-                            icon={<LeagelNoticeIcon/>}
+                            icon={<LeagelNoticeIcon />}
                             label={t("menu.items.legalNotices")}
                         />
                     </View>
@@ -168,7 +169,7 @@ const MenuItem = ({ icon, label, onPress }) => (
 
 
 const styles = StyleSheet.create({
-   
+
     scrollContainer: {
         paddingHorizontal: "2.5%",
         paddingBottom: 20
