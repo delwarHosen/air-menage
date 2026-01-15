@@ -534,7 +534,9 @@
         "sendRequest": "Envoyer la demande"
     },
     "common": {
-        "somethingWrong": "Une erreur s'est produite"
+        "somethingWrong": "Une erreur s'est produite",
+        "searchLocation": "Rechercher un lieu",
+        "delete": "Supprimer"
     },
     "identityVerification": {
         "title": "Vérification d'identité",
@@ -620,5 +622,57 @@
         "title": "Vérifié",
         "description": "Vous avez actuellement accès à toutes les fonctionnalités de VAEX et à des limites élevées",
         "done": "Terminé"
+    },
+    "cleaner": {
+        "pendingApplications": "Demandes en attente",
+        "beds": "Lits",
+        "bedrooms": "Chambres",
+        "bathrooms": "Salles de bain",
+        "laundry": "Lessive",
+        "included": "Inclus",
+        "notIncluded": "Non"
+    },
+    "calendar": {
+        "months": [
+            "Janvier",
+            "Février",
+            "Mars",
+            "Avril",
+            "Mai",
+            "Juin",
+            "Juillet",
+            "Août",
+            "Septembre",
+            "Octobre",
+            "Novembre",
+            "Décembre"
+        ],
+        "days": [
+            "Dim",
+            "Lun",
+            "Mar",
+            "Mer",
+            "Jeu",
+            "Ven",
+            "Sam"
+        ]
+    },
+    "auth": {
+        "login_with_email": "Connexion avec email",
+        "email": "Email",
+        "enter_email": "Entrez votre email",
+        "password": "Mot de passe",
+        "enter_password": "Entrez votre mot de passe",
+        "login": "Connexion",
+        "sign_up": "S'inscrire",
+        "forgot_password": "Mot de passe oublié ?",
+        "or": "ou",
+        "signup_with_email": "S'inscrire avec Email",
+        "full_name": "Nom complet",
+        "enter_full_name": "Nom complet",
+        "confirm_password": "Confirmer le mot de passe",
+        "signup": "S'inscrire",
+        "accept": "Accepter les",
+        "terms_conditions": "Termes et Conditions"
     }
 }

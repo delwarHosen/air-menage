@@ -6,7 +6,6 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View
 } from 'react-native';
@@ -18,9 +17,8 @@ import { FormInput } from "../../components/ui/FormInput";
 import { FORM_FIELDS } from "../../constants/form";
 
 export default function LoginScreen() {
-    const { t } = useTranslation();
     const router = useRouter();
-
+    const { t } = useTranslation();
     const selectedRole = useSelector((state) => state.role.selectedRole);
 
     const {
@@ -34,34 +32,26 @@ export default function LoginScreen() {
         },
     });
 
-
     const onSubmit = (values) => {
-        try {
-            const payload = {
-                email: values[FORM_FIELDS.EMAIL],
-                password: values[FORM_FIELDS.PASSWORD],
-                role: selectedRole 
-            };
+        const payload = {
+            email: values[FORM_FIELDS.EMAIL],
+            password: values[FORM_FIELDS.PASSWORD],
+            role: selectedRole
+        };
 
-            console.log("Submitted Data:", payload);
+        console.log("Submitted Data:", payload);
 
-            if (selectedRole === "cleaner") {
-                router.replace("/cleaner/home");
-            } else {
-                router.replace("/host/home");
-            }
-
-        } catch (err) {
-            // Error handling...
+        if (selectedRole === "cleaner") {
+            router.replace("/cleaner/home");
+        } else {
+            router.replace("/host/home");
         }
     };
-
 
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
-                style={styles.container}
             >
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
@@ -70,58 +60,54 @@ export default function LoginScreen() {
                 >
                     <View style={styles.content}>
                         <View style={styles.header}>
-                            <H3 style={styles.title}>{t("login.title")}</H3>
+                            <H3 style={styles.title}>{t("auth.login_with_email")}</H3>
                         </View>
 
                         <View style={styles.form}>
-                            {/* Email Input */}
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.EMAIL}
                                 render={({ field }) => (
                                     <FormInput
-                                        label={t("form.labels.email")}
+                                        label={t("auth.email")}
                                         value={field.value}
                                         onChangeText={field.onChange}
-                                        placeholder={t("form.placeholders.email")}
+                                        placeholder={t("auth.enter_email")}
                                         required
                                     />
                                 )}
                             />
 
-                            {/* Password input */}
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.PASSWORD}
                                 render={({ field }) => (
                                     <FormInput
-                                        label={t("form.labels.password")}
+                                        label={t("auth.password")}
                                         value={field.value}
                                         onChangeText={field.onChange}
-                                        placeholder={t("form.placeholders.password")}
+                                        placeholder={t("auth.enter_password")}
                                         secureTextEntry
                                         required
                                     />
                                 )}
                             />
 
-                            {/* Login Button */}
                             <TouchableOpacity
                                 onPress={handleSubmit(onSubmit)}
                                 style={styles.submitButton}
                             >
                                 <ButtonText style={styles.buttonText}>
-                                    {t("login.button")}
+                                    {t("auth.login")}
                                 </ButtonText>
                             </TouchableOpacity>
 
-                            {/* Sign Up / Forgot Password */}
                             <View style={styles.footerLinksContainer}>
                                 <View>
                                     <Link href="/(auth)/register" asChild>
                                         <TouchableOpacity>
-                                            <H4 style={{ fontWeight: '500', textDecorationLine: 'underline' }}>
-                                                {t("login.signup")}
+                                            <H4 style={{ fontWeight: '400', textDecorationLine: 'underline' }}>
+                                                {t("auth.sign_up")}
                                             </H4>
                                         </TouchableOpacity>
                                     </Link>
@@ -130,24 +116,20 @@ export default function LoginScreen() {
                                     <Link href="/(auth)/forgot-password" asChild>
                                         <TouchableOpacity>
                                             <H4 style={{ textDecorationLine: 'underline' }}>
-                                                {t("login.forgotPassword")}?
+                                                {t("auth.forgot_password")}
                                             </H4>
                                         </TouchableOpacity>
                                     </Link>
                                 </View>
                             </View>
 
-                            {/* Divider */}
                             <View style={styles.dividerContainer}>
                                 <View style={styles.divider} />
-                                <Text style={styles.dividerText}>
-                                    {t("common.or")}
-                                </Text>
+                                <ButtonText style={styles.dividerText}>{t("auth.or")}</ButtonText>
                                 <View style={styles.divider} />
                             </View>
 
-                            {/* Social icons */}
-                            <View style={styles.socialContaier}>
+                            <View style={styles.socialContainer}>
                                 <TouchableOpacity style={styles.socialIcon}>
                                     <GoogleIcon />
                                 </TouchableOpacity>
@@ -167,15 +149,14 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#FFFFFF',
+        paddingTop: 24,
+        paddingHorizontal: "5%",
+       
     },
     scrollContent: {
-        flexGrow: 1
-    },
-    content: {
-        flex: 1,
-        paddingHorizontal: 24,
-        paddingVertical: 32
+        flexGrow: 1,
+         marginVertical:40
     },
     header: {
         marginBottom: 20
@@ -206,7 +187,7 @@ const styles = StyleSheet.create({
     divider: {
         flex: 1,
         height: 1,
-        backgroundColor: Colors.PRIMARY
+        backgroundColor: Colors.BORDER_COLOR
     },
     dividerText: {
         marginHorizontal: 16,
@@ -216,11 +197,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginHorizontal: 10,
+        marginHorizontal: 0,
         marginTop: 10,
         marginBottom: 20
     },
-    socialContaier: {
+    socialContainer: {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",

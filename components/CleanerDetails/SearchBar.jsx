@@ -1,11 +1,15 @@
 import { StyleSheet, TextInput, View } from 'react-native';
 import { SearchIcon } from '../../assets/icons/Icons';
 
+import { useTranslation } from "react-i18next";
+
 export const SearchBar = ({
-    placeholder = "Search Location",
+    placeholderKey = "common.searchLocation",
     onChangeText,
     value,
 }) => {
+    const { t } = useTranslation();
+
     return (
         <View style={styles.container}>
             <View style={styles.searchBar}>
@@ -13,7 +17,7 @@ export const SearchBar = ({
 
                 <TextInput
                     style={styles.input}
-                    placeholder={placeholder}
+                    placeholder={t(placeholderKey)}
                     placeholderTextColor="#9CA3AF"
                     onChangeText={onChangeText}
                     value={value}
@@ -25,8 +29,7 @@ export const SearchBar = ({
 
 const styles = StyleSheet.create({
     container: {
-        width: "100%", 
-        marginTop:20       
+        width: "100%",
     },
     searchBar: {
         flexDirection: "row",

@@ -537,7 +537,9 @@
         "sendRequest": "Send Request"
     },
     "common": {
-        "somethingWrong": "Something went wrong"
+        "somethingWrong": "Something went wrong",
+        "searchLocation": "Search Location",
+        "delete": "Delete"
     },
     "identityVerification": {
         "title": "Vérification d'identité",
@@ -623,5 +625,57 @@
         "title": "Verified",
         "description": "You currently have access to all of VAEX’s features and high limits",
         "done": "Done"
+    },
+    "cleaner": {
+        "pendingApplications": "Pending Applications",
+        "beds": "Beds",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "laundry": "Laundry",
+        "included": "Included",
+        "notIncluded": "No"
+    },
+    "calendar": {
+        "months": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "days": [
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat"
+        ]
+    },
+    "auth": {
+        "login_with_email": "Login with Email",
+        "email": "Email",
+        "enter_email": "Enter your email",
+        "password": "Password",
+        "enter_password": "Enter your password",
+        "login": "Login",
+        "sign_up": "Sign Up",
+        "forgot_password": "Forgot Password?",
+        "or": "or",
+        "signup_with_email": "Signup with Email",
+        "full_name": "Full Name",
+        "enter_full_name": "Full Name",
+        "confirm_password": "Confirm Password",
+        "signup": "Sign Up",
+        "accept": "Accepting the",
+        "terms_conditions": "Terms & Conditions"
     }
 }

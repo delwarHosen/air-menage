@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { BackwordAngleIcon } from '../../assets/icons/Icons';
 import { Body1, Caption } from '../typo/typography';
 
 export default function Calendar() {
-    const months = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
+    const { t } = useTranslation();
+
+    // const months = [
+    //     "January", "February", "March", "April", "May", "June",
+    //     "July", "August", "September", "October", "November", "December"
+    // ];
+
+    const months = t("calendar.months", { returnObjects: true });
 
     const realToday = new Date();
     const realDate = realToday.getDate();
@@ -18,7 +23,7 @@ export default function Calendar() {
     const [selectedDate, setSelectedDate] = useState(realDate);
     const [days, setDays] = useState([]);
 
-    
+
     const handleNextMonth = () => {
         setActiveMonthIndex((prev) => (prev === 11 ? 0 : prev + 1));
     };
@@ -30,7 +35,9 @@ export default function Calendar() {
     useEffect(() => {
         const year = realToday.getFullYear();
         const monthDays = [];
-        const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayLabels = t("calendar.days", { returnObjects: true });
+
+        // const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
         let startDay = (activeMonthIndex === realMonth) ? realDate - 3 : 1;
 
@@ -44,7 +51,7 @@ export default function Calendar() {
         }
         setDays(monthDays);
 
-        
+
         if (activeMonthIndex === realMonth) {
             setSelectedDate(realDate);
         } else {
@@ -102,18 +109,20 @@ export default function Calendar() {
 }
 
 const styles = StyleSheet.create({
-    wrapper: { padding: 16 },
+    wrapper: { padding: 2, paddingTop: 20 },
     card: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
+        borderRadius: 8,
         paddingVertical: 16,
-        paddingHorizontal: 12,
-       
+        paddingHorizontal: 10,
+        elevation: 1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         marginBottom: 20,
         paddingHorizontal: 10,
     },
@@ -121,6 +130,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
         color: Colors.PRIMARY,
+        paddingHorizontal:20
     },
     daysRow: {
         flexDirection: 'row',

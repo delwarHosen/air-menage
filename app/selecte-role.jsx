@@ -1,6 +1,7 @@
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Colors } from "../assets/Colors";
 import { ButtonText, H1, H5 } from '../components/typo/typography';
@@ -10,21 +11,21 @@ export default function SelectRole() {
     const router = useRouter();
     const { t } = useTranslation();
 
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
 
     const handleRolePress = (role) => {
-        console.log("Dispatching role:", role); 
-        dispatch(setRole(role)); 
+        console.log("Dispatching role:", role);
+        dispatch(setRole(role));
         router.push("/(auth)/login");
     }
 
 
     return (
-        <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
+        <View style={{ flex: 1, padding: "5%", justifyContent: 'center' }}>
             <View style={styles.heroImage}>
                 <Image
                     source={require("../assets/images/banner2.png")}
-                    style={{ width: '100%', aspectRatio: 16 / 9 }}
+                    style={{ width: '100%', aspectRatio: 16 / 15 }}
                     resizeMode="contain"
                 />
             </View>

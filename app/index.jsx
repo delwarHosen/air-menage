@@ -1,6 +1,7 @@
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Colors } from "../assets/Colors";
 import { Body1, ButtonText, H3 } from '../components/typo/typography';
 
@@ -10,25 +11,26 @@ export default function Home() {
 
     return (
         <>
-            <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
+            <View style={{ flex: 1, padding: "5%", justifyContent: 'center' }}>
 
                 {/* Image Section */}
                 <View style={{ alignItems: 'center', marginBottom: 20 }}>
+
                     <Image
                         source={require("../assets/images/banner1.png")}
-                        style={{ width: '100%', aspectRatio: 16 / 9 }}
-                        resizeMode="contain"
+                        style={{ width: '100%', aspectRatio: 16 / 15 }}
+                        contentFit="contain"
                     />
                 </View>
 
                 {/* Content Section */}
-                <View style={{ marginTop: 20 }}>
+                <View style={{ marginTop: 50 }}>
                     <H3 style={{ textAlign: "center", fontWeight: "500", marginBottom: 6 }}>
-                        {t("home.title")}  
+                        {t("home.title")}
                     </H3>
 
                     <Body1 style={{ color: Colors.TEXT_COLOR, lineHeight: 24, textAlign: "center" }}>
-                        {t("home.description")}  
+                        {t("home.description")}
                     </Body1>
 
                     <TouchableOpacity
@@ -42,7 +44,7 @@ export default function Home() {
                             width: '100%'
                         }}>
                         <ButtonText style={{ color: '#fff', fontWeight: '500', textAlign: 'center' }}>
-                            {t("home.button")} 
+                            {t("home.button")}
                         </ButtonText>
                     </TouchableOpacity>
                 </View>

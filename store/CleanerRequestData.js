@@ -1,21 +1,17 @@
 import { IMAGE_COMPONENTS } from "../assets/image.index";
 
-/**
- * cleanerDetailsData
- * status: "Pending", "Validate", "Completed"
- */
-
 export const cleanerDetailsData = [
   {
     id: 1,
-    status: "Validate", // ১ নম্বর অপশন
+    status: "Validate",
     date: "Lundi 18th December",
     day: "Monday",
     city: "Berlin",
     image: IMAGE_COMPONENTS.archiveImage,
     propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
     images: [IMAGE_COMPONENTS.propertyImage],
-    description: "This modern luxury house offers essential amenities including high-speed internet, premium kitchen appliances, and professional deep cleaning services for a truly comfortable living experience.",
+    description:
+      "This modern luxury house offers essential amenities including high-speed internet, premium kitchen appliances, and professional deep cleaning services for a truly comfortable living experience.",
     country: "Germany",
     area: "50–120 m²",
     beds: 3,
@@ -24,7 +20,7 @@ export const cleanerDetailsData = [
     buildingName: "Peak Residence",
     property_type: "House",
     lock_system: "Manual Key",
-    password:"2r 34 fdkl f875",
+    password: "2r 34 fdkl f875",
     timeSlot: "09:00-15:00",
     duration: "2Hours 30Min",
     equipmentProvided: false,
@@ -32,6 +28,20 @@ export const cleanerDetailsData = [
     cleanerName: "Alex",
     price: 65.0,
     cleanerImage: "https://i.pravatar.cc/150?img=32",
+
+    /* filter fields */
+    workRadius: 10,
+    linenServices: true,
+    propertyDetails: {
+      type: "House",
+      bedrooms: 3,
+      bathrooms: 2,
+      area: "50–120 m²",
+    },
+    priceRange: {
+      min: 50,
+      max: 80,
+    },
 
     cleaner_request: [
       { id: 101, profile_img: "https://i.pravatar.cc/150?img=11", name: "Sophia Martinez" },
@@ -70,14 +80,15 @@ export const cleanerDetailsData = [
 
   {
     id: 2,
-    status: "Validate", // ২ নম্বর অপশন
+    status: "Validate",
     date: "Vendredi 22nd December",
     day: "Friday",
     city: "Madrid",
     image: IMAGE_COMPONENTS.archiveImage,
     propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
     images: [IMAGE_COMPONENTS.propertyImage],
-    description: "Experience a premium luxury villa cleaning service featuring professional equipment, eco-friendly supplies, and detailed attention to every corner to ensure a spotless environment.",
+    description:
+      "Experience a premium luxury villa cleaning service featuring professional equipment, eco-friendly supplies, and detailed attention to every corner to ensure a spotless environment.",
     country: "Spain",
     area: "60–150 m²",
     beds: 4,
@@ -86,7 +97,7 @@ export const cleanerDetailsData = [
     buildingName: "Sunset Villa",
     property_type: "Villa",
     lock_system: "Keypad",
-    password:"2r 34 fdkl f875",
+    password: "2r 34 fdkl f875",
     timeSlot: "08:00-17:00",
     duration: "2Hours 30Min",
     equipmentProvided: true,
@@ -95,38 +106,41 @@ export const cleanerDetailsData = [
     price: 90.0,
     cleanerImage: "https://i.pravatar.cc/150?img=18",
 
+    workRadius: 20,
+    linenServices: true,
+    propertyDetails: {
+      type: "Villa",
+      bedrooms: 4,
+      bathrooms: 3,
+      area: "60–150 m²",
+    },
+    priceRange: {
+      min: 80,
+      max: 120,
+    },
+
     cleaner_request: [
       { id: 101, profile_img: "https://i.pravatar.cc/150?img=11", name: "Sophia Martinez" },
       { id: 102, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
-      { id: 103, profile_img: "https://i.pravatar.cc/150?img=12", name: "Jhon Doe" },
-      { id: 104, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
     ],
+
     general_types: [{ id: 1, name: "Deep Cleaning" }],
     bed_room: [{ id: 1, name: "Bed Making" }],
     living_room: [{ id: 1, name: "Dusting" }],
     kitchen_room: [{ id: 1, name: "Appliance Cleaning" }],
-
-    completed_tasks: [
-      {
-        id: "ct5",
-        property_name: "Colosseum View",
-        task_title: "Balcony and Living Area Deep Clean",
-        task_image: IMAGE_COMPONENTS.propertyDetailsImage,
-        status: "Completed",
-      },
-    ],
   },
 
   {
     id: 3,
-    status: "Validate", // ৩ নম্বর অপশন
+    status: "Validate",
     date: "Mardi 26th December",
     day: "Tuesday",
     city: "Paris",
     image: IMAGE_COMPONENTS.archiveImage,
     propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
     images: [IMAGE_COMPONENTS.propertyImage],
-    description: "Centrally located city apartment providing quick and efficient cleaning services, vacuuming, and trash removal, perfect for busy professionals living in the heart of Paris.",
+    description:
+      "Centrally located city apartment providing quick and efficient cleaning services, vacuuming, and trash removal, perfect for busy professionals living in the heart of Paris.",
     country: "France",
     area: "30–80 m²",
     beds: 1,
@@ -135,7 +149,7 @@ export const cleanerDetailsData = [
     buildingName: "Central Loft",
     property_type: "Studio",
     lock_system: "Smart Lock",
-    password:"2r 34 fdkl f875",
+    password: "2r 34 fdkl f875",
     timeSlot: "11:00-14:30",
     duration: "2Hours 30Min",
     equipmentProvided: true,
@@ -144,26 +158,18 @@ export const cleanerDetailsData = [
     price: 40.75,
     cleanerImage: "https://i.pravatar.cc/150?img=47",
 
-    cleaner_request: [
-      { id: 301, profile_img: "https://i.pravatar.cc/150?img=31", name: "John Doe" },
-      { id: 302, profile_img: "https://i.pravatar.cc/150?img=32", name: "Alex Brown" },
-      { id: 303, profile_img: "https://i.pravatar.cc/150?img=33", name: "Sara Lee" },
-    ],
-
-    general_types: [{ id: 1, name: "Quick Cleaning" }],
-    bed_room: [{ id: 1, name: "Bed Making" }],
-    living_room: [{ id: 1, name: "Vacuum" }],
-    kitchen_room: [{ id: 1, name: "Counter Cleaning" }],
-
-    completed_tasks: [
-      {
-        id: "ct5",
-        property_name: "Colosseum View",
-        task_title: "Balcony and Living Area Deep Clean",
-        task_image: IMAGE_COMPONENTS.propertyDetailsImage,
-        status: "Validate",
-      },
-    ],
+    workRadius: 5,
+    linenServices: false,
+    propertyDetails: {
+      type: "Studio",
+      bedrooms: 1,
+      bathrooms: 1,
+      area: "30–80 m²",
+    },
+    priceRange: {
+      min: 30,
+      max: 50,
+    },
   },
 
   {
@@ -175,7 +181,8 @@ export const cleanerDetailsData = [
     image: IMAGE_COMPONENTS.archiveImage,
     propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
     images: [IMAGE_COMPONENTS.propertyImage],
-    description: "Historical apartment cleaning featuring specialized care for antique floors, delicate wall paintings, and thorough sanitize services to maintain the beauty of this classical property.",
+    description:
+      "Historical apartment cleaning featuring specialized care for antique floors, delicate wall paintings, and thorough sanitize services to maintain the beauty of this classical property.",
     country: "Italy",
     area: "40–100 m²",
     beds: 2,
@@ -183,8 +190,8 @@ export const cleanerDetailsData = [
     bathrooms: 1,
     buildingName: "Colosseum View",
     property_type: "Apartment",
-    password:"2r 34 fdkl f875",
     lock_system: "Keypad",
+    password: "2r 34 fdkl f875",
     timeSlot: "12:00-15:00",
     duration: "3Hours 00Min",
     equipmentProvided: true,
@@ -193,23 +200,184 @@ export const cleanerDetailsData = [
     price: 55.5,
     cleanerImage: "https://i.pravatar.cc/150?img=25",
 
-    cleaner_request: [
-      { id: 401, profile_img: "https://i.pravatar.cc/150?img=41", name: "Marco Rossi" },
-    ],
+    workRadius: 12,
+    linenServices: true,
+    propertyDetails: {
+      type: "Apartment",
+      bedrooms: 2,
+      bathrooms: 1,
+      area: "40–100 m²",
+    },
+    priceRange: {
+      min: 50,
+      max: 70,
+    },
+  },
+  {
+    id: 5,
+    status: "Validate",
+    date: "Samedi 30th December",
+    day: "Saturday",
+    city: "Amsterdam",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description:
+      "Spacious canal-side apartment cleaned with eco-friendly products and detailed care for wooden floors and glass surfaces.",
+    country: "Netherlands",
+    area: "45–110 m²",
+    beds: 2,
+    bedrooms: 2,
+    bathrooms: 2,
+    buildingName: "Canal View",
+    property_type: "Apartment",
+    lock_system: "Smart Lock",
+    password: "amst-234-lock",
+    timeSlot: "10:00-16:00",
+    duration: "3Hours 00Min",
+    equipmentProvided: true,
+    laundryIncluded: true,
+    cleanerName: "Noah",
+    price: 70,
+    cleanerImage: "https://i.pravatar.cc/150?img=52",
 
-    general_types: [{ id: 1, name: "Standard Cleaning" }],
-    bed_room: [{ id: 1, name: "Bed Making" }],
-    living_room: [{ id: 1, name: "Mopping" }],
-    kitchen_room: [{ id: 1, name: "Trash Removal" }],
+    workRadius: 15,
+    linenServices: true,
+    propertyDetails: {
+      type: "Apartment",
+      bedrooms: 2,
+      bathrooms: 2,
+      area: "45–110 m²",
+    },
+    priceRange: {
+      min: 60,
+      max: 85,
+    },
+  },
 
-    completed_tasks: [
-      {
-        id: "ct5",
-        property_name: "Colosseum View",
-        task_title: "Balcony and Living Area Deep Clean",
-        task_image: IMAGE_COMPONENTS.propertyDetailsImage,
-        status: "Completed",
-      },
-    ],
+  {
+    id: 6,
+    status: "Pending",
+    date: "Dimanche 31st December",
+    day: "Sunday",
+    city: "Lisbon",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description:
+      "Cozy hillside apartment cleaning service including dust removal, bathroom sanitization, and balcony sweep.",
+    country: "Portugal",
+    area: "35–90 m²",
+    beds: 1,
+    bedrooms: 1,
+    bathrooms: 1,
+    buildingName: "Alfama Heights",
+    property_type: "Studio",
+    lock_system: "Manual Key",
+    password: "lis-112-key",
+    timeSlot: "09:30-13:00",
+    duration: "2Hours 00Min",
+    equipmentProvided: false,
+    laundryIncluded: false,
+    cleanerName: "Ines",
+    price: 38,
+    cleanerImage: "https://i.pravatar.cc/150?img=60",
+
+    workRadius: 6,
+    linenServices: false,
+    propertyDetails: {
+      type: "Studio",
+      bedrooms: 1,
+      bathrooms: 1,
+      area: "35–90 m²",
+    },
+    priceRange: {
+      min: 30,
+      max: 45,
+    },
+  },
+
+  {
+    id: 7,
+    status: "Completed",
+    date: "Lundi 1st January",
+    day: "Monday",
+    city: "Vienna",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description:
+      "Luxury classical apartment cleaning with parquet floor care, premium supplies, and window polishing.",
+    country: "Austria",
+    area: "70–160 m²",
+    beds: 3,
+    bedrooms: 3,
+    bathrooms: 2,
+    buildingName: "Imperial Living",
+    property_type: "Apartment",
+    lock_system: "Keypad",
+    password: "vie-889-key",
+    timeSlot: "08:00-15:00",
+    duration: "4Hours 00Min",
+    equipmentProvided: true,
+    laundryIncluded: true,
+    cleanerName: "Lukas",
+    price: 95,
+    cleanerImage: "https://i.pravatar.cc/150?img=14",
+
+    workRadius: 18,
+    linenServices: true,
+    propertyDetails: {
+      type: "Apartment",
+      bedrooms: 3,
+      bathrooms: 2,
+      area: "70–160 m²",
+    },
+    priceRange: {
+      min: 85,
+      max: 120,
+    },
+  },
+
+  {
+    id: 8,
+    status: "Validate",
+    date: "Mercredi 3rd January",
+    day: "Wednesday",
+    city: "Prague",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description:
+      "Modern city flat cleaning with fast turnaround, ideal for Airbnb turnovers and short stays.",
+    country: "Czech Republic",
+    area: "40–95 m²",
+    beds: 2,
+    bedrooms: 2,
+    bathrooms: 1,
+    buildingName: "Old Town Flats",
+    property_type: "Apartment",
+    lock_system: "Smart Lock",
+    password: "prg-445-lock",
+    timeSlot: "11:00-15:30",
+    duration: "2Hours 30Min",
+    equipmentProvided: true,
+    laundryIncluded: false,
+    cleanerName: "Eva",
+    price: 58,
+    cleanerImage: "https://i.pravatar.cc/150?img=36",
+
+    workRadius: 10,
+    linenServices: false,
+    propertyDetails: {
+      type: "Apartment",
+      bedrooms: 2,
+      bathrooms: 1,
+      area: "40–95 m²",
+    },
+    priceRange: {
+      min: 50,
+      max: 70,
+    },
   },
 ];

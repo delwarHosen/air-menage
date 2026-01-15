@@ -1,29 +1,76 @@
-import { Image } from 'expo-image'
-import { useRouter } from 'expo-router'
-import { useTranslation } from 'react-i18next'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     FlatList,
     KeyboardAvoidingView,
     Platform,
     StyleSheet,
+    Text,
     TouchableOpacity,
     View
-} from 'react-native'
-import { Colors } from "../../assets/Colors"
-import { BedIcon, ClockIcon, CreatePropertyIcon, LocationIcon } from '../../assets/icons/Icons'
-import { Body1, Caption, H4, H5, H6 } from "../../components/typo/typography"
-import { cleanerDetailsData } from "../../store/CleanerRequestData"
+} from 'react-native';
+import { Colors } from "../../assets/Colors";
+import { BedIcon, ClockIcon, CreatePropertyIcon, LocationIcon, ThreeDotsIcon } from '../../assets/icons/Icons';
+import { Body1, Caption, H4, H5, H6 } from "../../components/typo/typography";
+import { cleanerDetailsData } from "../../store/CleanerRequestData";
 
-export default function CleaningTask({ HeaderContent }) {
-    const { t } = useTranslation();
+export default function CleaningTask({
+    HeaderContent,
+    data = cleanerDetailsData,
+    isPendingScreen = false
+}) {
     const router = useRouter();
-
-    // Data check korchi jate targetId undefined na hoy
-    const targetId = cleanerDetailsData && cleanerDetailsData.length > 0 ? cleanerDetailsData[0].id : null;
+    const { t } = useTranslation();
+    const [openMenuId, setOpenMenuId] = useState(null);
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={() => router.push(`/cleaner/peopertyOverview/${item.id}`)}>
+        <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+                if (openMenuId) {
+                    setOpenMenuId(null);
+                } else {
+                    router.push(`/cleaner/peopertyOverview/${item.id}`);
+                }
+            }}
+        >
             <View style={styles.card}>
+
+                {isPendingScreen && (
+                    <View style={styles.menuWrapper}>
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => setOpenMenuId(openMenuId === item.id ? null : item.id)}
+                            style={styles.dotButton}
+                        >
+                            <ThreeDotsIcon />
+                        </TouchableOpacity>
+
+                        {openMenuId === item.id && (
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                style={styles.deletePopup}
+                                onPress={() => {
+                                    console.log("Delete ID:", item.id);
+                                    setOpenMenuId(null);
+                                }}
+                            >
+                                <MaterialCommunityIcons
+                                    name="delete-outline"
+                                    size={20}
+                                    color="red"
+                                />
+                                <Text style={{ color: 'red', fontWeight: '500' }}>
+                                    {t("common.delete")}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                )}
+
                 <H5>{item.date}</H5>
                 <View style={styles.divider} />
 
@@ -39,18 +86,24 @@ export default function CleaningTask({ HeaderContent }) {
                             </View>
                             <View style={styles.propertiContent}>
                                 <BedIcon />
-                                <Caption>{item.beds} Beds</Caption>
+                                <Caption>
+                                    {item.beds} {t("cleaner.beds")}
+                                </Caption>
                             </View>
                         </View>
 
                         <View style={styles.propeertiDetailcontent}>
                             <View style={styles.propertiContent}>
                                 <BedIcon />
-                                <Caption>{item.bedrooms} Bedrooms</Caption>
+                                <Caption>
+                                    {item.bedrooms} {t("cleaner.bedrooms")}
+                                </Caption>
                             </View>
                             <View style={styles.propertiContent}>
                                 <BedIcon />
-                                <Caption>{item.bathrooms} Bathrooms</Caption>
+                                <Caption>
+                                    {item.bathrooms} {t("cleaner.bathrooms")}
+                                </Caption>
                             </View>
                         </View>
 
@@ -63,13 +116,18 @@ export default function CleaningTask({ HeaderContent }) {
                             <ClockIcon />
                             <Caption>{item.timeSlot}</Caption>
                         </View>
+
                         <View style={styles.propertiContent}>
                             <ClockIcon />
                             <Caption>{item.duration}</Caption>
                         </View>
 
-                        {/* Text must be inside Typography component */}
-                        <Caption>Laundry: {item.laundryIncluded ? "Included" : "No"}</Caption>
+                        <Caption>
+                            {t("cleaner.laundry")}:{" "}
+                            {item.laundryIncluded
+                                ? t("cleaner.included")
+                                : t("cleaner.notIncluded")}
+                        </Caption>
                     </View>
                 </View>
 
@@ -77,12 +135,18 @@ export default function CleaningTask({ HeaderContent }) {
 
                 <View style={styles.bottomRow}>
                     <View style={styles.propertiContent}>
-                        <Image source={{ uri: item.cleanerImage }} style={styles.cleanerImage} />
+                        <Image
+                            source={{ uri: item.cleanerImage }}
+                            style={styles.cleanerImage}
+                        />
                         <View>
-                            <H6 style={{ color: Colors.SECONDARY }}>{item.cleanerName}</H6>
+                            <H6 style={{ color: Colors.SECONDARY }}>
+                                {item.cleanerName}
+                            </H6>
                             <Caption>{item.country}</Caption>
                         </View>
                     </View>
+
                     <H4>€ {item.price}</H4>
                 </View>
             </View>
@@ -95,45 +159,58 @@ export default function CleaningTask({ HeaderContent }) {
             style={styles.mainContainer}
         >
             <FlatList
-                data={cleanerDetailsData}
+                data={data}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 30 }}
-                // Header ebong List components er moddhe kono khali text rakha jabe na
-                ListHeaderComponent={
-                    <View>
-                        {HeaderContent}
-
-                        <TouchableOpacity
-                            onPress={() => {
-                                if (targetId) router.push(`/cleaner/peopertyOverview/${targetId}`);
-                            }}
-                            style={styles.pendingText}
-                        >
-                            <Body1 style={{ textDecorationLine: "underline" }}>
-                                Pending Applications
-                            </Body1>
-                            <Body1 style={styles.pendingCount}>3</Body1>
-                        </TouchableOpacity>
-                    </View>
-                }
+                contentContainerStyle={{
+                    paddingBottom: 30,
+                    paddingHorizontal: "2.5%"
+                }}
+                ListHeaderComponent={HeaderContent}
             />
         </KeyboardAvoidingView>
-    )
+    );
 }
 
+
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        // backgroundColor: '#fff'
-    },
+    mainContainer: { flex: 1 },
     card: {
+        backgroundColor: "#FFFFFF",
         padding: 12,
         marginBottom: 20,
         width: '100%',
-        borderBottomWidth: 1,
-        borderBottomColor: Colors.BORDER_COLOR,
+        borderRadius: 10,
+        position: 'relative',
+    },
+    menuWrapper: {
+        position: 'absolute',
+        top: 10,
+        right: 5,
+        zIndex: 50,
+        alignItems: 'flex-end',
+    },
+    dotButton: {
+        padding: 10,
+    },
+    deletePopup: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        paddingVertical: 8,
+        paddingHorizontal: 15,
+        borderRadius: 8,
+        gap: 8,
+        borderWidth: 1,
+        borderColor: '#f0f0f0',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        position: 'absolute',
+        top: 35,
+        right: 10,
+        minWidth: 110,
     },
     divider: {
         height: 1,
@@ -151,12 +228,12 @@ const styles = StyleSheet.create({
     },
     rightContent: {
         flex: 1,
-        gap: 2,
+        gap: 2
     },
     propeertiDetailcontent: {
         flexDirection: "row",
         gap: 20,
-        marginBottom: 5,
+        marginBottom: 5
     },
     propertiContent: {
         flexDirection: "row",
@@ -167,28 +244,12 @@ const styles = StyleSheet.create({
     bottomRow: {
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        marginHorizontal: 10
     },
     cleanerImage: {
         width: 36,
         height: 36,
         borderRadius: 18
-    },
-    pendingText: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 4,
-        marginBottom:10
-    },
-    pendingCount: {
-        backgroundColor: "#C72D65",
-        height: 24,
-        width: 24,
-        borderRadius: 12,
-        textAlign: "center",
-        color: "white",
-        lineHeight: 24,
-        overflow: 'hidden'
     }
 });

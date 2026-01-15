@@ -3,7 +3,7 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BackArrowIcon, HoldPhoneIcon, MitchMatchIcon, WellItIcon } from "../../assets/icons/Icons";
 import { IMAGE_COMPONENTS } from "../../assets/image.index";
 import { Body1, Body2, H3 } from "../../components/typo/typography";
@@ -35,26 +35,39 @@ export default function FacialRecognition() {
 
   useEffect(() => {
     if (showCamera && permission?.granted) {
+
       const timer = setTimeout(handleCaptureFace, 3000);
       return () => clearTimeout(timer);
     }
   }, [showCamera]);
 
+
   if (showCamera && permission?.granted) {
     return (
       <View style={styles.cameraContainer}>
-        <CameraView ref={cameraRef} style={styles.camera} facing="front">
+
+        <CameraView
+          ref={cameraRef}
+          style={StyleSheet.absoluteFillObject}
+          facing="front"
+        />
+
+
+        <View style={styles.overlay}>
+
+
           <View style={styles.cameraOverlayHeader}>
             <TouchableOpacity onPress={() => setShowCamera(false)} style={styles.backBtn}>
               <BackArrowIcon />
             </TouchableOpacity>
 
             <View style={styles.progressContainerAbsolute}>
-              <View style={[styles.progressBar, styles.progressBarActive]} />
-              <View style={[styles.progressBar, styles.progressBarActive]} />
-              <View style={[styles.progressBar, styles.progressBarActive]} />
+              <View style={[styles.progressBar, styles.progressBarActive, { backgroundColor: '#fff' }]} />
+              <View style={[styles.progressBar, styles.progressBarActive, { backgroundColor: '#fff' }]} />
+              <View style={[styles.progressBar, styles.progressBarActive, { backgroundColor: '#fff' }]} />
             </View>
           </View>
+
 
           <View style={styles.faceOverlay}>
             <View style={styles.faceCircleOuter}>
@@ -65,19 +78,21 @@ export default function FacialRecognition() {
             </Body1>
           </View>
 
+
           <View style={styles.captureContainer}>
             <TouchableOpacity style={styles.captureButton} onPress={handleCaptureFace}>
               <View style={styles.captureButtonInner} />
             </TouchableOpacity>
           </View>
-        </CameraView>
+        </View>
       </View>
     );
   }
 
+
+
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <BackArrowIcon />
@@ -95,9 +110,7 @@ export default function FacialRecognition() {
           <Image source={IMAGE_COMPONENTS.faceImage} style={{ height: 164, width: 164 }} />
         </View>
 
-        <H3 style={styles.title}>
-          {t("facialRecognition.title")}
-        </H3>
+        <H3 style={styles.title}>{t("facialRecognition.title")}</H3>
 
         <Body2 style={styles.description}>
           {t("facialRecognition.description")}
@@ -105,79 +118,60 @@ export default function FacialRecognition() {
 
         <View style={styles.requirementsList}>
           <View style={styles.requirementItem}>
-            <View style={styles.iconContainer}>
-              <HoldPhoneIcon />
-            </View>
-            <Body2 style={styles.requirementText}>
-              {t("facialRecognition.requirements.upright")}
-            </Body2>
+            <View style={styles.iconContainer}><HoldPhoneIcon /></View>
+            <Body2 style={styles.requirementText}>{t("facialRecognition.requirements.upright")}</Body2>
           </View>
 
           <View style={styles.requirementItem}>
-            <View style={styles.iconContainer}>
-              <WellItIcon />
-            </View>
-            <Body2 style={styles.requirementText}>
-              {t("facialRecognition.requirements.wellLit")}
-            </Body2>
+            <View style={styles.iconContainer}><WellItIcon /></View>
+            <Body2 style={styles.requirementText}>{t("facialRecognition.requirements.wellLit")}</Body2>
           </View>
 
           <View style={styles.requirementItem}>
-            <View style={styles.iconContainer}>
-              <MitchMatchIcon />
-            </View>
-            <Body2 style={styles.requirementText}>
-              {t("facialRecognition.requirements.noOcclusion")}
-            </Body2>
+            <View style={styles.iconContainer}><MitchMatchIcon /></View>
+            <Body2 style={styles.requirementText}>{t("facialRecognition.requirements.noOcclusion")}</Body2>
           </View>
         </View>
       </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
-          <Text style={styles.continueButtonText}>
-            {t("facialRecognition.continue")}
-          </Text>
+          <Text style={styles.continueButtonText}>{t("facialRecognition.continue")}</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
+  container: { flex: 1, backgroundColor: '#fff' },
+  cameraContainer: { flex: 1, backgroundColor: '#000' },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'space-between',
+    paddingVertical: Platform.OS === 'ios' ? 50 : 30,
   },
-  cameraContainer: {
-    flex: 1,
-    backgroundColor: '#000'
-  },
-  camera: { flex: 1 },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    marginTop: 35,
-    marginBottom: 35,
-    position: "relative",
+    marginTop: 40,
+    marginBottom: 20,
   },
   cameraOverlayHeader: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
-    marginTop: 50,
-    position: "relative",
+    marginTop: 20,
   },
-  backBtn: { zIndex: 1 },
+  backBtn: { zIndex: 10 },
   progressContainer: {
     position: "absolute",
     left: 0,
     right: 0,
-    justifyContent: "center",
     flexDirection: "row",
+    justifyContent: "center",
     paddingHorizontal: "30%",
     gap: 8,
   },
@@ -185,51 +179,23 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    justifyContent: "center",
     flexDirection: "row",
+    justifyContent: "center",
     paddingHorizontal: "30%",
     gap: 8,
   },
-  progressBar: {
-    flex: 1,
-    height: 3,
-    backgroundColor: '#E5E5E5',
-    borderRadius: 3,
-  },
-  progressBarActive: {
-    backgroundColor: "#1D1D1D"
-  },
+  progressBar: { flex: 1, height: 4, backgroundColor: '#E5E5E5', borderRadius: 2 },
+  progressBarActive: { backgroundColor: "#1D1D1D" },
   content: { flex: 1, alignItems: 'center', paddingHorizontal: 20 },
   faceContainer: { marginBottom: 30, marginTop: 20 },
-
-  faceEmoji: { fontSize: 60 },
-  title: { fontSize: 24, fontWeight: '700', color: '#000', marginBottom: 12 },
-  description: {
-    fontSize: 14,
-    color: '#A1A1AA',
-    textAlign: 'center',
-    lineHeight: 20,
-    marginBottom: 40,
-  },
+  title: { fontSize: 22, fontWeight: '700', color: '#000', marginBottom: 12, textAlign: 'center' },
+  description: { fontSize: 14, color: '#A1A1AA', textAlign: 'center', lineHeight: 20, marginBottom: 40 },
   requirementsList: { width: '100%', gap: 20 },
   requirementItem: { flexDirection: 'row', alignItems: 'center', gap: 16 },
-  iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#F5F5F5',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: { fontSize: 24 },
-  requirementText: { fontSize: 16, color: '#333', fontWeight: '500' },
+  iconContainer: { width: 48, height: 48, borderRadius: 24, backgroundColor: '#F5F5F5', justifyContent: 'center', alignItems: 'center' },
+  requirementText: { fontSize: 15, color: '#333', fontWeight: '500' },
   buttonContainer: { paddingHorizontal: 20, paddingBottom: 30 },
-  continueButton: {
-    backgroundColor: '#00A7E1',
-    paddingVertical: 16,
-    borderRadius: 30,
-    alignItems: 'center',
-  },
+  continueButton: { backgroundColor: '#00A7E1', paddingVertical: 16, borderRadius: 30, alignItems: 'center' },
   continueButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
   faceOverlay: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   faceCircleOuter: {
@@ -250,20 +216,17 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.5)',
     borderStyle: 'dashed',
   },
-  instructionText: { color: '#fff', fontSize: 16, fontWeight: '500' },
-  captureContainer: { alignItems: 'center', paddingBottom: 40 },
+  instructionText: { color: '#fff', fontSize: 16, fontWeight: '500', textAlign: 'center' },
+  captureContainer: { alignItems: 'center', paddingBottom: 20 },
   captureButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    width: 75,
+    height: 75,
+    borderRadius: 40,
+    backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 4,
+    borderColor: '#fff',
   },
-  captureButtonInner: {
-    width: 54,
-    height: 54,
-    borderRadius: 27,
-    backgroundColor: '#fff',
-  },
+  captureButtonInner: { width: 56, height: 56, borderRadius: 28, backgroundColor: '#fff' },
 });
