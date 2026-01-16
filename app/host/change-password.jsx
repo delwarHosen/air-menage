@@ -130,7 +130,11 @@ export default function ChangePassword() {
                         </View>
                     </View>
 
-                    {passwordFields.map(item => renderItem({ item }))}
+                    {passwordFields.map(item => (
+                        <View key={item.id} style={{ width: '100%', alignItems: 'center' }}>
+                            {renderItem({ item })}
+                        </View>
+                    ))}
 
                     <View style={styles.footerContainer}>
                         <TouchableOpacity

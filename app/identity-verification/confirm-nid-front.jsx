@@ -115,7 +115,7 @@ export default function ConfirmNidFront() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff' },
+    container: { flex: 1, backgroundColor: '#fff',paddingHorizontal:"1.2%" },
     header: {
         flexDirection: "row",
         alignItems: "center",

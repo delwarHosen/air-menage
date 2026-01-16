@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { Colors } from "../../assets/Colors";
-import { CheckMarkIcon, DeleteIcon, DownForwardIcon, TikMarkIcon } from "../../assets/icons/Icons";
+import { CheckMarkIcon, DeletePropertyTrashIcon, DownForwardIcon, TikMarkIcon } from "../../assets/icons/Icons";
 import { Body2, H5 } from '../typo/typography';
 
 const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
@@ -29,7 +29,7 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
             <FlatList
                 data={workTypes}
                 keyExtractor={(item) => item.id}
-                scrollEnabled={false} 
+                scrollEnabled={false}
                 renderItem={({ item }) => (
                     <View style={styles.listItemContainer}>
                         {/* Left side: Icon and Text group */}
@@ -40,7 +40,7 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
 
                         {/* Right side: Delete button */}
                         <TouchableOpacity onPress={() => onDelete(item.id)}>
-                            <DeleteIcon />
+                          <DeletePropertyTrashIcon/>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: "#F4F4F4",
         padding: 15,
-        borderRadius: 8
+        borderRadius: 8,
     },
 
     listItemContainer: {
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingVertical: 10,
+        paddingRight:8,
         borderBottomWidth: 1,
         borderBottomColor: '#eee',
     },
@@ -99,25 +100,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#333',
     },
-  addWorkTypeContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    minHeight: 44,
-    borderWidth: 1,
-    borderColor: Colors.BORDER_COLOR,
-    borderRadius: 8,
-    paddingTop: 10,
-    paddingRight: 8,
-    paddingBottom: 10,
-    paddingLeft: 8,
-         
-},
+    addWorkTypeContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        minHeight: 44,
+        borderWidth: 1,
+        borderColor: Colors.BORDER_COLOR,
+        borderRadius: 8,
+        paddingTop: 10,
+        paddingRight: 8,
+        paddingBottom: 10,
+        paddingLeft: 8,
+        backgroundColor: "#FFFFFF"
+    },
 
     textInput: {
         flex: 1,
-        height: 50,
+        height: 48,
         paddingHorizontal: 15,
+
     },
     addIconButton: {
         padding: 5,

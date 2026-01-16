@@ -66,7 +66,7 @@ export default function VerificationSuccess() {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 50,
-        paddingHorizontal: "2.5%",
+        paddingHorizontal: "3%",
         flex: 1,
         backgroundColor: '#fff'
     },

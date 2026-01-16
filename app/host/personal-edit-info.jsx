@@ -1,12 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { FlatList, Image, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
+import { ImageUpload } from "../../components/ui/ImageUpload";
+
+import { IMAGE_CONSTANTS } from "../../constants/image.index";
+
 
 export default function PersonalEditInfo() {
     const router = useRouter();
@@ -15,37 +19,31 @@ export default function PersonalEditInfo() {
 
     const FIELD_KEYS = ["fullName", "email", "phone", "address", "city", "country"];
 
-   
-    const { setValue, watch, handleSubmit, reset, formState: { isSubmitting } } = useForm({
-        defaultValues: FIELD_KEYS.reduce((acc, key) => {
-            acc[key] = params[key] || "";
-            return acc;
-        }, {})
+    const { setValue, watch, control, handleSubmit, reset, formState: { isSubmitting } } = useForm({
+        defaultValues: {
+            ...FIELD_KEYS.reduce((acc, key) => {
+                acc[key] = params[key] || "";
+                return acc;
+            }, {}),
+            profileImage: params.profileImage || null
+        }
     });
 
-    
     const values = watch();
 
-   
-    const handleChange = (name, text) => {
-        setValue(name, text);
-    };
+    useEffect(() => {
+        if (params) {
+            const initialData = FIELD_KEYS.reduce((acc, key) => {
+                acc[key] = params[key] || "";
+                return acc;
+            }, {});
+            reset({ ...initialData, profileImage: params.profileImage || null });
+        }
+    }, []);
 
-   useEffect(() => {
-    if (params) {
-        
-        const initialData = FIELD_KEYS.reduce((acc, key) => {
-            acc[key] = params[key] || "";
-            return acc;
-        }, {});
-        
-        reset(initialData);
-    }
-}, []); 
-
-  
     const onFormSubmit = (data) => {
-        console.log("Form Data:", data);
+        console.log("Form Data Submitted:", data);
+        router.push("./menu")
     };
 
     const renderItem = ({ item }) => (
@@ -55,7 +53,7 @@ export default function PersonalEditInfo() {
                 <TextInput
                     style={styles.textInput}
                     value={values[item] || ""}
-                    onChangeText={(text) => handleChange(item, text)}
+                    onChangeText={(text) => setValue(item, text)}
                     placeholder={t(`edit_personal_info.placeholders.${item}`)}
                     placeholderTextColor="#7E8792"
                 />
@@ -64,119 +62,100 @@ export default function PersonalEditInfo() {
     );
 
     return (
-        <>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-                <View style={{ marginHorizontal: 20 }}>
+        <View style={{ flex: 1, backgroundColor: '#FFF' }}>
+            <KeyboardAvoidingView 
+                behavior={Platform.OS === "ios" ? "padding" : "height"} 
+                style={{ flex: 1 }}
+            >
+                <View style={{ marginHorizontal: 20, marginTop: 10 }}>
                     <Heading title={t("edit_personal_info.title")} />
                 </View>
+
                 <FlatList
                     data={FIELD_KEYS}
                     keyExtractor={item => item}
-                    style={{ width: '100%' }}
                     renderItem={renderItem}
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
+                    style={{ width: '100%' }}
+                    
                     ListHeaderComponent={() => (
-                        <View style={styles.headerContainer}>
-                            <View style={styles.imageContainer}>
-                                <View style={styles.imageWrapper}>
-                                    <Image
-                                        source={{ uri: 'https://avatar.iran.liara.run/public/30' }}
-                                        style={styles.profileImage}
-                                        resizeMode="cover"
-                                    />
-                                    <TouchableOpacity style={styles.cameraBadge}>
-                                        <Ionicons name="camera" size={16} color="#FFF" />
-                                    </TouchableOpacity>
+                        <View style={styles.imageHeaderContainer}>
+                            <View style={styles.imageWrapper}>
+                                <Controller
+                                    control={control}
+                                    name="profileImage"
+                                    render={({ field: { onChange, value } }) => (
+                                        <ImageUpload
+                                            image={value}
+                                            onImageSelect={onChange}
+                                            shape="circle"
+                                            showIcon={false}
+                                             centered={true}
+                                              defaultImage={IMAGE_CONSTANTS.profile}
+                                        />
+                                    )}
+                                />
+                                <View style={styles.cameraBadge}>
+                                    <Ionicons name="camera" size={16} color="#FFF" />
                                 </View>
                             </View>
                         </View>
                     )}
+
                     ListFooterComponent={() => (
-                        <TouchableOpacity 
-                        // onPress={handleSubmit(onFormSubmit)}  
-                        onPress={()=>router.push("/host/menu")}
-                        style={styles.submitButton}>
-                            <ButtonText style={styles.buttonText}>
-                                {isSubmitting ? t("edit_personal_info.actions.saving") : t("edit_personal_info.actions.saveChanges")}
-                            </ButtonText>
-                        </TouchableOpacity>
+                        <View style={{ paddingHorizontal: 20 }}>
+                            <TouchableOpacity
+                                onPress={handleSubmit(onFormSubmit)}
+                                style={styles.submitButton}>
+                                <ButtonText style={styles.buttonText}>
+                                    {isSubmitting ? t("edit_personal_info.actions.saving") : t("edit_personal_info.actions.saveChanges")}
+                                </ButtonText>
+                            </TouchableOpacity>
+                        </View>
                     )}
                 />
             </KeyboardAvoidingView>
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     scrollContainer: {
         paddingBottom: 40,
-        paddingHorizontal: '2.5%',
+    },
+    imageHeaderContainer: {
         width: '100%',
-    },
-    headerContainer: { width: '100%', alignItems: 'center' },
-    headerRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "100%",
-        height: 50,
-        marginTop: 10,
-    },
-    backIconContainer: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: "#EBEBEE",
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: "#CACACB",
-    },
-    titleWrapper: {
-        flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: "600",
-        color: "#0F243E",
-        textAlign: 'center',
-    },
-    imageContainer: {
-        marginVertical: 30,
         justifyContent: 'center',
-        alignItems: 'center'
+        marginVertical: 30,
     },
     imageWrapper: {
+        width: 100,
+        height: 100,
+        alignItems: "center",
+        justifyContent: 'center',
         position: 'relative',
-        width: 100,
-        height: 100,
-    },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: '#E1E1E1'
     },
     cameraBadge: {
         position: 'absolute',
-        bottom: 0,
-        right: 0,
+        bottom: -15,
+        right: -15,
         backgroundColor: Colors.PRIMARY,
-        width: 30,
-        height: 30,
-        borderRadius: 15,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2,
         borderColor: '#FFF',
         elevation: 3,
+        zIndex: 1,
     },
     inputWrapper: {
         width: "100%",
-        marginBottom: 15
+        marginBottom: 15,
+        paddingHorizontal: 20,
     },
     labelOutside: {
         fontSize: 16,
@@ -206,5 +185,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 20,
     },
-    buttonText: { color: "#FFF", fontSize: 16, fontWeight: "600" },
+    buttonText: { 
+        color: "#FFF", 
+        fontSize: 16, 
+        fontWeight: "600" 
+    },
 });

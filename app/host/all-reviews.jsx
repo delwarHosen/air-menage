@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         fontWeight: "600",
     },
     listContent: {
-        padding: "2.5%",
+        padding: "5%",
         paddingBottom: 40,
     },
     reviewCard: {

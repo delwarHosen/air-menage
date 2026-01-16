@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { CalenderIcon } from '../../assets/icons/Icons';
-import { Body1, Body2, Caption, H1, H5 } from '../typo/typography';
+import { Body1, Body2, Caption, H1, H5, H6 } from '../typo/typography';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -36,7 +36,7 @@ export default function DatePicker({ selectedDate, onSelectDate }) {
       <View>
         <H5 style={{ marginBottom: 5 }}>{t('datepicker.label')}</H5>
         <TouchableOpacity style={styles.inputContainer} onPress={() => setCalendarVisible(true)}>
-          <H5 style={styles.inputText}>{selectedDate ? formatDate(selectedDate) : t('datepicker.select_date')}</H5>
+          <H6 style={styles.inputText}>{selectedDate ? formatDate(selectedDate) : t('datepicker.select_date')}</H6>
           <CalenderIcon />
         </TouchableOpacity>
       </View>
@@ -76,10 +76,10 @@ export default function DatePicker({ selectedDate, onSelectDate }) {
 
             <View style={styles.calendarFooter}>
               <TouchableOpacity style={styles.cancelButton} onPress={() => setCalendarVisible(false)}>
-                <Text style={styles.cancelButtonText}>{t('datepicker.cancel')}</Text>
+                <H5 style={styles.cancelButtonText}>{t('datepicker.cancel')}</H5>
               </TouchableOpacity>
               <TouchableOpacity style={styles.okButton} onPress={() => setCalendarVisible(false)}>
-                <Text style={styles.okButtonText}>{t('datepicker.ok')}</Text>
+                <Body1 style={styles.okButtonText}>{t('datepicker.ok')}</Body1>
               </TouchableOpacity>
             </View>
           </View>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 12,
         padding: 16,
-        borderWidth: 2,
+        borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

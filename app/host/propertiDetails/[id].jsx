@@ -34,7 +34,7 @@ export default function PropertiDetails() {
             >
                 <View style={styles.PropertyCard}>
                     <Image source={propertyData.img} style={styles.image} contentFit="cover" />
-                    <View style={{ marginHorizontal: "2%" }}>
+                    <View>
                         <H5 style={styles.title}>{propertyData.title}</H5>
                         <Body2 style={styles.description}>{propertyData.description}</Body2>
                         <PropertyTypePicker />
@@ -93,12 +93,11 @@ export default function PropertiDetails() {
 
 const styles = StyleSheet.create({
     scrollContainer: {
-        paddingHorizontal: "3%",
+        paddingHorizontal: "5%",
         paddingBottom: 60
     },
     PropertyCard: {
         width: "100%",
-        marginVertical: 20
     },
     image: {
         width: "100%",
@@ -114,18 +113,16 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         marginBottom: 15
     },
-    // location: {
-    //     marginTop: 6
-    // },
+   
     prpertyCard: {
         flexDirection: "row",
         alignItems: "center",
-        // justifyContent: "space-between", // ⭐ main key
+        
         width: "100%",
         height: 56,
         borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
-        borderRadius: 10,
+        borderRadius: 12,
         paddingHorizontal: 12,
         backgroundColor: "#FFFFFF",
         marginTop: 15,
@@ -134,12 +131,12 @@ const styles = StyleSheet.create({
     keyCard: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between", // ⭐ main key
+        justifyContent: "space-between", 
         width: "100%",
         height: 56,
         borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
-        borderRadius: 10,
+        borderRadius: 12,
         paddingHorizontal: 12,
         backgroundColor: "#FFFFFF",
         marginTop: 15,

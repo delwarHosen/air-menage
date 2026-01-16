@@ -52,6 +52,7 @@ export default function LoginScreen() {
         <View style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{ flex: 1 }}
             >
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
@@ -73,7 +74,9 @@ export default function LoginScreen() {
                                         value={field.value}
                                         onChangeText={field.onChange}
                                         placeholder={t("auth.enter_email")}
+                                        type="email"
                                         required
+                                        error={errors[FORM_FIELDS.EMAIL]?.message}
                                     />
                                 )}
                             />
@@ -87,8 +90,9 @@ export default function LoginScreen() {
                                         value={field.value}
                                         onChangeText={field.onChange}
                                         placeholder={t("auth.enter_password")}
-                                        secureTextEntry
+                                        type="password" 
                                         required
+                                        error={errors[FORM_FIELDS.PASSWORD]?.message}
                                     />
                                 )}
                             />
@@ -103,24 +107,20 @@ export default function LoginScreen() {
                             </TouchableOpacity>
 
                             <View style={styles.footerLinksContainer}>
-                                <View>
-                                    <Link href="/(auth)/register" asChild>
-                                        <TouchableOpacity>
-                                            <H4 style={{ fontWeight: '400', textDecorationLine: 'underline' }}>
-                                                {t("auth.sign_up")}
-                                            </H4>
-                                        </TouchableOpacity>
-                                    </Link>
-                                </View>
-                                <View>
-                                    <Link href="/(auth)/forgot-password" asChild>
-                                        <TouchableOpacity>
-                                            <H4 style={{ textDecorationLine: 'underline' }}>
-                                                {t("auth.forgot_password")}
-                                            </H4>
-                                        </TouchableOpacity>
-                                    </Link>
-                                </View>
+                                <Link href="/(auth)/register" asChild>
+                                    <TouchableOpacity>
+                                        <H4 style={{ fontWeight: '400', textDecorationLine: 'underline' }}>
+                                            {t("auth.sign_up")}
+                                        </H4>
+                                    </TouchableOpacity>
+                                </Link>
+                                <Link href="/(auth)/forgot-password" asChild>
+                                    <TouchableOpacity>
+                                        <H4 style={{ textDecorationLine: 'underline' }}>
+                                            {t("auth.forgot_password")}
+                                        </H4>
+                                    </TouchableOpacity>
+                                </Link>
                             </View>
 
                             <View style={styles.dividerContainer}>
@@ -145,18 +145,16 @@ export default function LoginScreen() {
     );
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFFFFF',
         paddingTop: 24,
         paddingHorizontal: "5%",
-       
     },
     scrollContent: {
         flexGrow: 1,
-         marginVertical:40
+        marginVertical: 40
     },
     header: {
         marginBottom: 20
@@ -197,9 +195,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginHorizontal: 0,
         marginTop: 10,
-        marginBottom: 20
+        marginBottom: 20,
+        marginHorizontal:2
     },
     socialContainer: {
         flexDirection: "row",

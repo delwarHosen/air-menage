@@ -10,7 +10,7 @@ export default function AddProperty() {
     const { t } = useTranslation();
 
     return (
-        
+
         <ScrollView
             stickyHeaderIndices={[0]}
             contentContainerStyle={styles.scrollContent}
@@ -32,15 +32,13 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: "#FAFAFA",
-
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
     headerContainer: {
-        paddingHorizontal: 16,
-        paddingBottom: 12,
+        paddingHorizontal: "5%",
+        paddingBottom: 1,
         backgroundColor: "#FAFAFA",
-        zIndex: 10,
-        elevation: 4,
+        elevation: 2,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,

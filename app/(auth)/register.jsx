@@ -1,11 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
     KeyboardAvoidingView,
+    Modal,
     Platform,
     ScrollView,
     StyleSheet,
@@ -17,26 +17,35 @@ import { Colors } from "../../assets/Colors";
 import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { Body1, Body2, ButtonText, H3 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
-import { IMAGE_CONSTANTS } from "../../constants/image.index";
+import { ImageUpload } from "../../components/ui/ImageUpload";
 
 export default function SignUpScreen() {
     const router = useRouter();
     const { t } = useTranslation();
     const [checked, setChecked] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const { control, handleSubmit } = useForm({
         defaultValues: {
             fullName: "",
             email: "",
             password: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            profileImage: ""
         }
     });
 
+
     const onSubmit = (data) => {
         console.log("Form Data:", data);
+        setIsModalVisible(true);
+    };
+
+    const handleModalDone = () => {
+        setIsModalVisible(false);
         router.push("/(auth)/login");
     };
+
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -54,9 +63,17 @@ export default function SignUpScreen() {
 
                         <View style={styles.imageContainer}>
                             <View style={styles.profileWrapper}>
-                                <Image
-                                    source={IMAGE_CONSTANTS.profile}
-                                    style={styles.profileImage}
+                                <Controller
+                                    control={control}
+                                    name="profileImage"
+                                    render={({ field: { onChange, value } }) => (
+                                        <ImageUpload
+                                            image={value}
+                                            onImageSelect={onChange}
+                                            shape="circle"
+                                            showIcon={false} 
+                                        />
+                                    )}
                                 />
                                 <TouchableOpacity style={styles.cameraIconContainer} activeOpacity={0.7}>
                                     <Ionicons name="camera" size={20} color="#fff" />
@@ -74,6 +91,7 @@ export default function SignUpScreen() {
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
+                                        required
                                         placeholder={t("auth.enter_full_name")}
                                     />
                                 )}
@@ -85,6 +103,7 @@ export default function SignUpScreen() {
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <FormInput
                                         label={t("auth.email")}
+                                        required
                                         value={value}
                                         onChangeText={onChange}
                                         onBlur={onBlur}
@@ -101,10 +120,12 @@ export default function SignUpScreen() {
                                     <FormInput
                                         label={t("auth.password")}
                                         value={value}
+                                        required
                                         onChangeText={onChange}
                                         onBlur={onBlur}
                                         placeholder={t("auth.enter_password")}
                                         secureTextEntry
+                                        type="password"
                                     />
                                 )}
                             />
@@ -116,10 +137,12 @@ export default function SignUpScreen() {
                                     <FormInput
                                         label={t("auth.confirm_password")}
                                         value={value}
+                                        required
                                         onChangeText={onChange}
                                         onBlur={onBlur}
                                         placeholder={t("auth.confirm_password")}
                                         secureTextEntry
+                                        type="password"
                                     />
                                 )}
                             />
@@ -173,31 +196,226 @@ export default function SignUpScreen() {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
+
+            {/* -----\\modal----- */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalVisible}
+                onRequestClose={() => setIsModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <View style={styles.successIconCircle}>
+                            <Ionicons name="checkmark" size={50} color="#fff" />
+                        </View>
+
+                        <H3 style={styles.modalTitle}>
+                            {t("signupSuccess.title")}
+                        </H3>
+
+                        <Body1 style={styles.modalSubtitle}>
+                            {t("signupSuccess.subtitle")}
+                        </Body1>
+
+                        <TouchableOpacity
+                            style={styles.doneButton}
+                            onPress={handleModalDone}
+                        >
+                            <ButtonText style={styles.buttonText}>
+                                {t("common.done")}
+                            </ButtonText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 }
 
 // styles same as before
 const styles = StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: "#FFFFFF" },
-    flex1: { flex: 1 },
-    scrollContent: { flexGrow: 1, paddingHorizontal: "5%" },
-    content: { flex: 1, paddingTop: 20, paddingBottom: 50 },
-    imageContainer: { flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: 20, marginBottom: 10 },
-    profileWrapper: { position: 'relative' },
-    profileImage: { height: 120, width: 120, borderRadius: 60, borderWidth: 1, borderColor: Colors.PRIMARY, backgroundColor: "#E1E1E1" },
-    cameraIconContainer: { position: 'absolute', bottom: 5, right: 3, backgroundColor: Colors.PRIMARY, width: 34, height: 34, borderRadius: 17, justifyContent: 'center', alignItems: 'center', borderWidth: 3, borderColor: '#fff', elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 2 },
-    title: { fontWeight: "500" },
-    form: { marginTop: 40 },
-    submitButton: { backgroundColor: Colors.PRIMARY, paddingVertical: 16, borderRadius: 12, alignItems: "center", marginTop: 10 },
-    buttonText: { color: "#fff" },
-    termsContainer: { flexDirection: "row", alignItems: "center", marginTop: 15 },
-    checkbox: { height: 20, width: 20, borderRadius: 4, borderWidth: 1.5, borderColor: Colors.PRIMARY, justifyContent: "center", alignItems: "center", marginRight: 10 },
-    termsTextContainer: { flexDirection: "row", flex: 1 },
-    linkText: { color: "#2DBEFF" },
-    dividerContainer: { flexDirection: "row", alignItems: "center", marginVertical: 25 },
-    divider: { flex: 1, height: 1, backgroundColor: Colors.BORDER_COLOR },
-    dividerText: { marginHorizontal: 16, color: "#94A3B8" },
-    socialContainer: { flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 12, marginTop: 5 },
-    socialIcon: { backgroundColor: "#F7F7F7", height: 60, width: 60, borderRadius: 30, justifyContent: "center", alignItems: "center" },
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+    },
+
+    flex1: {
+        flex: 1,
+    },
+
+    scrollContent: {
+        flexGrow: 1,
+        paddingHorizontal: "5%",
+    },
+
+    content: {
+        flex: 1,
+        paddingTop: 20,
+        paddingBottom: 50,
+    },
+
+    imageContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
+        marginBottom: 10,
+    },
+
+    profileWrapper: {
+        position: "relative",
+    },
+
+    profileImage: {
+        height: 150,
+        width: 150,
+        borderRadius: 75,
+        borderWidth: 1,
+        borderColor: Colors.PRIMARY,
+        backgroundColor: "#E1E1E1",
+    },
+
+    cameraIconContainer: {
+        position: "absolute",
+        bottom: 20,
+        right: 3,
+        backgroundColor: Colors.PRIMARY,
+        width: 34,
+        height: 34,
+        borderRadius: 17,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 3,
+        borderColor: "#fff",
+        elevation: 1,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+
+    title: {
+        fontWeight: "500",
+    },
+
+    form: {
+        marginTop: 40,
+    },
+
+    submitButton: {
+        backgroundColor: Colors.PRIMARY,
+        paddingVertical: 16,
+        borderRadius: 12,
+        alignItems: "center",
+        marginTop: 10,
+    },
+
+    buttonText: {
+        color: "#fff",
+    },
+
+    termsContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 15,
+    },
+
+    checkbox: {
+        height: 20,
+        width: 20,
+        borderRadius: 4,
+        borderWidth: 1.5,
+        borderColor: Colors.PRIMARY,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 10,
+    },
+
+    termsTextContainer: {
+        flexDirection: "row",
+        flex: 1,
+    },
+
+    linkText: {
+        color: "#2DBEFF",
+    },
+
+    dividerContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginVertical: 25,
+    },
+
+    divider: {
+        flex: 1,
+        height: 1,
+        backgroundColor: Colors.BORDER_COLOR,
+    },
+
+    dividerText: {
+        marginHorizontal: 16,
+        color: "#94A3B8",
+    },
+
+    socialContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 12,
+        marginTop: 5,
+    },
+
+    socialIcon: {
+        backgroundColor: "#F7F7F7",
+        height: 60,
+        width: 60,
+        borderRadius: 30,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.5)",
+        justifyContent: "flex-end",
+    },
+
+    modalContent: {
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        padding: 30,
+        alignItems: "center",
+        elevation: 5,
+    },
+
+    successIconCircle: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        backgroundColor: Colors.PRIMARY,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+    },
+
+    modalTitle: {
+        marginBottom: 10,
+        color: "#1F2937",
+    },
+
+    modalSubtitle: {
+        textAlign: "center",
+        color: "#6B7280",
+        marginBottom: 30,
+    },
+
+    doneButton: {
+        backgroundColor: Colors.PRIMARY,
+        width: "100%",
+        paddingVertical: 16,
+        borderRadius: 12,
+        alignItems: "center",
+    },
 });

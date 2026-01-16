@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     },
     optionCard: {
         backgroundColor: 'white',
-        borderRadius: 8,
-        borderWidth: 1.5,
+        borderRadius: 12,
+        borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
         padding: 16,
         marginBottom: 12,

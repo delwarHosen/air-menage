@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     backgroundColor: "#FFF",
     zIndex: 10,
-    elevation: 10,
+    elevation: 1,
   },
 
   header: {
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: "3%",
     paddingTop: 20,
     paddingBottom: 40,
+    backgroundColor: "#FAFAFA"
   },
 
   propertyCard: {
@@ -148,6 +149,8 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 250,
+    padding: 10,
+    borderRadius: 12
   },
 
   title: {

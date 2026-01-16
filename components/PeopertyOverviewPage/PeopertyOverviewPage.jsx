@@ -1,4 +1,5 @@
 import { Image } from "expo-image";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
@@ -100,10 +101,23 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
                 onPress={() => router.push(`/host/cleaner/${cleanerRequest?.id}`)}
                 style={styles.profileContainer}>
                 <View style={{ flexDirection: "row", gap: 10, alignItems: 'center' }}>
-                    <Image
-                        source={{ uri: cleanerRequest.cleanerImage }}
-                        style={styles.cleanerImage}
-                    />
+                    <LinearGradient
+                        colors={[
+                            '#FAFF0A',
+                            '#FEAD4E',
+                            '#ED1B1B',
+                            '#FB1274',
+                            '#A61D5F',
+                            '#F109DA'
+                        ]}
+                        style={styles.gradientBorder}
+                    >
+                        <Image
+                            source={{ uri: cleanerRequest.cleanerImage }}
+                            style={styles.cleanerImage}
+                        />
+                    </LinearGradient>
+
                     <View>
                         <Body1 style={styles.cleanerName}>{cleanerRequest.cleanerName}</Body1>
                         <Body2 style={styles.cleanerLocation}>{cleanerRequest.city}</Body2>
@@ -126,7 +140,7 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
             </View>
 
             <TouchableOpacity style={styles.validateButton}>
-                <ButtonText style={{textAlign:"center",color:"white"}}>Validate</ButtonText>
+                <ButtonText style={{ textAlign: "center", color: "white" }}>Validate</ButtonText>
             </TouchableOpacity>
         </View>
     );
@@ -188,6 +202,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 10,
     },
+    gradientBorder: {
+        height: 44,
+        width: 44,
+        borderRadius: 22,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     cleanerImage: { width: 40, height: 40, borderRadius: 20 },
     cleanerName: { fontSize: 14, fontWeight: "600" },
     cleanerLocation: { fontSize: 12, color: "#6B7280" },
@@ -196,11 +217,11 @@ const styles = StyleSheet.create({
     galleryLarge: { width: "100%", height: 200, borderRadius: 12, marginBottom: 8 },
     galleryRow: { flexDirection: "row", gap: 8 },
     gallerySmall: { flex: 1, height: 100, borderRadius: 12 },
-    validateButton:{
-        width:"100%", 
-        backgroundColor:Colors.PRIMARY,
-        borderRadius:10,
-        marginTop:50,
-padding:20
+    validateButton: {
+        width: "100%",
+        backgroundColor: Colors.PRIMARY,
+        borderRadius: 10,
+        marginTop: 50,
+        padding: 20
     }
 });

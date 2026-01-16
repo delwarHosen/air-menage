@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
         width: 43,
         height: 43,
         borderRadius: 22, 
-        backgroundColor: '#EBEBEE',
+        backgroundColor: '#f7f7f7',
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#CACACB',
+        borderColor: '#dddddd',
         zIndex: 1,
     },
     headerTitle: {

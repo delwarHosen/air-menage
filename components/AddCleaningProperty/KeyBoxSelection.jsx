@@ -53,7 +53,7 @@ export const KeyBoxSelection = ({ control, errors }) => {
                             onChangeText={onChange}
                             placeholder={t("keybox.placeholders.location")}
                             error={errors[FORM_FIELDS.KEY_LOCATION]?.message}
-                            required
+                           
                         />
                     </View>
                 )}
@@ -70,7 +70,8 @@ export const KeyBoxSelection = ({ control, errors }) => {
                             onChangeText={onChange}
                             placeholder={t("keybox.placeholders.code")}
                             error={errors[FORM_FIELDS.KEY_PASSWORD]?.message}
-                            required
+                            type="password"
+                           
                         />
                     </View>
                 )}
@@ -92,13 +93,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         width: "100%",
-        height: 70,
-        borderRadius: 16,
+        height: 60,
+        borderRadius: 12,
         borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
         backgroundColor: "#FFFFFF",
-        paddingTop: 6,
-        paddingBottom: 6,
+        paddingTop: 5,
+        paddingBottom: 5,
         paddingLeft: 12,
         paddingRight: 12,
         gap: 16,

@@ -1,10 +1,8 @@
 // Chat/ChatMessage
 import { Image, StyleSheet, View } from 'react-native';
+import { Colors } from '../../assets/Colors';
 import { PrimaryTickMarkIcon } from "../../assets/icons/PrimaryTickMarkIcon";
 import { Body2, Caption } from '../typo/typography';
-// import { PrimaryTickMarkIcon } from '../../assets/icons/Icons';
-// import { Body2, Caption } from '../typo/typography';
-
 
 export const ChatMessage = ({ message, senderAvatar }) => {
     return (
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     ownBubble: {
-        backgroundColor: '#22D3EE',
+        backgroundColor: Colors.PRIMARY,
         borderRadius: 16,
         borderTopRightRadius: 4,
         paddingHorizontal: 16,

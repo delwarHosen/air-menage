@@ -144,7 +144,7 @@ export default function FacialRecognition() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: '#fff' ,paddingHorizontal:"2%"},
   cameraContainer: { flex: 1, backgroundColor: '#000' },
   overlay: {
     ...StyleSheet.absoluteFillObject,

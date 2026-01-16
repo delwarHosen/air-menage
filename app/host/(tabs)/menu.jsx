@@ -171,7 +171,7 @@ const MenuItem = ({ icon, label, onPress }) => (
 const styles = StyleSheet.create({
 
     scrollContainer: {
-        paddingHorizontal: "2.5%",
+        paddingHorizontal: "5%",
         paddingBottom: 20
     },
     profileSection: {
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         marginTop: 10,
-        height: 48,
+        height: 55,
         borderRadius: 12,
         backgroundColor: Colors.BACKGROUND_COLOR,
         paddingHorizontal: "3.5%",

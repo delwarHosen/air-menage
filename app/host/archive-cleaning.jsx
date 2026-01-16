@@ -1,4 +1,5 @@
 import { Image } from 'expo-image'
+import { LinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import {
@@ -84,10 +85,24 @@ export default function ArchiveCleaning() {
                 {/* Bottom Section */}
                 <View style={styles.bottomRow}>
                     <View style={styles.propertiContent}>
-                        <Image
-                            source={{ uri: item.cleanerImage }}
-                            style={styles.cleanerImage}
-                        />
+
+                        <LinearGradient
+                            colors={[
+                                '#FAFF0A',
+                                '#FEAD4E',
+                                '#ED1B1B',
+                                '#FB1274',
+                                '#A61D5F',
+                                '#F109DA'
+                            ]}
+                            style={styles.gradientBorder}
+                        >
+                            <Image
+                                source={{ uri: item.cleanerImage }}
+                                style={styles.cleanerImage}
+                            />
+                        </LinearGradient>
+
                         <View>
                             <H6 style={{ color: Colors.SECONDARY }}>{item.cleanerName}</H6>
                             <Caption>{item.country}</Caption>
@@ -105,9 +120,6 @@ export default function ArchiveCleaning() {
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={styles.mainContainer}
         >
-            {/* <View>
-                <Heading title={t("cleanings.archived")} />
-            </View> */}
             <FlatList
                 data={cleanerDetailsData}
                 keyExtractor={(item) => item.id.toString()}
@@ -122,8 +134,8 @@ export default function ArchiveCleaning() {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-
-        marginTop: 25
+        marginTop: 25,
+        paddingHorizontal: "2%"
     },
     card: {
 
@@ -165,6 +177,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"
+    },
+    gradientBorder: {
+        height: 40,
+        width: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     cleanerImage: {
         width: 36,

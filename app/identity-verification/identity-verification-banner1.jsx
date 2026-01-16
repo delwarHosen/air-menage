@@ -109,7 +109,7 @@ function FeatureRow({ title, Icon }) {
 const styles = StyleSheet.create({
     container: {
         paddingTop: 16,
-        paddingHorizontal: "2.5%",
+        paddingHorizontal: "4%",
         backgroundColor: ""
     },
 

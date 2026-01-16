@@ -1,18 +1,16 @@
 // (tabs)/message.jsx
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { IMAGE_COMPONENTS } from '../../../assets/image.index';
 import { MessageListItem } from '../../../components/Chat/MessageListItem';
 import { SearchBar } from '../../../components/Chat/SearchBar';
 import { Body1 } from '../../../components/typo/typography';
-// import { IMAGE_COMPONENTS } from '../../../assets/image.index';
-// import { MessageListItem } from '../../../components/Chat/MessageListItem';
-// import { SearchBar } from '../../../components/Chat/SearchBar';
-// import { Body1 } from '../../../components/typo/typography';
-// import { Body1 } from '../../../typo/typography';
+
 
 export default function MessageScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const messages = [
     {
@@ -85,7 +83,9 @@ export default function MessageScreen() {
       <SearchBar />
 
       <View style={styles.titleContainer}>
-        <Body1 style={styles.title}>All Message</Body1>
+        <Body1 style={styles.title}>
+          {t("message.all")}
+        </Body1>
       </View>
 
       <ScrollView style={styles.messageList}>
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAFAFA',
+    paddingHorizontal: "1.5%"
   },
   titleContainer: {
     paddingHorizontal: 16,

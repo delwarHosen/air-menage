@@ -25,7 +25,7 @@ export const ChatHeader = ({ chat, onMorePress }) => {
                 <Caption style={styles.status}>Online</Caption>
             </View>
             <TouchableOpacity onPress={onMorePress} style={styles.moreButton}>
-                <Ionicons name="ellipsis-horizontal" size={24} color="#22D3EE" />
+                <Ionicons name="ellipsis-horizontal" size={24} color="#00AFF5" />
             </TouchableOpacity>
         </View>
     );

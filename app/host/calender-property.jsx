@@ -7,13 +7,13 @@ import Heading from "../../components/Heading/Heading";
 import { Body1, Caption, H5, H6 } from '../../components/typo/typography';
 
 export default function CalenderProperty() {
-     const { t } = useTranslation();
+    const { t } = useTranslation();
     const router = useRouter();
     const year = 2026;
     const month = 0; // January
     const daysOfWeek = ['SA', 'SU', 'MO', 'TU', 'WE', 'TH', 'FRI'];
 
-   
+
     const [selectedDays, setSelectedDays] = useState([11, 18]);
 
     const monthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(year, month));
@@ -36,14 +36,14 @@ export default function CalenderProperty() {
     const handleDayPress = (day) => {
         if (!day) return;
 
-       
+
         if (selectedDays.includes(day)) {
             router.push({
                 pathname: "/host/booking-details",
                 params: { date: day, month: monthName, year: year }
             });
         } else {
-            
+
             toggleDay(day);
         }
     };
@@ -60,12 +60,11 @@ export default function CalenderProperty() {
         <View style={styles.container}>
             {/* Header Section */}
             <View style={{ marginHorizontal: 20, paddingTop: 10 }}>
-               <Heading title={t("properties.title")} />
-                <TouchableOpacity 
-                onPress={() => router.push("./archive-cleaning")}
-                // onPress={() => router.push("./cleaning-request")}
+                <Heading title={t("properties.title")} />
+                <TouchableOpacity
+                    onPress={() => router.push("./archive-cleaning")}
                 >
-                    <H6 style={styles.archiveText}>{t("cleanings.archived")}</H6>;
+                    <H6 style={styles.archiveText}>{t("cleanings.archived")}</H6>
                 </TouchableOpacity>
             </View>
 
@@ -158,7 +157,7 @@ const styles = StyleSheet.create({
     },
     archiveText: {
         marginTop: 5,
-        paddingBottom:10,
+        paddingBottom: 10,
         textAlign: "center",
         textDecorationLine: 'underline',
         color: Colors.SECONDARY

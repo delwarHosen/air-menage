@@ -91,7 +91,7 @@ export default function PersonalInfo() {
 const styles = StyleSheet.create({
  
   scrollContainer: {
-    paddingHorizontal: "2.5%",
+    paddingHorizontal: "5%",
     backgroundColor:"#FAFAFA",
   },
   profileSection: {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   submitButton: {
     width: "100%",
     backgroundColor: Colors.PRIMARY,
-    paddingVertical: 14,
+    paddingVertical:20,
     borderRadius: 12,
     alignItems: "center",
     marginTop: 30

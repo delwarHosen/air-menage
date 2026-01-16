@@ -11,163 +11,129 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
     const [showStartModal, setShowStartModal] = useState(false);
     const [showEndModal, setShowEndModal] = useState(false);
 
-    const timeOptions = [
-        '08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00',
-        '12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00'
-    ];
+    const timeOptions = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'];
 
     const getEndTimeOptions = () => {
-        if (!startTime) return timeOptions;
+        if (!startTime) return [];
         const startIndex = timeOptions.indexOf(startTime);
         return timeOptions.slice(startIndex + 1);
     };
 
-    if (!fontsLoaded) return <Text>{t('timepicker.loading')}</Text>;
-
-    const TimePickerModal = ({ visible, onClose, options, onSelect, title }) => (
-        <Modal visible={visible} transparent animationType="fade">
-            <Pressable style={styles.modalOverlay} onPress={onClose}>
-                <View style={styles.modalContent}>
-                    <Text style={styles.modalTitle}>{title}</Text>
-                    <ScrollView style={styles.optionsList}>
-                        {options.map(time => (
-                            <Pressable
-                                key={time}
-                                style={styles.optionItem}
-                                onPress={() => { onSelect(time); onClose(); }}
-                            >
-                                <Text style={styles.optionText}>{time}</Text>
-                            </Pressable>
-                        ))}
-                    </ScrollView>
-                </View>
-            </Pressable>
-        </Modal>
-    );
+    if (!fontsLoaded) return null;
 
     return (
         <>
             <View style={styles.formGroup}>
                 <H5 style={styles.label}>{t('timepicker.start_time')}</H5>
-                <Pressable 
-                    style={styles.pickerContainer}
-                    onPress={() => setShowStartModal(true)}
-                >
-                    <H5 style={[styles.pickerText, !startTime && styles.placeholderText]}>
-                        {startTime || t('timepicker.select_start_time')}
-                    </H5>
+                <Pressable style={styles.pickerContainer} onPress={() => setShowStartModal(true)}>
+                    <H5 style={[styles.pickerText, !startTime && styles.placeholderText]}>{startTime || "Select Start"}</H5>
                 </Pressable>
             </View>
-
-            <TimePickerModal
-                visible={showStartModal}
-                onClose={() => setShowStartModal(false)}
-                options={timeOptions}
-                onSelect={setStartTime}
-                title={t('timepicker.select_start_time')}
-            />
 
             <View style={styles.formGroup}>
                 <H5 style={styles.label}>{t('timepicker.end_time')}</H5>
-                <Pressable 
-                    style={[styles.pickerContainer, !startTime && styles.disabledPicker]}
-                    onPress={() => startTime && setShowEndModal(true)}
-                    disabled={!startTime}
-                >
-                    <H5 style={[styles.pickerText, !endTime && styles.placeholderText]}>
-                        {endTime || (startTime ? t('timepicker.select_end_time') : t('timepicker.select_start_time_first'))}
-                    </H5>
+                <Pressable style={[styles.pickerContainer, !startTime && styles.disabledPicker]} onPress={() => startTime && setShowEndModal(true)} disabled={!startTime}>
+                    <H5 style={[styles.pickerText, !endTime && styles.placeholderText]}>{endTime || "Select End"}</H5>
                 </Pressable>
             </View>
 
-            <TimePickerModal
-                visible={showEndModal}
-                onClose={() => setShowEndModal(false)}
-                options={getEndTimeOptions()}
-                onSelect={setEndTime}
-                title={t('timepicker.select_end_time')}
-            />
-
             <View style={styles.formGroup}>
                 <H5 style={styles.label}>{t('timepicker.estimated_cleaning_time')}</H5>
-                <View style={[styles.inputContainer, styles.readonlyInput]}>
-                    <H5 style={styles.inputText}>{cleaningTime}</H5>
+                <View style={styles.readonlyInput}>
+                    <H5 style={""}>{String(cleaningTime || '0h')}</H5>
                 </View>
             </View>
+
+            {/* Modal Logic (Shortened for brevity) */}
+            <Modal visible={showStartModal} transparent animationType="fade">
+                <Pressable style={styles.modalOverlay} onPress={() => setShowStartModal(false)}>
+                    <View style={styles.modalContent}>
+                        <ScrollView>{timeOptions.map(time => (
+                            <Pressable key={time} style={styles.optionItem} onPress={() => { setStartTime(time); setShowStartModal(false); }}>
+                                <Text style={styles.optionText}>{time}</Text>
+                            </Pressable>
+                        ))}</ScrollView>
+                    </View>
+                </Pressable>
+            </Modal>
+
+            <Modal visible={showEndModal} transparent animationType="fade">
+                <Pressable style={styles.modalOverlay} onPress={() => setShowEndModal(false)}>
+                    <View style={styles.modalContent}>
+                        <ScrollView>{getEndTimeOptions().map(time => (
+                            <Pressable key={time} style={styles.optionItem} onPress={() => { setEndTime(time); setShowEndModal(false); }}>
+                                <Text style={styles.optionText}>{time}</Text>
+                            </Pressable>
+                        ))}</ScrollView>
+                    </View>
+                </Pressable>
+            </Modal>
         </>
     );
 }
 
 const styles = StyleSheet.create({
-    formGroup: { marginBottom: 25 },
-    label: { color: Colors.TEXT_COLOR, marginBottom: 10 },
+    formGroup: {
+        marginBottom: 18,
+    },
+
+    label: {
+        color: Colors.TEXT_COLOR,
+        marginBottom: 8,
+    },
+
     pickerContainer: {
         backgroundColor: 'white',
         borderRadius: 12,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
         padding: 16,
-        justifyContent: 'center',
     },
+
     disabledPicker: {
         opacity: 0.5,
     },
+
     pickerText: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'Syne_500Medium',
-        color: Colors.TEXT_COLOR,
     },
+
     placeholderText: {
         color: Colors.PLACE_HOLDER,
     },
-    inputContainer: {
-        backgroundColor: 'white',
-        borderRadius: 8,
+
+    readonlyInput: {
+        borderRadius: 12,
         padding: 16,
-        borderWidth: 2,
+        borderWidth: 1.5,
         borderColor: Colors.BORDER_COLOR,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        backgroundColor:"#FFFFFF"
     },
-    readonlyInput: { backgroundColor: "#ffffff" },
-    inputText: { color: Colors.PLACE_HOLDER },
-    
-    // Modal styles
+
     modalOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center',
     },
+
     modalContent: {
         backgroundColor: 'white',
         borderRadius: 16,
         width: '80%',
-        maxHeight: '70%',
-        padding: 20,
+        maxHeight: '50%',
+        padding: 10,
     },
-    modalTitle: {
-        fontSize: 16,
-        fontFamily: 'Syne_500Medium',
-        color: Colors.TEXT_COLOR,
-        marginBottom: 15,
-        textAlign: 'center',
-    },
-    optionsList: {
-        maxHeight: 300,
-    },
+
     optionItem: {
-        padding: 16,
+        padding: 15,
         borderBottomWidth: 1,
-        borderBottomColor: Colors.BORDER_COLOR,
+        borderBottomColor: '#EEE',
     },
+
     optionText: {
-        fontSize: 16,
-        fontFamily: 'Syne_500Medium',
-        color: Colors.TEXT_COLOR,
         textAlign: 'center',
+        fontSize: 16,
     },
-    
-   
 });

@@ -1,10 +1,11 @@
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { Colors } from '../../assets/Colors';
-import { DeleteIcon } from '../../assets/icons/Icons';
+import { DeletePropertyTrashIcon } from '../../assets/icons/Icons';
 import Heading from '../../components/Heading/Heading';
 import { Caption, H5 } from '../../components/typo/typography';
 import { cleaners } from '../../store/Cleaners';
@@ -12,20 +13,50 @@ import { cleaners } from '../../store/Cleaners';
 function CleanerItem({ item, onPress, t }) {
     return (
         <View style={styles.CleanerCard}>
-            <Image
-                source={{ uri: item.profileImg }}
-                style={styles.profileImage}
-            />
+            {/* Gradient Border for Profile Image */}
+            <LinearGradient
+                colors={[
+                    '#FAFF0A',
+                    '#FEAD4E',
+                    '#ED1B1B',
+                    '#FB1274',
+                    '#A61D5F',
+                    '#F109DA'
+                ]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.gradientBorder}
+            >
+                <Image
+                    source={{ uri: item.profileImg }}
+                    style={styles.profileImage}
+                />
+            </LinearGradient>
+
+            {/* Name and Email Section */}
             <View style={{ flex: 1 }}>
-                <H5>{item.name}</H5>
-                <Caption style={{ color: Colors.TEXT_COLOR }}>{item.email}</Caption>
+                <H5 numberOfLines={1}>{item.name}</H5>
+                <Caption style={{ color: Colors.TEXT_COLOR }} numberOfLines={1}>
+                    {item.email}
+                </Caption>
             </View>
+
+            {/* View Details Button */}
             <View>
                 <TouchableOpacity onPress={onPress} style={styles.viewButton}>
-                    <Caption style={{ color: "#fff" }}>{t('favourite_cleaner.button.viewDetails')}</Caption>
+                    <Caption style={{ color: "#fff" }}>
+                        {t('favourite_cleaner.button.viewDetails')}
+                    </Caption>
                 </TouchableOpacity>
             </View>
-            <DeleteIcon/>
+
+            {/* Delete Icon with right padding/margin */}
+            <TouchableOpacity 
+                onPress={() => console.log("Delete item:", item.id)}
+                style={styles.deleteButton}
+            >
+                <DeletePropertyTrashIcon />
+            </TouchableOpacity>
         </View>
     );
 }
@@ -43,7 +74,7 @@ export default function FavouriteCleaner() {
     );
 
     return (
-        <>
+        <View style={{ flex: 1, backgroundColor: '#F8F9FA' }}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
@@ -51,38 +82,68 @@ export default function FavouriteCleaner() {
                 <FlatList
                     data={cleaners}
                     keyExtractor={(item) => item.id.toString()}
-                    contentContainerStyle={{ padding: 16, paddingBottom: 50 }}
-                    ListHeaderComponent={<Heading title={t('favourite_cleaner.title')} />}
+                    contentContainerStyle={styles.listContainer}
+                    ListHeaderComponent={
+                        <View style={styles.headerGap}>
+                            <Heading title={t('favourite_cleaner.title')} />
+                        </View>
+                    }
                     renderItem={renderItem}
                     keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}
                 />
             </KeyboardAvoidingView>
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-   
+    listContainer: {
+        padding: 16,
+        paddingBottom: 50
+    },
+    headerGap: {
+        marginBottom: 10
+    },
     CleanerCard: {
         flexDirection: "row",
         alignItems: "center",
         marginBottom: 16,
-        padding: 5,
+        padding: 10,
         backgroundColor: "#fff",
-        borderRadius: 10,
+        borderRadius: 12,
+        // Shadow for iOS
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 4,
+        // Elevation for Android
+        elevation: 0.5,
+    },
+    gradientBorder: {
+        height: 48,
+        width: 48,
+        borderRadius: 24,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 12,
     },
     profileImage: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        marginRight: 12
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        borderWidth: 2,
+        borderColor: '#fff',
     },
     viewButton: {
-        marginTop: 4,
-        padding: 6,
-        marginRight: 25,
+        paddingVertical: 6,
+        paddingHorizontal: 10,
+        marginRight: 12,
         backgroundColor: Colors.PRIMARY,
         borderRadius: 6,
-        alignSelf: "flex-start",
+    },
+    deleteButton: {
+        padding: 5,
+        marginRight: 5, 
     }
 });

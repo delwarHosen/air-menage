@@ -237,7 +237,7 @@
     "cleaner_details": {
         "title": "Cleaner Details",
         "serviceDescription": "Service Description",
-        "seeMore": "See More Reviews",
+        "seeMore": "See More",
         "reviews": "Reviews",
         "notFound": "Cleaner not found",
         "workManaged": "Work Managed",
@@ -394,7 +394,7 @@
         "code": "Lockbox Code",
         "placeholders": {
             "location": "Enter Lockbox Location",
-            "code": "Enter Lockbox Code"
+            "code": "******"
         }
     },
     "work_type": {
@@ -536,11 +536,6 @@
         "imageUpload": "Image +",
         "sendRequest": "Send Request"
     },
-    "common": {
-        "somethingWrong": "Something went wrong",
-        "searchLocation": "Search Location",
-        "delete": "Delete"
-    },
     "identityVerification": {
         "title": "Vérification d'identité",
         "description": "Complétez la vérification d'identité pour renforcer la sécurité de votre compte et accéder à plus de services.",
@@ -677,5 +672,73 @@
         "signup": "Sign Up",
         "accept": "Accepting the",
         "terms_conditions": "Terms & Conditions"
+    },
+    "signupSuccess": {
+        "title": "Signup Successful!",
+        "subtitle": "Your account has been created successfully."
+    },
+    "setNewPasswords": {
+        "title": "Set New Password",
+        "description": "Your new password must be different from previous passwords."
+    },
+    "formLabels": {
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password"
+    },
+    "formPlaceholders": {
+        "newPassword": "Enter new password",
+        "confirmPassword": "Confirm your password"
+    },
+    "formErrors": {
+        "passwordRequired": "Password is required",
+        "passwordMin": "Minimum 6 characters",
+        "confirmPasswordRequired": "Please confirm your password",
+        "passwordMismatch": "Passwords do not match"
+    },
+    "buttons": {
+        "resetPassword": "Reset Password"
+    },
+    "passwordReset": {
+        "title": "Password Reset",
+        "description": "Your password has been successfully reset. You can now log in with your new password.",
+        "backToLogin": "Back to Login"
+    },
+    "common": {
+        "yes": "Yes",
+        "no": "No",
+        "create": "Create Now",
+        "error": "Something went wrong",
+        "somethingWrong": "Something went wrong",
+        "searchLocation": "Search Location",
+        "delete": "Delete",
+        "done": "Done"
+    },
+    "addProperty": {
+        "title": "Property Title",
+        "titlePlaceholder": "Enter property title",
+        "image": "Property Image",
+        "propertyType": "Property Type",
+        "elevator": "Elevator",
+        "specifications": "Property Specifications",
+        "bedroom": "Bedroom",
+        "kitchen": "Kitchen",
+        "bathroom": "Bathroom",
+        "vacuum": "Vacuum Provided",
+        "supplies": "Supplies Provided",
+        "description": "Description",
+        "descriptionPlaceholder": "Type your description here..."
+    },
+    "work": {
+        "general": "General",
+        "bedroom": "Bedroom",
+        "bathroom": "Bathroom",
+        "kitchen": "Kitchen Room"
+    },
+    "propertyType": {
+        "apartment": "Appartement",
+        "home": "Maison"
+    },
+    "message": {
+        "all": "All Message"
     }
 }

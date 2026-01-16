@@ -41,14 +41,14 @@ const styles = StyleSheet.create({
     },
     headerWrapper: {
         backgroundColor: '#fff',
-        paddingHorizontal: "2.5%",
+        paddingHorizontal: "5%",
         paddingTop: Platform.OS === 'ios' ? 50 : 10,
     },
     scrollContent: {
         paddingBottom: 30,
     },
     contentWrapper: {
-        marginHorizontal: "2.5%",
+        marginHorizontal: "4%",
         marginVertical: 15,
     }
 });

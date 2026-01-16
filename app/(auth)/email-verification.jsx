@@ -109,7 +109,7 @@ export default function VerificationCodeScreen() {
                                 <View style={styles.timerWrapper}>
                                     <Body1 color="#94A3B8">{t("verification.resendIn")}</Body1>
                                     <Body1 color="#00AFF5" style={{ fontWeight: 'bold' }}>
-                                        {timer}s
+                                        {`${timer}s`}
                                     </Body1>
                                 </View>
                             )}
@@ -190,7 +190,8 @@ const styles = StyleSheet.create({
     },
     timerWrapper: {
         flexDirection: 'row',
-        marginTop: 10
+        marginTop: 10,
+        gap:3
     },
     submitButton: {
         backgroundColor: "#00AFF5",

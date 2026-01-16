@@ -11,6 +11,8 @@ import { Body1, Body2, H5 } from '../../components/typo/typography';
 export default function BookingDetails() {
     const { t } = useTranslation();
     const route = useRouter();
+
+    // Apnar deoya original data
     const policies = [
         { id: "1", title: "Date", value: "Tomorrow" },
         { id: "2", title: "Heures", value: "tue,dec15,2025" },
@@ -37,7 +39,6 @@ export default function BookingDetails() {
                 {/* Content Wrapper */}
                 <View style={styles.contentWrapper}>
 
-
                     {policies.map((item) => (
                         <View key={item.id} style={styles.section}>
                             <Body1 style={{ color: Colors.SECONDARY }}>{item.title}</Body1>
@@ -49,7 +50,6 @@ export default function BookingDetails() {
 
                     {/* View Calendar Link */}
                     <View>
-
                         <TouchableOpacity style={{ marginVertical: 34 }}>
                             <Body1 style={{ color: Colors.TEXT_COLOR, textDecorationLine: "underline", fontWeight: "600" }}>
                                 View Calender
@@ -75,13 +75,10 @@ export default function BookingDetails() {
                         </View>
                     </View>
 
-                    {/* <View style={styles.divider} /> */}
-
                     {/* Support Section */}
                     <View>
                         <H5 style={{ color: Colors.TEXT_COLOR, marginTop: 40 }}>Support</H5>
 
-                        {/* Support Row example based on your style */}
                         <TouchableOpacity style={styles.supportRow}>
                             <Body2 style={{ color: Colors.TEXT_COLOR }}>Security Support</Body2>
                             <ForwarAngleIcon />
@@ -98,11 +95,8 @@ export default function BookingDetails() {
                         </TouchableOpacity>
                     </View>
 
-                    {/* <View style={styles.divider} /> */}
-
                     {/* Owner Details Section */}
                     <View style={styles.ownerSection}>
-
                         <View style={{ gap: 2 }}>
                             <View style={styles.avatarCircle}>
                                 <Body1 style={{ color: "#fff" }}>B</Body1>
@@ -142,20 +136,20 @@ export default function BookingDetails() {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        paddingHorizontal: "2.5%",
-        // backgroundColor: '#fff', 
+        // Eikhane 5% padding deoya hoyeche
+
     },
     headerWrapper: {
         backgroundColor: '#fff',
-        paddingHorizontal: "2.5%",
         paddingTop: Platform.OS === 'ios' ? 50 : 10,
+        paddingHorizontal:"5%"
     },
     scrollContent: {
         paddingBottom: 30,
     },
     contentWrapper: {
-        marginHorizontal: "2.5%",
-        // marginVertical: 15,
+        paddingHorizontal: "5%",
+        marginHorizontal: 0,
     },
     section: {
         marginTop: 35,
@@ -167,11 +161,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         paddingBottom: 20,
-    },
-    divider: {
-        height: 1,
-        backgroundColor: Colors.BORDER_COLOR,
-        marginVertical: 20,
     },
     supportRow: {
         flexDirection: "row",
@@ -189,7 +178,6 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     avatarCircle: {
-
         width: 50,
         height: 50,
         borderRadius: 25,
@@ -199,14 +187,14 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     owenerDetails: {
-        color: Colors.SECONDARY, marginBottom: 8
+        color: Colors.SECONDARY,
+        marginBottom: 8
     },
     footerContainer: {
         marginTop: 80,
         paddingBottom: Platform.OS === 'ios' ? 30 : 20,
     },
     messageBtn: {
-
         height: 56,
         borderRadius: 12,
         width: '100%',

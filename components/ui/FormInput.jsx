@@ -1,5 +1,3 @@
-// import { Image } from "expo-image";
-// import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import {
     StyleSheet,
@@ -8,13 +6,8 @@ import {
     View
 } from "react-native";
 import { Colors } from "../../assets/Colors";
-// import { CloseEyeIcons, EyeIcons } from "../../assets/icons/eye";
 import { CloseEyeIcons, EyeIcons } from "../../assets/icons/Icons";
 import { Body1, Caption, H6 } from "../typo/typography";
-// import { Caption } from "../typo/typography";
-// import { Caption } from "../typo/Typography.jsx";
-// import { Caption } from "../typo/typography.jsx";
-
 
 export const FormInput = ({
     label,
@@ -26,12 +19,10 @@ export const FormInput = ({
     touched = false,
     required = false,
     maxLength,
-    placeholderTextColor,
     multiline = false,
     style,
 }) => {
     const [showPassword, setShowPassword] = useState(false);
-    // const [imageUri, setImageUri] = useState(null);
 
     const getKeyboardType = () => {
         switch (type) {
@@ -42,76 +33,21 @@ export const FormInput = ({
     };
 
     const getError = () => {
-        if (!touched) return error;
-        if (required && (!value || !value.toString().trim())) return "This field is required";
-        if (type === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Invalid email address";
-        if (type === "password" && value && value.length < 8) return "Password must be at least 8 characters";
-        return error;
+        if (error) return error;
+        // Basic validation logic
+        if (required && (!value || !value.toString().trim())) return null;
+        return null;
     };
 
-    // const pickImage = async () => {
-    //     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    //     if (status !== "granted") {
-    //         alert("Please grant camera roll permissions to upload images");
-    //         return;
-    //     }
-
-    //     const result = await ImagePicker.launchImageLibraryAsync({
-    //         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    //         allowsEditing: true,
-    //         aspect: [4, 3],
-    //         quality: 0.8
-    //     });
-
-    //     if (!result.canceled) {
-    //         setImageUri(result.assets[0].uri);
-    //         onChangeText(result.assets[0].uri);
-    //     }
-    // };
-
-    // --- Image Input UI ---
-    // if (type === "image") {
-    //     return (
-    //         <View style={styles.container}>
-    //             <View style={styles.labelContainer}>
-    //                 <Text style={styles.label}>{label}</Text>
-    //                 {required && <Text style={styles.required}>*</Text>}
-    //             </View>
-
-    //             <TouchableOpacity
-    //                 style={[styles.imageButton, getError() && styles.inputError]}
-    //                 onPress={pickImage}
-    //             >
-    //                 <Upload size={20} color="#3872F0" />
-    //                 <Text style={styles.imageButtonText}>
-    //                     {imageUri ? "Change Image" : "Upload Image"}
-    //                 </Text>
-    //             </TouchableOpacity>
-
-    //             {imageUri && (
-    //                 <Image source={{ uri: imageUri }} style={styles.imagePreview} contentFit="cover" />
-    //             )}
-
-    //             {getError() && <Caption color="#EF4444" style={styles.error}>{getError()}</Caption>}
-    //         </View>
-    //     );
-    // }
-
-    // --- Default Input UI (Text, Email, Password, Number) ---
     return (
         <View style={styles.container}>
             <View style={styles.labelContainer}>
                 <H6 color={Colors.TEXT_COLOR}>
-                    {label}{required && <Body1 style={{ color: "red" }}></Body1>}
+                    {label}{required && <Body1 style={{ color: "#949494" }}> *</Body1>}
                 </H6>
-                {/* {required && (
-                    <Body1 weight="regular" style={[styles.required, { color: 'red' }]}>
-                        *
-                    </Body1>
-                )} */}
             </View>
 
-            <View style={[styles.inputContainer, getError() && styles.inputError]}>
+            <View style={[styles.inputContainer, error && styles.inputError]}>
                 <TextInput
                     style={[
                         styles.input,
@@ -131,20 +67,16 @@ export const FormInput = ({
                 />
 
                 {type === "password" && (
-                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.iconButton}>
-                        {showPassword ?
-                            // <CloseEyeIcons />
-                            <CloseEyeIcons />
-                            :
-                            <EyeIcons />
-                        }
-                        :
+                    <TouchableOpacity
+                        onPress={() => setShowPassword(!showPassword)}
+                        style={styles.iconButton}
+                    >
+                        {showPassword ? <CloseEyeIcons /> : <EyeIcons />}
                     </TouchableOpacity>
                 )}
             </View>
 
-
-            {getError() && <Caption color="#EF4444" style={styles.error}>{getError()}</Caption>}
+            {error && <Caption color="#EF4444" style={styles.error}>{error}</Caption>}
 
             {maxLength && value?.length > 0 && (
                 <View style={styles.counterContainer}>
@@ -156,39 +88,37 @@ export const FormInput = ({
 };
 
 const styles = StyleSheet.create({
-    container:
-        { marginBottom: 20 },
+    container: { marginBottom: 20 },
     labelContainer: {
         flexDirection: "row",
         alignItems: "center",
         marginBottom: 8
     },
-    label: {
-        color: Colors.TEXT_COLOR,
-    },
-    required: {
-        marginLeft: 4
-    },
     inputContainer: {
         flexDirection: "row",
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: Colors.BORDER_COLOR,
+        borderColor: Colors.BORDER_COLOR || '#ccc',
         paddingHorizontal: 16,
-        paddingVertical: 4
+        backgroundColor: "#FFFFFF",
+        alignItems: 'center', 
     },
     input: {
         flex: 1,
         fontSize: 16,
         color: Colors.TEXT_COLOR,
-        fontFamily: "SyneRegular",
-        textAlignVertical: 'top',
         paddingTop: 12,
         paddingBottom: 12,
     },
+    inputError: {
+        borderColor: "#EF4444",
+    },
     iconButton: {
-        flexDirection:"row",
-        alignItems:"center"
+        padding: 5,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    error: {
+        marginTop: 4,
     }
-
-})
+});

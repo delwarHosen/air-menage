@@ -122,7 +122,7 @@ export default function ContactScreen() {
 const styles = StyleSheet.create({
  
   scrollContainer: {
-    paddingHorizontal: 16,
+    paddingHorizontal: "5%",
     paddingBottom: 40,
   },
 

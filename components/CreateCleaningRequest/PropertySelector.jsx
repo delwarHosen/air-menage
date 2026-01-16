@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     propertyCard: {
         backgroundColor: '#fff',
         borderRadius: 12,
-        padding: 12,
+        padding: 8,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 30,

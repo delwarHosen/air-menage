@@ -1,6 +1,7 @@
 // Chat/ChatInput
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Colors } from '../../assets/Colors';
 
 export const ChatInput = ({ onSend, onAttachment, value, onChangeText }) => {
     return (
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         width: 44,
         height: 44,
         borderRadius: 22,
-        backgroundColor: '#22D3EE',
+        backgroundColor: Colors.PRIMARY,
         justifyContent: 'center',
         alignItems: 'center',
     },

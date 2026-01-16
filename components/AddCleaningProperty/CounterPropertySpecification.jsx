@@ -1,14 +1,12 @@
-import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { Body2 } from '../typo/typography';
 
 const CounterPropertySpecification = ({ labelKey, value, onIncrement, onDecrement }) => {
-    const { t } = useTranslation();
 
     return (
         <View style={styles.specItem}>
-            <Body2 style={styles.specLabel}>{t(`property_counter.${labelKey}`)}</Body2>
+            <Body2 style={styles.specLabel}>{labelKey}</Body2>
             <View style={styles.counterContainer}>
                 <TouchableOpacity onPress={onDecrement} style={styles.counterButton}>
                     <Body2 style={styles.buttonText}>-</Body2>
@@ -28,6 +26,7 @@ export default CounterPropertySpecification;
 
 
 const styles = StyleSheet.create({
+
     specItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -36,6 +35,9 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         borderBottomWidth: 1,
         borderBottomColor: Colors.BORDER_COLOR,
+    },
+    specLabel:{
+        color:"#626263"
     },
     counterContainer: {
         flexDirection: 'row',
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 12,
     },
     buttonText: {
-        fontSize: 18,
         lineHeight: 18,
+        fontSize:18
     },
 });

@@ -237,7 +237,7 @@
     "cleaner_details": {
         "title": "Détails du nettoyeur",
         "serviceDescription": "Description du service",
-        "seeMore": "Voir plus d’avis",
+        "seeMore": "Voir plus",
         "reviews": "Avis",
         "notFound": "Nettoyeur introuvable",
         "workManaged": "Travaux gérés",
@@ -391,7 +391,7 @@
         "code": "Code de la boîte à clés",
         "placeholders": {
             "location": "Entrez l'emplacement de la boîte à clés",
-            "code": "Entrez le code de la boîte à clés"
+            "code": "******"
         }
     },
     "work_type": {
@@ -533,11 +533,6 @@
         "imageUpload": "Image +",
         "sendRequest": "Envoyer la demande"
     },
-    "common": {
-        "somethingWrong": "Une erreur s'est produite",
-        "searchLocation": "Rechercher un lieu",
-        "delete": "Supprimer"
-    },
     "identityVerification": {
         "title": "Vérification d'identité",
         "description": "Complétez la vérification d'identité pour renforcer la sécurité de votre compte et accéder à plus de services.",
@@ -674,5 +669,73 @@
         "signup": "S'inscrire",
         "accept": "Accepter les",
         "terms_conditions": "Termes et Conditions"
+    },
+    "signupSuccess": {
+        "title": "Inscription réussie !",
+        "subtitle": "Votre compte a été créé avec succès."
+    },
+    "setNewPasswords": {
+        "title": "Définir un nouveau mot de passe",
+        "description": "Votre nouveau mot de passe doit être différent des précédents."
+    },
+    "formLabels": {
+        "newPassword": "Nouveau mot de passe",
+        "confirmPassword": "Confirmer le mot de passe"
+    },
+    "formPlaceholders": {
+        "newPassword": "Entrez un nouveau mot de passe",
+        "confirmPassword": "Confirmez votre mot de passe"
+    },
+    "formErrors": {
+        "passwordRequired": "Le mot de passe est requis",
+        "passwordMin": "Minimum 6 caractères",
+        "confirmPasswordRequired": "Veuillez confirmer votre mot de passe",
+        "passwordMismatch": "Les mots de passe ne correspondent pas"
+    },
+    "buttons": {
+        "resetPassword": "Réinitialiser le mot de passe"
+    },
+    "passwordReset": {
+        "title": "Réinitialisation du mot de passe",
+        "description": "Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+        "backToLogin": "Retour à la connexion"
+    },
+    "common": {
+        "yes": "Oui",
+        "no": "Non",
+        "create": "Créer",
+        "error": "Une erreur est survenue",
+        "somethingWrong": "Une erreur s'est produite",
+        "searchLocation": "Rechercher un lieu",
+        "delete": "Supprimer",
+        "done": "Terminé"
+    },
+    "addProperty": {
+        "title": "Titre du bien",
+        "titlePlaceholder": "Entrez le titre du bien",
+        "image": "Image du bien",
+        "propertyType": "Type de propriété",
+        "elevator": "Ascenseur",
+        "specifications": "Spécifications du bien",
+        "bedroom": "Chambre",
+        "kitchen": "Cuisine",
+        "bathroom": "Salle de bain",
+        "vacuum": "Aspirateur fourni",
+        "supplies": "Fournitures fournies",
+        "description": "Description",
+        "descriptionPlaceholder": "Saisissez votre description ici..."
+    },
+    "work": {
+        "general": "Général",
+        "bedroom": "Chambre",
+        "bathroom": "Salle de bain",
+        "kitchen": "Cuisine"
+    },
+    "propertyType": {
+        "apartment": "Appartement",
+        "home": "Maison"
+    },
+    "message": {
+        "all": "Tous les messages"
     }
 }

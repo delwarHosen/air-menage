@@ -78,7 +78,7 @@ export default function IdentityVerificationBanner2() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "",
+        paddingHorizontal:"4%",
     },
 
     header: {

@@ -1,10 +1,12 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Colors } from '../../assets/Colors';
-import { ApartmantHomeIcon, ApartmentIcon } from '../../assets/icons/Icons';
-import { Body2 } from '../typo/typography';
+import { useTranslation } from "react-i18next";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Colors } from "../../assets/Colors";
+import { ApartmantHomeIcon, ApartmentIcon } from "../../assets/icons/Icons";
+import { Body2 } from "../typo/typography";
 
-// Apnar project-er proyojoniyo components o icons ekhane import korun
 const PropertyTypePicker = ({ value, onChange }) => {
+    const { t } = useTranslation();
+
     return (
         <View style={styles.propertyContainer}>
             {/* Apartment Option */}
@@ -16,7 +18,9 @@ const PropertyTypePicker = ({ value, onChange }) => {
                 onPress={() => onChange("Apartment")}
             >
                 <ApartmentIcon />
-                <Body2 style={styles.title}>Apartment</Body2>
+                <Body2 style={styles.title}>
+                    {t("propertyType.apartment")}
+                </Body2>
             </TouchableOpacity>
 
             {/* Home Option */}
@@ -28,7 +32,9 @@ const PropertyTypePicker = ({ value, onChange }) => {
                 onPress={() => onChange("Home")}
             >
                 <ApartmantHomeIcon />
-                <Body2 style={styles.title}>Home</Body2>
+                <Body2 style={styles.title}>
+                    {t("propertyType.home")}
+                </Body2>
             </TouchableOpacity>
         </View>
     );
@@ -36,13 +42,15 @@ const PropertyTypePicker = ({ value, onChange }) => {
 
 export default PropertyTypePicker;
 
+
 const styles = StyleSheet.create({
-    propertyContainer: { flexDirection: "row", gap: 10,
-        justifyContent:"center",
-        alignItems:"center"
-     },
+    propertyContainer: {
+        flexDirection: "row", gap: 10,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     propertyCard: {
-        width:"30%",
+        width: "30%",
         height: 100,
         borderWidth: 1,
         borderRadius: 12,
@@ -50,10 +58,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#fff",
         borderColor: Colors.BORDER_COLOR,
-        marginVertical:20
+        marginVertical: 20
     },
-    title:{
-        marginTop:15
+    title: {
+        marginTop: 15
     },
     active: { borderColor: Colors.PRIMARY, },
 })

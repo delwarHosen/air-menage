@@ -25,7 +25,7 @@ export default function AboutUsScreen() {
                 paddingVertical: CONTENT_VERTICAL,
             }}
             renderItem={({ item }) => (
-                <View style={{ marginBottom: 16 }}>
+                <View style={{ marginBottom: 16,paddingHorizontal:"4%" }}>
                     <Body2>{`${item.id}. ${item.title}`}</Body2>
                     <Caption style={{ lineHeight: 22 }}>{item.content}</Caption>
                 </View>
@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+        paddingHorizontal:"5%"
     },
 });

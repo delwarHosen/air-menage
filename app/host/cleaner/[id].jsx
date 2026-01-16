@@ -52,6 +52,18 @@ export default function Cleaner() {
           </View>
         ))}
       </View>
+
+      {/* See All Button এখানে Header এর শেষে */}
+      {cleaner?.reviews && cleaner.reviews.length > 3 && (
+        <View style={styles.seeAllContainer}>
+          <TouchableOpacity
+            style={styles.seeAllButton}
+            onPress={() => router.push("/host/all-reviews")}
+          >
+            <Body2 style={styles.seeAllText}>{t("cleaner_details.seeMore")}</Body2>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 
@@ -72,20 +84,12 @@ export default function Cleaner() {
         contentContainerStyle={styles.flatListContent}
         renderItem={({ item }) => (
           <View style={styles.reviewCard}>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
-              <View style={styles.reviewRow}>
-                <Image source={{ uri: item.image }} style={styles.reviewImg} />
-                <View style={{ marginLeft: 10 }}>
-                  <Body2 style={styles.reviewName}>{item.customer}</Body2>
-                  <Body2 style={styles.reviewDate}>{item.date}</Body2>
-                </View>
+            <View style={styles.reviewRow}>
+              <Image source={{ uri: item.image }} style={styles.reviewImg} />
+              <View style={{ marginLeft: 10 }}>
+                <Body2 style={styles.reviewName}>{item.customer}</Body2>
+                <Body2 style={styles.reviewDate}>{item.date}</Body2>
               </View>
-
-              {cleaner?.reviews?.length > 1 && (
-                <TouchableOpacity onPress={() => router.push("/host/all-reviews")}>
-                  <Body2 style={styles.seeMoreBtn}>{t("cleaner_details.seeMore")}</Body2>
-                </TouchableOpacity>
-              )}
             </View>
             <Body2 style={styles.reviewComment}>{item.comment}</Body2>
           </View>
@@ -98,7 +102,7 @@ export default function Cleaner() {
 const styles = StyleSheet.create({
   flatListContent: {
     paddingBottom: 30,
-    paddingHorizontal: "3%",
+    paddingHorizontal: "4%",
   },
   contentWrapper: {
     flex: 1,
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
   },
   desItem: {
     flexDirection: "row",
-    alignItems: "flex-start", 
+    alignItems: "flex-start",
     marginVertical: 4,
   },
   square: {
@@ -143,16 +147,15 @@ const styles = StyleSheet.create({
     height: 6,
     backgroundColor: Colors.TEXT_COLOR,
     marginRight: 8,
-    marginTop: 6, 
+    marginTop: 6,
     borderRadius: 1,
   },
   cleanerDes: {
-    flex: 1, 
+    flex: 1,
     fontSize: 14,
     color: Colors.TEXT_COLOR,
   },
   reviewCard: {
-    // backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: "#EBEBEE",
     padding: 12,
@@ -178,16 +181,26 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: Colors.TEXT_COLOR,
   },
-  seeMoreBtn: {
-    color: Colors.PRIMARY,
-    textDecorationLine: "underline",
-    fontWeight: "600",
-    fontSize: 12,
-  },
   reviewComment: {
     fontSize: 13,
     color: "#4B5563",
     marginTop: 10,
     lineHeight: 18,
+  },
+  seeAllContainer: {
+    alignItems: 'flex-start',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  seeAllButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+  },
+  seeAllText: {
+    color: Colors.PRIMARY,
+    textDecorationLine:"underline",
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
