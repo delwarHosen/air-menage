@@ -26,7 +26,7 @@ export default function AllCleaner({ propertyData }) {
       {propertyData.cleaner_request.map((item) => (
         <CleanerRequestCard
           key={item.id.toString()}
-          propertyData={item}
+          propertyData={propertyData}
           location={`${propertyData.city || ''}, ${propertyData.country || ''}`}
           onAccept={handleAccept}
           onDelete={handleDelete}

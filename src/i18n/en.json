@@ -127,9 +127,9 @@
             "address": "Address",
             "city": "City",
             "country": "Country",
-            "Age": "Age",
+            "age": "Age",
             "verification_Your_SIRET_Number": "Verification Your SIRET Number",
-            "Gender": "Gender"
+            "gender": "Gender"
         },
         "actions": {
             "edit": "Edit Profile"
@@ -417,7 +417,8 @@
         "confirmTitle": "Are you sure?",
         "confirmText": "Do you really want to delete {{name}}'s request?",
         "cancel": "Cancel",
-        "confirmDelete": "Yes, Delete"
+        "confirmDelete": "Yes, Delete",
+        "title": "All Cleaner Requests"
     },
     "form": {
         "labels": {
@@ -472,7 +473,7 @@
         "transactionsToCome": "Transaction to come",
         "transactionsEffected": "Transaction effected",
         "showAllTransactions": "Show all effected transactions",
-        "consultReports": "Consult all reports"
+        "consultReports": "My Income"
     },
     "chart": {
         "Ja": "Jan",
@@ -506,6 +507,7 @@
         "send_message": "Send a Message",
         "call": "Call",
         "apply": "Apply",
+        "complete":"Compelete the job",
         "currency": "€",
         "checklist": "Checklist",
         "report_problem": "Report a problem",
@@ -524,7 +526,10 @@
         "label": "How Do You Feel About This Service?",
         "placeholder": "Type....",
         "skip": "Skip",
-        "submit": "Submit"
+        "submit": "Submit",
+        "thankYou": "Warning!",
+        "successMsg": "Your feedback has been sent successfully. It helps us improve service quality and maintain high standards.",
+        "goToHome": "Go to Home"
     },
     "reportProblem": {
         "title": "Report a Problem",
@@ -711,7 +716,8 @@
         "somethingWrong": "Something went wrong",
         "searchLocation": "Search Location",
         "delete": "Delete",
-        "done": "Done"
+        "done": "Done",
+        "validate": "Validate"
     },
     "addProperty": {
         "title": "Property Title",
@@ -740,5 +746,18 @@
     },
     "message": {
         "all": "All Message"
+    },
+    "archive_cleaning": {
+        "beds": "{{count}} Beds",
+        "bedrooms": "{{count}} Bedrooms",
+        "bathrooms": "{{count}} Bathrooms",
+        "laundry": "Laundry",
+        "included": "Included",
+        "not_included": "No",
+        "price_symbol": "€"
+    },
+    "modal": {
+        "successTitle": "Password Changed!",
+        "successDescription": "Your password has been updated successfully. Please use your new password for future logins."
     }
 }

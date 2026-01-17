@@ -72,5 +72,124 @@ export const propertiesData = [
     cleaner_request: [
       { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
     ]
-  }
+  },
+  {
+    id: 5,
+    img: IMAGE_COMPONENTS.propertyImage,
+    title: "Family House",
+    location: "Dhanmondi, Dhaka",
+    description:
+      "Family House is a spacious and practical property designed for comfortable family living. Situated in Dhanmondi, it offers a friendly neighborhood with nearby parks, schools, and healthcare facilities. The house features well-sized bedrooms, ample storage, and a functional layout that supports daily family activities. Natural ventilation and lighting enhance the overall living experience. Security features include durable locks and controlled access. This property is suitable for families seeking long-term residence in a reliable and well-connected area.",
+    propertyType: "Provided",
+    propertySize: "1800 sq ft",
+    bedrooms: 3,
+    bedroomElements: ["Bed", "Wardrobe", "Fan"],
+    lockType: "Manual Deadbolt Lock",
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
+  },
+  {
+    id: 6,
+    img: IMAGE_COMPONENTS.propertyImage,
+    title: "Family House",
+    location: "Dhanmondi, Dhaka",
+    description:
+      "Family House is a spacious and practical property designed for comfortable family living. Situated in Dhanmondi, it offers a friendly neighborhood with nearby parks, schools, and healthcare facilities. The house features well-sized bedrooms, ample storage, and a functional layout that supports daily family activities. Natural ventilation and lighting enhance the overall living experience. Security features include durable locks and controlled access. This property is suitable for families seeking long-term residence in a reliable and well-connected area.",
+    propertyType: "Provided",
+    propertySize: "1800 sq ft",
+    bedrooms: 3,
+    bedroomElements: ["Bed", "Wardrobe", "Fan"],
+    lockType: "Manual Deadbolt Lock",
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
+  },
+  {
+    id: 7,
+    img: IMAGE_COMPONENTS.propertyImage,
+    title: "Family House",
+    location: "Dhanmondi, Dhaka",
+    description:
+      "Family House is a spacious and practical property designed for comfortable family living. Situated in Dhanmondi, it offers a friendly neighborhood with nearby parks, schools, and healthcare facilities. The house features well-sized bedrooms, ample storage, and a functional layout that supports daily family activities. Natural ventilation and lighting enhance the overall living experience. Security features include durable locks and controlled access. This property is suitable for families seeking long-term residence in a reliable and well-connected area.",
+    propertyType: "Provided",
+    propertySize: "1800 sq ft",
+    bedrooms: 3,
+    bedroomElements: ["Bed", "Wardrobe", "Fan"],
+    lockType: "Manual Deadbolt Lock",
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
+  },
+  {
+    id: 8,
+    img: IMAGE_COMPONENTS.propertyImage,
+    title: "Family House",
+    location: "Dhanmondi, Dhaka",
+    description:
+      "Family House is a spacious and practical property designed for comfortable family living. Situated in Dhanmondi, it offers a friendly neighborhood with nearby parks, schools, and healthcare facilities. The house features well-sized bedrooms, ample storage, and a functional layout that supports daily family activities. Natural ventilation and lighting enhance the overall living experience. Security features include durable locks and controlled access. This property is suitable for families seeking long-term residence in a reliable and well-connected area.",
+    propertyType: "Provided",
+    propertySize: "1800 sq ft",
+    bedrooms: 3,
+    bedroomElements: ["Bed", "Wardrobe", "Fan"],
+    lockType: "Manual Deadbolt Lock",
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
+  },
+  {
+    id: 9,
+    img: IMAGE_COMPONENTS.propertyImage,
+    title: "Family House",
+    location: "Dhanmondi, Dhaka",
+    description:
+      "Family House is a spacious and practical property designed for comfortable family living. Situated in Dhanmondi, it offers a friendly neighborhood with nearby parks, schools, and healthcare facilities. The house features well-sized bedrooms, ample storage, and a functional layout that supports daily family activities. Natural ventilation and lighting enhance the overall living experience. Security features include durable locks and controlled access. This property is suitable for families seeking long-term residence in a reliable and well-connected area.",
+    propertyType: "Provided",
+    propertySize: "1800 sq ft",
+    bedrooms: 3,
+    bedroomElements: ["Bed", "Wardrobe", "Fan"],
+    lockType: "Manual Deadbolt Lock",
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
+  },
+  {
+    id: 10,
+    img: IMAGE_COMPONENTS.propertyImage,
+    title: "Family House",
+    location: "Dhanmondi, Dhaka",
+    description:
+      "Family House is a spacious and practical property designed for comfortable family living. Situated in Dhanmondi, it offers a friendly neighborhood with nearby parks, schools, and healthcare facilities. The house features well-sized bedrooms, ample storage, and a functional layout that supports daily family activities. Natural ventilation and lighting enhance the overall living experience. Security features include durable locks and controlled access. This property is suitable for families seeking long-term residence in a reliable and well-connected area.",
+    propertyType: "Provided",
+    propertySize: "1800 sq ft",
+    bedrooms: 3,
+    bedroomElements: ["Bed", "Wardrobe", "Fan"],
+    lockType: "Manual Deadbolt Lock",
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
+  },
+  {
+    id: 11,
+    img: IMAGE_COMPONENTS.propertyImage,
+    title: "Family House",
+    location: "Dhanmondi, Dhaka",
+    description:
+      "Family House is a spacious and practical property designed for comfortable family living. Situated in Dhanmondi, it offers a friendly neighborhood with nearby parks, schools, and healthcare facilities. The house features well-sized bedrooms, ample storage, and a functional layout that supports daily family activities. Natural ventilation and lighting enhance the overall living experience. Security features include durable locks and controlled access. This property is suitable for families seeking long-term residence in a reliable and well-connected area.",
+    propertyType: "Provided",
+    propertySize: "1800 sq ft",
+    bedrooms: 3,
+    bedroomElements: ["Bed", "Wardrobe", "Fan"],
+    lockType: "Manual Deadbolt Lock",
+    meetkeyType: "Meet the cleaner to give keys",
+    cleaner_request: [
+      { id: 401, profile_img: "https://i.pravatar.cc/150?img=18", name: "Marco Rossi" },
+    ]
+  },
 ];

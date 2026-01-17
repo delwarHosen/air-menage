@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -9,6 +10,7 @@ import { Body1, Body2, Caption, H5 } from "../typo/typography";
 export default function CleanerRequestCard({ propertyData, location, onAccept, onDelete }) {
     const { t } = useTranslation();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const router = useRouter()
 
     const toggleModal = () => setIsModalVisible(!isModalVisible);
 
@@ -16,15 +18,26 @@ export default function CleanerRequestCard({ propertyData, location, onAccept, o
         onDelete(propertyData);
         toggleModal();
     };
+    console.log("Full propertyData:", propertyData);
+    console.log("Image URL:", propertyData?.profile_img);
 
     return (
         <View style={styles.container}>
+
             <LinearGradient
                 colors={['#FAFF0A', '#FEAD4E', '#ED1B1B', '#FB1274', '#A61D5F', '#F109DA']}
                 style={styles.gradientBorder}
             >
-                <Image
-                    source={{ uri: propertyData.profile_img }} style={styles.image} />
+                <View style={styles.imageContainer}>
+                    <TouchableOpacity
+                        onPress={() => router.push(`/host/cleaner/${propertyData?.id}`)}
+                    >
+                        <Image
+                            source={{ uri: `https://i.pravatar.cc/150?img=${propertyData?.id}` }}
+                            style={styles.image}
+                        />
+                    </TouchableOpacity>
+                </View>
             </LinearGradient>
 
 
@@ -33,7 +46,9 @@ export default function CleanerRequestCard({ propertyData, location, onAccept, o
                 <Caption style={styles.location}>{propertyData?.location}</Caption>
 
                 <View style={styles.buttonRow}>
-                    <TouchableOpacity style={styles.acceptBtn} onPress={() => onAccept(propertyData)}>
+                    <TouchableOpacity style={styles.acceptBtn}
+                    onPress={() => router.push("/host/transiction")}
+                    >
                         <Body2 style={styles.acceptText}>{t("cleaner_requests.accept")}</Body2>
                     </TouchableOpacity>
 
@@ -92,11 +107,21 @@ const styles = StyleSheet.create({
     gradientBorder: {
         height: 68,
         width: 68,
-        borderRadius: 39,
+        borderRadius: 34,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 2,
     },
-    image: { width: 64, height: 64, borderRadius: 32 },
+    imageContainer: {
+
+        borderRadius: 32,
+        padding: 2,
+    },
+    image: {
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+    },
     content: { flex: 1 },
     name: { fontSize: 16, fontWeight: "600" },
     location: { fontSize: 13, color: 'gray', marginBottom: 8 },

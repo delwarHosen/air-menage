@@ -105,7 +105,9 @@ export default function ContactScreen() {
                             />
                         </View>
 
-                        <TouchableOpacity style={[styles.submitButton]} onPress={handleSubmit}>
+                        <TouchableOpacity style={[styles.submitButton]} onPress={handleSubmit}
+                        
+                        >
                             <ButtonText style={styles.submitText}>
                                 {t("contact.buttons.send")}
                             </ButtonText>
@@ -122,7 +124,7 @@ export default function ContactScreen() {
 const styles = StyleSheet.create({
 
     scrollContainer: {
-        paddingHorizontal: "2.5%",
+        paddingHorizontal: "5%",
         paddingBottom: 40,
     },
 

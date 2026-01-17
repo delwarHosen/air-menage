@@ -9,32 +9,20 @@ const PropertyTypePicker = ({ value, onChange }) => {
 
     return (
         <View style={styles.propertyContainer}>
-            {/* Apartment Option */}
             <TouchableOpacity
-                style={[
-                    styles.propertyCard,
-                    value === "Apartment" && styles.active,
-                ]}
-                onPress={() => onChange("Apartment")}
+                style={[styles.propertyCard, value === "Apartment" && styles.active]}
+                onPress={() => onChange?.("Apartment")}  
             >
                 <ApartmentIcon />
-                <Body2 style={styles.title}>
-                    {t("propertyType.apartment")}
-                </Body2>
+                <Body2 style={styles.title}>{t("propertyType.apartment")}</Body2>
             </TouchableOpacity>
 
-            {/* Home Option */}
             <TouchableOpacity
-                style={[
-                    styles.propertyCard,
-                    value === "Home" && styles.active,
-                ]}
-                onPress={() => onChange("Home")}
+                style={[styles.propertyCard, value === "Home" && styles.active]}
+                onPress={() => onChange?.("Home")}  
             >
                 <ApartmantHomeIcon />
-                <Body2 style={styles.title}>
-                    {t("propertyType.home")}
-                </Body2>
+                <Body2 style={styles.title}>{t("propertyType.home")}</Body2>
             </TouchableOpacity>
         </View>
     );

@@ -1,4 +1,5 @@
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,7 +14,8 @@ import { Colors } from '../../assets/Colors';
 import { BedIcon, ClockIcon, CreatePropertyIcon, LocationIcon } from '../../assets/icons/Icons';
 import { Body1, Caption, H4, H5, H6 } from '../typo/typography';
 
-export default function AllJobs({ data, activeTab }) {
+
+export default function AllJobs({ data, activeTab, headerText }) {
     const router = useRouter();
     const { t } = useTranslation();
 
@@ -33,7 +35,7 @@ export default function AllJobs({ data, activeTab }) {
             <View style={styles.divider} />
 
             <View style={styles.middleRow}>
-                <Image source={item.image} style={styles.propertyImage} />
+                <Image source={item.image} style={styles.propertyImage} contentFit="cover" />
                 <View style={styles.rightContent}>
                     <Body1>{item.city}</Body1>
 
@@ -79,11 +81,19 @@ export default function AllJobs({ data, activeTab }) {
                 </View>
             </View>
 
-            <View style={styles.divider} />
-
             <View style={styles.bottomRow}>
                 <View style={styles.propertiContent}>
-                    <Image source={{ uri: item.cleanerImage }} style={styles.cleanerImage} />
+                    <LinearGradient
+                        colors={['#FAFF0A', '#FEAD4E', '#ED1B1B', '#FB1274', '#A61D5F', '#F109DA']}
+                        style={styles.gradientBorder}
+                    >
+                        <Image 
+                            source={typeof item.cleanerImage === 'string' ? { uri: item.cleanerImage } : item.cleanerImage} 
+                            style={styles.cleanerImage}
+                            contentFit="cover"
+                        />
+                    </LinearGradient>
+
                     <View>
                         <H6 style={{ color: Colors.SECONDARY }}>{item.cleanerName}</H6>
                         <Caption>{item.country}</Caption>
@@ -91,7 +101,7 @@ export default function AllJobs({ data, activeTab }) {
                 </View>
 
                 <View>
-                    <H4 style={{color:"#6B7280"}}> {item.price} €</H4>
+                    <H4 style={{ color: "#6B7280" }}> {item.price} €</H4>
                 </View>
 
                 <View style={styles.priceActionWrapper}>
@@ -115,6 +125,9 @@ export default function AllJobs({ data, activeTab }) {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
+                ListHeaderComponent={
+                    headerText ? <H4 style={styles.headerStyle}>{headerText}</H4> : null
+                }
                 contentContainerStyle={{ paddingBottom: 30 }}
             />
         </KeyboardAvoidingView>
@@ -123,13 +136,17 @@ export default function AllJobs({ data, activeTab }) {
 
 
 const styles = StyleSheet.create({
-    mainContainer: { flex: 1 },
+    mainContainer: { flex: 1, paddingHorizontal: "5%" },
+    headerStyle: {
+        marginVertical: 20,
+    },
     card: {
-        padding: 12,
+        padding: 8,
         marginBottom: 20,
         width: '100%',
-        borderBottomWidth: 1,
-        borderBottomColor: Colors.BORDER_COLOR,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 8,
+        
     },
     divider: {
         height: 1,
@@ -163,12 +180,21 @@ const styles = StyleSheet.create({
     bottomRow: {
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: 15
+    },
+    gradientBorder: {
+        height: 40,
+        width: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     cleanerImage: {
         width: 36,
         height: 36,
-        borderRadius: 18
+        borderRadius: 18,
+        backgroundColor: '#f0f0f0'
     },
     priceActionWrapper: {
         flexDirection: 'row',
@@ -176,9 +202,9 @@ const styles = StyleSheet.create({
         gap: 8
     },
     btn: {
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderRadius: 5,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 14,
     },
     btnText: {
         color: '#FFF',

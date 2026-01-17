@@ -139,8 +139,10 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.validateButton}>
-                <ButtonText style={{ textAlign: "center", color: "white" }}>Validate</ButtonText>
+            <TouchableOpacity style={styles.validateButton}
+            onPress={()=>router.push("/feedback/feedback")}
+            >
+                <ButtonText style={{ textAlign: "center", color: "white" }}>{t("common.validate")}</ButtonText>
             </TouchableOpacity>
         </View>
     );

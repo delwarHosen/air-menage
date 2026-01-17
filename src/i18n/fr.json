@@ -127,9 +127,9 @@
             "address": "Adresse",
             "city": "Ville",
             "country": "Pays",
-            "Age": "Âge",
+            "age": "Âge",
             "verification_Your_SIRET_Number": "Vérification du numéro SIRET",
-            "Gender": "Genre"
+            "gender": "Genre"
         },
         "actions": {
             "edit": "Modifier le profil"
@@ -243,7 +243,7 @@
         "workManaged": "Travaux gérés",
         "evaluation": "Évaluation",
         "overallScore": "Score global",
-        "titles": "Toutes les demandes de nettoyeurs"
+        "titles": "Toutes les demandes de nettoyage"
     },
     "about_us": {
         "title": "À propos de nous",
@@ -311,6 +311,7 @@
         "general": "Général",
         "bedroom": "Chambre",
         "bathroom": "Salle de bain",
+        "estimated_cleaning_time": "Durée estimée du nettoyage",
         "kitchen": "Cuisine",
         "view_map": "Voir la carte",
         "apply": "Appliquer",
@@ -469,7 +470,7 @@
         "transactionsToCome": "Transaction à venir",
         "transactionsEffected": "Transaction effectuée",
         "showAllTransactions": "Afficher toutes les transactions effectuées",
-        "consultReports": "Consulter tous les rapports"
+        "consultReports": "Mes revenus"
     },
     "chart": {
         "Ja": "Janv",
@@ -503,6 +504,7 @@
         "send_message": "Envoyer un message",
         "call": "Appeler",
         "apply": "Appliquer",
+        "complete":"Terminez le travail",
         "currency": "€",
         "checklist": "Liste de contrôle",
         "report_problem": "Signaler un problème",
@@ -521,7 +523,10 @@
         "label": "Que pensez-vous de ce service ?",
         "placeholder": "Tapez....",
         "skip": "Passer",
-        "submit": "Soumettre"
+        "submit": "Soumettre",
+        "thankYou": "Attention !",
+        "successMsg": "Votre avis a été envoyé avec succès. Cela nous aide à améliorer la qualité du service et à maintenir des normes élevées.",
+        "goToHome": "Aller à l'accueil"
     },
     "reportProblem": {
         "title": "Signaler un problème",
@@ -708,7 +713,8 @@
         "somethingWrong": "Une erreur s'est produite",
         "searchLocation": "Rechercher un lieu",
         "delete": "Supprimer",
-        "done": "Terminé"
+        "done": "Terminé",
+        "validate": "Valider"
     },
     "addProperty": {
         "title": "Titre du bien",
@@ -737,5 +743,18 @@
     },
     "message": {
         "all": "Tous les messages"
+    },
+    "archive_cleaning": {
+        "beds": "{{count}} Lits",
+        "bedrooms": "{{count}} Chambres",
+        "bathrooms": "{{count}} Salles de bain",
+        "laundry": "Blanchisserie",
+        "included": "Inclus",
+        "not_included": "Non",
+        "price_symbol": "€"
+    },
+    "modal": {
+        "successTitle": "Mot de passe modifié !",
+        "successDescription": "Votre mot de passe a été mis à jour avec succès. Veuillez utiliser votre nouveau mot de passe pour vos prochaines connexions."
     }
 }

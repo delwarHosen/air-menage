@@ -101,19 +101,23 @@ export default function LeaveReviewPageView({ cleanerRequest }) {
             <TouchableOpacity
                 onPress={() => router.push("/cleaner/report-problem")}
                 style={styles.infoRowkey}>
+
                 <Image
                     source={IMAGE_COMPONENTS.warniongImage}
-                    style={{ height: 40, width: 40 }}
+                    style={{ height: 40, width: 40, marginRight: 10 }} // Added margin for spacing
                 />
-                <View>
-                    <Body1>
+
+               
+                <View style={styles.textContainer}>
+                    <Body1 numberOfLines={1}>
                         {t('allJobs.report_problem')}
                     </Body1>
 
-                    <Caption>
+                    <Caption style={styles.wrapText}>
                         {t('allJobs.extra_fee_requested')}
                     </Caption>
                 </View>
+
                 <ForwarArrowIcon />
             </TouchableOpacity>
 
@@ -133,7 +137,7 @@ export default function LeaveReviewPageView({ cleanerRequest }) {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1 },
+    container: { flex: 1, paddingHorizontal: "1%" },
     mainImage: { width: "100%", height: 234, borderRadius: 12, marginBottom: 12 },
     body2: { fontSize: 14, color: "#5E5E5E" },
     propertyType: { marginVertical: 12 },
@@ -153,13 +157,25 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        height: 56,
+        minHeight: 56, 
         borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
         backgroundColor: "#FFFFFF",
         borderRadius: 10,
         paddingHorizontal: 12,
+        paddingVertical: 8, 
         marginTop: 10,
+    },
+
+    textContainer: {
+        flex: 1, 
+        marginHorizontal: 10, 
+        justifyContent: 'center',
+    },
+
+    wrapText: {
+        flexWrap: 'wrap', 
+        textAlign: 'left',
     },
 
     infoText: { fontSize: 14, color: "#5E5E5E" },

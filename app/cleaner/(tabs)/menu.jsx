@@ -152,7 +152,7 @@ export default function Menu() {
                     {/* Logout */}
                     <TouchableOpacity
                         style={styles.submitButton}
-                        onPress={() => router.push("/host/home")}
+                        onPress={() => router.push("/cleaner/home")}
                     >
                         <ButtonText style={styles.buttonText}>
                             {t("menu.actions.logout")}
@@ -183,7 +183,7 @@ const MenuItem = ({ icon, label, onPress }) => (
 const styles = StyleSheet.create({
 
     scrollContainer: {
-        paddingHorizontal: "2.5%",
+        paddingHorizontal: "5%",
         paddingBottom: 20
     },
     profileSection: {

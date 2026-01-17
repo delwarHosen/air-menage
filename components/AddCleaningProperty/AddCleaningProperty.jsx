@@ -165,10 +165,11 @@ export default function AddCleaningProperty() {
                     <Controller
                         control={control}
                         name="propertyType"
-                        render={({ field }) => (
+                        defaultValue="Apartment"   
+                        render={({ field: { value, onChange } }) => (
                             <PropertyTypePicker
-                                value={field.value}
-                                onChange={field.onChange}
+                                value={value}
+                                onChange={(val) => onChange(val)} 
                             />
                         )}
                     />

@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
-    Dimensions,
     KeyboardAvoidingView,
+    Modal,
     Platform,
     ScrollView,
     StyleSheet,
@@ -15,20 +15,28 @@ import {
 } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../assets/Colors";
+import { BigVerifyIcon } from "../../assets/icons/Icons";
 import Heading from "../../components/Heading/Heading";
-import { Body2, ButtonText } from "../../components/typo/typography";
+import { Body2, ButtonText, H5 } from "../../components/typo/typography";
 import { FORM_FIELDS } from "../../constants/form";
-
-const { width } = Dimensions.get('window');
 
 export default function ChangePassword() {
     const router = useRouter();
     const { t } = useTranslation();
 
+    const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
     const [showPassword, setShowPassword] = useState({
         current: false,
         new: false,
         confirm: false
+    });
+
+    const { control, handleSubmit, formState: { isSubmitting } } = useForm({
+        defaultValues: {
+            [FORM_FIELDS.CURRENT_PASSWORD]: "",
+            [FORM_FIELDS.PASSWORD]: "",
+            [FORM_FIELDS.CONFIRM_PASSWORD]: "",
+        }
     });
 
     const passwordFields = [
@@ -55,25 +63,17 @@ export default function ChangePassword() {
         }
     ];
 
-    const { control, handleSubmit, formState: { isSubmitting } } = useForm({
-        defaultValues: {
-            [FORM_FIELDS.CURRENT_PASSWORD]: "",
-            [FORM_FIELDS.PASSWORD]: "",
-            [FORM_FIELDS.CONFIRM_PASSWORD]: "",
-        }
-    });
-
     const toggleVisibility = (key) => {
         setShowPassword(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
     const onSubmit = (data) => {
         console.log("Form Data:", data);
-        router.replace("/cleaner/menu");
+        setIsSuccessModalVisible(true);
     };
 
-    const renderItem = ({ item }) => (
-        <View style={styles.inputWrapper}>
+    const renderItem = (item) => (
+        <View key={item.id} style={styles.inputWrapper}>
             <Body2 style={styles.labelOutside}>{item.label}</Body2>
             <View style={styles.inputCard}>
                 <Controller
@@ -102,7 +102,7 @@ export default function ChangePassword() {
     );
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF' }} edges={['top']}>
+        <SafeAreaView style={styles.safeArea}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
@@ -112,30 +112,21 @@ export default function ChangePassword() {
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps="handled"
                 >
-                    <View style={{ width: '100%' }}>
-                        <View style={{ marginHorizontal: 20 }}>
-                            <Heading title={t("change_password.title")} />
-                        </View>
+                    <View style={styles.mainContent}>
+                        <Heading title={t("change_password.title")} />
 
-                        <View style={styles.headerContainer}>
-                            <View style={styles.iconSection}>
-                                <View style={styles.lockCircle}>
-                                    <Ionicons
-                                        name="lock-closed"
-                                        size={40}
-                                        color={Colors.PRIMARY}
-                                    />
-                                </View>
+                        <View style={styles.iconSection}>
+                            <View style={styles.lockCircle}>
+                                <Ionicons name="lock-closed" size={40} color={Colors.PRIMARY} />
                             </View>
                         </View>
-                    </View>
 
-                    {passwordFields.map(item => renderItem({ item }))}
+                        {passwordFields.map(item => renderItem(item))}
 
-                    <View style={styles.footerContainer}>
                         <TouchableOpacity
                             onPress={handleSubmit(onSubmit)}
                             style={styles.submitButton}
+                            activeOpacity={0.8}
                         >
                             <ButtonText style={styles.buttonText}>
                                 {isSubmitting
@@ -146,22 +137,59 @@ export default function ChangePassword() {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
+
+            {/* Bottom Sheet Success Modal */}
+            <Modal
+                transparent={true}
+                visible={isSuccessModalVisible}
+                animationType="slide"
+                onRequestClose={() => setIsSuccessModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.bottomSheet}>
+                        <View style={styles.handleBar} />
+                        
+                        <View style={styles.successIconCircle}>
+                            <BigVerifyIcon/>
+                        </View>
+
+                        <H5 style={{ marginBottom: 10 }}>{t("modal.successTitle")}</H5>
+                        <Body2 style={{ textAlign: 'center', color: '#7E8792', marginBottom: 30 }}>
+                            {t("modal.successDescription")}
+                        </Body2>
+
+                        <TouchableOpacity
+                            style={styles.modalButton}
+                            onPress={() => {
+                                setIsSuccessModalVisible(false);
+                                router.replace("/cleaner/menu");
+                            }}
+                        >
+                            <ButtonText style={{ color: '#FFF' }}>{t("common.validate")}</ButtonText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#FFF'
+    },
     scrollContainer: {
-        paddingBottom: 40,
-        alignItems: 'center',
         flexGrow: 1,
     },
-    headerContainer: {
-        width: '100%',
-        alignItems: 'center',
+    mainContent: {
+        flex: 1,
+        paddingHorizontal: "5%", 
+        paddingBottom: 40,
     },
     iconSection: {
-        marginVertical: 30
+        marginVertical: 30,
+        alignItems: 'center'
     },
     lockCircle: {
         width: 80,
@@ -172,7 +200,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     inputWrapper: {
-        width: width * 0.92,
+        width: "100%",
         marginBottom: 20,
     },
     labelOutside: {
@@ -190,21 +218,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         paddingHorizontal: 15,
         alignItems: "center",
-        width: '100%',
     },
     textInput: {
         flex: 1,
         fontSize: 14,
         color: "#0F243E"
     },
-    footerContainer: {
-        width: '100%',
-        alignItems: 'center',
-        paddingBottom: 20,
-        marginTop: 10,
-    },
     submitButton: {
-        width: width * 0.92,
+        width: "100%",
         backgroundColor: Colors.PRIMARY,
         paddingVertical: 14,
         borderRadius: 12,
@@ -214,5 +235,35 @@ const styles = StyleSheet.create({
     buttonText: {
         color: "#FFF",
         fontWeight: "600"
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'flex-end',
+    },
+    bottomSheet: {
+        backgroundColor: '#FFF',
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        padding: 25,
+        alignItems: 'center',
+        paddingBottom: 40,
+    },
+    handleBar: {
+        width: 40,
+        height: 5,
+        backgroundColor: '#E2E8F0',
+        borderRadius: 10,
+        marginBottom: 20,
+    },
+    successIconCircle: {
+        marginBottom: 20,
+    },
+    modalButton: {
+        width: '100%',
+        backgroundColor: Colors.PRIMARY,
+        paddingVertical: 15,
+        borderRadius: 12,
+        alignItems: 'center',
     },
 });

@@ -75,7 +75,9 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAFAFA' },
+  container: { flex: 1, backgroundColor: '#FAFAFA',
+    paddingHorizontal:'2%'
+   },
   SearchOption: {
     flexDirection: 'row',
     alignItems: 'center',

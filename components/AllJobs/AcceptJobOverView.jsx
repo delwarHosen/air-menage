@@ -115,7 +115,7 @@ export default function AcceptJobOverView({ cleanerRequest }) {
 
 
                 <TouchableOpacity style={styles.validateButton}>
-                    <ButtonText style={{ textAlign: "center", color: "white" }}>{t("allJobs.apply")}</ButtonText>
+                    <ButtonText style={{ textAlign: "center", color: "white" }}>{t("allJobs.complete")}</ButtonText>
                 </TouchableOpacity>
             </View>
 

@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -135,10 +136,16 @@ export default function CleaningTask({
 
                 <View style={styles.bottomRow}>
                     <View style={styles.propertiContent}>
-                        <Image
-                            source={{ uri: item.cleanerImage }}
-                            style={styles.cleanerImage}
-                        />
+                        <LinearGradient
+                            colors={['#FAFF0A', '#FEAD4E', '#ED1B1B', '#FB1274', '#A61D5F', '#F109DA']}
+                            style={styles.gradientBorder}
+                        >
+                            <Image
+                                source={{ uri: item.cleanerImage }}
+                                style={styles.cleanerImage}
+                            />
+                        </LinearGradient>
+
                         <View>
                             <H6 style={{ color: Colors.SECONDARY }}>
                                 {item.cleanerName}
@@ -246,6 +253,13 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginHorizontal: 10
+    },
+    gradientBorder: {
+        height: 40,
+        width: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     cleanerImage: {
         width: 36,

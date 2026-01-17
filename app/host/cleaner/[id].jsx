@@ -12,7 +12,7 @@ import {
 
 import { Colors } from "../../../assets/Colors";
 import Heading from "../../../components/Heading/Heading";
-import { Body1, Body2 } from "../../../components/typo/typography";
+import { Body1, Body2, H5 } from "../../../components/typo/typography";
 import { cleaners } from "../../../store/Cleaners";
 import CleanerDetails from "./CleanerDetails";
 
@@ -53,17 +53,24 @@ export default function Cleaner() {
         ))}
       </View>
 
-      {/* See All Button এখানে Header এর শেষে */}
-      {cleaner?.reviews && cleaner.reviews.length > 3 && (
-        <View style={styles.seeAllContainer}>
-          <TouchableOpacity
-            style={styles.seeAllButton}
-            onPress={() => router.push("/host/all-reviews")}
-          >
-            <Body2 style={styles.seeAllText}>{t("cleaner_details.seeMore")}</Body2>
-          </TouchableOpacity>
+
+      <View style={styles.reviewsContainer}>
+        <View>
+          <H5>Rviews</H5>
         </View>
-      )}
+        {cleaner?.reviews && cleaner.reviews.length > 3 && (
+          <View style={styles.seeAllContainer}>
+            <TouchableOpacity
+              style={styles.seeAllButton}
+              onPress={() => router.push("/host/all-reviews")}
+            >
+              <Body2 style={styles.seeAllText}>{t("cleaner_details.seeMore")}</Body2>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+
+
     </View>
   );
 
@@ -187,19 +194,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     lineHeight: 18,
   },
+  reviewsContainer: {
+    flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: "3%", marginBottom: -10, marginTop: 50
+  },
   seeAllContainer: {
     alignItems: 'flex-start',
-    marginTop: 20,
-    marginBottom: 10,
+
   },
   seeAllButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 32,
     borderRadius: 8,
   },
   seeAllText: {
     color: Colors.PRIMARY,
-    textDecorationLine:"underline",
+    textDecorationLine: "underline",
     fontSize: 14,
     fontWeight: '600',
   },

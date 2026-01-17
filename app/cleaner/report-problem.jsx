@@ -1,10 +1,12 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Platform, ScrollView, StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native';
 import Heading from '../../components/Heading/Heading';
 import { Caption, H5 } from '../../components/typo/typography';
 import { FormInput } from '../../components/ui/FormInput';
+import { ImageUpload } from '../../components/ui/ImageUpload';
 import { FORM_FIELDS } from '../../constants/form';
 
 export default function ReportProblemScreen() {
@@ -32,6 +34,8 @@ export default function ReportProblemScreen() {
 
             console.log("Submitted Data:", payload);
 
+            router.push("/cleaner/home")
+
         } catch (err) {
             if (Platform.OS === 'android') {
                 ToastAndroid.show(t("common.somethingWrong"), ToastAndroid.SHORT);
@@ -43,63 +47,80 @@ export default function ReportProblemScreen() {
 
     return (
         <View style={styles.container}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{ flex: 1 }}
+            >
+                <View style={styles.header}>
+                    <Heading title={t("reportProblem.title")} />
+                </View>
+
+                <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+                    {/* Type of problem */}
+                    <View style={styles.inputContainer}>
+
+                        <Controller
+                            control={control}
+                            name={FORM_FIELDS.REPORT_TITLE}
+                            render={({ field }) => (
+                                <FormInput
+                                    label={t("reportProblem.reportTitleLabel")}
+                                    value={field.value}
+                                    onChangeText={field.onChange}
+                                    placeholder={t("reportProblem.reportTitlePlaceholder")}
+                                    required
+
+                                />
+                            )}
+                        />
+                    </View>
+
+                    {/* Reason */}
+                    <View >
+                        <Controller
+                            control={control}
+
+                            name={FORM_FIELDS.REPORT_REASON}
+                            render={({ field }) => (
+                                <FormInput
+                                    label={t("reportProblem.reportReasonLabel")}
+                                    value={field.value}
+                                    onChangeText={field.onChange}
+                                    placeholder={t("reportProblem.reportReasonPlaceholder")}
+                                    required
+                                    multiline
+                                    style={{ height: 96 }}
+                                />
+                            )}
+                        />
+                    </View>
+
+                    {/* Add Photos */}
+                    <H5 style={styles.label}>{t("reportProblem.addPhotos")}</H5>
+
+                    <Controller
+                        control={control}
+                        name={FORM_FIELDS.PROPERTY_IMAGE}
+                        render={({ field }) => (
+                            <ImageUpload
+                                label={t("addProperty.image")}
+                                image={field.value}
+                                onImageSelect={field.onChange}
+                                shape="square"
+                            />
+                        )}
+                    />
+                </ScrollView>
+
+                {/* Send Request Button */}
+                <View style={styles.footer}>
+                    <TouchableOpacity style={styles.sendBtn} onPress={handleSubmit(onSubmit)}>
+                        <Caption style={styles.sendBtnText}>{t("reportProblem.sendRequest")}</Caption>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAvoidingView>
             {/* Header */}
-            <View style={styles.header}>
-                <Heading title={t("reportProblem.title")} />
-            </View>
 
-            <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-                {/* Type of problem */}
-                <View style={styles.inputContainer}>
-                    <Controller
-                        control={control}
-                        name={FORM_FIELDS.REPORT_TITLE}
-                        render={({ field }) => (
-                            <FormInput
-                                label={t("reportProblem.reportTitleLabel")}
-                                value={field.value}
-                                onChangeText={field.onChange}
-                                placeholder={t("reportProblem.reportTitlePlaceholder")}
-                                required
-
-                            />
-                        )}
-                    />
-                </View>
-
-                {/* Reason */}
-                <View >
-                    <Controller
-                        control={control}
-                        
-                        name={FORM_FIELDS.REPORT_REASON}
-                        render={({ field }) => (
-                            <FormInput
-                                label={t("reportProblem.reportReasonLabel")}
-                                value={field.value}
-                                onChangeText={field.onChange}
-                                placeholder={t("reportProblem.reportReasonPlaceholder")}
-                                required
-                                multiline
-                                style={{ height: 96 }}
-                            />
-                        )}
-                    />
-                </View>
-
-                {/* Add Photos */}
-                <H5 style={styles.label}>{t("reportProblem.addPhotos")}</H5>
-                <TouchableOpacity style={styles.imageUpload}>
-                    <Caption style={styles.imageText}>{t("reportProblem.imageUpload")}</Caption>
-                </TouchableOpacity>
-            </ScrollView>
-
-            {/* Send Request Button */}
-            <View style={styles.footer}>
-                <TouchableOpacity style={styles.sendBtn} onPress={handleSubmit(onSubmit)}>
-                    <Caption style={styles.sendBtnText}>{t("reportProblem.sendRequest")}</Caption>
-                </TouchableOpacity>
-            </View>
         </View>
     );
 }

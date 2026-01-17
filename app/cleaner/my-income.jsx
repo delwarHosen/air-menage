@@ -47,11 +47,11 @@ export default function MyIncome() {
             stickyHeaderIndices={[0]}
         >
             {/* Header Section */}
-            <View style={{ backgroundColor: "#FAFAFA", paddingHorizontal: 15, paddingBottom: 10 }}>
+            <View style={{ backgroundColor: "#FAFAFA", paddingBottom: 10 }}>
                 <Heading title={t("income.Revenue")} />
             </View>
 
-            <View style={{ marginHorizontal: 15 }}>
+            <View>
                 <View style={styles.headerRow}>
                     <H3 style={styles.mainHeading}>{t("income.Revenue")}</H3>
                     <H3 style={styles.mainHeading}>{t("income.thisMonth")}</H3>
@@ -75,7 +75,7 @@ export default function MyIncome() {
                                         styles.barBase,
                                         {
                                             height: `${item.value}%`,
-                                            backgroundColor: '#2DBEFF',
+                                            backgroundColor: Colors.PRIMARY,
                                             position: 'absolute',
                                             bottom: 0
                                         }
@@ -122,7 +122,8 @@ export default function MyIncome() {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        backgroundColor: "#FAFAFA"
+        backgroundColor: "#FAFAFA",
+        paddingHorizontal:"5%"
     },
     headerRow: {
         marginBottom: 20,

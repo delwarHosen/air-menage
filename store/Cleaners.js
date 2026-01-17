@@ -1,3 +1,4 @@
+// cleaners.js
 export const cleaners = [
   {
     id: 1,
@@ -56,7 +57,6 @@ export const cleaners = [
       },
     ],
   },
-
   {
     id: 2,
     profileImg: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -114,7 +114,6 @@ export const cleaners = [
       },
     ],
   },
-
   {
     id: 3,
     profileImg: "https://randomuser.me/api/portraits/women/68.jpg",
@@ -172,7 +171,6 @@ export const cleaners = [
       },
     ],
   },
-
   {
     id: 4,
     profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
@@ -230,120 +228,462 @@ export const cleaners = [
       },
     ],
   },
-
   {
     id: 5,
-    profileImg: "https://randomuser.me/api/portraits/women/22.jpg",
-    name: "Mia Anderson",
-    email: "mia.anderson@example.com",
-    workManage: 28,
-    evaluation: 4.9,
-    overallScore: 9.7,
-    location: { city: "Stockholm", country: "Sweden" },
-    workType: [{ type: "Eco-Friendly Cleaning" }, { type: "Home Cleaning" }],
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
     serviceDescription: [
-      { details: "Eco-friendly cleaning with safe products." },
-      { details: "Careful cleaning of furniture and floors." },
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
     ],
     reviews: [
       {
-        customer: "Elin J.",
+        customer: "Daniel M.",
         comment:
-          "Mia used eco-friendly products and achieved amazing results. The house felt fresh and clean, and every surface looked perfect. Her friendly behavior was impressive.",
-        rating: 5,
-        date: "2025-12-04",
-        image: "https://randomuser.me/api/portraits/women/30.jpg",
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
       },
       {
-        customer: "Oscar N.",
+        customer: "Sophia L.",
         comment:
-          "Very careful and knowledgeable cleaner. Mia explained her process clearly and handled everything gently. I am extremely satisfied with her service.",
-        rating: 4.9,
-        date: "2025-11-29",
-        image: "https://randomuser.me/api/portraits/men/45.jpg",
-      },
-      {
-        customer: "Lina S.",
-        comment:
-          "Mia’s eco-friendly approach made me feel safe and comfortable. She cleaned thoroughly and respected all my preferences.",
-        rating: 5,
-        date: "2025-11-21",
-        image: "https://randomuser.me/api/portraits/women/36.jpg",
-      },
-      {
-        customer: "Jonas P.",
-        comment:
-          "Excellent service with attention to detail. Mia was punctual, polite, and very professional throughout the cleaning session.",
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
         rating: 4.8,
-        date: "2025-11-14",
-        image: "https://randomuser.me/api/portraits/men/39.jpg",
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
       },
       {
-        customer: "Sara K.",
+        customer: "Jack R.",
         comment:
-          "Highly recommended cleaner. Mia left my home spotless and fresh while using safe and natural products.",
-        rating: 5,
-        date: "2025-11-08",
-        image: "https://randomuser.me/api/portraits/women/42.jpg",
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
+        rating: 4.6,
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
+      },
+      {
+        customer: "Isabella K.",
+        comment:
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      {
+        customer: "Ethan P.",
+        comment:
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
+      },
+    ],
+  },
+  {
+    id: 6,
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
+    serviceDescription: [
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
+    ],
+    reviews: [
+      {
+        customer: "Daniel M.",
+        comment:
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
+      },
+      {
+        customer: "Sophia L.",
+        comment:
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
+        rating: 4.8,
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
+      },
+      {
+        customer: "Jack R.",
+        comment:
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
+        rating: 4.6,
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
+      },
+      {
+        customer: "Isabella K.",
+        comment:
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      {
+        customer: "Ethan P.",
+        comment:
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
+      },
+    ],
+  },
+  {
+    id: 7,
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
+    serviceDescription: [
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
+    ],
+    reviews: [
+      {
+        customer: "Daniel M.",
+        comment:
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
+      },
+      {
+        customer: "Sophia L.",
+        comment:
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
+        rating: 4.8,
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
+      },
+      {
+        customer: "Jack R.",
+        comment:
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
+        rating: 4.6,
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
+      },
+      {
+        customer: "Isabella K.",
+        comment:
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      {
+        customer: "Ethan P.",
+        comment:
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
       },
     ],
   },
 
-  {
-    id: 6,
-    profileImg: "https://randomuser.me/api/portraits/men/18.jpg",
-    name: "Ethan Brown",
-    email: "ethan.brown@example.com",
-    workManage: 45,
-    evaluation: 4.5,
-    overallScore: 8.9,
-    location: { city: "Berlin", country: "Germany" },
-    workType: [{ type: "Office Cleaning" }, { type: "Move-in/Move-out" }],
+   {
+    id: 8,
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
     serviceDescription: [
-      { details: "Complete office and commercial space cleaning." },
-      { details: "Move-in and move-out cleaning services." },
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
     ],
     reviews: [
       {
-        customer: "Lucas F.",
+        customer: "Daniel M.",
         comment:
-          "Ethan cleaned our office very efficiently and professionally. He organized everything properly and completed the work within the promised time.",
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
+      },
+      {
+        customer: "Sophia L.",
+        comment:
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
+        rating: 4.8,
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
+      },
+      {
+        customer: "Jack R.",
+        comment:
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
         rating: 4.6,
-        date: "2025-12-01",
-        image: "https://randomuser.me/api/portraits/men/60.jpg",
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
       },
       {
-        customer: "Hannah R.",
+        customer: "Isabella K.",
         comment:
-          "I hired Ethan for move-out cleaning, and he did a great job. He removed stains and cleaned appliances thoroughly.",
-        rating: 4.5,
-        date: "2025-11-26",
-        image: "https://randomuser.me/api/portraits/women/42.jpg",
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
       },
       {
-        customer: "Martin K.",
+        customer: "Ethan P.",
         comment:
-          "Reliable and hardworking cleaner. Ethan followed all instructions carefully and delivered excellent results.",
-        rating: 4.4,
-        date: "2025-11-19",
-        image: "https://randomuser.me/api/portraits/men/48.jpg",
-      },
-      {
-        customer: "Julia S.",
-        comment:
-          "Very professional service. Ethan ensured everything was cleaned properly and left the apartment ready for inspection.",
-        rating: 4.6,
-        date: "2025-11-13",
-        image: "https://randomuser.me/api/portraits/women/37.jpg",
-      },
-      {
-        customer: "Robert D.",
-        comment:
-          "Efficient and respectful cleaner. Ethan completed the job on time and maintained high quality throughout.",
-        rating: 4.5,
-        date: "2025-11-07",
-        image: "https://randomuser.me/api/portraits/men/42.jpg",
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
       },
     ],
   },
+   {
+    id: 9,
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
+    serviceDescription: [
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
+    ],
+    reviews: [
+      {
+        customer: "Daniel M.",
+        comment:
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
+      },
+      {
+        customer: "Sophia L.",
+        comment:
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
+        rating: 4.8,
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
+      },
+      {
+        customer: "Jack R.",
+        comment:
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
+        rating: 4.6,
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
+      },
+      {
+        customer: "Isabella K.",
+        comment:
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      {
+        customer: "Ethan P.",
+        comment:
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
+      },
+    ],
+  },
+   {
+    id: 10,
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
+    serviceDescription: [
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
+    ],
+    reviews: [
+      {
+        customer: "Daniel M.",
+        comment:
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
+      },
+      {
+        customer: "Sophia L.",
+        comment:
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
+        rating: 4.8,
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
+      },
+      {
+        customer: "Jack R.",
+        comment:
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
+        rating: 4.6,
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
+      },
+      {
+        customer: "Isabella K.",
+        comment:
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      {
+        customer: "Ethan P.",
+        comment:
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
+      },
+    ],
+  },
+   {
+    id: 11,
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
+    serviceDescription: [
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
+    ],
+    reviews: [
+      {
+        customer: "Daniel M.",
+        comment:
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
+      },
+      {
+        customer: "Sophia L.",
+        comment:
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
+        rating: 4.8,
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
+      },
+      {
+        customer: "Jack R.",
+        comment:
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
+        rating: 4.6,
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
+      },
+      {
+        customer: "Isabella K.",
+        comment:
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      {
+        customer: "Ethan P.",
+        comment:
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
+      },
+    ],
+  },
+   {
+    id: 12,
+    profileImg: "https://randomuser.me/api/portraits/men/55.jpg",
+    name: "Noah Williams",
+    email: "noah.williams@example.com",
+    workManage: 35,
+    evaluation: 4.7,
+    overallScore: 9.3,
+    location: { city: "Sydney", country: "Australia" },
+    workType: [{ type: "Home Cleaning" }, { type: "Deep Cleaning" }],
+    serviceDescription: [
+      { details: "Detailed cleaning of living rooms and bedrooms." },
+      { details: "Removing stains and dust from all surfaces." },
+    ],
+    reviews: [
+      {
+        customer: "Daniel M.",
+        comment:
+          "Noah cleaned my apartment very thoroughly and professionally. He arrived on time and focused on every corner of the house. The bathroom and kitchen were sparkling clean.",
+        rating: 4.7,
+        date: "2025-12-02",
+        image: "https://randomuser.me/api/portraits/men/52.jpg",
+      },
+      {
+        customer: "Sophia L.",
+        comment:
+          "Very friendly and hardworking cleaner. Noah organized everything neatly and made sure I was satisfied before leaving. His dedication really impressed me.",
+        rating: 4.8,
+        date: "2025-11-25",
+        image: "https://randomuser.me/api/portraits/women/48.jpg",
+      },
+      {
+        customer: "Jack R.",
+        comment:
+          "Noah provided excellent deep cleaning service. He removed stains and dust effectively and left the home feeling fresh and comfortable.",
+        rating: 4.6,
+        date: "2025-11-18",
+        image: "https://randomuser.me/api/portraits/men/50.jpg",
+      },
+      {
+        customer: "Isabella K.",
+        comment:
+          "Professional and polite cleaner. Noah listened carefully to my instructions and delivered exactly what I expected. Very satisfied with his work.",
+        rating: 4.7,
+        date: "2025-11-12",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      {
+        customer: "Ethan P.",
+        comment:
+          "Great attention to detail and very reliable service. Noah made sure every room was cleaned properly before finishing.",
+        rating: 4.8,
+        date: "2025-11-06",
+        image: "https://randomuser.me/api/portraits/men/41.jpg",
+      },
+    ],
+  },
+  // …continue in same format for id 5 → 17
 ];

@@ -5,7 +5,6 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
     FlatList,
-    Image,
     KeyboardAvoidingView,
     Modal,
     Platform,
@@ -18,6 +17,8 @@ import {
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
+import { ImageUpload } from "../../components/ui/ImageUpload";
+import { IMAGE_CONSTANTS } from "../../constants/image.index";
 
 export default function PersonalEditInfo() {
     const router = useRouter();
@@ -37,7 +38,9 @@ export default function PersonalEditInfo() {
     });
 
     useEffect(() => {
-        reset(params);
+        if (params && Object.keys(params).length > 0) {
+            reset(params);
+        }
     }, []);
 
     const onFormSubmit = (data) => {
@@ -54,8 +57,8 @@ export default function PersonalEditInfo() {
                 name={item}
                 render={({ field: { onChange, value } }) => (
                     item === "gender" ? (
-                        <TouchableOpacity 
-                            style={styles.inputCard} 
+                        <TouchableOpacity
+                            style={styles.inputCard}
                             onPress={() => setGenderModalVisible(true)}
                             activeOpacity={0.7}
                         >
@@ -72,13 +75,24 @@ export default function PersonalEditInfo() {
                                 onChangeText={onChange}
                                 placeholder={t(`edit_personal_info.placeholders.${item}`)}
                                 keyboardType={item === "age" || item === "phone" ? "numeric" : "default"}
+                                placeholderTextColor="#9CA3AF"
                             />
                         </View>
                     )
                 )}
             />
 
-            {/* --- Centered Gender Selection Modal --- */}
+            {/* --- Verification Button specific to SIRET Number --- */}
+            {item === "verification_Your_SIRET_Number" && (
+                <TouchableOpacity 
+                    style={styles.verifyButton}
+                    onPress={() => router.push("/identity-verification/identity-verification-banner1")}
+                >
+                    <ButtonText style={styles.verifyButtonText}>Verify Now</ButtonText>
+                </TouchableOpacity>
+            )}
+
+            {/* --- Gender Modal --- */}
             {item === "gender" && (
                 <Modal
                     visible={isGenderModalVisible}
@@ -89,9 +103,8 @@ export default function PersonalEditInfo() {
                     <Pressable style={styles.centerOverlay} onPress={() => setGenderModalVisible(false)}>
                         <View style={styles.centerPopup}>
                             <Body2 style={styles.modalTitleCenter}>Select Gender</Body2>
-                            
                             {["Male", "Female", "Other"].map((option) => (
-                                <TouchableOpacity 
+                                <TouchableOpacity
                                     key={option}
                                     style={styles.optionItem}
                                     onPress={() => {
@@ -100,7 +113,7 @@ export default function PersonalEditInfo() {
                                     }}
                                 >
                                     <Body2 style={[
-                                        styles.optionText, 
+                                        styles.optionText,
                                         watch("gender") === option && { color: Colors.PRIMARY, fontWeight: '700' }
                                     ]}>
                                         {option}
@@ -118,30 +131,35 @@ export default function PersonalEditInfo() {
     );
 
     return (
-        <View style={{ flex: 1, backgroundColor: "#FAFAFA" }}>
+        <View style={styles.mainContainer}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
             >
-                <View style={{ marginHorizontal: 20 }}>
-                    <Heading title={t("edit_personal_info.title")} />
-                </View>
-
                 <FlatList
                     data={FIELD_KEYS}
                     keyExtractor={item => item}
-                    style={{ width: '100%' }}
                     renderItem={renderItem}
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
                     ListHeaderComponent={() => (
-                        <View style={styles.headerContainer}>
+                        <View style={styles.headerSection}>
+                            <Heading title={t("edit_personal_info.title")} />
                             <View style={styles.imageContainer}>
                                 <View style={styles.imageWrapper}>
-                                    <Image
-                                        source={{ uri: 'https://avatar.iran.liara.run/public/30' }}
-                                        style={styles.profileImage}
-                                        resizeMode="cover"
+                                    <Controller
+                                        control={control}
+                                        name="profileImage"
+                                        render={({ field: { onChange, value } }) => (
+                                            <ImageUpload
+                                                image={value}
+                                                onImageSelect={onChange}
+                                                shape="circle"
+                                                showIcon={false}
+                                                centered={true}
+                                                defaultImage={IMAGE_CONSTANTS.profile}
+                                            />
+                                        )}
                                     />
                                     <TouchableOpacity style={styles.cameraBadge}>
                                         <Ionicons name="camera" size={16} color="#FFF" />
@@ -154,6 +172,7 @@ export default function PersonalEditInfo() {
                         <TouchableOpacity
                             onPress={handleSubmit(onFormSubmit)}
                             style={styles.submitButton}
+                            activeOpacity={0.8}
                         >
                             <ButtonText style={styles.buttonText}>
                                 {isSubmitting ? t("edit_personal_info.actions.saving") : t("edit_personal_info.actions.saveChanges")}
@@ -167,98 +186,114 @@ export default function PersonalEditInfo() {
 }
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+        backgroundColor: "#FAFAFA",
+        paddingHorizontal: "5%",
+    },
     scrollContainer: {
         paddingBottom: 40,
-        width: '100%',
-        backgroundColor: "#FAFAFA"
     },
-    headerContainer: { width: '100%', alignItems: 'center' },
+    headerSection: {
+        width: '100%',
+        marginTop: 10,
+    },
     imageContainer: {
-        marginVertical: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginVertical: 25,
+        alignItems: 'center',
     },
     imageWrapper: {
+        width: 100,
+        height: 100,
+        alignItems: "center",
+        justifyContent: 'center',
         position: 'relative',
-        width: 100,
-        height: 100,
-    },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: '#E1E1E1'
+        marginBottom: 20
     },
     cameraBadge: {
         position: 'absolute',
         bottom: 0,
         right: 0,
         backgroundColor: Colors.PRIMARY,
-        width: 30,
-        height: 30,
-        borderRadius: 15,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2,
         borderColor: '#FFF',
         elevation: 3,
+        zIndex: 10,
     },
     inputWrapper: {
         width: "100%",
-        marginBottom: 15,
-        paddingHorizontal: 10
+        marginBottom: 16,
     },
     labelOutside: {
-        fontSize: 16,
+        fontSize: 15,
         color: "#0F243E",
-        marginBottom: 6,
-        fontWeight: '600'
+        marginBottom: 8,
+        fontWeight: '600',
     },
     inputCard: {
         height: 55,
-        borderRadius: 8,
+        borderRadius: 10,
         borderWidth: 1,
-        borderColor: "#CACACB",
+        borderColor: "#E5E7EB",
         backgroundColor: "#FFFFFF",
-        paddingHorizontal: 12,
+        paddingHorizontal: 15,
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: 'center',
     },
     textInput: {
         fontSize: 14,
-        color: "#6b7480",
+        color: "#1F2937",
         fontWeight: "500",
-        flex: 1
+        flex: 1,
+    },
+    verifyButton: {
+        backgroundColor: "#3F3F3F",
+        marginTop: 15,
+        width:"60%",
+        paddingVertical: 12,
+        height:50,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    verifyButtonText: {
+        color: "#FFF",
+        fontSize: 14,
+        fontWeight: "600"
     },
     submitButton: {
-        width: "95%",
-        alignSelf: 'center',
+        width: "100%",
         backgroundColor: Colors.PRIMARY,
-        paddingVertical: 14,
+        paddingVertical: 16,
         borderRadius: 12,
         alignItems: "center",
         marginTop: 20,
+        marginBottom: 20,
     },
-    buttonText: { color: "#FFF", fontSize: 16, fontWeight: "600" },
-
-    /* --- Centered Popup Styles --- */
+    buttonText: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "600"
+    },
+    /* --- Modal Styles --- */
     centerOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0,0,0,0.4)',
         justifyContent: 'center',
         alignItems: 'center',
     },
     centerPopup: {
-        width: '75%',
+        width: '80%',
         backgroundColor: '#FFF',
         borderRadius: 16,
         padding: 20,
         elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
     },
     modalTitleCenter: {
         fontSize: 18,
@@ -275,7 +310,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 12,
-        paddingHorizontal: 5,
     },
     optionText: {
         fontSize: 16,

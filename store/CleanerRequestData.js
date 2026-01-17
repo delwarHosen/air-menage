@@ -3,7 +3,7 @@ import { IMAGE_COMPONENTS } from "../assets/image.index";
 export const cleanerDetailsData = [
   {
     id: 1,
-    status: "Validate",
+    status: "Pending",
     date: "Lundi 18th December",
     day: "Monday",
     city: "Berlin",
@@ -380,4 +380,147 @@ export const cleanerDetailsData = [
       max: 70,
     },
   },
+  
+  {
+    id: 9,
+    status: "Pending",
+    date: "Jeudi 4th January",
+    day: "Thursday",
+    city: "Brussels",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description:
+      "Bright city apartment requiring standard and deep cleaning with focus on kitchen and bathroom hygiene.",
+    country: "Belgium",
+    area: "45–100 m²",
+    beds: 2,
+    bedrooms: 2,
+    bathrooms: 1,
+    buildingName: "Grand Place Residence",
+    property_type: "Apartment",
+    lock_system: "Smart Lock",
+    password: "bru-221-lock",
+    timeSlot: "10:00-14:30",
+    duration: "2Hours 30Min",
+    equipmentProvided: true,
+    laundryIncluded: true,
+    cleanerName: "Oliver",
+    price: 62,
+    cleanerImage: "https://i.pravatar.cc/150?img=21",
+
+    workRadius: 12,
+    linenServices: true,
+    propertyDetails: {
+      type: "Apartment",
+      bedrooms: 2,
+      bathrooms: 1,
+      area: "45–100 m²",
+    },
+    priceRange: {
+      min: 55,
+      max: 75,
+    },
+
+    cleaner_request: [
+      { id: 201, profile_img: "https://i.pravatar.cc/150?img=41", name: "Daniel Smith" },
+      { id: 202, profile_img: "https://i.pravatar.cc/150?img=42", name: "Emily Brown" },
+      { id: 203, profile_img: "https://i.pravatar.cc/150?img=43", name: "Michael Johnson" },
+    ],
+  },
+
+  {
+    id: 10,
+    status: "Pending",
+    date: "Samedi 6th January",
+    day: "Saturday",
+    city: "Zurich",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description:
+      "Premium downtown apartment cleaning with window polishing and eco-friendly supplies.",
+    country: "Switzerland",
+    area: "60–130 m²",
+    beds: 3,
+    bedrooms: 3,
+    bathrooms: 2,
+    buildingName: "Lake View Towers",
+    property_type: "Apartment",
+    lock_system: "Keypad",
+    password: "zur-556-key",
+    timeSlot: "09:00-15:00",
+    duration: "3Hours 00Min",
+    equipmentProvided: true,
+    laundryIncluded: true,
+    cleanerName: "Mia",
+    price: 85,
+    cleanerImage: "https://i.pravatar.cc/150?img=33",
+
+    workRadius: 18,
+    linenServices: true,
+    propertyDetails: {
+      type: "Apartment",
+      bedrooms: 3,
+      bathrooms: 2,
+      area: "60–130 m²",
+    },
+    priceRange: {
+      min: 75,
+      max: 100,
+    },
+
+    cleaner_request: [
+      { id: 204, profile_img: "https://i.pravatar.cc/150?img=44", name: "Lucas White" },
+      { id: 205, profile_img: "https://i.pravatar.cc/150?img=45", name: "Sophia Green" },
+    ],
+  },
+
+  {
+    id: 11,
+    status: "Pending",
+    date: "Lundi 8th January",
+    day: "Monday",
+    city: "Budapest",
+    image: IMAGE_COMPONENTS.archiveImage,
+    propertyImage: IMAGE_COMPONENTS.propertyDetailsImage,
+    images: [IMAGE_COMPONENTS.propertyImage],
+    description:
+      "Compact city flat cleaning including dusting, vacuuming and bathroom sanitization.",
+    country: "Hungary",
+    area: "35–85 m²",
+    beds: 1,
+    bedrooms: 1,
+    bathrooms: 1,
+    buildingName: "Danube Heights",
+    property_type: "Studio",
+    lock_system: "Manual Key",
+    password: "bud-778-key",
+    timeSlot: "10:30-13:30",
+    duration: "2Hours 00Min",
+    equipmentProvided: false,
+    laundryIncluded: false,
+    cleanerName: "Anna",
+    price: 42,
+    cleanerImage: "https://i.pravatar.cc/150?img=55",
+
+    workRadius: 7,
+    linenServices: false,
+    propertyDetails: {
+      type: "Studio",
+      bedrooms: 1,
+      bathrooms: 1,
+      area: "35–85 m²",
+    },
+    priceRange: {
+      min: 35,
+      max: 50,
+    },
+
+    cleaner_request: [
+      { id: 206, profile_img: "https://i.pravatar.cc/150?img=46", name: "Peter Novak" },
+      { id: 207, profile_img: "https://i.pravatar.cc/150?img=47", name: "Laura Kiss" },
+    ],
+  }
+
 ];

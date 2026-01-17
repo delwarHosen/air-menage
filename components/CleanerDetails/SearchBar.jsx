@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#F3F4F6",
         borderRadius: 8,
-        paddingHorizontal: 16,
+        paddingHorizontal: "2%",
         height: 48,
         gap: 8,
     },

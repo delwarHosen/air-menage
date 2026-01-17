@@ -1,13 +1,15 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, ToastAndroid, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { CheckMarkIcon } from '../../assets/icons/Icons';
 import Heading from "../../components/Heading/Heading";
 import { Caption, H5 } from '../../components/typo/typography';
+import { ImageUpload } from '../../components/ui/ImageUpload';
+import { FORM_FIELDS } from '../../constants/form';
 
-// Section data (items remain untranslated)
 const CHECKLIST_DATA = [
   { id: '1', title: 'General', items: ["Take out the trash", "Air out the accommodation", "Check for odors (fresh accommodation)", "Ensure lights are turned off", "Ensure doors and windows are closed", "Check that nothing has been left behind by travelers"] },
   { id: '2', title: 'Bedroom(s)', items: ["Make the bed with clean linens", "Change the sheets and pillowcases", "Dust furniture and surfaces", "Vacuum / sweep the floor"] },
@@ -20,12 +22,40 @@ export default function CheckList() {
   const { t } = useTranslation();
   const [checkedItems, setCheckedItems] = useState({});
 
+  // react-hook-form initialization
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      [FORM_FIELDS.PROPERTY_IMAGE]: null,
+    },
+  });
+
   const toggleCheck = (sectionId, itemIndex) => {
     const key = `${sectionId}-${itemIndex}`;
     setCheckedItems(prev => ({
       ...prev,
       [key]: !prev[key]
     }));
+  };
+
+  const onSubmit = (values) => {
+    try {
+      // Checklist validation: ensures at least something is checked (Optional)
+      const selectedCount = Object.values(checkedItems).filter(val => val).length;
+
+      const payload = {
+        completedTasks: checkedItems,
+        image: values[FORM_FIELDS.PROPERTY_IMAGE],
+      };
+
+      console.log("Checklist Submitted:", payload);
+
+      // Navigate to feedback screen
+      router.push("/feedback/feedback");
+    } catch (err) {
+      if (Platform.OS === 'android') {
+        ToastAndroid.show(t("common.somethingWrong"), ToastAndroid.SHORT);
+      }
+    }
   };
 
   const renderSection = ({ item: section }) => (
@@ -36,7 +66,6 @@ export default function CheckList() {
 
       {section.items.map((checkText, index) => {
         const isChecked = !!checkedItems[`${section.id}-${index}`];
-
         return (
           <TouchableOpacity
             key={index}
@@ -50,10 +79,7 @@ export default function CheckList() {
             ]}>
               {isChecked && <CheckMarkIcon size={14} color={Colors.WHITE} />}
             </View>
-
-            <Caption style={styles.itemText}>
-              {checkText}
-            </Caption>
+            <Caption style={styles.itemText}>{checkText}</Caption>
           </TouchableOpacity>
         );
       })}
@@ -62,7 +88,6 @@ export default function CheckList() {
 
   return (
     <View style={styles.mainContainer}>
-      {/* Sticky Heading */}
       <View style={styles.stickyHeader}>
         <Heading title={t("checklist.checklistTitle", "Checklist")} />
       </View>
@@ -75,13 +100,26 @@ export default function CheckList() {
         showsVerticalScrollIndicator={false}
         ListFooterComponent={
           <View style={styles.footer}>
-            <TouchableOpacity style={styles.uploadBox}>
-              <Caption style={{ color: Colors.GRAY }}>Image Upload +</Caption>
-            </TouchableOpacity>
+            <H5 style={styles.uploadLabel}>{t("reportProblem.addPhotos")}</H5>
+
+            <Controller
+              control={control}
+              name={FORM_FIELDS.PROPERTY_IMAGE}
+              render={({ field }) => (
+                <ImageUpload
+                  label={t("addProperty.image")}
+                  image={field.value}
+                  onImageSelect={field.onChange}
+                  shape="square"
+                />
+              )}
+            />
+
             <TouchableOpacity
-              onPress={() => router.push("/cleaner/feedback")}
-              style={styles.submitBtn}>
-              <H5 style={{ color: '#FFF' }}>Submit</H5>
+              onPress={handleSubmit(onSubmit)}
+              style={styles.submitBtn}
+            >
+              <H5 style={{ color: '#FFF' }}>{t("common.submit", "Submit")}</H5>
             </TouchableOpacity>
           </View>
         }
@@ -94,10 +132,9 @@ const styles = StyleSheet.create({
   mainContainer: { flex: 1, backgroundColor: "#FAFAFA" },
   stickyHeader: {
     backgroundColor: "#FAFAFA",
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingTop: 10,
     paddingBottom: 5,
-    zIndex: 0,
   },
   flatListContent: { paddingHorizontal: 20, paddingBottom: 40 },
   section: { marginTop: 25 },
@@ -106,45 +143,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 12,
-    gap: 6,
+    gap: 10,
   },
   checkboxContainer: {
-    width: 16,
-    height: 16,
+    width: 20,
+    height: 20,
     borderRadius: 4,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: Colors.BORDER_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 2,
   },
-  checkboxInactive: {
-    borderColor: Colors.GRAY,
-  },
-  checkboxActive: {},
-  itemText: {
-    color: Colors.TEXT_COLOR,
-    flex: 1,
-    lineHeight: 18,
-  },
+  checkboxInactive: { borderColor: Colors.GRAY },
+  checkboxActive: { backgroundColor: Colors.PRIMARY, borderColor: Colors.PRIMARY },
+  itemText: { color: Colors.TEXT_COLOR, flex: 1, lineHeight: 20, fontSize: 14 },
   footer: { marginTop: 30 },
-  uploadBox: {
-    width: '100%',
-    height: 120,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderStyle: 'dashed',
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
+  uploadLabel: { marginBottom: 10, marginTop: 10 },
   submitBtn: {
     backgroundColor: Colors.PRIMARY,
     height: 55,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 25,
   }
 });
-

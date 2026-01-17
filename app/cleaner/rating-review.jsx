@@ -89,17 +89,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#FFFFFF",
+        paddingHorizontal:"5%"
     },
     headerRow: {
         flexDirection: "row",
         alignItems: "center",
-        paddingHorizontal: "5%",
-        paddingVertical: 10, // padding add kora hoyeche visibility jonno
+        paddingHorizontal: "2%",
+        paddingVertical: 10, 
         borderBottomWidth: 1,
         borderBottomColor: "#F3F4F6",
     },
     listContent: {
-        padding: "4%",
+        // padding: "4%",
         paddingBottom: 40,
     },
     reviewCard: {

@@ -138,12 +138,12 @@ const styles = StyleSheet.create({
     viewButton: {
         paddingVertical: 6,
         paddingHorizontal: 10,
-        marginRight: 12,
+        marginRight: 5,
         backgroundColor: Colors.PRIMARY,
         borderRadius: 6,
     },
     deleteButton: {
-        padding: 5,
-        marginRight: 5, 
+        padding: 0,
+        margin: 3, 
     }
 });
