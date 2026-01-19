@@ -1,11 +1,24 @@
+import { useFonts } from 'expo-font';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
 import { LineHandlinhgIcon, TissuIcon } from '../../assets/icons/Icons';
+import { FORM_FIELDS } from '../../constants/form';
 import { Body2, H5, H6 } from '../typo/typography';
 
-export default function LinenHandlingForm({ selectedOption, setSelectedOption, dropOffAddress, setDropOffAddress }) {
+export default function LinenHandlingForm({ control, selectedOption, setSelectedOption, dropOffAddress, setDropOffAddress }) {
     const { t } = useTranslation();
+
+
+    
+    const [fontsLoaded] = useFonts({
+        "Syne-Regular":require("./../../assets/fonts/Syne-Regular.ttf"), 
+    });
+
+    if (!fontsLoaded) {
+        return null; 
+    }
 
     const LinenOption = ({ id, icon, title, selected, onPress }) => (
         <Pressable
@@ -46,12 +59,19 @@ export default function LinenHandlingForm({ selectedOption, setSelectedOption, d
             />
 
             <H6 style={{ marginTop: 30, marginBottom: 10 }}>{t('linen.dropoff_address')}</H6>
-            <TextInput
-                style={styles.input}
-                placeholder={t('linen.placeholder_address')}
-                placeholderTextColor="#999"
-                value={dropOffAddress}
-                onChangeText={setDropOffAddress}
+            <Controller
+                control={control}
+                name={FORM_FIELDS.ADDRESS_BOX}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                        style={[styles.input, { fontFamily: 'Syne-Regular' }]} 
+                        placeholder={t('linen.placeholder_address')}
+                        placeholderTextColor="#999"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                    />
+                )}
             />
 
             <LinenOption
@@ -111,7 +131,8 @@ const styles = StyleSheet.create({
         borderColor: '#E5E5E5',
         padding: 16,
         fontSize: 16,
-        color: '#1A1A1A',
+        color: '#7c7c7c',
         marginBottom: 12,
+        fontFamily: 'Syne-Regular',
     },
 });

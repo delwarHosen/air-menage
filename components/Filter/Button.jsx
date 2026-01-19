@@ -1,4 +1,5 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Colors } from '../../assets/Colors';
 import { H6 } from '../typo/typography';
 
 
@@ -16,7 +17,7 @@ export default function Button({ title, onPress, style }) {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#22D3EE',
+        backgroundColor: Colors.PRIMARY,
         paddingVertical: 16,
         paddingHorizontal: 24,
         borderRadius: 12,

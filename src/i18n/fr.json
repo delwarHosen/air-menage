@@ -399,7 +399,7 @@
         "add_placeholder": "Ajouter un nouveau {{title}}..."
     },
     "cleanings": {
-        "archived": "Nettoyages archivés"
+        "archived": "Nettoyages effectués"
     },
     "tasks": {
         "yourConfirmedTasks": "Vos tâches confirmées",
@@ -504,7 +504,7 @@
         "send_message": "Envoyer un message",
         "call": "Appeler",
         "apply": "Appliquer",
-        "complete":"Terminez le travail",
+        "complete": "Terminez le travail",
         "currency": "€",
         "checklist": "Liste de contrôle",
         "report_problem": "Signaler un problème",
@@ -756,5 +756,11 @@
     "modal": {
         "successTitle": "Mot de passe modifié !",
         "successDescription": "Votre mot de passe a été mis à jour avec succès. Veuillez utiliser votre nouveau mot de passe pour vos prochaines connexions."
+    },
+    "delete_modal": {
+        "title": "Supprimer le compte",
+        "description": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+        "cancel": "Annuler",
+        "confirm": "Supprimer"
     }
 }

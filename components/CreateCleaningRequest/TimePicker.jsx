@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
-import { H5 } from '../typo/typography';
+import { Body1, H5 } from '../typo/typography';
 
 export default function TimePicker({ startTime, endTime, setStartTime, setEndTime, cleaningTime }) {
     const { t } = useTranslation();
@@ -40,7 +40,7 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
             <View style={styles.formGroup}>
                 <H5 style={styles.label}>{t('timepicker.estimated_cleaning_time')}</H5>
                 <View style={styles.readonlyInput}>
-                    <H5 style={""}>{String(cleaningTime || '0h')}</H5>
+                    <Body1 style={""}>{String(cleaningTime || '0h')}</Body1>
                 </View>
             </View>
 

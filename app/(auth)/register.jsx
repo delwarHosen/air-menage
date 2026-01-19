@@ -13,6 +13,7 @@ import {
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from "react-redux";
 import { Colors } from "../../assets/Colors";
 import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { Body1, Body2, ButtonText, H3 } from "../../components/typo/typography";
@@ -24,6 +25,7 @@ export default function SignUpScreen() {
     const { t } = useTranslation();
     const [checked, setChecked] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const selectedRole = useSelector((state) => state.role.selectedRole);
 
     const { control, handleSubmit } = useForm({
         defaultValues: {
@@ -43,7 +45,13 @@ export default function SignUpScreen() {
 
     const handleModalDone = () => {
         setIsModalVisible(false);
-        router.push("/(auth)/login");
+        
+        if (selectedRole === "host") {
+            router.replace("/identity-verification/identity-verification-banner1");
+        } else {
+            router.replace("/(auth)/login");
+        }
+
     };
 
 
@@ -71,7 +79,7 @@ export default function SignUpScreen() {
                                             image={value}
                                             onImageSelect={onChange}
                                             shape="circle"
-                                            showIcon={false} 
+                                            showIcon={false}
                                         />
                                     )}
                                 />
@@ -246,7 +254,7 @@ const styles = StyleSheet.create({
 
     scrollContent: {
         flexGrow: 1,
-        paddingHorizontal: "5%",
+        paddingHorizontal: "4%",
     },
 
     content: {
@@ -415,6 +423,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.PRIMARY,
         width: "100%",
         paddingVertical: 16,
+        marginBottom:50,
         borderRadius: 12,
         alignItems: "center",
     },

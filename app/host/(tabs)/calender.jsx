@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   listContent: {
-    paddingHorizontal: "5%",
+    paddingHorizontal: "4%",
     paddingBottom: 40,
   },
   propertyCard: {

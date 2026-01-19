@@ -47,7 +47,7 @@ export default function CleanerRequestCard({ propertyData, location, onAccept, o
 
                 <View style={styles.buttonRow}>
                     <TouchableOpacity style={styles.acceptBtn}
-                    onPress={() => router.push("/host/transiction")}
+                    onPress={() => router.push("/host/transition")}
                     >
                         <Body2 style={styles.acceptText}>{t("cleaner_requests.accept")}</Body2>
                     </TouchableOpacity>

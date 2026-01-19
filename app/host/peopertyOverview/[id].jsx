@@ -7,7 +7,8 @@ import { cleanerDetailsData } from '../../../store/CleanerRequestData';
 
 export default function PropertyOverviewDetails() {
     const { t } = useTranslation();
-    const { id } = useLocalSearchParams();
+    // const { id } = useLocalSearchParams();
+    const { id, fromAchive } = useLocalSearchParams();
     const cleanerRequest = cleanerDetailsData.find((item) => item.id.toString() === id);
 
     return (
@@ -26,9 +27,11 @@ export default function PropertyOverviewDetails() {
 
                 </View>
 
-
                 <View style={styles.contentWrapper}>
-                    <PeopertyOverviewPage cleanerRequest={cleanerRequest} />
+                    <PeopertyOverviewPage
+                        cleanerRequest={cleanerRequest}
+                        hideValidateButton={fromAchive === 'true'}
+                    />
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     },
     headerWrapper: {
         backgroundColor: '#fff',
-        paddingHorizontal: "5%",
+        paddingHorizontal: "4%",
         paddingTop: Platform.OS === 'ios' ? 50 : 10,
     },
     scrollContent: {

@@ -43,7 +43,6 @@ export default function TabsLayout() {
             fontSize: scale(11),
             lineHeight: scale(14),
             fontFamily: "SyneMedium",
-            marginTop: 2,
           },
           tabBarIconStyle: {
             marginBottom: 2,

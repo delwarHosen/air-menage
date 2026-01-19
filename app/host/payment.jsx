@@ -13,7 +13,7 @@ import {
 import { Colors } from '../../assets/Colors';
 import { CalenderIconForPayment, PaymentVerifyAutherBadge, RatingYelloBagdeStar } from '../../assets/icons/Icons';
 import Heading from '../../components/Heading/Heading';
-import { Body2, Caption } from '../../components/typo/typography';
+import { Body2 } from '../../components/typo/typography';
 import { IMAGE_CONSTANTS } from '../../constants/image.index';
 
 const WalletPaymentSummary = () => {
@@ -74,49 +74,77 @@ const WalletPaymentSummary = () => {
         return true;
     });
 
-    const renderPaymentItem = ({ item }) => (
-        <View style={styles.paymentCard}>
-            <View style={styles.cardHeader}>
-                <View style={styles.authorText}>
-                    <Body2 style={styles.nameText}>{item.name}</Body2>
-                    <PaymentVerifyAutherBadge/>
-                </View>
-                <Body2 style={styles.statusBadge}>{t(`wallet_payment_summary.status.${item.status}`)}</Body2>
-            </View>
+    const renderPaymentItem = ({ item }) => {
+       
+        const isMyPaymentTab = activeTab === 'myPayment';
 
-            <View style={styles.ratingContainer}>
-                <View style={styles.ratingCard}>
-                    <Body2 style={styles.ratingText}>{item.rating}</Body2>
-                    <RatingYelloBagdeStar/>
+        return (
+            <TouchableOpacity
+                activeOpacity={isMyPaymentTab ? 0.8 : 1} 
+                onPress={() => {
+                    if (isMyPaymentTab) {
+                       
+                        router.push({
+                            pathname: "./payment-invoice",
+                            params: { paymentId: item.id }
+                        });
+                    }
+                }}
+                style={styles.paymentCard}
+            >
+                <View style={styles.cardHeader}>
+                    <View style={styles.authorText}>
+                        <Body2 style={styles.nameText}>{item.name}</Body2>
+                        <PaymentVerifyAutherBadge />
+                    </View>
+                    <Body2 style={[styles.statusBadge, { backgroundColor: item.status === 'success' ? '#00BCD4' : '#FF9800' }]}>
+                        {t(`wallet_payment_summary.status.${item.status}`)}
+                    </Body2>
                 </View>
-                <View style={styles.authorContainer}>
-                    <Image
-                        style={{ width: 14, height: 14, borderRadius: 7 }}
-                        source={IMAGE_CONSTANTS.clientImg}
-                    />
-                    <Body2 style={styles.reviewText}>{item.name}</Body2>
+
+                <View style={styles.ratingContainer}>
+                    <View style={styles.ratingCard}>
+                        <Body2 style={styles.ratingText}>{item.rating}</Body2>
+                        <RatingYelloBagdeStar />
+                    </View>
+                    <View style={styles.authorContainer}>
+                        <Image
+                            style={{ width: 14, height: 14, borderRadius: 7 }}
+                            source={IMAGE_CONSTANTS.clientImg}
+                        />
+                        <Body2 style={styles.reviewText}>{item.name}</Body2>
+                    </View>
                 </View>
-            </View>
 
-            <Body2 style={styles.amountText}>
-                {t('wallet_payment_summary.fields.totalPrice')} - ₹{item.amount}
-            </Body2>
-            <Body2 style={styles.detailText}>
-                {t('wallet_payment_summary.fields.transactionId')} : {item.transactionId}
-            </Body2>
-            <View style={{flexDirection:"row",gap:2}}>
-                <CalenderIconForPayment/><Caption style={{marginLeft:3}}>{item.date}</Caption>
-            </View>
-            <Body2 style={styles.detailText}>
-                📍 {item.location}
-            </Body2>
+                <Body2 style={styles.amountText}>
+                    {t('wallet_payment_summary.fields.totalPrice')} - ₹{item.amount}
+                </Body2>
 
-            <TouchableOpacity style={styles.deleteButton}>
-                <Body2 style={styles.deleteButtonText}>{t('wallet_payment_summary.fields.delete')}</Body2>
+                <Body2 style={styles.detailText}>
+                    {t('wallet_payment_summary.fields.transactionId')} : {item.transactionId}
+                </Body2>
+
+                <View style={{ flexDirection: "row", gap: 4, alignItems: 'center' }}>
+                    <CalenderIconForPayment />
+                    <Body2 style={styles.detailText}>{item.date}</Body2>
+                </View>
+
+                <Body2 style={styles.detailText}>
+                    📍 {item.location}
+                </Body2>
+
+                <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={(e) => {
+                        e.stopPropagation(); // কার্ডের ক্লিক ইভেন্ট আটকাবে
+                        console.log("Delete clicked");
+                    }}
+                >
+                    <Body2 style={styles.deleteButtonText}>{t('wallet_payment_summary.fields.delete')}</Body2>
+                </TouchableOpacity>
             </TouchableOpacity>
-        </View>
-    );
-
+        );
+    };
     return (
         <>
             <StatusBar barStyle="dark-content" />
@@ -154,7 +182,7 @@ const WalletPaymentSummary = () => {
 
 
 const styles = StyleSheet.create({
-   
+
 
     tabContainer: {
         // backgroundColor: '#FFF',

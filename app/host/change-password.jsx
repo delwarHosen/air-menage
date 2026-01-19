@@ -110,14 +110,15 @@ export default function ChangePassword() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
             >
+                 <View style={{ width: '100%', paddingHorizontal: 20 }}>
+                        <Heading title={t("change_password.title")} />
+                    </View>
                 <ScrollView
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps="handled"
                 >
-                    <View style={{ width: '100%', paddingHorizontal: 20 }}>
-                        <Heading title={t("change_password.title")} />
-                    </View>
+                   
 
                     <View style={styles.iconSection}>
                         <View style={styles.lockCircle}>
@@ -180,7 +181,7 @@ export default function ChangePassword() {
 
 const styles = StyleSheet.create({
     scrollContainer: {
-        paddingBottom: 40,
+        paddingBottom: 80,
         alignItems: 'center',
         flexGrow: 1,
     },
@@ -267,5 +268,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 12,
         alignItems: 'center',
+        marginBottom:20
     },
 });

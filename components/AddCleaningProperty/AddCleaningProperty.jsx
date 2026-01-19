@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font';
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -14,19 +15,11 @@ import {
 } from "react-native";
 
 import { Colors } from "../../assets/Colors";
-import {
-    SupliesProvidedIcon,
-    VacumeProvidedIcon
-} from "../../assets/icons/Icons";
-import { ImageUpload } from "../ui/ImageUpload";
 
 import { FORM_FIELDS } from "../../constants/form";
-import { Body2, H6 } from "../typo/typography";
+import { Body2 } from "../typo/typography";
 import { FormInput } from "../ui/FormInput";
 
-import CounterPropertySpecification from "./CounterPropertySpecification";
-import { KeyBoxSelection } from "./KeyBoxSelection";
-import PropertyTypePicker from "./PropertyTypePicker";
 import WorkTypeList from "./WorkTypeSection";
 
 export default function AddCleaningProperty() {
@@ -38,41 +31,9 @@ export default function AddCleaningProperty() {
     const [bathroomWork, setBathroomWork] = useState([]);
     const [kitchenWork, setKitchenWork] = useState([]);
 
-    const handleAddGeneral = (text) => {
-        const newItem = { id: Date.now().toString(), text };
-        setGeneralWork([...generalWork, newItem]);
-    };
-
-    const handleDeleteGeneral = (id) => {
-        setGeneralWork(generalWork.filter(item => item.id !== id));
-    };
-
-    const handleAddBedRoom = (text) => {
-        const newItem = { id: Date.now().toString(), text };
-        setBedroomWork([...bedroomWork, newItem]);
-    };
-
-    const handleDeleteBedRoom = (id) => {
-        setBedroomWork(bedroomWork.filter(item => item.id !== id));
-    };
-
-    const handleAddBathRoom = (text) => {
-        const newItem = { id: Date.now().toString(), text };
-        setBathroomWork([...bathroomWork, newItem]);
-    };
-
-    const handleDeleteBathRoom = (id) => {
-        setBathroomWork(bathroomWork.filter(item => item.id !== id));
-    };
-
-    const handleAddKitchenRoom = (text) => {
-        const newItem = { id: Date.now().toString(), text };
-        setKitchenWork([...kitchenWork, newItem]);
-    };
-
-    const handleDeleteKitchen = (id) => {
-        setKitchenWork(kitchenWork.filter(item => item.id !== id));
-    };
+    const [fontsLoaded] = useFonts({
+        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    });
 
     const {
         control,
@@ -93,31 +54,37 @@ export default function AddCleaningProperty() {
             bedrooms: 1,
             kitchens: 1,
             bathrooms: 1,
+            description: "",
         },
     });
+
+
+    if (!fontsLoaded) {
+        return null;
+    }
+
+
+    const handleAddGeneral = (text) => setGeneralWork([...generalWork, { id: Date.now().toString(), text }]);
+    const handleDeleteGeneral = (id) => setGeneralWork(generalWork.filter(item => item.id !== id));
+
+    const handleAddBedRoom = (text) => setBedroomWork([...bedroomWork, { id: Date.now().toString(), text }]);
+    const handleDeleteBedRoom = (id) => setBedroomWork(bedroomWork.filter(item => item.id !== id));
+
+    const handleAddBathRoom = (text) => setBathroomWork([...bathroomWork, { id: Date.now().toString(), text }]);
+    const handleDeleteBathRoom = (id) => setBathroomWork(bathroomWork.filter(item => item.id !== id));
+
+    const handleAddKitchenRoom = (text) => setKitchenWork([...kitchenWork, { id: Date.now().toString(), text }]);
+    const handleDeleteKitchen = (id) => setKitchenWork(kitchenWork.filter(item => item.id !== id));
 
     const onSubmit = (values) => {
         try {
             const payload = {
-                title: values[FORM_FIELDS.PROPERTY_TITLE],
-                image: values[FORM_FIELDS.PROPERTY_IMAGE],
-                floor: values[FORM_FIELDS.FLOOR_NUMBER],
-                apartmentNo: values[FORM_FIELDS.APARTMENT_NUMBER],
-                size: values[FORM_FIELDS.PROPERTY_SIZE],
-                location: values[FORM_FIELDS.LOCATION],
-                type: values.propertyType,
-                elevator: values.hasElevator,
-                keyLocation: values[FORM_FIELDS.KEY_LOCATION],
-                keyPassword: values[FORM_FIELDS.KEY_PASSWORD],
-                bedrooms: values.bedrooms,
-                kitchens: values.kitchens,
-                bathrooms: values.bathrooms,
+                ...values,
                 generalWork,
                 bedroomWork,
                 bathroomWork,
                 kitchenWork,
             };
-
             console.log("Submitted Data:", payload);
         } catch {
             ToastAndroid.show(t("common.error"), ToastAndroid.SHORT);
@@ -127,10 +94,18 @@ export default function AddCleaningProperty() {
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : undefined}
+              
+                behavior={Platform.OS === "ios" ? "padding" : "padding"}
                 style={{ flex: 1 }}
+                
+                keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 80}
             >
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.scrollContainer}
+                    keyboardShouldPersistTaps="handled"
+                >
+                   
 
                     <Controller
                         control={control}
@@ -141,190 +116,43 @@ export default function AddCleaningProperty() {
                                 placeholder={t("addProperty.titlePlaceholder")}
                                 value={field.value}
                                 onChangeText={field.onChange}
+                                style={styles.syneInput}
                             />
                         )}
                     />
 
-                    <Controller
-                        control={control}
-                        name={FORM_FIELDS.PROPERTY_IMAGE}
-                        render={({ field }) => (
-                            <ImageUpload
-                                label={t("addProperty.image")}
-                                image={field.value}
-                                onImageSelect={field.onChange}
-                                shape="square"
-                            />
-                        )}
-                    />
+                   
 
-                    <Body2 style={styles.label}>
-                        {t("addProperty.propertyType")}
-                    </Body2>
-
-                    <Controller
-                        control={control}
-                        name="propertyType"
-                        defaultValue="Apartment"   
-                        render={({ field: { value, onChange } }) => (
-                            <PropertyTypePicker
-                                value={value}
-                                onChange={(val) => onChange(val)} 
-                            />
-                        )}
-                    />
-                    {/* evaluator */}
-                    <Body2 style={styles.label}>
-                        {t("addProperty.elevator")}
-                    </Body2>
-
-                    <Controller
-                        control={control}
-                        name="hasElevator"
-                        render={({ field }) => (
-                            <View style={styles.elevatorContainer}>
-                                {["Yes", "No"].map(item => {
-                                    const isActive = field.value === item;
-                                    return (
-                                        <TouchableOpacity
-                                            key={item}
-                                            style={[
-                                                styles.elevatorButton,
-                                                isActive && styles.active,
-                                            ]}
-                                            onPress={() => field.onChange(item)}
-                                        >
-                                            <Body2>
-                                                {item === "Yes"
-                                                    ? t("common.yes")
-                                                    : t("common.no")}
-                                            </Body2>
-                                        </TouchableOpacity>
-                                    );
-                                })}
-                            </View>
-                        )}
-                    />
-
-                    <H6 style={{ marginTop: 30 }}>
-                        {t("addProperty.specifications")}
-                    </H6>
-
-                    <Controller
-                        control={control}
-                        name="bedrooms"
-                        render={({ field }) => (
-                            <CounterPropertySpecification
-                                labelKey={t("addProperty.bedroom")}
-                                value={field.value}
-                                onIncrement={() => field.onChange(field.value + 1)}
-                                onDecrement={() =>
-                                    field.value > 0 && field.onChange(field.value - 1)
-                                }
-                            />
-                        )}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="kitchens"
-                        render={({ field }) => (
-                            <CounterPropertySpecification
-                                labelKey={t("addProperty.kitchen")}
-                                value={field.value}
-                                onIncrement={() => field.onChange(field.value + 1)}
-                                onDecrement={() =>
-                                    field.value > 0 && field.onChange(field.value - 1)
-                                }
-                            />
-                        )}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="bathrooms"
-                        render={({ field }) => (
-                            <CounterPropertySpecification
-                                labelKey={t("addProperty.bathroom")}
-                                value={field.value}
-                                onIncrement={() => field.onChange(field.value + 1)}
-                                onDecrement={() =>
-                                    field.value > 0 && field.onChange(field.value - 1)
-                                }
-                            />
-                        )}
-                    />
-
-                    <KeyBoxSelection control={control} errors={errors} />
-
-                    <View style={styles.suppliesRow}>
-                        <View style={styles.suppliesCard}>
-                            <VacumeProvidedIcon />
-                            <H6 style={styles.suppliesText}>
-                                {t("addProperty.vacuum")}
-                            </H6>
-                        </View>
-                        <View style={styles.suppliesCard}>
-                            <SupliesProvidedIcon />
-                            <H6 style={styles.suppliesText}>
-                                {t("addProperty.supplies")}
-                            </H6>
-                        </View>
-                    </View>
-
-                    <Body2 style={styles.label}>
-                        {t("addProperty.description")}
-                    </Body2>
-
+                    <Body2 style={styles.label}>{t("addProperty.description")}</Body2>
                     <Controller
                         control={control}
                         name="description"
                         render={({ field }) => (
-                            <TextInput
-                                style={styles.textArea}
-                                placeholder={t("addProperty.descriptionPlaceholder")}
-                                multiline
-                                value={field.value}
-                                onChangeText={field.onChange}
-                            />
+                            <View style={styles.textAreaBox}>
+                                <TextInput
+                                    style={styles.textArea}
+                                    placeholder={t("addProperty.descriptionPlaceholder")}
+                                    placeholderTextColor="#949494"
+                                    multiline
+                                    value={field.value}
+                                    onChangeText={field.onChange}
+                                />
+                            </View>
                         )}
                     />
 
-                    <WorkTypeList
-                        title={t("work.general")}
-                        workTypes={generalWork}
-                        onAdd={handleAddGeneral}
-                        onDelete={handleDeleteGeneral}
-                    />
+                   
+                    <WorkTypeList title={t("work.general")} workTypes={generalWork} onAdd={handleAddGeneral} onDelete={handleDeleteGeneral} />
+                    <WorkTypeList title={t("work.bedroom")} workTypes={bedroomWork} onAdd={handleAddBedRoom} onDelete={handleDeleteBedRoom} />
+                    <WorkTypeList title={t("work.bathroom")} workTypes={bathroomWork} onAdd={handleAddBathRoom} onDelete={handleDeleteBathRoom} />
+                    <WorkTypeList title={t("work.kitchen")} workTypes={kitchenWork} onAdd={handleAddKitchenRoom} onDelete={handleDeleteKitchen} />
 
-                    <WorkTypeList
-                        title={t("work.bedroom")}
-                        workTypes={bedroomWork}
-                        onAdd={handleAddBedRoom}
-                        onDelete={handleDeleteBedRoom}
-                    />
-
-                    <WorkTypeList
-                        title={t("work.bathroom")}
-                        workTypes={bathroomWork}
-                        onAdd={handleAddBathRoom}
-                        onDelete={handleDeleteBathRoom}
-                    />
-
-                    <WorkTypeList
-                        title={t("work.kitchen")}
-                        workTypes={kitchenWork}
-                        onAdd={handleAddKitchenRoom}
-                        onDelete={handleDeleteKitchen}
-                    />
-
+                    {/* সাবমিট বাটন */}
                     <TouchableOpacity
                         style={styles.submitButton}
                         onPress={handleSubmit(onSubmit)}
                     >
-                        <Body2 style={{ color: "#fff" }}>
-                            {t("common.create")}
-                        </Body2>
+                        <Body2 style={{ color: "#fff" }}>{t("common.create")}</Body2>
                     </TouchableOpacity>
 
                 </ScrollView>
@@ -333,68 +161,38 @@ export default function AddCleaningProperty() {
     );
 }
 
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#FAFAFA",
-        paddingHorizontal: "5%",
-        paddingTop: 20
-    },
+    container: { flex: 1, backgroundColor: "#FAFAFA" },
     scrollContainer: {
-        padding: 16,
-        paddingBottom: 80
+        paddingHorizontal: "4%",
+        paddingTop: 20,
+        paddingBottom: 40, 
+        flexGrow: 1
     },
     label: { marginVertical: 10 },
-
-
-    elevatorContainer: {
-        flexDirection: "row",
-        gap: 10
-    },
+    syneInput: { fontFamily: 'Syne-Regular' },
+    elevatorContainer: { flexDirection: "row", gap: 10 },
     elevatorButton: {
-        flex: 1,
-        height: 48,
-        borderRadius: 8,
-        borderWidth: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        borderColor: Colors.BORDER_COLOR,
-        backgroundColor: "#FFFFFF"
+        flex: 1, height: 48, borderRadius: 8, borderWidth: 1,
+        justifyContent: "center", alignItems: "center",
+        borderColor: Colors.BORDER_COLOR, backgroundColor: "#FFFFFF"
     },
-    active: {
-        borderColor: Colors.PRIMARY,
-        borderWidth: 1,
-    },
-    suppliesRow: {
-        flexDirection: "row",
-        gap: 10,
-        marginTop: 20
-    },
+    active: { borderColor: Colors.PRIMARY, borderWidth: 1 },
+    suppliesRow: { flexDirection: "row", gap: 10, marginTop: 20 },
     suppliesCard: {
-        flex: 1,
-        height: "100%",
-        borderRadius: 12,
-        borderWidth: 1,
-        padding: 16,
-        backgroundColor: "#fff",
-        borderColor: Colors.BORDER_COLOR,
+        flex: 1, borderRadius: 12, borderWidth: 1, padding: 16,
+        backgroundColor: "#fff", borderColor: Colors.BORDER_COLOR,
     },
     suppliesText: { marginTop: 40, textAlign: "center" },
-
     textAreaBox: {
-        height: 110,
-        borderWidth: 1,
-        borderRadius: 8,
-        // padding: 12,
-        paddingLeft: 5,
-        borderColor: Colors.BORDER_COLOR,
-        backgroundColor: "#fff",
+        minHeight: 110, borderWidth: 1, borderRadius: 8,
+        paddingHorizontal: 12, paddingVertical: 8,
+        borderColor: Colors.BORDER_COLOR, backgroundColor: "#fff",
     },
-    textArea: { flex: 1, textAlignVertical: "top", color: "#949494" },
-
+    textArea: { flex: 1, textAlignVertical: "top", color: "#1A1A1A", fontFamily: 'Syne-Regular' },
     submitButton: {
-        marginTop: 30,
+        marginTop: 40,
+        marginBottom: 20, 
         height: 50,
         borderRadius: 12,
         justifyContent: "center",

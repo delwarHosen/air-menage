@@ -1,4 +1,4 @@
-import { Platform, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 // import AddCleaningProperty from '../../components/AddCleaningProperty/AddCleaningProperty';
 import AddCleaningProperty from "../../components/AddCleaningProperty/AddCleaningProperty";
 
@@ -10,20 +10,17 @@ export default function AddProperty() {
     const { t } = useTranslation();
 
     return (
-
-        <ScrollView
-            stickyHeaderIndices={[0]}
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
-        >
-            {/* Sticky Header */}
+        <View style={{ flex: 1, backgroundColor: "#FAFAFA" }}>
+           
             <View style={styles.headerContainer}>
                 <Heading title={t('add_property.title')} />
             </View>
 
-            {/* Scrollable content */}
-            <AddCleaningProperty />
-        </ScrollView>
+            {/* Content */}
+            <View style={{ flex: 1 }}>
+                <AddCleaningProperty />
+            </View>
+        </View>
     );
 }
 

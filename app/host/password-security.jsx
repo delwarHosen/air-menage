@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Animated,
+    Dimensions,
     Easing,
     Modal,
     Pressable,
@@ -16,31 +17,48 @@ import { DeleteIcon, ForwarAngleIcon, PasswrodIcon } from '../../assets/icons/Ic
 import Heading from '../../components/Heading/Heading';
 import { Body2 } from '../../components/typo/typography';
 
+const { height } = Dimensions.get('window');
+
 export default function PasswordSecurity() {
     const router = useRouter();
     const { t } = useTranslation();
     const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
 
-    // Slow animation er jonno value
-    const slideAnim = useRef(new Animated.Value(300)).current;
+    const slideAnim = useRef(new Animated.Value(height)).current;
+    const opacityAnim = useRef(new Animated.Value(0)).current;
 
     const openModal = () => {
         setDeleteModalVisible(true);
-        
-        Animated.timing(slideAnim, {
-            toValue: 0,
-            duration: 500, 
-            easing: Easing.out(Easing.poly(4)),
-            useNativeDriver: true,
-        }).start();
+
+        // একই সাথে স্লাইড এবং অপাসিটি এনিমেশন
+        Animated.parallel([
+            Animated.timing(slideAnim, {
+                toValue: 0,
+                duration: 400,
+                easing: Easing.out(Easing.poly(4)),
+                useNativeDriver: true,
+            }),
+            Animated.timing(opacityAnim, {
+                toValue: 1,
+                duration: 300,
+                useNativeDriver: true,
+            })
+        ]).start();
     };
 
     const closeModal = () => {
-        Animated.timing(slideAnim, {
-            toValue: 300,
-            duration: 400,
-            useNativeDriver: true,
-        }).start(() => setDeleteModalVisible(false));
+        Animated.parallel([
+            Animated.timing(slideAnim, {
+                toValue: height,
+                duration: 300,
+                useNativeDriver: true,
+            }),
+            Animated.timing(opacityAnim, {
+                toValue: 0,
+                duration: 200,
+                useNativeDriver: true,
+            })
+        ]).start(() => setDeleteModalVisible(false));
     };
 
     return (
@@ -62,7 +80,7 @@ export default function PasswordSecurity() {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={openModal} // Custom open function
+                    onPress={openModal}
                     style={styles.buttonContainer}
                 >
                     <View style={styles.leftContent}>
@@ -79,28 +97,40 @@ export default function PasswordSecurity() {
                 onRequestClose={closeModal}
             >
                 <View style={styles.modalOverlay}>
-                    <Pressable style={styles.dismissArea} onPress={closeModal} />
+
+                    <Pressable style={StyleSheet.absoluteFill} onPress={closeModal} />
 
                     <Animated.View
                         style={[
-                            styles.bottomSheet,
-                            { transform: [{ translateY: slideAnim }] }
+                            styles.centeredView,
+                            {
+                                opacity: opacityAnim,
+                                transform: [{ translateY: slideAnim }]
+                            }
                         ]}
                     >
-                        <View style={styles.dragIndicator} />
 
-                        <Body2 style={styles.modalTitle}>Delete Account</Body2>
+                        <View style={styles.iconContainer}>
+                            <DeleteIcon size={32} />
+                        </View>
+
+
+                        <Body2 style={styles.modalTitle}>
+                            {t('delete_modal.title')}
+                        </Body2>
                         <Body2 style={styles.modalDescription}>
-                            Are you sure you want to delete your account? This action cannot be undone.
+                            {t('delete_modal.description')}
                         </Body2>
 
-                        {/* Buttons in a Row */}
+                        {/* বাটন রো */}
                         <View style={styles.buttonRow}>
                             <TouchableOpacity
                                 style={[styles.modalButton, styles.cancelButton]}
                                 onPress={closeModal}
                             >
-                                <Body2 style={{ color: '#0F243E', fontWeight: '500' }}>Cancel</Body2>
+                                <Body2 style={{ color: '#0F243E', fontWeight: '500' }}>
+                                    {t('delete_modal.cancel')}
+                                </Body2>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -110,7 +140,9 @@ export default function PasswordSecurity() {
                                     closeModal();
                                 }}
                             >
-                                <Body2 style={{ color: '#FFF', fontWeight: '600' }}>Delete</Body2>
+                                <Body2 style={{ color: '#FFF', fontWeight: '600' }}>
+                                    {t('delete_modal.confirm')}
+                                </Body2>
                             </TouchableOpacity>
                         </View>
                     </Animated.View>
@@ -135,48 +167,64 @@ const styles = StyleSheet.create({
     leftContent: { flexDirection: 'row', alignItems: 'center', gap: 12 },
     textStyle: { color: Colors.TEXT_COLOR },
 
-    // Modal Styles
+    // --- Center Modal Styles ---
     modalOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.4)',
-        justifyContent: 'flex-end',
-    },
-    dismissArea: {
-        flex: 1,
-    },
-    bottomSheet: {
-        backgroundColor: '#FFF',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
-        paddingHorizontal: 20,
-        paddingTop: 15,
-        paddingBottom: 50,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
     },
-    dragIndicator: {
-        width: 40,
-        height: 4,
-        backgroundColor: '#E5E7EB',
-        borderRadius: 10,
-        marginBottom: 20,
+    centeredView: {
+        backgroundColor: '#FFF',
+        borderRadius: 24,
+        paddingHorizontal: 24,
+        paddingTop: 30,
+        paddingBottom: 24,
+        alignItems: 'center',
+        width: '90%',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
     },
-    modalTitle: { fontSize: 18, fontWeight: '700', marginBottom: 10 },
-    modalDescription: { textAlign: 'center', color: '#6B7280', marginBottom: 25 },
-
-    // Row Buttons logic
+    iconContainer: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#FEE2E2',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 16,
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontWeight: '700',
+        marginBottom: 8,
+        color: '#0F243E'
+    },
+    modalDescription: {
+        textAlign: 'center',
+        color: '#6B7280',
+        marginBottom: 24,
+        lineHeight: 20
+    },
     buttonRow: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
         gap: 12,
         width: '100%',
     },
     modalButton: {
-        flex: 1, 
-        height: 50,
-        borderRadius: 12,
+        flex: 1,
+        height: 52,
+        borderRadius: 14,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    confirmDeleteButton: { backgroundColor: '#D4461A' },
-    cancelButton: { backgroundColor: '#F3F4F6' },
+    confirmDeleteButton: {
+        backgroundColor: '#D4461A'
+    },
+    cancelButton: {
+        backgroundColor: '#F3F4F6'
+    },
 });

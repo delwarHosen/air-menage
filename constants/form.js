@@ -26,7 +26,8 @@ export const FORM_FIELDS = {
   KEY_PASSWORD: "keyPassword",
   REPORT_TITLE: "reportTitle",
   REPORT_REASON: "reportReason",
-  LOCK_BOX: "lockBox"
+  LOCK_BOX: "lockBox",
+  ADDRESS_BOX:"addressBox"
 };
 
 export const FORM_LABELS = {
@@ -54,7 +55,8 @@ export const FORM_LABELS = {
   [FORM_FIELDS.LOCATION]: "Location",
   [FORM_FIELDS.REPORT_TITLE]: "Type of problem",
   [FORM_FIELDS.REPORT_REASON]: "Reson",
-  [FORM_FIELDS.KEY_PASSWORD]: "Lockbox Code"
+  [FORM_FIELDS.KEY_PASSWORD]: "Lockbox Code",
+  [FORM_FIELDS.ADDRESS_BOX]: "Drop -Off Address"
 
 };
 
@@ -81,5 +83,6 @@ export const FORM_PLACEHOLDERS = {
   [FORM_FIELDS.KEY_PASSWORD]: "******",
   [FORM_FIELDS.REPORT_TITLE]: "Damaged item",
   [FORM_FIELDS.REPORT_REASON]: "Type your text..",
-  [FORM_FIELDS.LOCK_BOX]: "Enter Lockbox Code"
+  [FORM_FIELDS.LOCK_BOX]: "Enter Lockbox Code",
+  [FORM_FIELDS.ADDRESS_BOX]:"under home "
 };

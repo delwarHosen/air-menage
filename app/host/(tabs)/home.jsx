@@ -18,7 +18,8 @@ import HostTabs from "../../../components/HostTabs/HostTabs";
 import { Body2, Caption, H4 } from "../../../components/typo/typography";
 import { cleanerDetailsData } from '../../../store/CleanerRequestData';
 import { cleaners } from '../../../store/Cleaners';
-import ArchiveCleaning from '../archive-cleaning';
+// import AchiveCleaning from '../achive-cleaning';
+import AllCleaningRequests from '../../../components/CleaningRequest/CleaningRequest';
 import CleaningRequest from '../cleaning-request';
 
 
@@ -71,7 +72,7 @@ export default function Home() {
   const renderMainItem = ({ item, index }) => {
     if (index === 0) {
       return (
-        <View style={{ backgroundColor: 'white', paddingBottom: 5 }}>
+        <View style={{ backgroundColor: 'white', paddingBottom: 0 }}>
           <View style={styles.header}>
             <H4>{t("host_home.header.greeting", { name: "Theo" })}</H4>
             <TouchableOpacity
@@ -124,7 +125,7 @@ export default function Home() {
           ) : (
 
             <View>
-              <ArchiveCleaning />
+             <AllCleaningRequests/>
             </View>
           )}
         </View>
@@ -155,7 +156,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: "2.5%",
+    paddingHorizontal: "4%",
     backgroundColor: "#FAFAFA",
   },
   scrollContent: {
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 8,
-    marginBottom:25
+    marginBottom: 25
   },
   addIcon: {
     height: 40,
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
   listContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    // marginBottom: 10,
     marginTop: 10,
   },
   content: {

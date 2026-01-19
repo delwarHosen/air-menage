@@ -10,8 +10,10 @@ import {
 } from 'react-native';
 
 import { useRouter } from 'expo-router';
+import { useForm } from 'react-hook-form';
 import { Colors } from '../../assets/Colors';
 import { IMAGE_COMPONENTS } from '../../assets/image.index';
+import { FORM_FIELDS } from '../../constants/form';
 import { Body1, Body2, ButtonText, H2, H3, H5 } from '../typo/typography';
 import DatePicker from './DatePicker';
 import LinenHandlingForm from './LinenHandlingForm';
@@ -19,7 +21,7 @@ import PriceListModal from './PriceListModal';
 import PropertySelector from './PropertySelector';
 import TimePicker from './TimePicker';
 
-// আপনার ৫টি প্রপার্টি ডাটা ফিরিয়ে আনা হয়েছে
+
 const properties = [
   { id: '1', name: 'San Francisco', img: IMAGE_COMPONENTS.selectPropertiImage, area: '50 m²', beds: '2 Bed', featured: true },
   { id: '2', name: 'New York Loft', img: IMAGE_COMPONENTS.selectPropertiImage, area: '75 m²', beds: '3 Bed', featured: true },
@@ -42,6 +44,15 @@ export default function PropertyBookingScreens() {
   const [sendToFavorites, setSendToFavorites] = useState(false);
   const [priceListVisible, setPriceListVisible] = useState(false);
 
+
+  const { control, handleSubmit, watch } = useForm({
+    defaultValues: {
+      [FORM_FIELDS.ADDRESS_BOX]: "", 
+      selectedOption: "collect",
+      sendToFavorites: false,
+      rate: 50
+    }
+  });
 
   useEffect(() => {
     if (startTime && endTime) {
@@ -93,6 +104,7 @@ export default function PropertyBookingScreens() {
           />
 
           <LinenHandlingForm
+          control={control}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             dropOffAddress={dropOffAddress}

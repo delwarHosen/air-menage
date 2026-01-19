@@ -16,7 +16,7 @@ export default function VerificationSuccess() {
 
     const handleDone = () => {
         if (selectedRole === "host") {
-            router.replace("/host/(tabs)/menu");
+            router.replace("/host/property-setup");
         } else {
             router.replace("/cleaner/(tabs)/menu");
         }

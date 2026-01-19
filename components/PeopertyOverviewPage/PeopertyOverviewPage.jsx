@@ -18,7 +18,7 @@ import {
 import PropertyTypePicker from "../AddCleaningProperty/PropertyTypePicker";
 import { Body1, Body2, ButtonText, H4, H5 } from "../typo/typography";
 
-export default function PeopertyOverviewPage({ cleanerRequest }) {
+export default function PeopertyOverviewPage({ cleanerRequest, hideValidateButton }) {
     const { t } = useTranslation();
     const router = useRouter();
 
@@ -139,11 +139,17 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.validateButton}
-            onPress={()=>router.push("/feedback/feedback")}
-            >
-                <ButtonText style={{ textAlign: "center", color: "white" }}>{t("common.validate")}</ButtonText>
-            </TouchableOpacity>
+            {!hideValidateButton && (
+                <TouchableOpacity
+                    style={styles.validateButton}
+                    onPress={() => router.push("/feedback/feedback")}
+                >
+                    <ButtonText style={{ textAlign: "center", color: "white" }}>
+                        {t("common.validate")}
+                    </ButtonText>
+                </TouchableOpacity>
+            )}
+
         </View>
     );
 }
@@ -165,9 +171,19 @@ function ServiceSection({ title, data }) {
 
 const styles = StyleSheet.create({
     container: { flex: 1 },
-    mainImage: { width: "100%", height: 234, borderRadius: 12, marginBottom: 12 },
-    body2: { fontSize: 14, color: "#5E5E5E" },
-    propertyType: { marginVertical: 12 },
+    mainImage: {
+        width: "100%",
+        height: 234,
+        borderRadius: 12,
+        marginBottom: 12
+    },
+    body2: {
+        fontSize: 14,
+        color: "#5E5E5E"
+    },
+    propertyType: {
+        marginVertical: 12
+    },
     infoRow: {
         flexDirection: "row",
         alignItems: "center",

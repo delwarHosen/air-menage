@@ -401,7 +401,7 @@
         "add_placeholder": "Add new {{title}}..."
     },
     "cleanings": {
-        "archived": "Archived Cleanings"
+        "archived": "Achived Cleanings"
     },
     "tasks": {
         "yourConfirmedTasks": "Your Confirmed Tasks",
@@ -507,7 +507,7 @@
         "send_message": "Send a Message",
         "call": "Call",
         "apply": "Apply",
-        "complete":"Compelete the job",
+        "complete": "Compelete the job",
         "currency": "€",
         "checklist": "Checklist",
         "report_problem": "Report a problem",
@@ -759,5 +759,11 @@
     "modal": {
         "successTitle": "Password Changed!",
         "successDescription": "Your password has been updated successfully. Please use your new password for future logins."
-    }
+    },
+   "delete_modal": {
+    "title": "Delete Account",
+    "description": "Are you sure you want to delete your account? This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Delete"
+}
 }

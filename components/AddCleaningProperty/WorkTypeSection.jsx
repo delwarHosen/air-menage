@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
@@ -40,7 +39,7 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
 
                         {/* Right side: Delete button */}
                         <TouchableOpacity onPress={() => onDelete(item.id)}>
-                          <DeletePropertyTrashIcon/>
+                            <DeletePropertyTrashIcon />
                         </TouchableOpacity>
                     </View>
                 )}
@@ -66,11 +65,7 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
 
 export default WorkTypeList;
 
-
-
 const styles = StyleSheet.create({
-    // AddWorkType section
-
     addWorkHeader: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -86,7 +81,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingVertical: 10,
-        paddingRight:8,
+        paddingRight: 8,
         borderBottomWidth: 1,
         borderBottomColor: '#eee',
     },
@@ -99,6 +94,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontSize: 16,
         color: '#333',
+        fontFamily: 'Syne-Regular', 
     },
     addWorkTypeContainer: {
         flexDirection: "row",
@@ -108,9 +104,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.BORDER_COLOR,
         borderRadius: 8,
-        paddingTop: 10,
+        paddingTop: 5,
         paddingRight: 8,
-        paddingBottom: 10,
+        paddingBottom: 5,
         paddingLeft: 8,
         backgroundColor: "#FFFFFF"
     },
@@ -119,10 +115,11 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 48,
         paddingHorizontal: 15,
-
+        fontFamily: 'Syne-Regular', 
+        fontSize: 14,
+        color: '#1A1A1A',
     },
     addIconButton: {
         padding: 5,
     },
-
-})
+});

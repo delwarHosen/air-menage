@@ -181,7 +181,11 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     disabledButton: { backgroundColor: "#A0E1FB" },
-    buttonText: { color: "#FFF", fontWeight: "600" },
+    buttonText: { 
+        color: "#FFF", 
+        fontWeight: "600"
+        
+     },
 
     // Modal & Bottom Sheet Styles
     modalOverlay: {
@@ -195,7 +199,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 30,
         padding: 30,
         alignItems: 'center',
-        paddingBottom: 50,
+        paddingBottom: 80,
     },
     dragHandle: {
         width: 40,
