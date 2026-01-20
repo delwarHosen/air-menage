@@ -1,24 +1,29 @@
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
-import { Body2 } from '../typo/typography';
+import { Body1, Body2 } from '../typo/typography';
 
-const CounterPropertySpecification = ({ labelKey, value, onIncrement, onDecrement }) => {
-
+const CounterPropertySpecification = ({ labelKey, value, onIncrement, onDecrement, }) => {
+const { t } = useTranslation();
     return (
-        <View style={styles.specItem}>
-            <Body2 style={styles.specLabel}>{labelKey}</Body2>
-            <View style={styles.counterContainer}>
-                <TouchableOpacity onPress={onDecrement} style={styles.counterButton}>
-                    <Body2 style={styles.buttonText}>-</Body2>
-                </TouchableOpacity>
+        <View>
+            <Body1>{t("addProperty.specifications")}</Body1>
+            <View style={styles.specItem}>
+                <Body2 style={styles.specLabel}>{labelKey}</Body2>
+                <View style={styles.counterContainer}>
+                    <TouchableOpacity onPress={onDecrement} style={styles.counterButton}>
+                        <Body2 style={styles.buttonText}>-</Body2>
+                    </TouchableOpacity>
 
-                <Body2 style={styles.counterValue}>{value}</Body2>
+                    <Body2 style={styles.counterValue}>{value}</Body2>
 
-                <TouchableOpacity onPress={onIncrement} style={styles.counterButton}>
-                    <Body2 style={styles.buttonText}>+</Body2>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={onIncrement} style={styles.counterButton}>
+                        <Body2 style={styles.buttonText}>+</Body2>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
+
     );
 };
 
@@ -36,8 +41,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: Colors.BORDER_COLOR,
     },
-    specLabel:{
-        color:"#626263"
+    specLabel: {
+        color: "#626263"
     },
     counterContainer: {
         flexDirection: 'row',
@@ -58,6 +63,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         lineHeight: 18,
-        fontSize:18
+        fontSize: 18
     },
 });

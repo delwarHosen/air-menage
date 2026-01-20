@@ -23,6 +23,9 @@ export default function AllCleaner({ propertyData }) {
         {t("cleaner_requests.title")} ({propertyData.cleaner_request.length})
       </H5>
 
+
+      {/* -----------Cleaner Request data ------------- */}
+      
       {propertyData.cleaner_request.map((item) => (
         <CleanerRequestCard
           key={item.id.toString()}

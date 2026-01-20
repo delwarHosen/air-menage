@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import AllCleaningRequests from '../../components/CleaningRequest/CleaningRequest';
+import AllCleaningRequests from '../../components/AllCleaningRequests/AllCleaningRequests';
 import Heading from '../../components/Heading/Heading';
 
 export default function AchiveCleaning() {
@@ -11,10 +11,11 @@ export default function AchiveCleaning() {
             <View style={{ paddingHorizontal: "4%" }}>
                 <Heading title={t("cleanings.archived")} />
             </View>
-            {/* <CleaningRequest /> */}
+
             <AllCleaningRequests
                 hideValidateButtonInDetails={true}
             />
+
         </View>
     )
 }

@@ -14,12 +14,11 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { Colors } from "../../../assets/Colors";
 import { AddIcon, BlueVerifyIcon } from "../../../assets/icons/Icons";
+import AllCleaningRequests from '../../../components/AllCleaningRequests/AllCleaningRequests';
 import HostTabs from "../../../components/HostTabs/HostTabs";
 import { Body2, Caption, H4 } from "../../../components/typo/typography";
 import { cleanerDetailsData } from '../../../store/CleanerRequestData';
 import { cleaners } from '../../../store/Cleaners';
-// import AchiveCleaning from '../achive-cleaning';
-import AllCleaningRequests from '../../../components/CleaningRequest/CleaningRequest';
 import CleaningRequest from '../cleaning-request';
 
 
@@ -33,7 +32,6 @@ export default function Home() {
     if (activeTab === "pending") {
       return item.status.toLowerCase() === "pending";
     } else if (activeTab === "confirm") {
-
       return item.status.toLowerCase() === "completed";
     }
     return true;
@@ -42,7 +40,7 @@ export default function Home() {
   const renderCleanerItem = ({ item }) => {
     return (
       <TouchableOpacity
-        onPress={() => router.push(`/host/cleaner/${item.id}`)}
+        onPress={() => router.push(`/host/cleaner/${item?.id}`)}
         style={styles.profileButton}>
         <View style={{ position: 'relative' }}>
           <LinearGradient
@@ -82,6 +80,8 @@ export default function Home() {
               <AddIcon />
             </TouchableOpacity>
           </View>
+
+          {/* Host tab */}
 
           <HostTabs
             activeTab={activeTab}
@@ -125,7 +125,9 @@ export default function Home() {
           ) : (
 
             <View>
-             <AllCleaningRequests/>
+              <AllCleaningRequests
+                hiddenWorkCompletedButton={true}
+              />
             </View>
           )}
         </View>

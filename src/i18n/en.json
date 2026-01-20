@@ -542,15 +542,15 @@
         "sendRequest": "Send Request"
     },
     "identityVerification": {
-        "title": "Vérification d'identité",
-        "description": "Complétez la vérification d'identité pour renforcer la sécurité de votre compte et accéder à plus de services.",
-        "getVerified": "Se faire vérifier",
-        "unlockText": "Débloquez des limites et des fonctionnalités après vérification",
+        "title": "Identity Verification",
+        "description": "Complete identity verification to enhance the security of your account and gain access to more services.",
+        "getVerified": "Get Verified",
+        "unlockText": "Unlock higher limits and additional features after verification",
         "features": {
-            "spotTrading": "Trading Spot",
-            "apiTrading": "Trading API",
-            "depositWithdraw": "Dépôt et Retrait",
-            "withdraw": "Retrait"
+            "spotTrading": "Spot Trading",
+            "apiTrading": "API Trading",
+            "depositWithdraw": "Deposit and Withdrawal",
+            "withdraw": "Withdrawal"
         }
     },
     "identityVerificationStep2": {
@@ -723,6 +723,14 @@
         "title": "Property Title",
         "titlePlaceholder": "Enter property title",
         "image": "Property Image",
+        "floor": "Floor",
+        "floorPlaceHolder": "3rd",
+        "apertment": "302",
+        "ApartmentNumber": "Apartment Number",
+        "propertySize": "Property size ",
+        "propertyPlaceholder": "50 m²",
+        "location": "Location",
+        "locationPlaceholder": "France",
         "propertyType": "Property Type",
         "elevator": "Elevator",
         "specifications": "Property Specifications",
@@ -760,10 +768,10 @@
         "successTitle": "Password Changed!",
         "successDescription": "Your password has been updated successfully. Please use your new password for future logins."
     },
-   "delete_modal": {
-    "title": "Delete Account",
-    "description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "cancel": "Cancel",
-    "confirm": "Delete"
-}
+    "delete_modal": {
+        "title": "Delete Account",
+        "description": "Are you sure you want to delete your account? This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+    }
 }

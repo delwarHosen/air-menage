@@ -1,15 +1,17 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import { useState } from 'react'; // useState যুক্ত করা হয়েছে
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, KeyboardAvoidingView, Modal, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, KeyboardAvoidingView, Modal, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { Colors } from '../../assets/Colors';
 import { DeletePropertyTrashIcon } from '../../assets/icons/Icons';
 import Heading from '../../components/Heading/Heading';
 import { Body2, Caption, H5, H6 } from '../../components/typo/typography';
 import { cleaners as initialCleaners } from '../../store/Cleaners';
+
+const { width } = Dimensions.get('window');
 
 function CleanerItem({ item, onPress, onDeletePress, t }) {
     return (
@@ -47,7 +49,6 @@ export default function FavouriteCleaner() {
     const router = useRouter();
     const { t } = useTranslation();
 
-    // Modal State
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedCleaner, setSelectedCleaner] = useState(null);
     const [cleanerList, setCleanerList] = useState(initialCleaners);
@@ -58,7 +59,6 @@ export default function FavouriteCleaner() {
     };
 
     const confirmDelete = () => {
-        // ডিলিট লজিক (এখানে ফিল্টার করে রিমুভ করা হচ্ছে)
         const updatedList = cleanerList.filter(c => c.id !== selectedCleaner.id);
         setCleanerList(updatedList);
         setModalVisible(false);
@@ -91,7 +91,7 @@ export default function FavouriteCleaner() {
                 />
             </KeyboardAvoidingView>
 
-            {/* --- Delete Confirmation Modal --- */}
+            {/* --- Responsive Delete Confirmation Modal --- */}
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -100,7 +100,8 @@ export default function FavouriteCleaner() {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContainer}>
-                        <H6 style={{ textAlign: 'center' }}>Are you sure?</H6>
+                        <H6 style={{ textAlign: 'center' }}>{t('delete_modal.title') || 'Are you sure?'}</H6>
+                        
                         <Body2 style={styles.modalSubText}>
                             Do you really want to delete <Body2 style={{ fontWeight: 'bold' }}>{selectedCleaner?.name}</Body2>? This action cannot be undone.
                         </Body2>
@@ -154,43 +155,45 @@ const styles = StyleSheet.create({
     },
     deleteButton: { padding: 5 },
 
-    // Modal Styles
+    /* --- Responsive Modal Styles --- */
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 20, 
     },
     modalContainer: {
-        width: '90%',
-        height:"25%",
+        width: width > 400 ? 360 : '90%', 
         backgroundColor: '#fff',
         borderRadius: 20,
-        padding: 25,
+        padding: 24,
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 10,
+        
     },
     modalSubText: {
         textAlign: 'center',
-        color: Colors.TEXT_COLOR,
-        marginTop: 20,
-        // marginBottom: 20,
+        color: Colors.TEXT_COLOR || '#666',
+        marginTop: 12,
+        lineHeight: 20,
     },
     modalButtonContainer: {
         flexDirection: 'row',
-        gap: 15,
+        gap: 12,
+        marginTop: 24,
+        width: '100%',
     },
     modalButton: {
-        flex: 1,
-        height: 45,
-        borderRadius: 10,
+        flex: 1, 
+        height: 48,
+        borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop:20
     },
     cancelButton: {
         backgroundColor: '#F0F0F0',

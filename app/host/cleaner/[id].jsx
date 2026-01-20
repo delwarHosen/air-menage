@@ -195,7 +195,12 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   reviewsContainer: {
-    flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: "3%", marginBottom: -10, marginTop: 50
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: "3%",
+    marginBottom: -10,
+    marginTop: 50
   },
   seeAllContainer: {
     alignItems: 'flex-start',

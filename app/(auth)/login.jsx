@@ -2,6 +2,7 @@ import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
+    Dimensions,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
@@ -15,6 +16,9 @@ import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { ButtonText, H3, H4 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { FORM_FIELDS } from "../../constants/form";
+
+const { height } = Dimensions.get('window');
+const isSmallDevice = height < 700;
 
 export default function LoginScreen() {
     const router = useRouter();
@@ -38,9 +42,6 @@ export default function LoginScreen() {
             password: values[FORM_FIELDS.PASSWORD],
             role: selectedRole
         };
-
-        console.log("Submitted Data:", payload);
-
         if (selectedRole === "cleaner") {
             router.replace("/cleaner/home");
         } else {
@@ -60,10 +61,12 @@ export default function LoginScreen() {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.content}>
+                        {/* Header */}
                         <View style={styles.header}>
                             <H3 style={styles.title}>{t("auth.login_with_email")}</H3>
                         </View>
 
+                        {/* Form Section */}
                         <View style={styles.form}>
                             <Controller
                                 control={control}
@@ -100,6 +103,7 @@ export default function LoginScreen() {
                             <TouchableOpacity
                                 onPress={handleSubmit(onSubmit)}
                                 style={styles.submitButton}
+                                activeOpacity={0.8}
                             >
                                 <ButtonText style={styles.buttonText}>
                                     {t("auth.login")}
@@ -109,14 +113,14 @@ export default function LoginScreen() {
                             <View style={styles.footerLinksContainer}>
                                 <Link href="/(auth)/register" asChild>
                                     <TouchableOpacity>
-                                        <H4 style={{ fontWeight: '400', textDecorationLine: 'underline' }}>
+                                        <H4 style={styles.underlineText}>
                                             {t("auth.sign_up")}
                                         </H4>
                                     </TouchableOpacity>
                                 </Link>
                                 <Link href="/(auth)/forgot-password" asChild>
                                     <TouchableOpacity>
-                                        <H4 style={{ textDecorationLine: 'underline' }}>
+                                        <H4 style={styles.underlineText}>
                                             {t("auth.forgot_password")}
                                         </H4>
                                     </TouchableOpacity>
@@ -129,6 +133,7 @@ export default function LoginScreen() {
                                 <View style={styles.divider} />
                             </View>
 
+                            {/* Social Buttons */}
                             <View style={styles.socialContainer}>
                                 <TouchableOpacity style={styles.socialIcon}>
                                     <GoogleIcon />
@@ -149,69 +154,74 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFFFFF',
-        paddingTop: 24,
-        paddingHorizontal: "5%",
     },
     scrollContent: {
         flexGrow: 1,
-        marginVertical: 40
+        paddingHorizontal: "5%",
+        paddingTop: Platform.OS === 'ios' ? 60 : 40,
+        paddingBottom: 30,
+        justifyContent: isSmallDevice ? 'flex-start' : 'center', 
     },
     header: {
-        marginBottom: 20
+        marginBottom: isSmallDevice ? 20 : 30,
     },
     title: {
-        marginBottom: 8
+        fontSize: isSmallDevice ? 22 : 28,
+        textAlign: 'left',
     },
     form: {
-        marginBottom: 40
+        width: '100%',
     },
     submitButton: {
         backgroundColor: Colors.PRIMARY,
-        paddingVertical: 16,
+        paddingVertical: isSmallDevice ? 12 : 16,
         borderRadius: 12,
         alignItems: "center",
         marginTop: 10,
-        marginBottom: 5,
     },
     buttonText: {
         color: "#FFF",
-        fontWeight: "500"
+        fontWeight: "600",
     },
-    dividerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginVertical: 25
-    },
-    divider: {
-        flex: 1,
-        height: 1,
-        backgroundColor: Colors.BORDER_COLOR
-    },
-    dividerText: {
-        marginHorizontal: 16,
-        color: "#94A3B8"
+    underlineText: {
+        fontSize: isSmallDevice ? 13 : 14,
+        textDecorationLine: 'underline',
+        fontWeight: '500',
     },
     footerLinksContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-        marginHorizontal:2
+        marginTop: 15,
+        marginBottom: isSmallDevice ? 15 : 25,
+    },
+    dividerContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginVertical: isSmallDevice ? 15 : 25,
+    },
+    divider: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#E2E8F0',
+    },
+    dividerText: {
+        marginHorizontal: 16,
+        color: "#94A3B8",
+        fontSize: 14,
     },
     socialContainer: {
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center",
-        gap: 12,
-        marginTop: 20,
+        gap: 20,
     },
     socialIcon: {
-        backgroundColor: "#F7F7F7",
-        height: 60,
-        width: 60,
+        backgroundColor: "#F8FAFC",
+        height: isSmallDevice ? 50 : 60,
+        width: isSmallDevice ? 50 : 60,
         borderRadius: 30,
         justifyContent: "center",
         alignItems: "center",
+        borderWidth: 1,
+        borderColor: '#F1F5F9',
     },
 });

@@ -42,7 +42,7 @@ export const cleanerDetailsData = [
       min: 50,
       max: 80,
     },
-
+    work_complete: 2,
     cleaner_request: [
       { id: 101, profile_img: "https://i.pravatar.cc/150?img=11", name: "Sophia Martinez" },
       { id: 102, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
@@ -105,7 +105,6 @@ export const cleanerDetailsData = [
     cleanerName: "Carlos",
     price: 90.0,
     cleanerImage: "https://i.pravatar.cc/150?img=18",
-
     workRadius: 20,
     linenServices: true,
     propertyDetails: {
@@ -118,7 +117,7 @@ export const cleanerDetailsData = [
       min: 80,
       max: 120,
     },
-
+    work_complete: 1,
     cleaner_request: [
       { id: 101, profile_img: "https://i.pravatar.cc/150?img=11", name: "Sophia Martinez" },
       { id: 102, profile_img: "https://i.pravatar.cc/150?img=12", name: "Emma Wilson" },
@@ -170,6 +169,7 @@ export const cleanerDetailsData = [
       min: 30,
       max: 50,
     },
+    work_complete: 3,
   },
 
   {
@@ -212,6 +212,7 @@ export const cleanerDetailsData = [
       min: 50,
       max: 70,
     },
+    work_complete: 4,
   },
   {
     id: 5,
@@ -253,6 +254,7 @@ export const cleanerDetailsData = [
       min: 60,
       max: 85,
     },
+    work_complete: 1,
   },
 
   {
@@ -295,6 +297,7 @@ export const cleanerDetailsData = [
       min: 30,
       max: 45,
     },
+    work_complete: 3,
   },
 
   {
@@ -337,6 +340,7 @@ export const cleanerDetailsData = [
       min: 85,
       max: 120,
     },
+    work_complete: 2,
   },
 
   {
@@ -379,8 +383,9 @@ export const cleanerDetailsData = [
       min: 50,
       max: 70,
     },
+    work_complete: 3,
   },
-  
+
   {
     id: 9,
     status: "Pending",
@@ -421,7 +426,7 @@ export const cleanerDetailsData = [
       min: 55,
       max: 75,
     },
-
+    work_complete: 4,
     cleaner_request: [
       { id: 201, profile_img: "https://i.pravatar.cc/150?img=41", name: "Daniel Smith" },
       { id: 202, profile_img: "https://i.pravatar.cc/150?img=42", name: "Emily Brown" },
@@ -469,7 +474,7 @@ export const cleanerDetailsData = [
       min: 75,
       max: 100,
     },
-
+    work_complete: 1,
     cleaner_request: [
       { id: 204, profile_img: "https://i.pravatar.cc/150?img=44", name: "Lucas White" },
       { id: 205, profile_img: "https://i.pravatar.cc/150?img=45", name: "Sophia Green" },
@@ -516,7 +521,7 @@ export const cleanerDetailsData = [
       min: 35,
       max: 50,
     },
-
+    work_complete: 2,
     cleaner_request: [
       { id: 206, profile_img: "https://i.pravatar.cc/150?img=46", name: "Peter Novak" },
       { id: 207, profile_img: "https://i.pravatar.cc/150?img=47", name: "Laura Kiss" },

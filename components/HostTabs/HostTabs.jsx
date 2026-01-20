@@ -28,9 +28,6 @@ export default function HostTabs({ activeTab, setActiveTab }) {
 }
 
 const styles = StyleSheet.create({
-
-
-
     tabWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',

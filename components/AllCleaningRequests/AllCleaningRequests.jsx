@@ -16,7 +16,7 @@ import { cleanerDetailsData } from '../../store/CleanerRequestData';
 import { Body1, Caption, H4, H5, H6 } from '../typo/typography';
 
 
-export default function AllCleaningRequests({ hideValidateButtonInDetails = false }) {
+export default function AllCleaningRequests({ hideValidateButtonInDetails = false, hiddenWorkCompletedButton }) {
     const { t } = useTranslation();
     const router = useRouter();
 
@@ -25,12 +25,22 @@ export default function AllCleaningRequests({ hideValidateButtonInDetails = fals
             activeOpacity={0.8}
             onPress={() => router.push({
                 pathname: `/host/peopertyOverview/${item.id}`,
-                params: { fromAchive: hideValidateButtonInDetails ? 'true' : 'false' }
+                params: {
+                    fromAchive: hideValidateButtonInDetails ? 'true' : 'false',
+                }
             })}
         >
             <View style={styles.card}>
                 {/* Top Date Section */}
-                <H5>{item.date}</H5>
+                <View style={styles.cleaningHeader}>
+                    <H5>{item.date}</H5>
+
+                    {hiddenWorkCompletedButton && <View style={styles.cleaningHeaderContent}>
+                        <Body1 style={styles.cleaningHeaderText}>{item?.work_complete}</Body1>
+                    </View>
+                    }
+
+                </View>
 
                 <View style={styles.divider} />
 
@@ -148,6 +158,21 @@ const styles = StyleSheet.create({
         marginBottom: 20,
 
     },
+    cleaningHeader: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+
+    },
+    cleaningHeaderContent: {
+        height: 30,
+        width: 30,
+        borderRadius: 15,
+        backgroundColor: Colors.PRIMARY,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    cleaningHeaderText: { color: "white", paddingBottom: 5 },
     divider: {
         height: 1,
         backgroundColor: Colors.BORDER_COLOR,

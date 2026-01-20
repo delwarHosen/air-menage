@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     propertyCard: {
-        width: "30%",
+        flex:1,
+        // width: "20%",
         height: 100,
         borderWidth: 1,
         borderRadius: 12,

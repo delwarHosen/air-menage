@@ -4,6 +4,19 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
+    Dimensions // Dimensions ইমপোর্ট করা হয়েছে
+    ,
+
+
+
+
+
+
+
+
+
+
+
     KeyboardAvoidingView,
     Modal,
     Platform,
@@ -19,6 +32,9 @@ import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { Body1, Body2, ButtonText, H3 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { ImageUpload } from "../../components/ui/ImageUpload";
+
+const { height } = Dimensions.get('window');
+const isSmallDevice = height < 750; 
 
 export default function SignUpScreen() {
     const router = useRouter();
@@ -37,29 +53,25 @@ export default function SignUpScreen() {
         }
     });
 
-
     const onSubmit = (data) => {
-        console.log("Form Data:", data);
         setIsModalVisible(true);
     };
 
     const handleModalDone = () => {
         setIsModalVisible(false);
-        
         if (selectedRole === "host") {
             router.replace("/identity-verification/identity-verification-banner1");
         } else {
             router.replace("/(auth)/login");
         }
-
     };
-
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.flex1}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
             >
                 <ScrollView
                     contentContainerStyle={styles.scrollContent}
@@ -67,8 +79,11 @@ export default function SignUpScreen() {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.content}>
-                        <H3 style={styles.title}>{t("auth.signup_with_email")}</H3>
+                        <H3 style={[styles.title, { fontSize: isSmallDevice ? 20 : 24 }]}>
+                            {t("auth.signup_with_email")}
+                        </H3>
 
+                        
                         <View style={styles.imageContainer}>
                             <View style={styles.profileWrapper}>
                                 <Controller
@@ -80,16 +95,21 @@ export default function SignUpScreen() {
                                             onImageSelect={onChange}
                                             shape="circle"
                                             showIcon={false}
+                                            containerStyle={{
+                                                height: isSmallDevice ? 100 : 130,
+                                                width: isSmallDevice ? 100 : 130,
+                                            }}
                                         />
                                     )}
                                 />
                                 <TouchableOpacity style={styles.cameraIconContainer} activeOpacity={0.7}>
-                                    <Ionicons name="camera" size={20} color="#fff" />
+                                    <Ionicons name="camera" size={isSmallDevice ? 16 : 20} color="#fff" />
                                 </TouchableOpacity>
                             </View>
                         </View>
 
-                        <View style={styles.form}>
+                        <View style={[styles.form, { marginTop: isSmallDevice ? 20 : 30 }]}>
+                            {/* Inputs */}
                             <Controller
                                 control={control}
                                 name="fullName"
@@ -157,11 +177,12 @@ export default function SignUpScreen() {
 
                             <TouchableOpacity
                                 onPress={handleSubmit(onSubmit)}
-                                style={styles.submitButton}
+                                style={[styles.submitButton, { paddingVertical: isSmallDevice ? 14 : 16 }]}
                             >
                                 <ButtonText style={styles.buttonText}>{t("auth.signup")}</ButtonText>
                             </TouchableOpacity>
 
+                            {/* Terms */}
                             <View style={styles.termsContainer}>
                                 <TouchableOpacity
                                     onPress={() => setChecked(!checked)}
@@ -172,9 +193,8 @@ export default function SignUpScreen() {
                                 >
                                     {checked && <Ionicons name="checkmark" size={14} color="#fff" />}
                                 </TouchableOpacity>
-
                                 <View style={styles.termsTextContainer}>
-                                    <Body1>
+                                    <Body1 style={{ fontSize: isSmallDevice ? 12 : 14 }}>
                                         {t("auth.accept")}{" "}
                                         <Body2
                                             style={styles.linkText}
@@ -186,17 +206,18 @@ export default function SignUpScreen() {
                                 </View>
                             </View>
 
-                            <View style={styles.dividerContainer}>
+                            
+                            <View style={[styles.dividerContainer, { marginVertical: isSmallDevice ? 15 : 25 }]}>
                                 <View style={styles.divider} />
                                 <Body1 style={styles.dividerText}>{t("auth.or")}</Body1>
                                 <View style={styles.divider} />
                             </View>
 
                             <View style={styles.socialContainer}>
-                                <TouchableOpacity style={styles.socialIcon}>
+                                <TouchableOpacity style={[styles.socialIcon, isSmallDevice && { height: 50, width: 50 }]}>
                                     <GoogleIcon />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.socialIcon}>
+                                <TouchableOpacity style={[styles.socialIcon, isSmallDevice && { height: 50, width: 50 }]}>
                                     <AppleIcons />
                                 </TouchableOpacity>
                             </View>
@@ -205,34 +226,17 @@ export default function SignUpScreen() {
                 </ScrollView>
             </KeyboardAvoidingView>
 
-            {/* -----\\modal----- */}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={isModalVisible}
-                onRequestClose={() => setIsModalVisible(false)}
-            >
+            {/* Modal - Success */}
+            <Modal animationType="fade" transparent visible={isModalVisible}>
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
                         <View style={styles.successIconCircle}>
-                            <Ionicons name="checkmark" size={50} color="#fff" />
+                            <Ionicons name="checkmark" size={40} color="#fff" />
                         </View>
-
-                        <H3 style={styles.modalTitle}>
-                            {t("signupSuccess.title")}
-                        </H3>
-
-                        <Body1 style={styles.modalSubtitle}>
-                            {t("signupSuccess.subtitle")}
-                        </Body1>
-
-                        <TouchableOpacity
-                            style={styles.doneButton}
-                            onPress={handleModalDone}
-                        >
-                            <ButtonText style={styles.buttonText}>
-                                {t("common.done")}
-                            </ButtonText>
+                        <H3 style={styles.modalTitle}>{t("signupSuccess.title")}</H3>
+                        <Body1 style={styles.modalSubtitle}>{t("signupSuccess.subtitle")}</Body1>
+                        <TouchableOpacity style={styles.doneButton} onPress={handleModalDone}>
+                            <ButtonText style={styles.buttonText}>{t("common.done")}</ButtonText>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -241,190 +245,90 @@ export default function SignUpScreen() {
     );
 }
 
-// styles same as before
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-    },
-
-    flex1: {
-        flex: 1,
-    },
-
-    scrollContent: {
-        flexGrow: 1,
-        paddingHorizontal: "4%",
-    },
-
-    content: {
-        flex: 1,
-        paddingTop: 20,
-        paddingBottom: 50,
-    },
-
-    imageContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 20,
-        marginBottom: 10,
-    },
-
-    profileWrapper: {
-        position: "relative",
-    },
-
-    profileImage: {
-        height: 150,
-        width: 150,
-        borderRadius: 75,
-        borderWidth: 1,
-        borderColor: Colors.PRIMARY,
-        backgroundColor: "#E1E1E1",
-    },
-
+    safeArea: { flex: 1, backgroundColor: "#FFFFFF" },
+    flex1: { flex: 1 },
+    scrollContent: { flexGrow: 1, paddingHorizontal: "5%", paddingBottom: 20 },
+    content: { flex: 1, paddingTop: 10 },
+    imageContainer: { alignItems: "center", marginTop: 10 },
+    profileWrapper: { position: "relative" },
     cameraIconContainer: {
         position: "absolute",
-        bottom: 20,
-        right: 3,
+        bottom: isSmallDevice? 20: 10,
+        right: isSmallDevice? 5: 10,
         backgroundColor: Colors.PRIMARY,
-        width: 34,
-        height: 34,
-        borderRadius: 17,
+        width: 30,
+        height: 30,
+        borderRadius: 15,
         justifyContent: "center",
         alignItems: "center",
-        borderWidth: 3,
+        borderWidth: 2,
         borderColor: "#fff",
-        elevation: 1,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
     },
-
-    title: {
-        fontWeight: "500",
-    },
-
-    form: {
-        marginTop: 40,
-    },
-
+    title: { fontWeight: "500", textAlign: 'left' },
+    form: { width: '100%' },
     submitButton: {
         backgroundColor: Colors.PRIMARY,
-        paddingVertical: 16,
         borderRadius: 12,
-        alignItems: "center",
-        marginTop: 10,
-    },
-
-    buttonText: {
-        color: "#fff",
-    },
-
-    termsContainer: {
-        flexDirection: "row",
         alignItems: "center",
         marginTop: 15,
     },
-
+    buttonText: { color: "#fff", fontWeight: '600' },
+    termsContainer: { flexDirection: "row", alignItems: "center", marginTop: 15 },
     checkbox: {
-        height: 20,
-        width: 20,
+        height: 18,
+        width: 18,
         borderRadius: 4,
         borderWidth: 1.5,
         borderColor: Colors.PRIMARY,
         justifyContent: "center",
         alignItems: "center",
-        marginRight: 10,
+        marginRight: 8,
     },
-
-    termsTextContainer: {
-        flexDirection: "row",
-        flex: 1,
-    },
-
-    linkText: {
-        color: "#2DBEFF",
-    },
-
-    dividerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginVertical: 25,
-    },
-
-    divider: {
-        flex: 1,
-        height: 1,
-        backgroundColor: Colors.BORDER_COLOR,
-    },
-
-    dividerText: {
-        marginHorizontal: 16,
-        color: "#94A3B8",
-    },
-
-    socialContainer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 12,
-        marginTop: 5,
-    },
-
+    termsTextContainer: { flex: 1 },
+    linkText: { color: "#2DBEFF", textDecorationLine: 'underline' },
+    dividerContainer: { flexDirection: "row", alignItems: "center" },
+    divider: { flex: 1, height: 1, backgroundColor: Colors.BORDER_COLOR },
+    dividerText: { marginHorizontal: 12, color: "#94A3B8" },
+    socialContainer: { flexDirection: "row", justifyContent: "center", gap: 15, marginBottom: 20 },
     socialIcon: {
         backgroundColor: "#F7F7F7",
-        height: 60,
-        width: 60,
-        borderRadius: 30,
+        height: 55,
+        width: 55,
+        borderRadius: 28,
         justifyContent: "center",
         alignItems: "center",
+        borderWidth: 1,
+        borderColor: '#eee'
     },
-
     modalOverlay: {
         flex: 1,
-        backgroundColor: "rgba(0,0,0,0.5)",
-        justifyContent: "flex-end",
+        backgroundColor: "rgba(0,0,0,0.6)",
+        justifyContent: "center", // মাঝখানে আনা হয়েছে রেসপন্সিভনেসের জন্য
+        paddingHorizontal: 20
     },
-
     modalContent: {
         backgroundColor: "#fff",
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        padding: 30,
+        borderRadius: 20,
+        padding: 25,
         alignItems: "center",
-        elevation: 5,
     },
-
     successIconCircle: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 70,
+        height: 70,
+        borderRadius: 35,
         backgroundColor: Colors.PRIMARY,
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 20,
+        marginBottom: 15,
     },
-
-    modalTitle: {
-        marginBottom: 10,
-        color: "#1F2937",
-    },
-
-    modalSubtitle: {
-        textAlign: "center",
-        color: "#6B7280",
-        marginBottom: 30,
-    },
-
+    modalTitle: { marginBottom: 10, textAlign: 'center' },
+    modalSubtitle: { textAlign: "center", color: "#6B7280", marginBottom: 20 },
     doneButton: {
         backgroundColor: Colors.PRIMARY,
         width: "100%",
-        paddingVertical: 16,
-        marginBottom:50,
-        borderRadius: 12,
+        paddingVertical: 14,
+        borderRadius: 10,
         alignItems: "center",
     },
 });

@@ -1,3 +1,4 @@
+import { StripeProvider } from "@stripe/stripe-react-native";
 import { useFonts } from "expo-font";
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -21,13 +22,20 @@ export default function RootLayout() {
 
     return (
         <Provider store={store}>
-            <I18nextProvider i18n={i18n}>
-                <SafeAreaView style={{ flex: 1, backgroundColor: '#FAFAFA' }}>
-                    <Stack screenOptions={{ headerShown: false }} />
-                    <StatusBar style="auto" />
-                </SafeAreaView>
-            </I18nextProvider>
+            <StripeProvider
+             publishableKey="your-stripe-publishable-key"
+             merchantIdentifier="merchant.com.yourapp.name"
+             >
+                <I18nextProvider i18n={i18n}>
+                    <SafeAreaView style={{ flex: 1, backgroundColor: '#FAFAFA' }}>
+                        <Stack screenOptions={{ headerShown: false }} />
+                        <StatusBar style="auto" />
+                    </SafeAreaView>
+                </I18nextProvider>
+            </StripeProvider>
+
         </Provider>
 
     )
 }
+

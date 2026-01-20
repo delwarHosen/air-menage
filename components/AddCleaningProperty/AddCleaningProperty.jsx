@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
+    Dimensions,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
@@ -20,7 +21,15 @@ import { FORM_FIELDS } from "../../constants/form";
 import { Body2 } from "../typo/typography";
 import { FormInput } from "../ui/FormInput";
 
+import { ImageUpload } from '../ui/ImageUpload';
+import CounterPropertySpecification from './CounterPropertySpecification';
+import Elevator from './Elevator';
+import { KeyBoxSelection } from './KeyBoxSelection';
+import PropertyTypePicker from './PropertyTypePicker';
+import VacuumeProvided from './VacuumeProvided';
 import WorkTypeList from "./WorkTypeSection";
+const { height } = Dimensions.get('window');
+const isSmallDevice = height < 750;
 
 export default function AddCleaningProperty() {
     const router = useRouter();
@@ -55,6 +64,7 @@ export default function AddCleaningProperty() {
             kitchens: 1,
             bathrooms: 1,
             description: "",
+            providedService: "",
         },
     });
 
@@ -94,10 +104,10 @@ export default function AddCleaningProperty() {
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView
-              
+
                 behavior={Platform.OS === "ios" ? "padding" : "padding"}
                 style={{ flex: 1 }}
-                
+
                 keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 80}
             >
                 <ScrollView
@@ -105,7 +115,6 @@ export default function AddCleaningProperty() {
                     contentContainerStyle={styles.scrollContainer}
                     keyboardShouldPersistTaps="handled"
                 >
-                   
 
                     <Controller
                         control={control}
@@ -121,8 +130,133 @@ export default function AddCleaningProperty() {
                         )}
                     />
 
-                   
 
+                    <Controller
+                        control={control}
+                        name={FORM_FIELDS.PROPERTY_IMAGE}
+                        render={({ field }) => (
+                            <ImageUpload
+                                image={field.value}
+                                onImageSelect={field.onChange}
+                                shape="squre"
+                                showIcon={true}
+                                containerStyle={{
+                                    height: isSmallDevice ? 100 : 130,
+                                    width: isSmallDevice ? 100 : 130,
+                                }}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
+                        name="propertyType"
+                        render={({ field: { onChange, value } }) => (
+                            <PropertyTypePicker
+                                value={value}
+                                onChange={onChange}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
+                        name={FORM_FIELDS.FLOOR_NUMBER}
+                        render={({ field }) => (
+                            <FormInput
+                                label={t("addProperty.floor")}
+                                placeholder={t("addProperty.floorPlaceHolder")}
+                                value={field.value}
+                                onChangeText={field.onChange}
+                                style={styles.syneInput}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
+                        name={FORM_FIELDS.APARTMENT_NUMBER}
+                        render={({ field }) => (
+                            <FormInput
+                                label={t("addProperty.ApartmentNumber")}
+                                placeholder={t("addProperty.apertment")}
+                                value={field.value}
+                                onChangeText={field.onChange}
+                                style={styles.syneInput}
+                            />
+                        )}
+                    />
+
+
+                    {/*--------- Elevator section-------- */}
+                    <Elevator
+                        control={control} label={t("addProperty.elevator")}
+                    />
+
+                    <Controller
+                        control={control}
+                        name={FORM_FIELDS.PROPERTY_SIZE}
+                        render={({ field }) => (
+                            <FormInput
+                                label={t("addProperty.propertySize")}
+                                placeholder={t("addProperty.propertyPlaceholder")}
+                                value={field.value}
+                                onChangeText={field.onChange}
+                                style={styles.syneInput}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
+                        name={FORM_FIELDS.LOCATION}
+                        render={({ field }) => (
+                            <FormInput
+                                label={t("addProperty.location")}
+                                placeholder={t("addProperty.locationPlaceholder")}
+                                value={field.value}
+                                onChangeText={field.onChange}
+                                style={styles.syneInput}
+                            />
+                        )}
+                    />
+
+
+                    {/* Bedrooms Counter */}
+                    <Controller
+                        control={control}
+                        name="bedrooms"
+                        render={({ field: { onChange, value } }) => (
+                            <CounterPropertySpecification
+                                labelKey="Bedroom" value={value} onIncrement={() => onChange(value + 1)} onDecrement={() => onChange(Math.max(1, value - 1))} />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="kitchens"
+                        render={({ field: { onChange, value } }) => (
+                            <CounterPropertySpecification labelKey="kitchen" value={value} onIncrement={() => onChange(value + 1)} onDecrement={() => onChange(Math.max(1, value - 1))} />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="bathrooms"
+                        render={({ field: { onChange, value } }) => (
+                            <CounterPropertySpecification labelKey="Bathroom" value={value} onIncrement={() => onChange(value + 1)} onDecrement={() => onChange(Math.max(1, value - 1))} />
+                        )}
+                    />
+
+                    {/*------- KeyBox section---------- */}
+                    <KeyBoxSelection control={control} errors={errors} />
+                    {/* -----Vacume Provided-------- */}
+                    <VacuumeProvided
+                        control={control}
+                        errors={errors}
+                        vacuumLabel={t("addProperty.vacuum")}
+                        suppliesLabel={t("addProperty.supplies")}
+                    />
+
+                    {/* Descripion section */}
                     <Body2 style={styles.label}>{t("addProperty.description")}</Body2>
                     <Controller
                         control={control}
@@ -141,13 +275,13 @@ export default function AddCleaningProperty() {
                         )}
                     />
 
-                   
+
                     <WorkTypeList title={t("work.general")} workTypes={generalWork} onAdd={handleAddGeneral} onDelete={handleDeleteGeneral} />
                     <WorkTypeList title={t("work.bedroom")} workTypes={bedroomWork} onAdd={handleAddBedRoom} onDelete={handleDeleteBedRoom} />
                     <WorkTypeList title={t("work.bathroom")} workTypes={bathroomWork} onAdd={handleAddBathRoom} onDelete={handleDeleteBathRoom} />
                     <WorkTypeList title={t("work.kitchen")} workTypes={kitchenWork} onAdd={handleAddKitchenRoom} onDelete={handleDeleteKitchen} />
 
-                    {/* সাবমিট বাটন */}
+
                     <TouchableOpacity
                         style={styles.submitButton}
                         onPress={handleSubmit(onSubmit)}
@@ -166,7 +300,7 @@ const styles = StyleSheet.create({
     scrollContainer: {
         paddingHorizontal: "4%",
         paddingTop: 20,
-        paddingBottom: 40, 
+        paddingBottom: 40,
         flexGrow: 1
     },
     label: { marginVertical: 10 },
@@ -192,7 +326,7 @@ const styles = StyleSheet.create({
     textArea: { flex: 1, textAlignVertical: "top", color: "#1A1A1A", fontFamily: 'Syne-Regular' },
     submitButton: {
         marginTop: 40,
-        marginBottom: 20, 
+        marginBottom: 20,
         height: 50,
         borderRadius: 12,
         justifyContent: "center",

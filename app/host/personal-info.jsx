@@ -37,13 +37,11 @@ export default function PersonalInfo() {
     </View>
   );
 
+  // Profile section scroll hobe, kintu Title hobe na
   const Header = () => (
-    <>
-      <Heading title={t("host_personal_info.title")} />
-      <View style={styles.profileSection}>
-        <Image source={IMAGE_CONSTANTS.profile} style={styles.profileImage} />
-      </View>
-    </>
+    <View style={styles.profileSection}>
+      <Image source={IMAGE_CONSTANTS.profile} style={styles.profileImage} />
+    </View>
   );
 
   const Footer = () => {
@@ -68,7 +66,12 @@ export default function PersonalInfo() {
   };
 
   return (
-    <>
+    <View style={styles.container}>
+      {/* Title-ti List-er baire thakai eta sticky thakbe */}
+      <View style={styles.stickyHeader}>
+        <Heading title={t("host_personal_info.title")} />
+      </View>
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -84,19 +87,30 @@ export default function PersonalInfo() {
           ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
         />
       </KeyboardAvoidingView>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
- 
+  container: {
+    flex: 1,
+    backgroundColor: "#FAFAFA",
+  },
+  stickyHeader: {
+    paddingHorizontal: "5%",
+    backgroundColor: "#FAFAFA",
+    paddingTop: 10,
+    zIndex: 10,
+  },
   scrollContainer: {
     paddingHorizontal: "5%",
-    backgroundColor:"#FAFAFA",
+    backgroundColor: "#FAFAFA",
+    paddingBottom: 20,
   },
   profileSection: {
     alignItems: "center",
-    marginBottom: 30
+    marginBottom: 30,
+    marginTop: 10, // Title theke ektu gap rakhar jonno
   },
   profileImage: {
     height: 120,
@@ -123,12 +137,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#0F243E",
     fontWeight: "500",
-    marginTop:3
+    marginTop: 3
   },
   submitButton: {
     width: "100%",
     backgroundColor: Colors.PRIMARY,
-    paddingVertical:20,
+    paddingVertical: 20,
     borderRadius: 12,
     alignItems: "center",
     marginTop: 30

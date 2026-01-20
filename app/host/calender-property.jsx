@@ -16,8 +16,6 @@ export default function CalenderProperty() {
     const month = 0;
     const daysOfWeek = ['SA', 'SU', 'MO', 'TU', 'WE', 'TH', 'FRI'];
 
-    // ১. ক্লিনারের কাজের তারিখ (ধরি ১১ তারিখ)
-    // ২. পরবর্তী কাজের তারিখ (ধরি ১৮ তারিখ)
     const assignedWorkDate = 11;
     const nextWorkDate = 18;
 
@@ -45,7 +43,8 @@ export default function CalenderProperty() {
 
         if (day === assignedWorkDate) {
             router.push({
-                pathname: `/host/peopertyOverview/${params.id || '1'}`,
+                // pathname: `/host/peopertyOverview/${params.id || '1'}`,
+                pathname: `/host/booking-details`,
                 params: { fromAchive: 'true' } 
             });
         }
@@ -106,7 +105,7 @@ export default function CalenderProperty() {
                                             {day < 10 ? `0${day}` : day}
                                         </Body1>
 
-                                        {/* ক্লিনারের প্রোফাইল ইমেজ (১১ তারিখের জন্য) */}
+                                       
                                         {isAssigned && (
                                             <View style={styles.cleanerIconWrapper}>
                                                 <Image
@@ -116,7 +115,7 @@ export default function CalenderProperty() {
                                             </View>
                                         )}
 
-                                        {/* পরবর্তী ডেট ইন্ডিকেটর (১৮ তারিখের জন্য) */}
+                                       
                                         {isNextDate && (
                                             <View style={styles.nextIndicator}>
                                                 <Body1 style={styles.nextText}>NEXT</Body1>

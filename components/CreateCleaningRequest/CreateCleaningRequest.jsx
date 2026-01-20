@@ -47,7 +47,7 @@ export default function PropertyBookingScreens() {
 
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
-      [FORM_FIELDS.ADDRESS_BOX]: "", 
+      [FORM_FIELDS.ADDRESS_BOX]: "",
       selectedOption: "collect",
       sendToFavorites: false,
       rate: 50
@@ -104,7 +104,7 @@ export default function PropertyBookingScreens() {
           />
 
           <LinenHandlingForm
-          control={control}
+            control={control}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             dropOffAddress={dropOffAddress}
@@ -135,15 +135,16 @@ export default function PropertyBookingScreens() {
             </Pressable>
 
             {/* Favorite Section  */}
+            {/* Favorite Section  */}
             <Pressable
               style={styles.favoriteSection}
               onPress={() => setSendToFavorites(prev => !prev)}
             >
-              <View>
+              <View style={styles.favoriteTextContainer}>
                 <H5 style={styles.favoriteTitle}>
                   {t('booking.send_to_favorites')}
                 </H5>
-                <Body2 style={styles.favoriteSubtitle}>
+                <Body2 style={styles.favoriteSubtitle} numberOfLines={2}>
                   {t('booking.favorite_cleaners')}
                 </Body2>
               </View>
@@ -207,6 +208,7 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   priceListText: { textDecorationLine: 'underline', color: Colors.PRIMARY || '#000' },
+
   favoriteSection: {
     backgroundColor: '#FFF',
     borderRadius: 12,
@@ -218,27 +220,62 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  favoriteTitle: {
-    marginBottom: 4
-    , width: "95%"
+  
+  
+  favoriteSection: {
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    padding: 16,
+    marginBottom: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  favoriteSubtitle: { color: '#999' },
+  
+  
+  favoriteTextContainer: {
+    flex: 1,
+    marginRight: 10,
+  },
+
+  favoriteTitle: {
+    marginBottom: 4,
+  },
+
+  favoriteSubtitle: { 
+    color: '#999' 
+  },
+
+ 
   toggle: {
     width: 50,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#E5E5E5', 
     padding: 2,
     justifyContent: 'center',
   },
-  toggleActive: { backgroundColor: '#1A1A1A' },
+
+  
+  toggleActive: { 
+    backgroundColor: '#1A1A1A' 
+  },
+
+
   toggleThumb: {
     width: 24,
     height: 24,
     borderRadius: 12,
     backgroundColor: '#FFF',
   },
-  toggleThumbActive: { alignSelf: 'flex-end' },
+
+  
+  toggleThumbActive: { 
+    alignSelf: 'flex-end' 
+  },
+
   createButton: {
     backgroundColor: Colors.PRIMARY || '#1A1A1A',
     borderRadius: 12,

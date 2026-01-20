@@ -1,3 +1,4 @@
+import { useFonts } from "@expo-google-fonts/syne";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
@@ -9,6 +10,13 @@ import { FormInput } from "../ui/FormInput";
 
 export const KeyBoxSelection = ({ control, errors }) => {
     const { t } = useTranslation();
+    const [fontsLoaded] = useFonts({
+        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    });
+
+    if (!fontsLoaded) {
+        return null;
+    }
 
     return (
         <View style={styles.keyBoxContainer}>
@@ -53,7 +61,7 @@ export const KeyBoxSelection = ({ control, errors }) => {
                             onChangeText={onChange}
                             placeholder={t("keybox.placeholders.location")}
                             error={errors[FORM_FIELDS.KEY_LOCATION]?.message}
-                           
+                            style={{ fontFamily: 'Syne-Regular' }}
                         />
                     </View>
                 )}
@@ -71,7 +79,7 @@ export const KeyBoxSelection = ({ control, errors }) => {
                             placeholder={t("keybox.placeholders.code")}
                             error={errors[FORM_FIELDS.KEY_PASSWORD]?.message}
                             type="password"
-                           
+                            style={{ fontFamily: 'Syne-Regular' }}
                         />
                     </View>
                 )}
@@ -108,8 +116,8 @@ const styles = StyleSheet.create({
     activeBorder: {
         borderColor: Colors.PRIMARY,
     },
-    inputLabel:{
-        marginBottom:-20,
-        marginTop:10
+    inputLabel: {
+        marginBottom: -20,
+        marginTop: 10
     }
 })

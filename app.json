@@ -33,6 +33,13 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.com.airmenage",
+          "enableGooglePay": true
+        }
+      ],
       "expo-router",
       [
         "expo-camera",
