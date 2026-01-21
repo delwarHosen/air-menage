@@ -77,10 +77,13 @@ export default function CleaningTask({
 
                 <View style={styles.middleRow}>
                     <Image source={item.image} style={styles.propertyImage} />
-                    <View style={styles.rightContent}>
-                        <Body1>{item.city}</Body1>
+                    
+                    
+                    <View style={[styles.rightContent, { flex: 1 }]}>
+                        <Body1 numberOfLines={1}>{item.city}</Body1>
 
-                        <View style={styles.propeertiDetailcontent}>
+                        
+                        <View style={[styles.propeertiDetailcontent, { flexWrap: 'wrap' }]}>
                             <View style={styles.propertiContent}>
                                 <CreatePropertyIcon />
                                 <Caption>{item.area}</Caption>
@@ -93,7 +96,7 @@ export default function CleaningTask({
                             </View>
                         </View>
 
-                        <View style={styles.propeertiDetailcontent}>
+                        <View style={[styles.propeertiDetailcontent, { flexWrap: 'wrap' }]}>
                             <View style={styles.propertiContent}>
                                 <BedIcon />
                                 <Caption>
@@ -110,7 +113,7 @@ export default function CleaningTask({
 
                         <View style={styles.propertiContent}>
                             <LocationIcon />
-                            <Caption>{item.buildingName}</Caption>
+                            <Caption numberOfLines={1}>{item.buildingName}</Caption>
                         </View>
 
                         <View style={styles.propertiContent}>
@@ -123,7 +126,7 @@ export default function CleaningTask({
                             <Caption>{item.duration}</Caption>
                         </View>
 
-                        <Caption>
+                        <Caption numberOfLines={1}>
                             {t("cleaner.laundry")}:{" "}
                             {item.laundryIncluded
                                 ? t("cleaner.included")
@@ -172,14 +175,13 @@ export default function CleaningTask({
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
                     paddingBottom: 30,
-                    paddingHorizontal: "2.5%"
+                    paddingHorizontal: "4%"
                 }}
                 ListHeaderComponent={HeaderContent}
             />
         </KeyboardAvoidingView>
     );
 }
-
 
 const styles = StyleSheet.create({
     mainContainer: { flex: 1 },
@@ -234,7 +236,6 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     rightContent: {
-        flex: 1,
         gap: 2
     },
     propeertiDetailcontent: {

@@ -43,9 +43,10 @@ const styles = StyleSheet.create({
     },
     scrollContent: {
         paddingBottom: 10,
+        paddingHorizontal:"5%"
     },
     contentWrapper: {
-        marginHorizontal: "4%",
+        // marginHorizontal: "4%",
         marginVertical: 15,
     }
 });

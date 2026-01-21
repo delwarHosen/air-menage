@@ -27,6 +27,7 @@ export default function VerificationCodeScreen() {
     const inputRef = useRef(null);
     const CODE_LENGTH = 4;
 
+    // Timer Logic
     useEffect(() => {
         let interval;
         if (timer > 0) {
@@ -43,16 +44,19 @@ export default function VerificationCodeScreen() {
             setTimer(30);
             setCanResend(false);
             setCode("");
-            ToastAndroid.show(t("verification.verificationResent"), ToastAndroid.SHORT);
+            if (Platform.OS === 'android') {
+                ToastAndroid.show(t("verification.verificationResent"), ToastAndroid.SHORT);
+            }
         }
     };
 
     const handleVerify = () => {
         if (code.length !== CODE_LENGTH) {
-            ToastAndroid.show(t("verification.enterCodeError"), ToastAndroid.SHORT);
+            if (Platform.OS === 'android') {
+                ToastAndroid.show(t("verification.enterCodeError"), ToastAndroid.SHORT);
+            }
             return;
         }
-        ToastAndroid.show(t("verification.verificationSuccess"), ToastAndroid.SHORT);
         router.push("/(auth)/set-new-password");
     };
 
@@ -62,13 +66,18 @@ export default function VerificationCodeScreen() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.container}
             >
-                <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+                <ScrollView 
+                    contentContainerStyle={styles.scrollContent} 
+                    keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}
+                >
                     <View style={styles.content}>
                         <AuthHeading
                             title={t("verification.title")}
                             description={t("verification.description")}
                         />
 
+                        
                         <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => inputRef.current?.focus()}
@@ -82,11 +91,15 @@ export default function VerificationCodeScreen() {
                                         code.length === index && styles.activeOtpBox
                                     ]}
                                 >
-                                    <Body1 style={styles.otpText}>{code[index] || ""}</Body1>
+                                   
+                                    <Body1 weight="bold" style={styles.otpText}>
+                                        {code[index] || ""}
+                                    </Body1>
                                 </View>
                             ))}
                         </TouchableOpacity>
 
+                       
                         <TextInput
                             ref={inputRef}
                             value={code}
@@ -101,14 +114,14 @@ export default function VerificationCodeScreen() {
 
                             {canResend ? (
                                 <TouchableOpacity onPress={handleResend} style={styles.resendButton}>
-                                    <Body1 color="#00AFF5" style={{ fontWeight: '600' }}>
+                                    <Body1 color="#00AFF5" weight="semiBold">
                                         {t("verification.resendCode")}
                                     </Body1>
                                 </TouchableOpacity>
                             ) : (
                                 <View style={styles.timerWrapper}>
                                     <Body1 color="#94A3B8">{t("verification.resendIn")}</Body1>
-                                    <Body1 color="#00AFF5" style={{ fontWeight: 'bold' }}>
+                                    <Body1 color="#00AFF5" weight="bold">
                                         {`${timer}s`}
                                     </Body1>
                                 </View>
@@ -129,7 +142,6 @@ export default function VerificationCodeScreen() {
     );
 }
 
-// Styles remain unchanged
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
@@ -149,14 +161,13 @@ const styles = StyleSheet.create({
     otpContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginBottom: 30
+        marginBottom: 30,
+        marginTop: 20
     },
     otpBox: {
-        width: 72,
-        height: 50,
-        borderWidth: 1.5,
-        borderColor: "#E1E1E1",
-        borderRadius: 30,
+        width: 70,
+        height: 55,
+        borderRadius: 25, 
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#E9E9E9"
@@ -168,44 +179,44 @@ const styles = StyleSheet.create({
     },
     otpText: {
         fontSize: 24,
-        fontWeight: "bold",
-        color: "#1E293B"
+        color: "#1E293B",
+      
     },
     hiddenInput: {
         position: 'absolute',
         opacity: 0,
         height: 0,
-        width: 0
+        width: 0,
+        fontFamily: 'SyneRegular' 
     },
     resendContainer: {
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
         marginBottom: 40,
-        marginTop: 10
     },
     resendButton: {
-        marginTop: 10,
-        padding: 5
+        marginTop: 8,
     },
     timerWrapper: {
         flexDirection: 'row',
-        marginTop: 10,
-        gap:3
+        marginTop: 8,
+        gap: 4
     },
     submitButton: {
         backgroundColor: "#00AFF5",
         borderRadius: 12,
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 18,
+        paddingVertical: 16,
         elevation: 2,
         shadowColor: "#000",
-
-        shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4
     },
     buttonText: { 
         color: "#FFF",
-        fontSize: 16, 
+        fontSize: 16,
+        fontWeight: '700'
     }
 });

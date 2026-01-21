@@ -1,4 +1,3 @@
-import { useFonts } from 'expo-font';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
@@ -10,15 +9,6 @@ import { Body2, H5, H6 } from '../typo/typography';
 export default function LinenHandlingForm({ control, selectedOption, setSelectedOption, dropOffAddress, setDropOffAddress }) {
     const { t } = useTranslation();
 
-
-    
-    const [fontsLoaded] = useFonts({
-        "Syne-Regular":require("./../../assets/fonts/Syne-Regular.ttf"), 
-    });
-
-    if (!fontsLoaded) {
-        return null; 
-    }
 
     const LinenOption = ({ id, icon, title, selected, onPress }) => (
         <Pressable
@@ -64,7 +54,7 @@ export default function LinenHandlingForm({ control, selectedOption, setSelected
                 name={FORM_FIELDS.ADDRESS_BOX}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        style={[styles.input, { fontFamily: 'Syne-Regular' }]} 
+                        style={[styles.input]} 
                         placeholder={t('linen.placeholder_address')}
                         placeholderTextColor="#999"
                         onBlur={onBlur}
@@ -133,6 +123,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#7c7c7c',
         marginBottom: 12,
-        fontFamily: 'Syne-Regular',
     },
 });

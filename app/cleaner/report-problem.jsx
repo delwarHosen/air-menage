@@ -11,7 +11,6 @@ import { FORM_FIELDS } from '../../constants/form';
 
 export default function ReportProblemScreen() {
     const { t } = useTranslation();
-    const [problemType, setProblemType] = useState('Damaged item');
     const [image, setImage] = useState(null);
 
     const {
@@ -22,6 +21,7 @@ export default function ReportProblemScreen() {
         defaultValues: {
             [FORM_FIELDS.REPORT_TITLE]: "",
             [FORM_FIELDS.REPORT_REASON]: "",
+            [FORM_FIELDS.PROPERTY_IMAGE]: null,
         },
     });
 
@@ -30,17 +30,13 @@ export default function ReportProblemScreen() {
             const payload = {
                 report: values[FORM_FIELDS.REPORT_TITLE],
                 report_des: values[FORM_FIELDS.REPORT_REASON],
+                image: values[FORM_FIELDS.PROPERTY_IMAGE],
             };
-
             console.log("Submitted Data:", payload);
-
-            router.push("/cleaner/home")
-
+            router.push("/cleaner/home");
         } catch (err) {
             if (Platform.OS === 'android') {
                 ToastAndroid.show(t("common.somethingWrong"), ToastAndroid.SHORT);
-            } else {
-                console.log("Error logic here");
             }
         }
     };
@@ -50,15 +46,22 @@ export default function ReportProblemScreen() {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
+                // কিবোর্ড ওপেন হলে অতিরিক্ত অফসেট যোগ করা (iOS এর জন্য ভালো কাজ করে)
+                keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
             >
                 <View style={styles.header}>
                     <Heading title={t("reportProblem.title")} />
                 </View>
 
-                <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+                <ScrollView
+                    style={styles.content}
+                    showsVerticalScrollIndicator={false}
+                    // এই লাইনটি নিচ থেকে জায়গা নিতে সাহায্য করবে
+                    contentContainerStyle={styles.scrollContentContainer}
+                    keyboardShouldPersistTaps="handled"
+                >
                     {/* Type of problem */}
                     <View style={styles.inputContainer}>
-
                         <Controller
                             control={control}
                             name={FORM_FIELDS.REPORT_TITLE}
@@ -69,17 +72,15 @@ export default function ReportProblemScreen() {
                                     onChangeText={field.onChange}
                                     placeholder={t("reportProblem.reportTitlePlaceholder")}
                                     required
-
                                 />
                             )}
                         />
                     </View>
 
                     {/* Reason */}
-                    <View >
+                    <View>
                         <Controller
                             control={control}
-
                             name={FORM_FIELDS.REPORT_REASON}
                             render={({ field }) => (
                                 <FormInput
@@ -89,7 +90,7 @@ export default function ReportProblemScreen() {
                                     placeholder={t("reportProblem.reportReasonPlaceholder")}
                                     required
                                     multiline
-                                    style={{ height: 96 }}
+                                    style={{ height: 120 }} // ছোট ফোনে টাইপ করতে সুবিধা হবে
                                 />
                             )}
                         />
@@ -110,17 +111,19 @@ export default function ReportProblemScreen() {
                             />
                         )}
                     />
+                    {/* Send Request Button */}
+                    <View style={styles.footer}>
+                        <TouchableOpacity
+                            style={styles.sendBtn}
+                            onPress={handleSubmit(onSubmit)}
+                            activeOpacity={0.8}
+                        >
+                            <Caption style={styles.sendBtnText}>{t("reportProblem.sendRequest")}</Caption>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
-
-                {/* Send Request Button */}
-                <View style={styles.footer}>
-                    <TouchableOpacity style={styles.sendBtn} onPress={handleSubmit(onSubmit)}>
-                        <Caption style={styles.sendBtnText}>{t("reportProblem.sendRequest")}</Caption>
-                    </TouchableOpacity>
-                </View>
+                
             </KeyboardAvoidingView>
-            {/* Header */}
-
         </View>
     );
 }
@@ -128,17 +131,18 @@ export default function ReportProblemScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FAFAFA'
+        backgroundColor: '#FAFAFA',
     },
     header: {
         paddingHorizontal: 20,
-        paddingTop: 0,
-        // paddingBottom: 15
     },
     content: {
         flex: 1,
+    },
+    scrollContentContainer: {
         paddingHorizontal: 20,
-        paddingTop: 20
+        paddingTop: 20,
+        paddingBottom: 40,
     },
     label: {
         fontSize: 16,
@@ -147,22 +151,24 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 15
     },
-    imageUpload: {
-        width: 150,
-        height: 100,
-        borderWidth: 2,
-        borderColor: '#E2E8F0',
-        borderStyle: 'dashed',
+    footer: {
+        marginTop:20
+        // paddingHorizontal: 20,
+        // paddingVertical: 15,
+        // backgroundColor: '#FFF',
+        // borderTopWidth: 1,
+        // borderTopColor: '#F7FAFC'
+    },
+    sendBtn: {
+        backgroundColor: '#33C1FF',
+        height: 54,
         borderRadius: 12,
         justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 5
+        alignItems: 'center'
     },
-    imageText: {
-        fontSize: 14,
-        color: '#A0AEC0'
-    },
-    footer: { paddingHorizontal: 20, paddingVertical: 20, backgroundColor: '#FFF', borderTopWidth: 1, borderTopColor: '#F7FAFC' },
-    sendBtn: { backgroundColor: '#33C1FF', height: 54, borderRadius: 12, justifyContent: 'center', alignItems: 'center' },
-    sendBtnText: { fontSize: 16, fontWeight: '600', color: '#FFF' }
+    sendBtnText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#FFF'
+    }
 });

@@ -96,7 +96,7 @@ export default function PersonalInfo() {
 const styles = StyleSheet.create({
 
     scrollContainer: {
-        paddingHorizontal: "2.5%",
+        paddingHorizontal: "4%",
         backgroundColor: "#FAFAFA"
     },
     profileSection: {

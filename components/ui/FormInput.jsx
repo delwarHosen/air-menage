@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
         color: Colors.TEXT_COLOR,
         paddingTop: 12,
         paddingBottom: 12,
+        fontFamily: 'SyneRegular',
     },
     inputError: {
         borderColor: "#EF4444",

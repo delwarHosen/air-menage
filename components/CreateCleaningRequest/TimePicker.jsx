@@ -1,13 +1,12 @@
-import { Syne_500Medium, useFonts } from '@expo-google-fonts/syne';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
-import { Body1, H5 } from '../typo/typography';
+import { Body1, Body2, H5 } from '../typo/typography';
 
 export default function TimePicker({ startTime, endTime, setStartTime, setEndTime, cleaningTime }) {
     const { t } = useTranslation();
-    let [fontsLoaded] = useFonts({ Syne_500Medium });
+   
     const [showStartModal, setShowStartModal] = useState(false);
     const [showEndModal, setShowEndModal] = useState(false);
 
@@ -19,7 +18,7 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
         return timeOptions.slice(startIndex + 1);
     };
 
-    if (!fontsLoaded) return null;
+    
 
     return (
         <>
@@ -50,7 +49,7 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
                     <View style={styles.modalContent}>
                         <ScrollView>{timeOptions.map(time => (
                             <Pressable key={time} style={styles.optionItem} onPress={() => { setStartTime(time); setShowStartModal(false); }}>
-                                <Text style={styles.optionText}>{time}</Text>
+                                <Body2 style={styles.optionText}>{time}</Body2>
                             </Pressable>
                         ))}</ScrollView>
                     </View>
@@ -62,7 +61,7 @@ export default function TimePicker({ startTime, endTime, setStartTime, setEndTim
                     <View style={styles.modalContent}>
                         <ScrollView>{getEndTimeOptions().map(time => (
                             <Pressable key={time} style={styles.optionItem} onPress={() => { setEndTime(time); setShowEndModal(false); }}>
-                                <Text style={styles.optionText}>{time}</Text>
+                                <Body2 style={styles.optionText}>{time}</Body2>
                             </Pressable>
                         ))}</ScrollView>
                     </View>
@@ -96,7 +95,6 @@ const styles = StyleSheet.create({
 
     pickerText: {
         fontSize: 16,
-        fontFamily: 'Syne_500Medium',
     },
 
     placeholderText: {

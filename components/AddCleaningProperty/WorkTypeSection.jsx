@@ -5,7 +5,7 @@ import { Colors } from "../../assets/Colors";
 import { CheckMarkIcon, DeletePropertyTrashIcon, DownForwardIcon, TikMarkIcon } from "../../assets/icons/Icons";
 import { Body2, H5 } from '../typo/typography';
 
-const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
+export const WorkTypeSection = ({ title, workTypes, onAdd, onDelete }) => {
     const { t } = useTranslation();
     const [text, setText] = useState('');
 
@@ -63,7 +63,6 @@ const WorkTypeList = ({ title, workTypes, onAdd, onDelete }) => {
     );
 };
 
-export default WorkTypeList;
 
 const styles = StyleSheet.create({
     addWorkHeader: {

@@ -30,7 +30,7 @@ export default function PasswordSecurity() {
     const openModal = () => {
         setDeleteModalVisible(true);
 
-        // একই সাথে স্লাইড এবং অপাসিটি এনিমেশন
+       
         Animated.parallel([
             Animated.timing(slideAnim, {
                 toValue: 0,
@@ -69,7 +69,7 @@ export default function PasswordSecurity() {
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <TouchableOpacity
-                    onPress={() => router.push("/host/change-password")}
+                    onPress={() => router.push("/cleaner/change-password")}
                     style={styles.buttonContainer}
                 >
                     <View style={styles.leftContent}>
@@ -122,7 +122,7 @@ export default function PasswordSecurity() {
                             {t('delete_modal.description')}
                         </Body2>
 
-                        {/* বাটন রো */}
+                      
                         <View style={styles.buttonRow}>
                             <TouchableOpacity
                                 style={[styles.modalButton, styles.cancelButton]}

@@ -104,7 +104,7 @@ export default function LeaveReviewPageView({ cleanerRequest }) {
 
                 <Image
                     source={IMAGE_COMPONENTS.warniongImage}
-                    style={{ height: 40, width: 40, marginRight: 10 }} // Added margin for spacing
+                    style={{ height: 40, width: 40, marginRight: 10 }} 
                 />
 
                

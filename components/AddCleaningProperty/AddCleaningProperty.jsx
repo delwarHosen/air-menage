@@ -1,4 +1,3 @@
-import { useFonts } from 'expo-font';
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -27,7 +26,7 @@ import Elevator from './Elevator';
 import { KeyBoxSelection } from './KeyBoxSelection';
 import PropertyTypePicker from './PropertyTypePicker';
 import VacuumeProvided from './VacuumeProvided';
-import WorkTypeList from "./WorkTypeSection";
+import { WorkTypeSection } from "./WorkTypeSection";
 const { height } = Dimensions.get('window');
 const isSmallDevice = height < 750;
 
@@ -40,9 +39,9 @@ export default function AddCleaningProperty() {
     const [bathroomWork, setBathroomWork] = useState([]);
     const [kitchenWork, setKitchenWork] = useState([]);
 
-    const [fontsLoaded] = useFonts({
-        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
-    });
+    // const [fontsLoaded] = useFonts({
+    //     'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    // });
 
     const {
         control,
@@ -69,9 +68,6 @@ export default function AddCleaningProperty() {
     });
 
 
-    if (!fontsLoaded) {
-        return null;
-    }
 
 
     const handleAddGeneral = (text) => setGeneralWork([...generalWork, { id: Date.now().toString(), text }]);
@@ -125,7 +121,7 @@ export default function AddCleaningProperty() {
                                 placeholder={t("addProperty.titlePlaceholder")}
                                 value={field.value}
                                 onChangeText={field.onChange}
-                                style={styles.syneInput}
+                                // style={styles.syneInput}
                             />
                         )}
                     />
@@ -168,7 +164,7 @@ export default function AddCleaningProperty() {
                                 placeholder={t("addProperty.floorPlaceHolder")}
                                 value={field.value}
                                 onChangeText={field.onChange}
-                                style={styles.syneInput}
+                               
                             />
                         )}
                     />
@@ -182,7 +178,7 @@ export default function AddCleaningProperty() {
                                 placeholder={t("addProperty.apertment")}
                                 value={field.value}
                                 onChangeText={field.onChange}
-                                style={styles.syneInput}
+                                
                             />
                         )}
                     />
@@ -202,7 +198,7 @@ export default function AddCleaningProperty() {
                                 placeholder={t("addProperty.propertyPlaceholder")}
                                 value={field.value}
                                 onChangeText={field.onChange}
-                                style={styles.syneInput}
+                               
                             />
                         )}
                     />
@@ -216,7 +212,7 @@ export default function AddCleaningProperty() {
                                 placeholder={t("addProperty.locationPlaceholder")}
                                 value={field.value}
                                 onChangeText={field.onChange}
-                                style={styles.syneInput}
+                                
                             />
                         )}
                     />
@@ -264,7 +260,6 @@ export default function AddCleaningProperty() {
                         render={({ field }) => (
                             <View style={styles.textAreaBox}>
                                 <TextInput
-                                    style={styles.textArea}
                                     placeholder={t("addProperty.descriptionPlaceholder")}
                                     placeholderTextColor="#949494"
                                     multiline
@@ -276,10 +271,10 @@ export default function AddCleaningProperty() {
                     />
 
 
-                    <WorkTypeList title={t("work.general")} workTypes={generalWork} onAdd={handleAddGeneral} onDelete={handleDeleteGeneral} />
-                    <WorkTypeList title={t("work.bedroom")} workTypes={bedroomWork} onAdd={handleAddBedRoom} onDelete={handleDeleteBedRoom} />
-                    <WorkTypeList title={t("work.bathroom")} workTypes={bathroomWork} onAdd={handleAddBathRoom} onDelete={handleDeleteBathRoom} />
-                    <WorkTypeList title={t("work.kitchen")} workTypes={kitchenWork} onAdd={handleAddKitchenRoom} onDelete={handleDeleteKitchen} />
+                    <WorkTypeSection title={t("work.general")} workTypes={generalWork} onAdd={handleAddGeneral} onDelete={handleDeleteGeneral} />
+                    <WorkTypeSection title={t("work.bedroom")} workTypes={bedroomWork} onAdd={handleAddBedRoom} onDelete={handleDeleteBedRoom} />
+                    <WorkTypeSection title={t("work.bathroom")} workTypes={bathroomWork} onAdd={handleAddBathRoom} onDelete={handleDeleteBathRoom} />
+                    <WorkTypeSection title={t("work.kitchen")} workTypes={kitchenWork} onAdd={handleAddKitchenRoom} onDelete={handleDeleteKitchen} />
 
 
                     <TouchableOpacity
@@ -304,7 +299,7 @@ const styles = StyleSheet.create({
         flexGrow: 1
     },
     label: { marginVertical: 10 },
-    syneInput: { fontFamily: 'Syne-Regular' },
+    
     elevatorContainer: { flexDirection: "row", gap: 10 },
     elevatorButton: {
         flex: 1, height: 48, borderRadius: 8, borderWidth: 1,

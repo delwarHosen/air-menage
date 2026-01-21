@@ -4,19 +4,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
-    Dimensions // Dimensions ইমপোর্ট করা হয়েছে
-    ,
-
-
-
-
-
-
-
-
-
-
-
+    Dimensions,
     KeyboardAvoidingView,
     Modal,
     Platform,

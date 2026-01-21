@@ -16,7 +16,7 @@ import PropertyTypePicker from "../AddCleaningProperty/PropertyTypePicker";
 import { Body1, Body2, ButtonText, Caption, H4 } from "../typo/typography";
 
 export default function PeopertyOverviewPage({ cleanerRequest }) {
-    const { t } = useTranslation(); 
+    const { t } = useTranslation();
     const router = useRouter();
 
     if (!cleanerRequest) return null;
@@ -108,10 +108,23 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1 },
-    mainImage: { width: "100%", height: 234, borderRadius: 12, marginBottom: 12 },
-    body2: { fontSize: 14, color: "#5E5E5E" },
-    propertyType: { marginVertical: 12 },
+    container: {
+        flex: 1,
+        paddingHorizontal: "4%"
+    },
+    mainImage: {
+        width: "100%",
+        height: 234,
+        borderRadius: 12,
+        marginBottom: 12
+    },
+    body2: {
+        fontSize: 14,
+        color: "#5E5E5E"
+    },
+    propertyType: {
+        marginVertical: 12
+    },
     infoRow: {
         flexDirection: "row",
         alignItems: "center",
@@ -136,8 +149,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginTop: 10,
     },
-    infoText: { fontSize: 14, color: "#5E5E5E" },
-    infoSubText: { fontSize: 10, fontWeight: "bold", color: "#A3A9B0" },
+    infoText: {
+        fontSize: 14,
+        color: "#5E5E5E"
+    },
+    infoSubText: {
+        fontSize: 10,
+        fontWeight: "bold",
+        color: "#A3A9B0"
+    },
     infoMapRow: {
         flexDirection: "row",
         alignItems: "center",
