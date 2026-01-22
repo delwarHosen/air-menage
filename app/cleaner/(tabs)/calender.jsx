@@ -15,7 +15,7 @@ export default function CleaningCalendar() {
   const currentYear = 2025;
   const { t } = useTranslation();
 
-  // 12 মাসের সম্পূর্ণ cleaning data
+  
   const cleaningData = {
     0: [ // January
       { date: '2025-01-05', location: 'e.g. B. Berlin or "Peak Fit...', time: '10:00-16:00', duration: '1h30', image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=200&h=200&fit=crop' },

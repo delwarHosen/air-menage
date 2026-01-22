@@ -297,10 +297,10 @@
     },
     "properties": {
         "my_properties": "Mes propriétés",
-        "create_cleaning_request": "Créer une demande de nettoyage",
+        "create_cleaning_request": "Créer une demande\n     de nettoyage",
         "add_properties": "Ajouter des propriétés",
         "title": "Appartement Fleur De Lys",
-        "overview": "Vue d'ensemble des propriétés",
+        "overview": "Vue d'ensemble \n des propriétés",
         "location": "Emplacement",
         "bedrooms": "Chambres",
         "meetKey": "Rencontrez le nettoyeur pour remettre les clés",
@@ -318,7 +318,7 @@
         "completed_job": "Travail terminé"
     },
     "create_cleaning": {
-        "title": "Créer une demande de nettoyage"
+        "title": "Créer une demande \n de nettoyage"
     },
     "booking": {
         "select_property": "Sélectionnez la propriété",
@@ -385,9 +385,9 @@
     },
     "keybox": {
         "in_person": "Remise de clé en personne",
-        "in_person_caption": "Rencontrez le nettoyeur pour remettre les clés",
+        "in_person_caption": "Rencontrez le nettoyeur pour \n remettre les clés",
         "lockbox": "Boîte à clés",
-        "lockbox_caption": "Code de la boîte à clés délivré 24 heures avant la mission",
+        "lockbox_caption": "Code de la boîte à clés délivré 24 \n heures avant la mission",
         "location": "Emplacement de la boîte à clés",
         "code": "Code de la boîte à clés",
         "placeholders": {
@@ -770,5 +770,32 @@
         "description": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
         "cancel": "Annuler",
         "confirm": "Supprimer"
+    },
+    "payment": {
+        "header_title": "Air Menage",
+        "balance_label": "Solde",
+        "email_label": "E-mail",
+        "email_placeholder": "hridoy16@gmail.com",
+        "method_title": "Mode de paiement",
+        "card_info_label": "Informations de la carte",
+        "card_number_placeholder": "12134 1234 1234 1234",
+        "cardholder_label": "Nom du titulaire",
+        "cardholder_placeholder": "Nom complet sur la carte",
+        "country_label": "Pays ou région",
+        "country_name": "France",
+        "save_info": "Enregistrer mes informations pour un paiement plus rapide",
+        "save_info_sub": "payez en toute sécurité chez betwisepicks et partout où link est accepté",
+        "pay_button": "Payer",
+        "powered_by": "propulsé par",
+        "terms": "conditions",
+        "privacy": "confidentialité",
+        "modal_title": "Paiement Requis",
+        "modal_description": "Votre demande de nettoyage a été acceptée. Pour confirmer la réservation, veuillez effectuer le paiement maintenant.",
+        "modal_button": "Paiement Effectué"
+    },
+    "redirect": {
+        "skip": "Sauter",
+        "strat_heading": "Bienvenue! Commençons.",
+        "skip_content": "Vous pouvez ajouter votre première propriété maintenant ou passer directement à l'exploration du tableau de bord."
     }
 }

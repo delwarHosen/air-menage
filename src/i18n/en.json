@@ -773,5 +773,32 @@
         "description": "Are you sure you want to delete your account? This action cannot be undone.",
         "cancel": "Cancel",
         "confirm": "Delete"
+    },
+    "payment": {
+        "header_title": "Air Menage",
+        "balance_label": "Balance",
+        "email_label": "E-mail",
+        "email_placeholder": "hridoy16@gmail.com",
+        "method_title": "Payment method",
+        "card_info_label": "Card information",
+        "card_number_placeholder": "12134 1234 1234 1234",
+        "cardholder_label": "Cardholder name",
+        "cardholder_placeholder": "Full name of card",
+        "country_label": "Country or region",
+        "country_name": "France",
+        "save_info": "Save my information for faster checkout",
+        "save_info_sub": "pay securely at betwisepicks and everywhere link is accepted",
+        "pay_button": "Pay",
+        "powered_by": "power by",
+        "terms": "terms",
+        "privacy": "privacy",
+        "modal_title": "Payment Required",
+        "modal_description": "Your cleaning request has been accepted. To confirm the booking, please complete the payment now.",
+        "modal_button": "Payment Done"
+    },
+    "redirect":{
+        "skip":"Skip",
+        "strat_heading":"Welcome! Let's get started",
+        "skip_content":"You can add your first property now or skip to explore the dashboard"
     }
 }

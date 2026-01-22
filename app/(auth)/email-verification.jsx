@@ -66,8 +66,8 @@ export default function VerificationCodeScreen() {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.container}
             >
-                <ScrollView 
-                    contentContainerStyle={styles.scrollContent} 
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
                     keyboardShouldPersistTaps="handled"
                     showsVerticalScrollIndicator={false}
                 >
@@ -76,8 +76,6 @@ export default function VerificationCodeScreen() {
                             title={t("verification.title")}
                             description={t("verification.description")}
                         />
-
-                        
                         <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => inputRef.current?.focus()}
@@ -91,7 +89,6 @@ export default function VerificationCodeScreen() {
                                         code.length === index && styles.activeOtpBox
                                     ]}
                                 >
-                                   
                                     <Body1 weight="bold" style={styles.otpText}>
                                         {code[index] || ""}
                                     </Body1>
@@ -99,7 +96,6 @@ export default function VerificationCodeScreen() {
                             ))}
                         </TouchableOpacity>
 
-                       
                         <TextInput
                             ref={inputRef}
                             value={code}
@@ -167,27 +163,27 @@ const styles = StyleSheet.create({
     otpBox: {
         width: 70,
         height: 55,
-        borderRadius: 25, 
+        borderRadius: 25,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#E9E9E9"
     },
     activeOtpBox: {
-        borderColor: "#00AFF5",
+        borderColor: Colors.PRIMARY,
         backgroundColor: "#FFFFFF",
         borderWidth: 2
     },
     otpText: {
         fontSize: 24,
         color: "#1E293B",
-      
+
     },
     hiddenInput: {
         position: 'absolute',
         opacity: 0,
         height: 0,
         width: 0,
-        fontFamily: 'SyneRegular' 
+        fontFamily: 'SyneRegular'
     },
     resendContainer: {
         flexDirection: "column",
@@ -203,7 +199,7 @@ const styles = StyleSheet.create({
         gap: 4
     },
     submitButton: {
-        backgroundColor: "#00AFF5",
+        backgroundColor: Colors.PRIMARY,
         borderRadius: 12,
         alignItems: "center",
         justifyContent: "center",
@@ -214,7 +210,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4
     },
-    buttonText: { 
+    buttonText: {
         color: "#FFF",
         fontSize: 16,
         fontWeight: '700'

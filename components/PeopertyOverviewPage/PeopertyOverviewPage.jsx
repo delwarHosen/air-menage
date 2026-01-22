@@ -43,7 +43,7 @@ export default function PeopertyOverviewPage({ cleanerRequest, hideValidateButto
                 <PropertyTypePicker />
             </View>
 
-            {/* Info Cards - ফিক্সড হাইট কমিয়ে প্যাডিং ব্যবহার করা হয়েছে */}
+           
             <View style={styles.infoRow}>
                 <CalenderIcon />
                 <Body1 style={styles.infoText}>{cleanerRequest.day}</Body1>
@@ -75,7 +75,7 @@ export default function PeopertyOverviewPage({ cleanerRequest, hideValidateButto
                 <Body1 style={styles.infoText}>{cleanerRequest.area}</Body1>
             </View>
 
-            {/* Room Info - এগুলোতে গ্যাপ এবং সাইজ রেসপনসিভ */}
+          
             <View style={styles.infoRow}>
                 <BedIcon />
                 <Body1 style={styles.infoText}>{`${cleanerRequest.bedrooms} ${t("properties.bedrooms")}`}</Body1>
@@ -134,7 +134,7 @@ export default function PeopertyOverviewPage({ cleanerRequest, hideValidateButto
             <ServiceSection title={t("properties.bathroom")} data={cleanerRequest.living_room} />
             <ServiceSection title={t("properties.kitchen")} data={cleanerRequest.kitchen_room} />
 
-            {/* Gallery Section - হাইট পারসেন্টেজে রাখা হয়েছে */}
+            {/* Gallery Section - */}
             <View style={styles.gallery}>
                 <Image source={cleanerRequest.images[0]} style={styles.galleryLarge} />
                 <View style={styles.galleryRow}>

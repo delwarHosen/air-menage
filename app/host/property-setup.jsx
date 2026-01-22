@@ -1,17 +1,19 @@
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../assets/Colors';
-import { Body1, H4 } from '../../components/typo/typography'; // আপনার টাইপোগ্রাফি পাথ অনুযায়ী
+import { Body1, H4 } from '../../components/typo/typography';
 
 export default function PropertySetup() {
+    const {t} = useTranslation();
     const router = useRouter();
 
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                <H4 style={styles.title}>Welcome! Let's get started</H4>
+                <H4 style={styles.title}>{t("redirect.strat_heading")}</H4>
                 <Body1 style={styles.subtitle}>
-                    You can add your first property now or skip to explore the dashboard.
+                    {t("redirect.skip_content")}
                 </Body1>
 
                 {/* Add Property Button */}
@@ -19,7 +21,7 @@ export default function PropertySetup() {
                     style={styles.addButton}
                     onPress={() => router.push("/host/addProperty")}
                 >
-                    <Body1 style={{ color: '#fff', fontWeight: 'bold' }}>Add Property</Body1>
+                    <Body1 style={{ color: '#fff', fontWeight: 'bold' }}>{t("properties.add_properties")}</Body1>
                 </TouchableOpacity>
 
                 {/* Skip Button */}
@@ -27,7 +29,7 @@ export default function PropertySetup() {
                     style={styles.skipButton}
                     onPress={() => router.replace("/host/(tabs)/home")}
                 >
-                    <Body1 style={{ color: Colors.SECONDARY }}>Skip for now</Body1>
+                    <Body1 style={{ color: Colors.SECONDARY }}>{t("redirect.skip")}</Body1>
                 </TouchableOpacity>
             </View>
         </View>

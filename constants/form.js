@@ -5,6 +5,7 @@ export const FORM_FIELDS = {
   CURRENT_PASSWORD: "currentPassword",
   FULL_NAME: 'fullName',
   USER_NAME: "userName",
+  PROFILE_IMAGE: "profileImage",
   PHONE: "phone",
   ADDRESS: "address",
   DESCRIPTION: "description",
@@ -27,7 +28,7 @@ export const FORM_FIELDS = {
   REPORT_TITLE: "reportTitle",
   REPORT_REASON: "reportReason",
   LOCK_BOX: "lockBox",
-  ADDRESS_BOX:"addressBox"
+  ADDRESS_BOX: "addressBox"
 };
 
 export const FORM_LABELS = {
@@ -37,6 +38,7 @@ export const FORM_LABELS = {
   [FORM_FIELDS.CURRENT_PASSWORD]: 'Current Password',
   [FORM_FIELDS.FULL_NAME]: 'Full Name',
   [FORM_FIELDS.USER_NAME]: "User Name",
+  [FORM_FIELDS.PROFILE_IMAGE]: "Profile Image",
   [FORM_FIELDS.PHONE]: "Number",
   [FORM_FIELDS.ADDRESS]: "Address",
   [FORM_FIELDS.DESCRIPTION]: "Description",
@@ -67,6 +69,7 @@ export const FORM_PLACEHOLDERS = {
   [FORM_FIELDS.CURRENT_PASSWORD]: "Enter your Current Password",
   [FORM_FIELDS.FULL_NAME]: 'Enter your full name',
   [FORM_FIELDS.USER_NAME]: 'Enter your username',
+  [FORM_FIELDS.PROFILE_IMAGE]: "Add Your Profile",
   [FORM_FIELDS.DOB]: 'Select your date of birth',
   [FORM_FIELDS.CONTACT_NO]: "+99 54196 418164",
   [FORM_FIELDS.DOCUMENTATION]: "Message",
@@ -84,5 +87,5 @@ export const FORM_PLACEHOLDERS = {
   [FORM_FIELDS.REPORT_TITLE]: "Damaged item",
   [FORM_FIELDS.REPORT_REASON]: "Type your text..",
   [FORM_FIELDS.LOCK_BOX]: "Enter Lockbox Code",
-  [FORM_FIELDS.ADDRESS_BOX]:"under home "
+  [FORM_FIELDS.ADDRESS_BOX]: "under home "
 };

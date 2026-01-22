@@ -43,7 +43,6 @@ export default function CalenderProperty() {
 
         if (day === assignedWorkDate) {
             router.push({
-                // pathname: `/host/peopertyOverview/${params.id || '1'}`,
                 pathname: `/host/booking-details`,
                 params: { fromAchive: 'true' } 
             });

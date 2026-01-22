@@ -27,10 +27,12 @@ export default function ForgotPasswordScreen() {
     });
 
     // This function runs immediately when the button is pressed
-    const onSubmit = (data) => {
-        // Even without validation, we can access the email if needed
-        console.log("Routing with email:", data[FORM_FIELDS.EMAIL]);
-        
+    const onSubmit = (values) => {
+        const payload = {
+            email: values[FORM_FIELDS.EMAIL]
+        }
+        console.log("Routing with email:", payload);
+
         // Direct routing
         router.push("/(auth)/email-verification");
     };
@@ -56,12 +58,12 @@ export default function ForgotPasswordScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.EMAIL}
-                                render={({ field: { onChange, onBlur, value } }) => (
+                                render={({ field }) => (
                                     <FormInput
                                         label={t("forgotPassword.emailLabel")}
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
+                                        value={field.value}
+                                        onChangeText={field.onChange}
+                                        onBlur={field.onBlur}
                                         placeholder={t("forgotPassword.emailPlaceholder")}
                                         type="email"
                                     />
@@ -86,23 +88,23 @@ export default function ForgotPasswordScreen() {
 }
 
 const styles = StyleSheet.create({
-    safeArea: { 
-        flex: 1, 
-        backgroundColor: "#FFFFFF" 
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#FFFFFF"
     },
-    container: { 
-        flex: 1 
+    container: {
+        flex: 1
     },
-    scrollContent: { 
-        flexGrow: 1 
+    scrollContent: {
+        flexGrow: 1
     },
-    content: { 
-        flex: 1, 
-        paddingHorizontal: 24, 
-        paddingVertical: 40 
+    content: {
+        flex: 1,
+        paddingHorizontal: 24,
+        paddingVertical: 40
     },
-    form: { 
-        flex: 1 
+    form: {
+        flex: 1
     },
     submitButton: {
         backgroundColor: "#00AFF5",
@@ -117,10 +119,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
     },
-    buttonText: { 
-        color: "#FFF", 
-        fontSize: 16, 
-        fontWeight: "700", 
-        letterSpacing: 0.5 
+    buttonText: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "700",
+        letterSpacing: 0.5
     }
 });

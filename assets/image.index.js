@@ -15,4 +15,5 @@ export const IMAGE_COMPONENTS = {
     verifySeccessImg:require("./images/verifySeccessImg.png"),
     faceImage:require("./images/faceImg.png"),
      verificationBanner1: require("./images/verificationbanner1.png"),
+     paymentModalImage:require("./images/paymentImg.png")
 }

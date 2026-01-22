@@ -41,8 +41,12 @@ export default function SetNewPasswordScreen() {
 
     const password = watch(FORM_FIELDS.PASSWORD);
 
-    const onSubmit = (data) => {
-        console.log("Resetting Password:", data);
+    const onSubmit = (values) => {
+        const payload = {
+            password: values[FORM_FIELDS.PASSWORD],
+            confirmPassword: values[FORM_FIELDS.CONFIRM_PASSWORD]
+        }
+        console.log("Resetting Password:", payload);
         setIsModalVisible(true);
     };
 
@@ -181,11 +185,11 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     disabledButton: { backgroundColor: "#A0E1FB" },
-    buttonText: { 
-        color: "#FFF", 
+    buttonText: {
+        color: "#FFF",
         fontWeight: "600"
-        
-     },
+
+    },
 
     // Modal & Bottom Sheet Styles
     modalOverlay: {

@@ -112,11 +112,14 @@
 
 
 
-
-
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
+import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next'; // Translation Hook
 import {
+    Modal,
     ScrollView,
     StyleSheet,
     TextInput,
@@ -125,10 +128,26 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../assets/Colors';
+import { IMAGE_COMPONENTS } from '../../assets/image.index';
 import Heading from '../../components/Heading/Heading';
-import { Body1, Body2, Caption, H2, H5 } from '../../components/typo/typography';
+import { Body1, Body2, ButtonText, Caption, H2, H4, H5 } from '../../components/typo/typography';
 
 export default function PaymentScreen() {
+    const { t } = useTranslation(); // Translation initialization
+    const router = useRouter();
+    const [modalVisible, setModalvisible] = useState(false);
+
+    const modalOpen = () => {
+        setModalvisible(!modalVisible);
+    };
+
+    const handleModalvisible = () => {
+        setModalvisible(false);
+        setTimeout(() => {
+            router.back();
+        }, 300);
+    };
+
     const [fontsLoaded] = useFonts({
         'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
     });
@@ -139,7 +158,7 @@ export default function PaymentScreen() {
         <SafeAreaView style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
-                <Heading title="Air Menage" />
+                <Heading title={t('payment.header_title')} />
                 <View style={{ width: 24 }} />
             </View>
 
@@ -147,33 +166,32 @@ export default function PaymentScreen() {
 
                 {/* Balance Section */}
                 <View style={styles.balanceContainer}>
-                    <Body1 style={styles.greyText}>Blance</Body1>
+                    <Body1 style={styles.greyText}>{t('payment.balance_label')}</Body1>
                     <H2 style={styles.balanceAmount}>$500</H2>
                 </View>
 
                 {/* Email Input */}
                 <View style={styles.inputGroup}>
-                    <Body1 style={styles.label}>E-mail</Body1>
+                    <Body1 style={styles.label}>{t('payment.email_label')}</Body1>
                     <TextInput
                         style={styles.textInput}
-                        placeholder="hridoy16@gmail.com"
+                        placeholder={t('payment.email_placeholder')}
                         placeholderTextColor="#B0B0B0"
                     />
                 </View>
 
-                <H5 style={styles.sectionTitle}>Payment method</H5>
+                <H5 style={styles.sectionTitle}>{t('payment.method_title')}</H5>
 
                 {/* Card Information */}
                 <View style={styles.inputGroup}>
-                    <Body1 style={styles.label}>Card information</Body1>
+                    <Body1 style={styles.label}>{t('payment.card_info_label')}</Body1>
                     <View style={styles.cardInputWrapper}>
                         <View style={styles.cardNumberRow}>
                             <TextInput
                                 style={styles.cardNumberInput}
-                                placeholder="12134 1234 1234 1234"
+                                placeholder={t('payment.card_number_placeholder')}
                                 keyboardType="numeric"
                             />
-                            {/* Card Logos Placeholder */}
                             <View style={styles.cardLogos}>
                                 <View style={[styles.miniLogo, { backgroundColor: '#EB001B' }]} />
                                 <View style={[styles.miniLogo, { backgroundColor: '#1A1F71' }]} />
@@ -189,15 +207,15 @@ export default function PaymentScreen() {
 
                 {/* Cardholder Name */}
                 <View style={styles.inputGroup}>
-                    <Body1 style={styles.label}>Cardholder name</Body1>
-                    <TextInput style={styles.textInput} placeholder="Full name of card" />
+                    <Body1 style={styles.label}>{t('payment.cardholder_label')}</Body1>
+                    <TextInput style={styles.textInput} placeholder={t('payment.cardholder_placeholder')} />
                 </View>
 
                 {/* Country Dropdown */}
                 <View style={styles.inputGroup}>
-                    <Body1 style={styles.label}>Country or region</Body1>
+                    <Body1 style={styles.label}>{t('payment.country_label')}</Body1>
                     <View style={styles.dropdown}>
-                        <Body1>France</Body1>
+                        <Body1>{t('payment.country_name')}</Body1>
                         <Ionicons name="chevron-down" size={20} color="#1A3352" />
                     </View>
                 </View>
@@ -206,32 +224,67 @@ export default function PaymentScreen() {
                 <View style={styles.checkboxContainer}>
                     <View style={styles.checkbox} />
                     <View style={styles.checkboxTextContent}>
-                        <Body2 style={styles.infoText}>Save my information for faster checkout</Body2>
+                        <Body2 style={styles.infoText}>{t('payment.save_info')}</Body2>
                         <Caption style={styles.subInfoText}>
-                            pay securely at betwisepicks and everywhere link is accepted
+                            {t('payment.save_info_sub')}
                         </Caption>
                     </View>
                 </View>
 
                 {/* Pay Button */}
-                <TouchableOpacity style={styles.payButton}>
-                    <H5 style={{ color: '#fff' }}>Pay</H5>
+                <TouchableOpacity style={styles.payButton} onPress={modalOpen}>
+                    <H5 style={{ color: '#fff' }}>{t('payment.pay_button')}</H5>
                 </TouchableOpacity>
 
                 {/* Footer */}
                 <View style={styles.footer}>
-                    <Caption style={styles.footerText}>power by <Caption style={{ fontWeight: '700' }}>stripe</Caption></Caption>
-                    <Caption style={styles.footerText}>terms</Caption>
-                    <Caption style={styles.footerText}>privacy</Caption>
+                    <Caption style={styles.footerText}>{t('payment.powered_by')} <Caption style={{ fontWeight: '700' }}>stripe</Caption></Caption>
+                    <Caption style={styles.footerText}>{t('payment.terms')}</Caption>
+                    <Caption style={styles.footerText}>{t('payment.privacy')}</Caption>
                 </View>
 
             </ScrollView>
+
+            {/* --------modal----------- */}
+            <Modal
+                animationType='fade'
+                transparent
+                visible={modalVisible}
+                onRequestClose={() => setModalvisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalcontent}>
+                        <View style={styles.imageContainer}>
+                            <Image
+                                source={IMAGE_COMPONENTS.paymentModalImage}
+                                style={styles.modalImage}
+                                resizeMode="contain"
+                            />
+                        </View>
+
+                        <View style={styles.modalTextContainer}>
+                            <H4 style={styles.titleText}>{t('payment.modal_title')}</H4>
+                            <Body2 style={styles.descriptionText}>
+                                {t('payment.modal_description')}
+                            </Body2>
+                        </View>
+
+                        <TouchableOpacity onPress={handleModalvisible} style={styles.modalSuccessBtn}>
+                            <ButtonText style={styles.modalButtonText}>{t('payment.modal_button')}</ButtonText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 }
 
+// ... styles remain same as before ...
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#FFFFFF' },
+    container: {
+        flex: 1,
+        backgroundColor: '#FFFFFF'
+    },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -239,14 +292,32 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 15,
     },
-    content: { paddingHorizontal: 20, paddingBottom: 40 },
-    balanceContainer: { alignItems: 'center', marginVertical: 20 },
+    content: {
+        paddingHorizontal: 20,
+        paddingBottom: 40
+    },
+    balanceContainer: {
+        alignItems: 'center',
+        marginVertical: 20
+    },
     greyText: { color: '#7C7C7C' },
-    balanceAmount: { marginTop: 5, color: '#1A3352' },
+    balanceAmount: {
+        marginTop: 5,
+        color: '#1A3352'
+    },
+    sectionTitle: {
+        marginTop: 25,
+        marginBottom: 15
+    },
+    inputGroup: {
+        marginBottom: 20
+    },
+    label: {
 
-    sectionTitle: { marginTop: 25, marginBottom: 15 },
-    inputGroup: { marginBottom: 20 },
-    label: { marginBottom: 8, color: '#1A3352', fontWeight: '500' },
+        marginBottom: 8,
+        color: '#1A3352',
+        fontWeight: '500'
+    },
 
     textInput: {
         height: 55,
@@ -279,15 +350,27 @@ const styles = StyleSheet.create({
         fontFamily: 'Syne-Regular',
 
     },
-    cardLogos: { flexDirection: 'row', gap: 5 },
-    miniLogo: { width: 25, height: 15, borderRadius: 2 },
+    cardLogos: {
+        flexDirection: 'row',
+        gap: 5
+    },
+    miniLogo: {
+        width: 25,
+        height: 15,
+        borderRadius: 2
+    },
 
     cardDetailRow: { flexDirection: 'row', height: 50 },
     detailInput: {
         fontFamily: 'Syne-Regular',
-        flex: 1, paddingHorizontal: 15, fontSize: 16
+        flex: 1,
+        paddingHorizontal: 15,
+        fontSize: 16
     },
-    verticalDivider: { width: 1, backgroundColor: '#D1D1D1' },
+    verticalDivider: {
+        width: 1,
+        backgroundColor: '#D1D1D1'
+    },
 
     dropdown: {
         height: 55,
@@ -322,7 +405,7 @@ const styles = StyleSheet.create({
     subInfoText: { color: '#7C7C7C', marginTop: 2 },
 
     payButton: {
-        backgroundColor: Colors.PRIMARY, // Matching your screenshot blue
+        backgroundColor: Colors.PRIMARY,
         height: 55,
         borderRadius: 10,
         justifyContent: 'center',
@@ -336,5 +419,51 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginTop: 10
     },
-    footerText: { color: '#7C7C7C' }
+    footerText: { color: '#7C7C7C' },
+
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.6)",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    modalcontent: {
+        width: "85%",
+        backgroundColor: "#ffffff",
+        borderRadius: 12,
+        padding: 20,
+        alignItems: 'center',
+    },
+    imageContainer: {
+        marginBottom: 10,
+    },
+    modalImage: {
+        height: 135,
+        width: 105,
+    },
+    modalTextContainer: {
+        marginVertical: 30,
+        alignItems: "center",
+    },
+    titleText: {
+        marginBottom: 10,
+        textAlign: 'center'
+    },
+    descriptionText: {
+        textAlign: "center",
+        lineHeight: 20,
+        color: '#7C7C7C'
+    },
+    modalSuccessBtn: {
+        backgroundColor: Colors.PRIMARY,
+        paddingVertical: 12,
+        width: "100%",
+        borderRadius: 10,
+        marginTop: 10,
+    },
+    modalButtonText: {
+        textAlign: "center",
+        color: "#ffffff",
+        fontWeight: 'bold'
+    },
 });

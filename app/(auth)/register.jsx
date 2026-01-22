@@ -20,9 +20,10 @@ import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { Body1, Body2, ButtonText, H3 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { ImageUpload } from "../../components/ui/ImageUpload";
+import { FORM_FIELDS } from "../../constants/form";
 
 const { height } = Dimensions.get('window');
-const isSmallDevice = height < 750; 
+const isSmallDevice = height < 750;
 
 export default function SignUpScreen() {
     const router = useRouter();
@@ -31,24 +32,38 @@ export default function SignUpScreen() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const selectedRole = useSelector((state) => state.role.selectedRole);
 
-    const { control, handleSubmit } = useForm({
-        defaultValues: {
-            fullName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            profileImage: ""
-        }
-    });
+    const {
+        control,
+        handleSubmit,
+        formState: { errors }
+    }
+        = useForm({
+            defaultValues: {
+                [FORM_FIELDS.PROFILE_IMAGE]: "",
+                [FORM_FIELDS.FULL_NAME]: "",
+                [FORM_FIELDS.EMAIL]: "",
+                [FORM_FIELDS.PASSWORD]: "",
+                [FORM_FIELDS.CONFIRM_PASSWORD]: ""
+            }
+        })
 
-    const onSubmit = (data) => {
+    const onSubmit = (values) => {
+        const payload = {
+            profileImage: values[FORM_FIELDS.PROFILE_IMAGE],
+            fullName: values[FORM_FIELDS.FULL_NAME],
+            email: values[FORM_FIELDS.EMAIL],
+            password: values[FORM_FIELDS.PASSWORD],
+            confirmPassword: values[FORM_FIELDS.CONFIRM_PASSWORD],
+        }
         setIsModalVisible(true);
+        console.log("from Register", payload)
     };
 
     const handleModalDone = () => {
         setIsModalVisible(false);
         if (selectedRole === "host") {
-            router.replace("/identity-verification/identity-verification-banner1");
+            router.replace("/host/property-setup");
+            // router.replace("/identity-verification/identity-verification-banner1");
         } else {
             router.replace("/(auth)/login");
         }
@@ -71,7 +86,7 @@ export default function SignUpScreen() {
                             {t("auth.signup_with_email")}
                         </H3>
 
-                        
+
                         <View style={styles.imageContainer}>
                             <View style={styles.profileWrapper}>
                                 <Controller
@@ -100,29 +115,30 @@ export default function SignUpScreen() {
                             {/* Inputs */}
                             <Controller
                                 control={control}
-                                name="fullName"
-                                render={({ field: { onChange, onBlur, value } }) => (
+                                name={FORM_FIELDS.FULL_NAME}
+                                render={({ field }) => (
                                     <FormInput
                                         label={t("auth.full_name")}
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
+                                        value={field.value}
+                                        onChangeText={field.onChange}
+                                        onBlur={field.onBlur}
                                         required
                                         placeholder={t("auth.enter_full_name")}
+                                        keyboardType="text"
                                     />
                                 )}
                             />
 
                             <Controller
                                 control={control}
-                                name="email"
-                                render={({ field: { onChange, onBlur, value } }) => (
+                                name={FORM_FIELDS.EMAIL}
+                                render={({ field }) => (
                                     <FormInput
                                         label={t("auth.email")}
                                         required
-                                        value={value}
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
+                                        value={field.value}
+                                        onChangeText={field.onChange}
+                                        onBlur={field.onBlur}
                                         placeholder={t("auth.enter_email")}
                                         keyboardType="email-address"
                                     />
@@ -131,37 +147,40 @@ export default function SignUpScreen() {
 
                             <Controller
                                 control={control}
-                                name="password"
-                                render={({ field: { onChange, onBlur, value } }) => (
+                                name={FORM_FIELDS.PASSWORD}
+                                render={({ field }) => (
                                     <FormInput
                                         label={t("auth.password")}
-                                        value={value}
+                                        value={field.value}
                                         required
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
+                                        onChangeText={field.onChange}
+                                        onBlur={field.onBlur}
                                         placeholder={t("auth.enter_password")}
                                         secureTextEntry
                                         type="password"
+                                        error={errors[FORM_FIELDS.PASSWORD]?.message}
                                     />
                                 )}
                             />
 
                             <Controller
                                 control={control}
-                                name="confirmPassword"
-                                render={({ field: { onChange, onBlur, value } }) => (
+                                name={FORM_FIELDS.CONFIRM_PASSWORD}
+                                render={({ field }) => (
                                     <FormInput
-                                        label={t("auth.confirm_password")}
-                                        value={value}
-                                        required
-                                        onChangeText={onChange}
-                                        onBlur={onBlur}
-                                        placeholder={t("auth.confirm_password")}
-                                        secureTextEntry
+                                        label={t("auth.password")}
+                                        value={field.value}
+                                        onChangeText={field.onChange}
+                                        onBlur={field.onBlur}
+                                        placeholder={t("auth.enter_password")}
                                         type="password"
+                                        required
+                                        secureTextEntry
+                                        error={errors[FORM_FIELDS.CONFIRM_PASSWORD]?.message}
                                     />
                                 )}
                             />
+
 
                             <TouchableOpacity
                                 onPress={handleSubmit(onSubmit)}
@@ -194,7 +213,7 @@ export default function SignUpScreen() {
                                 </View>
                             </View>
 
-                            
+
                             <View style={[styles.dividerContainer, { marginVertical: isSmallDevice ? 15 : 25 }]}>
                                 <View style={styles.divider} />
                                 <Body1 style={styles.dividerText}>{t("auth.or")}</Body1>
@@ -242,8 +261,8 @@ const styles = StyleSheet.create({
     profileWrapper: { position: "relative" },
     cameraIconContainer: {
         position: "absolute",
-        bottom: isSmallDevice? 20: 10,
-        right: isSmallDevice? 5: 10,
+        bottom: isSmallDevice ? 20 : 10,
+        right: isSmallDevice ? 5 : 10,
         backgroundColor: Colors.PRIMARY,
         width: 30,
         height: 30,
@@ -292,7 +311,7 @@ const styles = StyleSheet.create({
     modalOverlay: {
         flex: 1,
         backgroundColor: "rgba(0,0,0,0.6)",
-        justifyContent: "center", // মাঝখানে আনা হয়েছে রেসপন্সিভনেসের জন্য
+        justifyContent: "center", 
         paddingHorizontal: 20
     },
     modalContent: {

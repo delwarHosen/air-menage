@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,11 +26,10 @@ export default function FeedbackScreen() {
         setRating(0);
         setText('');
 
-       
         if (selectedRole === "host") {
-            router.replace("/host/(tabs)/menu");
+            router.replace("/host/(tabs)/home");
         } else {
-            router.replace("/cleaner/(tabs)/menu");
+            router.replace("/cleaner/(tabs)/home");
         }
     };
 
@@ -44,10 +44,19 @@ export default function FeedbackScreen() {
         setIsSuccessModalVisible(true);
     };
 
-    
+
     const handleSkip = () => {
         router.back();
     };
+
+
+    // font use 
+    const [fontsLoaded] = useFonts({
+        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    });
+
+    if (!fontsLoaded) return null;
+
 
     return (
         <View style={styles.container}>
@@ -222,7 +231,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.05,
         shadowRadius: 2,
-        elevation: 1
+        elevation: 1,
+         fontFamily: 'Syne-Regular',
     },
     charCount: {
         alignSelf: 'flex-end',

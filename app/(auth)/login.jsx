@@ -36,6 +36,7 @@ export default function LoginScreen() {
         },
     });
 
+
     const onSubmit = (values) => {
         const payload = {
             email: values[FORM_FIELDS.EMAIL],
@@ -47,7 +48,9 @@ export default function LoginScreen() {
         } else {
             router.replace("/host/home");
         }
+        console.log(payload)
     };
+
 
     return (
         <View style={styles.container}>
@@ -68,6 +71,7 @@ export default function LoginScreen() {
 
                         {/* Form Section */}
                         <View style={styles.form}>
+
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.EMAIL}
@@ -77,6 +81,7 @@ export default function LoginScreen() {
                                         value={field.value}
                                         onChangeText={field.onChange}
                                         placeholder={t("auth.enter_email")}
+                                        onBlur={field.onBlur}
                                         type="email"
                                         required
                                         error={errors[FORM_FIELDS.EMAIL]?.message}
@@ -92,8 +97,9 @@ export default function LoginScreen() {
                                         label={t("auth.password")}
                                         value={field.value}
                                         onChangeText={field.onChange}
+                                        onBlur={field.onBlur}
                                         placeholder={t("auth.enter_password")}
-                                        type="password" 
+                                        type="password"
                                         required
                                         error={errors[FORM_FIELDS.PASSWORD]?.message}
                                     />
@@ -160,7 +166,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: "5%",
         paddingTop: Platform.OS === 'ios' ? 60 : 40,
         paddingBottom: 30,
-        justifyContent: isSmallDevice ? 'flex-start' : 'center', 
+        justifyContent: isSmallDevice ? 'flex-start' : 'center',
     },
     header: {
         marginBottom: isSmallDevice ? 20 : 30,
