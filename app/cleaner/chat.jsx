@@ -25,7 +25,7 @@ export default function ChatScreen() {
     };
 
     const chatMessages = [
-        { id: 1, sender: 'Stevano Clirover', text: 'Just to order', time: '09.00', isOwn: false },
+        { id: 1, sender: 'Stevano Clirovers', text: 'Just to order', time: '09.00', isOwn: false },
         { id: 2, sender: 'You', text: 'Okay, for what level of spiciness?', time: '09.15', isOwn: true, delivered: true },
         { id: 3, sender: 'Stevano Clirover', text: 'Okay, Wait a minute', time: '09.00', isOwn: false },
         { id: 4, sender: 'You', text: "Okay, I'm waiting", time: '09.15', isOwn: true, delivered: true },
