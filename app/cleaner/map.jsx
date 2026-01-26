@@ -2,10 +2,12 @@ import { useRouter } from 'expo-router';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Colors } from '../../assets/Colors';
-import { ArrowLeftIcon, LocationIcon } from '../../assets/icons/Icons';
+import { BackArrowIcon, LocationIcon } from '../../assets/icons/Icons';
 import { H5 } from '../../components/typo/typography';
 
-export default function CleanerMap() {
+
+
+export default function Map() {
     const router = useRouter();
 
     const initialRegion = {
@@ -43,7 +45,7 @@ export default function CleanerMap() {
                     activeOpacity={0.8}
                 >
                    
-                    <ArrowLeftIcon color="#000" size={24} />
+                    <BackArrowIcon/>
                 </TouchableOpacity>
                 <View style={styles.titleContainer}>
                     <H5 weight="bold" color="#000">Map Overview</H5>

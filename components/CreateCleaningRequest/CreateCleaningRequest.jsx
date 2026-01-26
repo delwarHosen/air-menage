@@ -38,7 +38,7 @@ export default function PropertyBookingScreens() {
   const [startTime, setStartTime] = useState('10:30');
   const [endTime, setEndTime] = useState('12:00');
   const [cleaningTime, setCleaningTime] = useState('');
-  const [selectedOption, setSelectedOption] = useState('collect');
+  const [selectedOption, setSelectedOption] = useState(null);
   const [dropOffAddress, setDropOffAddress] = useState('');
   const [rate, setRate] = useState(50);
   const [sendToFavorites, setSendToFavorites] = useState(false);
@@ -48,7 +48,7 @@ export default function PropertyBookingScreens() {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       [FORM_FIELDS.ADDRESS_BOX]: "",
-      selectedOption: "collect",
+      selectedOption: null,
       sendToFavorites: false,
       rate: 50
     }
@@ -220,8 +220,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  
-  
+
+
   favoriteSection: {
     backgroundColor: '#FFF',
     borderRadius: 12,
@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  
-  
+
+
   favoriteTextContainer: {
     flex: 1,
     marginRight: 10,
@@ -244,23 +244,23 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
 
-  favoriteSubtitle: { 
-    color: '#999' 
+  favoriteSubtitle: {
+    color: '#999'
   },
 
- 
+
   toggle: {
     width: 50,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#E5E5E5', 
+    backgroundColor: '#E5E5E5',
     padding: 2,
     justifyContent: 'center',
   },
 
-  
-  toggleActive: { 
-    backgroundColor: '#1A1A1A' 
+
+  toggleActive: {
+    backgroundColor: '#1A1A1A'
   },
 
 
@@ -271,9 +271,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
 
-  
-  toggleThumbActive: { 
-    alignSelf: 'flex-end' 
+
+  toggleThumbActive: {
+    alignSelf: 'flex-end'
   },
 
   createButton: {

@@ -750,7 +750,7 @@
     },
     "propertyType": {
         "apartment": "Appartement",
-        "home": "Maison"
+        "home": "Home"
     },
     "message": {
         "all": "All Message"
