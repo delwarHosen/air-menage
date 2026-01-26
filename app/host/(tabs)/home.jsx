@@ -37,6 +37,7 @@ export default function Home() {
     return true;
   });
 
+
   const renderCleanerItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "center",
-    paddingVertical: 20,
+    paddingVertical: 100,
   },
   contentHeader: {
     fontWeight: "600",

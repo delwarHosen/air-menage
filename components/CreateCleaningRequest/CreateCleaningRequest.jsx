@@ -80,8 +80,16 @@ export default function PropertyBookingScreens() {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
     >
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled={true}
+        bounces={true}
+        overScrollMode="auto"
+      >
         <View style={styles.content}>
 
           <PropertySelector
@@ -103,12 +111,11 @@ export default function PropertyBookingScreens() {
             cleaningTime={cleaningTime}
           />
 
+          
           <LinenHandlingForm
             control={control}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
-            dropOffAddress={dropOffAddress}
-            setDropOffAddress={setDropOffAddress}
           />
 
           <View style={styles.bottomSection}>
@@ -124,7 +131,6 @@ export default function PropertyBookingScreens() {
               </Pressable>
             </View>
 
-            {/* Price List  */}
             <Pressable
               style={styles.priceListButton}
               onPress={() => setPriceListVisible(true)}
@@ -134,8 +140,6 @@ export default function PropertyBookingScreens() {
               </Body1>
             </Pressable>
 
-            {/* Favorite Section  */}
-            {/* Favorite Section  */}
             <Pressable
               style={styles.favoriteSection}
               onPress={() => setSendToFavorites(prev => !prev)}
@@ -160,7 +164,10 @@ export default function PropertyBookingScreens() {
             </Pressable>
 
             <Pressable
-              onPress={() => router.push("./properties")}
+              onPress={handleSubmit((data) => {
+                console.log("Final Data:", data);
+                router.push("./properties");
+              })}
               style={styles.createButton}>
               <ButtonText style={styles.createButtonText}>
                 {t('booking.create_now')}
@@ -176,8 +183,18 @@ export default function PropertyBookingScreens() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAFAFA' },
-  content: { padding: '5%', paddingTop: 22 },
+  container: {
+    flex: 1,
+    backgroundColor: '#FAFAFA'
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 40  
+  },
+  content: {
+    padding: '5%',
+    paddingTop: 22
+  },
   bottomSection: { marginTop: 20 },
   sectionTitle: { marginBottom: 16 },
   rateSelector: {
@@ -221,20 +238,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-
-  favoriteSection: {
-    backgroundColor: '#FFF',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E5E5E5',
-    padding: 16,
-    marginBottom: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-
   favoriteTextContainer: {
     flex: 1,
     marginRight: 10,
@@ -248,7 +251,6 @@ const styles = StyleSheet.create({
     color: '#999'
   },
 
-
   toggle: {
     width: 50,
     height: 28,
@@ -258,11 +260,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-
   toggleActive: {
     backgroundColor: '#1A1A1A'
   },
-
 
   toggleThumb: {
     width: 24,
@@ -270,7 +270,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#FFF',
   },
-
 
   toggleThumbActive: {
     alignSelf: 'flex-end'

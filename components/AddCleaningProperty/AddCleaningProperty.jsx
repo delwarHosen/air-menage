@@ -87,6 +87,8 @@ export default function AddCleaningProperty() {
         }
     };
 
+
+    // Font
     const [fontsLoaded] = useFonts({
         'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
     });
@@ -103,7 +105,7 @@ export default function AddCleaningProperty() {
                     contentContainerStyle={styles.scrollContainer}
                     keyboardShouldPersistTaps="handled"
                 >
-                    {/* উপরের ফিক্সড ফিল্ডস */}
+                    
                     <Controller
                         control={control}
                         name={FORM_FIELDS.PROPERTY_TITLE}
@@ -148,7 +150,6 @@ export default function AddCleaningProperty() {
 
                     <Animated.View layout={LinearTransition.springify().damping(15).stiffness(90)}>
 
-
                         {selectedPropertyType === "Apartment" && (
                             <Animated.View
                                 key="apartment-specific-fields"
@@ -191,7 +192,7 @@ export default function AddCleaningProperty() {
                         >
                             {/* property size and location section */}
 
-                            <View style={{marginTop:20}}>
+                            <View style={{ marginTop: 20 }}>
                                 <Controller
                                     control={control}
                                     name={FORM_FIELDS.PROPERTY_SIZE}
@@ -245,8 +246,10 @@ export default function AddCleaningProperty() {
                                 />
                             </View>
 
+                            {/* lock and key box section */}
                             <KeyBoxSelection control={control} errors={errors} />
 
+                            {/* Vocuume provide section */}
                             <VacuumeProvided
                                 control={control}
                                 errors={errors}
@@ -254,6 +257,7 @@ export default function AddCleaningProperty() {
                                 suppliesLabel={t("addProperty.supplies")}
                             />
 
+                            {/* Property description section */}
                             <Body2 style={styles.label}>{t("addProperty.description")}</Body2>
                             <Controller
                                 control={control}
@@ -274,7 +278,7 @@ export default function AddCleaningProperty() {
                         </Animated.View>
                     </Animated.View>
 
-
+                    {/* Work type section */}
                     <WorkTypeSection title={t("work.general")} workTypes={generalWork} onAdd={handleAddGeneral} onDelete={handleDeleteGeneral} />
                     <WorkTypeSection title={t("work.bedroom")} workTypes={bedroomWork} onAdd={handleAddBedRoom} onDelete={handleDeleteBedRoom} />
                     <WorkTypeSection title={t("work.bathroom")} workTypes={bathroomWork} onAdd={handleAddBathRoom} onDelete={handleDeleteBathRoom} />

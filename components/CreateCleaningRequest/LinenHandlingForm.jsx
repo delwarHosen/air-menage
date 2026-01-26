@@ -1,21 +1,31 @@
+import { useFonts } from 'expo-font';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import Animated, { FadeInDown, FadeOut, LinearTransition } from 'react-native-reanimated';
 import { Colors } from '../../assets/Colors';
 import { LineHandlinhgIcon, TissuIcon } from '../../assets/icons/Icons';
-import { FORM_FIELDS } from '../../constants/form';
 import { Body2, H5, H6 } from '../typo/typography';
 
 export default function LinenHandlingForm({ control, selectedOption, setSelectedOption }) {
     const { t } = useTranslation();
 
-    // Address Input Component 
-    const AddressInput = () => (
-        <View style={{ marginTop: 10, marginBottom: 15 }}>
+
+    const [fontsLoaded] = useFonts({
+        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    });
+
+
+    const AddressInput = ({ fieldName }) => (
+        <Animated.View
+            entering={FadeInDown.duration(300)}
+            exiting={FadeOut.duration(200)}
+            style={{ marginTop: 5, marginBottom: 15 }}
+        >
             <H6 style={{ marginBottom: 10 }}>{t('linen.dropoff_address')}</H6>
             <Controller
                 control={control}
-                name={FORM_FIELDS.ADDRESS_BOX}
+                name={fieldName}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                         style={styles.input}
@@ -23,15 +33,15 @@ export default function LinenHandlingForm({ control, selectedOption, setSelected
                         placeholderTextColor="#999"
                         onBlur={onBlur}
                         onChangeText={onChange}
-                        value={value}
+                        value={value || ""}
                     />
                 )}
             />
-        </View>
+        </Animated.View>
     );
 
     return (
-        <View>
+        <Animated.View layout={LinearTransition.springify()}>
             <H5 style={styles.sectionTitle}>{t('linen.section_title')}</H5>
 
             {/* Option 1: Change */}
@@ -42,7 +52,7 @@ export default function LinenHandlingForm({ control, selectedOption, setSelected
                 <View style={styles.optionIcon}><LineHandlinhgIcon /></View>
                 <Body2 style={styles.optionTitle}>{t('linen.change')}</Body2>
             </Pressable>
-            {selectedOption === 'change' && <AddressInput />}
+            {selectedOption === 'change' && <AddressInput fieldName="address_change" />}
 
             {/* Option 2: Collect */}
             <Pressable
@@ -52,7 +62,7 @@ export default function LinenHandlingForm({ control, selectedOption, setSelected
                 <View style={styles.optionIcon}><LineHandlinhgIcon /></View>
                 <Body2 style={styles.optionTitle}>{t('linen.collect')}</Body2>
             </Pressable>
-            {selectedOption === 'collect' && <AddressInput />}
+            {selectedOption === 'collect' && <AddressInput fieldName="address_collect" />}
 
             {/* Option 3: Wash */}
             <Pressable
@@ -62,7 +72,7 @@ export default function LinenHandlingForm({ control, selectedOption, setSelected
                 <View style={styles.optionIcon}><LineHandlinhgIcon /></View>
                 <Body2 style={styles.optionTitle}>{t('linen.wash')}</Body2>
             </Pressable>
-            {selectedOption === 'wash' && <AddressInput />}
+            {selectedOption === 'wash' && <AddressInput fieldName="address_wash" />}
 
             {/* Option 4: Consumables Refill */}
             <Pressable
@@ -72,11 +82,13 @@ export default function LinenHandlingForm({ control, selectedOption, setSelected
                 <View style={styles.optionIcon}><TissuIcon /></View>
                 <Body2 style={styles.optionTitle}>{t('linen.consumables_refill')}</Body2>
             </Pressable>
-            {selectedOption === 'washs' && <AddressInput />}
+            {selectedOption === 'washs' && <AddressInput fieldName="address_refill" />}
 
-        </View>
+        </Animated.View>
     );
 }
+
+
 const styles = StyleSheet.create({
     sectionTitle: {
         marginBottom: 16,
@@ -125,5 +137,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#7c7c7c',
         marginBottom: 12,
+        fontFamily: 'Syne-Regular'
     },
 });
