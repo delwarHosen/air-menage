@@ -797,5 +797,21 @@
         "skip": "Sauter",
         "strat_heading": "Bienvenue! Commençons.",
         "skip_content": "Vous pouvez ajouter votre première propriété maintenant ou passer directement à l'exploration du tableau de bord."
+    },
+    "invoice": {
+        "home": "Accueil",
+        "cleaningId": "ID de nettoyage",
+        "propertyName": "Nom du logement",
+        "propertyAddress": "Adresse du logement",
+        "cleaningDate": "Date de nettoyage",
+        "timeSlot": "Créneau horaire",
+        "estimateDuration": "Durée estimée",
+        "cleaner": "Agent de nettoyage",
+        "priceList": "Liste des prix",
+        "propertyType": "Type de logement",
+        "surface": "Surface (m²)",
+        "price": "Prix",
+        "button": "Télécharger au format PDF",
+        "title": "Facture récapitulative du paiement"
     }
 }

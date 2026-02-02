@@ -110,7 +110,7 @@ export default function PeopertyOverviewPage({ cleanerRequest }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: "4%"
+        paddingHorizontal: "2%"
     },
     mainImage: {
         width: "100%",

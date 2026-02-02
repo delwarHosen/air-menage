@@ -796,9 +796,25 @@
         "modal_description": "Your cleaning request has been accepted. To confirm the booking, please complete the payment now.",
         "modal_button": "Payment Done"
     },
-    "redirect":{
-        "skip":"Skip",
-        "strat_heading":"Welcome! Let's get started",
-        "skip_content":"You can add your first property now or skip to explore the dashboard"
+    "redirect": {
+        "skip": "Skip",
+        "strat_heading": "Welcome! Let's get started",
+        "skip_content": "You can add your first property now or skip to explore the dashboard"
+    },
+    "invoice": {
+        "home": "Home",
+        "cleaningId": "Cleaning ID",
+        "propertyName": "Property Name",
+        "propertyAddress": "Property Address",
+        "cleaningDate": "Cleaning Date",
+        "timeSlot": "Time Slot",
+        "estimateDuration": "Estimated Duration",
+        "cleaner": "Cleaner",
+        "priceList": "Price List",
+        "propertyType": "Property Type",
+        "surface": "Surface (m²)",
+        "price": "Price",
+        "button": "Download as PDF",
+        "title":"Payment Summary Invoice"
     }
 }

@@ -10,6 +10,7 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
+    ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
@@ -21,6 +22,9 @@ import { Body1, Body2, ButtonText, H3 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { ImageUpload } from "../../components/ui/ImageUpload";
 import { FORM_FIELDS } from "../../constants/form";
+import { useSignUpMutation } from "../../redux/services/authApis";
+// import { validateName } from "../../utils/validation";r
+import { validateEmail, validateName, validatePassword } from "../../utils/validation";
 
 const { height } = Dimensions.get('window');
 const isSmallDevice = height < 750;
@@ -31,32 +35,64 @@ export default function SignUpScreen() {
     const [checked, setChecked] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const selectedRole = useSelector((state) => state.role.selectedRole);
+    const [registerUser, { loading: signUpLoading }] = useSignUpMutation();
 
     const {
         control,
         handleSubmit,
-        formState: { errors }
-    }
-        = useForm({
-            defaultValues: {
-                [FORM_FIELDS.PROFILE_IMAGE]: "",
-                [FORM_FIELDS.FULL_NAME]: "",
-                [FORM_FIELDS.EMAIL]: "",
-                [FORM_FIELDS.PASSWORD]: "",
-                [FORM_FIELDS.CONFIRM_PASSWORD]: ""
-            }
-        })
+        watch,
+        formState: { errors, isSubmitting }
+    } = useForm({
+        defaultValues: {
+            [FORM_FIELDS.PROFILE_IMAGE]: "",
+            [FORM_FIELDS.FULL_NAME]: "",
+            [FORM_FIELDS.EMAIL]: "",
+            [FORM_FIELDS.PASSWORD]: "",
+            [FORM_FIELDS.CONFIRM_PASSWORD]: ""
+        },
+        mode: 'onChange' // Enable real-time validation
+    });
 
-    const onSubmit = (values) => {
+    // Watch form values
+    const values = watch();
+
+    const onSubmit = async (formValues) => {
         const payload = {
-            profileImage: values[FORM_FIELDS.PROFILE_IMAGE],
-            fullName: values[FORM_FIELDS.FULL_NAME],
-            email: values[FORM_FIELDS.EMAIL],
-            password: values[FORM_FIELDS.PASSWORD],
-            confirmPassword: values[FORM_FIELDS.CONFIRM_PASSWORD],
+            profileImage: formValues[FORM_FIELDS.PROFILE_IMAGE],
+            fullName: formValues[FORM_FIELDS.FULL_NAME],
+            email: formValues[FORM_FIELDS.EMAIL],
+            password: formValues[FORM_FIELDS.PASSWORD],
+            confirmPassword: formValues[FORM_FIELDS.CONFIRM_PASSWORD],
+        };
+
+        try {
+
+            const res = await registerUser(payload).unwrap();
+            setIsModalVisible(true);
+
+            if (Platform.OS === 'android') {
+                ToastAndroid.show(res?.msg || "Success", ToastAndroid.SHORT);
+            }
+
+        } catch (error) {
+
+            console.log("Sign up error:", error);
+
+            const errorMessage = error?.data?.msg || "Something went wrong";
+
+            if (Platform.OS === 'android') {
+                ToastAndroid.showWithGravityAndOffset(
+                    errorMessage,
+                    ToastAndroid.LONG,
+                    ToastAndroid.BOTTOM,
+                    25,
+                    50
+                );
+            } else {
+
+                alert(errorMessage);
+            }
         }
-        setIsModalVisible(true);
-        console.log("from Register", payload)
     };
 
     const handleModalDone = () => {
@@ -68,6 +104,20 @@ export default function SignUpScreen() {
             router.replace("/(auth)/login");
         }
     };
+
+    // const passwordsMatch = values[FORM_FIELDS.PASSWORD] === values[FORM_FIELDS.CONFIRM_PASSWORD];
+
+    const isFormValid = true;
+    // values[FORM_FIELDS.FULL_NAME] &&
+    // values[FORM_FIELDS.EMAIL] &&
+    // values[FORM_FIELDS.PASSWORD] &&
+    // values[FORM_FIELDS.CONFIRM_PASSWORD] &&
+    // passwordsMatch &&
+    // // checked && // Checkbox must be checked
+    // !errors[FORM_FIELDS.FULL_NAME] &&
+    // !errors[FORM_FIELDS.EMAIL] &&
+    // !errors[FORM_FIELDS.PASSWORD] &&
+    // !errors[FORM_FIELDS.CONFIRM_PASSWORD];
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -116,6 +166,9 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.FULL_NAME}
+                                rules={{
+                                    validate: validateName
+                                }}
                                 render={({ field }) => (
                                     <FormInput
                                         label={t("auth.full_name")}
@@ -124,7 +177,8 @@ export default function SignUpScreen() {
                                         onBlur={field.onBlur}
                                         required
                                         placeholder={t("auth.enter_full_name")}
-                                        keyboardType="text"
+                                        keyboardType="default"
+                                        error={errors[FORM_FIELDS.FULL_NAME]?.message}
                                     />
                                 )}
                             />
@@ -132,6 +186,9 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.EMAIL}
+                                rules={{
+                                    validate: validateEmail
+                                }}
                                 render={({ field }) => (
                                     <FormInput
                                         label={t("auth.email")}
@@ -141,6 +198,7 @@ export default function SignUpScreen() {
                                         onBlur={field.onBlur}
                                         placeholder={t("auth.enter_email")}
                                         keyboardType="email-address"
+                                        error={errors[FORM_FIELDS.EMAIL]?.message}
                                     />
                                 )}
                             />
@@ -148,6 +206,9 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.PASSWORD}
+                                rules={{
+                                    validate: validatePassword
+                                }}
                                 render={({ field }) => (
                                     <FormInput
                                         label={t("auth.password")}
@@ -166,9 +227,13 @@ export default function SignUpScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.CONFIRM_PASSWORD}
+                                rules={{
+                                    validate: (value) =>
+                                        value === values[FORM_FIELDS.PASSWORD] || 'Passwords do not match'
+                                }}
                                 render={({ field }) => (
                                     <FormInput
-                                        label={t("auth.password")}
+                                        label={t("auth.confirm_password")}
                                         value={field.value}
                                         onChangeText={field.onChange}
                                         onBlur={field.onBlur}
@@ -183,7 +248,7 @@ export default function SignUpScreen() {
 
 
                             <TouchableOpacity
-                                onPress={handleSubmit(onSubmit)}
+                                onPress={() => setIsModalVisible(true)} // Direct modal show
                                 style={[styles.submitButton, { paddingVertical: isSmallDevice ? 14 : 16 }]}
                             >
                                 <ButtonText style={styles.buttonText}>{t("auth.signup")}</ButtonText>
@@ -311,7 +376,7 @@ const styles = StyleSheet.create({
     modalOverlay: {
         flex: 1,
         backgroundColor: "rgba(0,0,0,0.6)",
-        justifyContent: "center", 
+        justifyContent: "center",
         paddingHorizontal: 20
     },
     modalContent: {

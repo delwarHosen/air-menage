@@ -16,6 +16,7 @@ import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { ButtonText, H3, H4 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { FORM_FIELDS } from "../../constants/form";
+import { validateEmail, validatePassword } from "../../utils/validation"; // Import validation
 
 const { height } = Dimensions.get('window');
 const isSmallDevice = height < 700;
@@ -28,14 +29,25 @@ export default function LoginScreen() {
     const {
         control,
         handleSubmit,
-        formState: { errors },
+        watch,
+        formState: { errors, isSubmitting },
     } = useForm({
         defaultValues: {
             [FORM_FIELDS.EMAIL]: "",
             [FORM_FIELDS.PASSWORD]: "",
         },
+        mode: 'onChange' // Enable real-time validation
     });
 
+    // Watch form values
+    const values = watch();
+
+    // Check if form is valid
+    const isFormValid =
+        values[FORM_FIELDS.EMAIL] &&
+        values[FORM_FIELDS.PASSWORD] &&
+        !errors[FORM_FIELDS.EMAIL] &&
+        !errors[FORM_FIELDS.PASSWORD];
 
     const onSubmit = (values) => {
         const payload = {
@@ -50,7 +62,6 @@ export default function LoginScreen() {
         }
         console.log(payload)
     };
-
 
     return (
         <View style={styles.container}>
@@ -75,6 +86,9 @@ export default function LoginScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.EMAIL}
+                                rules={{
+                                    validate: validateEmail
+                                }}
                                 render={({ field }) => (
                                     <FormInput
                                         label={t("auth.email")}
@@ -92,6 +106,9 @@ export default function LoginScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.PASSWORD}
+                                rules={{
+                                    validate: validatePassword
+                                }}
                                 render={({ field }) => (
                                     <FormInput
                                         label={t("auth.password")}
@@ -107,8 +124,12 @@ export default function LoginScreen() {
                             />
 
                             <TouchableOpacity
-                                onPress={handleSubmit(onSubmit)}
-                                style={styles.submitButton}
+                                onPress={() => onSubmit(values)} // Direct call, no validation
+                                // disabled={!isFormValid || isSubmitting}  // Comment out
+                                style={[
+                                    styles.submitButton,
+                                    // (!isFormValid || isSubmitting) && { opacity: 0.5 }  // Comment out
+                                ]}
                                 activeOpacity={0.8}
                             >
                                 <ButtonText style={styles.buttonText}>
@@ -155,6 +176,8 @@ export default function LoginScreen() {
         </View>
     );
 }
+
+// styles same thakbe...
 
 const styles = StyleSheet.create({
     container: {

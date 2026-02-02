@@ -78,8 +78,6 @@ export default function CleaningRequest({ data, allData, activeTab }) {
         return (
             <>
                 <View style={{ marginTop: 20 }}>
-                    <H4 style={{ marginBottom: 15 }}> {t("tasks.yourConfirmedTasks")}</H4>
-
                     {allData?.map((item) =>
                         item.completed_tasks?.map((task) => (
                             <View key={task.id} style={styles.completeCliningCard}>

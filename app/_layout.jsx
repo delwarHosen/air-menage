@@ -5,7 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import { I18nextProvider } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
-import { store } from "../redux/store";
+// import { store } from "../redux/store";
+import store from "../redux/store";
 import i18n from '../src/i18n';
 
 export default function RootLayout() {
@@ -33,7 +34,6 @@ export default function RootLayout() {
                     </SafeAreaView>
                 </I18nextProvider>
             </StripeProvider>
-
         </Provider>
 
     )
