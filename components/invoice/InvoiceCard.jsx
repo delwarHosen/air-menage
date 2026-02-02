@@ -11,7 +11,7 @@ import { Body2, H6 } from '../typo/typography';
 export default function InvoiceCard({ data }) {
     const { t } = useTranslation();
 
-    return (
+    return ( 
         <View style={styles.container}>
             {/* Home Section */}
             <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 20 }}>

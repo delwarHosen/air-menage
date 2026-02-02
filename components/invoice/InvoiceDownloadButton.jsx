@@ -3,7 +3,7 @@ import * as Sharing from 'expo-sharing';
 import { useTranslation } from 'react-i18next';
 import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from '../../assets/Colors';
-import { CalenderIcon, ClockIcon, DownloadIconIcon, HomeForInvoiceIcon, LocationIcon } from '../../assets/icons/Icons';
+import { DownloadIconIcon } from '../../assets/icons/Icons';
 import { H6 } from '../typo/typography';
 
 export default function InvoiceDownloadButton({ invoiceData }) {
@@ -57,7 +57,7 @@ export default function InvoiceDownloadButton({ invoiceData }) {
             </div>
 
             <div class="home-section">
-                <p>${<HomeForInvoiceIcon />} Home</p>
+                <p>🏠 Home</p>
             </div>
             
             <div class="section">
@@ -71,17 +71,17 @@ export default function InvoiceDownloadButton({ invoiceData }) {
             </div>
 
             <div class="section">
-                <div class="label">${<LocationIcon />} Property Address</div>
+                <div class="label">📍 Property Address</div>
                 <div class="value">${data.address}</div>
             </div>
             
             <div class="section">
-                <div class="label">${<CalenderIcon />} Cleaning Date</div>
+                <div class="label">📅 Cleaning Date</div>
                 <div class="value">${data.date}</div>
             </div>
 
             <div class="section">
-                <div class="label"> ${<ClockIcon />} Time Slot</div>
+                <div class="label"> Time Slot</div>
                 <div class="value">${data.timeSlot}</div>
             </div>
 
@@ -141,7 +141,6 @@ export default function InvoiceDownloadButton({ invoiceData }) {
 
     return (
         <TouchableOpacity style={styles.downloadButton} onPress={handleDownload}>
-
             <DownloadIconIcon />
             <H6 style={styles.downloadText}>{t("invoice.button")}</H6>
         </TouchableOpacity>
