@@ -136,7 +136,7 @@
         }
     },
     "edit_personal_info": {
-        "title": "Modifier les informations personnelles",
+        "title": "Modifier les informations \n personnelles",
         "fields": {
             "fullName": "Nom complet",
             "age": "Âge",

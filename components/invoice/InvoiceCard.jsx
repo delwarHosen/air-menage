@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     homeSection: {
         alignItems: 'center',
         justifyContent: "center",
-        backgroundColor: '#F5F5F5',
+        // backgroundColor: '#F5F5F5',
         paddingVertical: 18,
         borderRadius: 8,
         marginBottom: 20,

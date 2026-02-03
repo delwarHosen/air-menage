@@ -82,6 +82,7 @@ export default function AddCleaningProperty() {
         try {
             const payload = { ...values, generalWork, bedroomWork, bathroomWork, kitchenWork };
             console.log("Submitted Data:", payload);
+            router.back()
         } catch {
             ToastAndroid.show(t("common.error"), ToastAndroid.SHORT);
         }

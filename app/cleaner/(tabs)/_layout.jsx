@@ -16,11 +16,13 @@ export default function TabsLayout() {
             return SCREEN_HEIGHT > 800 ? 85 : 75;
         }
         // Android: constrain between 60-75
-        return Math.min(Math.max(SCREEN_HEIGHT * 0.09, 60), 75);
+        return Math.min(Math.max(SCREEN_HEIGHT * 0.06, 0), 50);
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        <View style={{ flex: 1,
+        //  backgroundColor: "#fff" 
+         }}>
             <Tabs
                 screenOptions={{
                     headerShown: false,
@@ -31,21 +33,21 @@ export default function TabsLayout() {
                         backgroundColor: "white",
                         borderTopWidth: 1,
                         borderTopColor: "#E5E7EB",
-                        paddingBottom: Platform.OS === 'ios' ? 10 : 8,
-                        paddingTop: 8,
+                        paddingBottom: Platform.OS === 'ios' ? 5 : 0,
+                        paddingTop: 0,
                     },
                     tabBarItemStyle: {
                         flexDirection: 'column',
                         justifyContent: 'center',
-                        paddingVertical: 4,
+                        // paddingVertical: 4,
                     },
                     tabBarLabelStyle: {
                         fontSize: scale(11),
-                        lineHeight: scale(14),
+                        lineHeight: scale(10),
                         fontFamily: "SyneMedium",
                     },
                     tabBarIconStyle: {
-                        marginBottom: 2,
+                        // marginBottom: 2,
                     },
                 }}
             >

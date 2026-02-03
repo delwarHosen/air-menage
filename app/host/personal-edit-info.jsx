@@ -9,6 +9,7 @@ import Heading from "../../components/Heading/Heading";
 import { Body2, ButtonText } from "../../components/typo/typography";
 import { ImageUpload } from "../../components/ui/ImageUpload";
 
+import { useFonts } from "expo-font";
 import { IMAGE_CONSTANTS } from "../../constants/image.index";
 
 
@@ -46,25 +47,41 @@ export default function PersonalEditInfo() {
         router.push("./menu")
     };
 
-    const renderItem = ({ item }) => (
-        <View style={styles.inputWrapper}>
-            <Body2 style={styles.labelOutside}>{t(`edit_personal_info.fields.${item}`)}</Body2>
-            <View style={styles.inputCard}>
-                <TextInput
-                    style={styles.textInput}
-                    value={values[item] || ""}
-                    onChangeText={(text) => setValue(item, text)}
-                    placeholder={t(`edit_personal_info.placeholders.${item}`)}
-                    placeholderTextColor="#7E8792"
-                />
+
+    // font
+    const [fontsLoaded] = useFonts({
+        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    });
+
+    if (!fontsLoaded) return null;
+
+    const renderItem = ({ item }) => {
+        const isEmail = item === "email";
+        return (
+            <View style={styles.inputWrapper}>
+                <Body2 style={styles.labelOutside}>{t(`edit_personal_info.fields.${item}`)}</Body2>
+                <View style={[
+                    styles.inputCard,
+                    isEmail && { backgroundColor: '#f5f5f5' }
+                ]}>
+                    <TextInput
+                        style={styles.textInput}
+                        value={values[item] || ""}
+                        onChangeText={(text) => setValue(item, text)}
+                        placeholder={t(`edit_personal_info.placeholders.${item}`)}
+                        placeholderTextColor="#7E8792"
+                        editable={!isEmail}
+                        selectTextOnFocus={!isEmail}
+                    />
+                </View>
             </View>
-        </View>
-    );
+        )
+    };
 
     return (
         <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-            <KeyboardAvoidingView 
-                behavior={Platform.OS === "ios" ? "padding" : "height"} 
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
             >
                 <View style={{ marginHorizontal: 20, marginTop: 10 }}>
@@ -78,7 +95,7 @@ export default function PersonalEditInfo() {
                     contentContainerStyle={styles.scrollContainer}
                     showsVerticalScrollIndicator={false}
                     style={{ width: '100%' }}
-                    
+
                     ListHeaderComponent={() => (
                         <View style={styles.imageHeaderContainer}>
                             <View style={styles.imageWrapper}>
@@ -91,8 +108,8 @@ export default function PersonalEditInfo() {
                                             onImageSelect={onChange}
                                             shape="circle"
                                             showIcon={false}
-                                             centered={true}
-                                              defaultImage={IMAGE_CONSTANTS.profile}
+                                            centered={true}
+                                            defaultImage={IMAGE_CONSTANTS.profile}
                                         />
                                     )}
                                 />
@@ -161,7 +178,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#0F243E",
         marginBottom: 6,
-        fontWeight: '600'
+        fontWeight: '600',
+        
     },
     inputCard: {
         height: 48,
@@ -175,7 +193,8 @@ const styles = StyleSheet.create({
     textInput: {
         fontSize: 14,
         color: "#0F243E",
-        fontWeight: "500"
+        fontWeight: "500",
+        fontFamily: "Syne-Regular",
     },
     submitButton: {
         width: "100%",
@@ -185,9 +204,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 20,
     },
-    buttonText: { 
-        color: "#FFF", 
-        fontSize: 16, 
-        fontWeight: "600" 
+    buttonText: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "600"
     },
 });

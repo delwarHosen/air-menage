@@ -13,7 +13,6 @@ import {
 } from "react-native";
 
 // Assets & Components
-import { useForm } from "react-hook-form";
 import { Colors } from "../../assets/Colors";
 import Heading from "../../components/Heading/Heading";
 import { Body1, ButtonText } from "../../components/typo/typography";
@@ -21,41 +20,64 @@ import { FormInput } from "../../components/ui/FormInput";
 import { FORM_FIELDS } from "../../constants/form";
 import { IMAGE_CONSTANTS } from "../../constants/image.index";
 
-const validateEmail = (email) => {
-  const re = /\S+@\S+\.\S+/;
-  return re.test(email) ? "" : t("contact.fields.email.errorInvalid");
-};
+import { useState } from "react";
 
 export default function ContactScreen() {
   const router = useRouter();
   const { t } = useTranslation();
 
-  const {
-    errors,
-    isSubmitting,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useForm({
-    initialValues: {
-      [FORM_FIELDS.FULL_NAME]: "",
-      [FORM_FIELDS.EMAIL]: "",
-      [FORM_FIELDS.DESCRIPTION]: "",
-    },
-    validationRules: {
-      [FORM_FIELDS.FULL_NAME]: (v) =>
-        v ? "" : t("contact.fields.fullName.errorRequired"),
-      [FORM_FIELDS.EMAIL]: validateEmail,
-      [FORM_FIELDS.DESCRIPTION]: (v) =>
-        v ? "" : t("contact.fields.description.errorRequired"),
-    },
-    onSubmit: async () => {
-      if (Platform.OS === "android") {
-        ToastAndroid.show(t("contact.buttons.successToast"), ToastAndroid.SHORT);
-      }
-      router.back();
-    },
+  // State for form values
+  const [values, setValues] = useState({
+    [FORM_FIELDS.FULL_NAME]: "",
+    [FORM_FIELDS.EMAIL]: "",
+    [FORM_FIELDS.DESCRIPTION]: "",
   });
+
+  const [errors, setErrors] = useState({});
+
+  // Handle change
+  const handleChange = (field) => (text) => {
+    setValues(prev => ({ ...prev, [field]: text }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: "" }));
+    }
+  };
+
+  // Validate and submit
+  const handleSubmit = () => {
+    const newErrors = {};
+
+    if (!values[FORM_FIELDS.FULL_NAME]) {
+      newErrors[FORM_FIELDS.FULL_NAME] = t("contact.fields.fullName.errorRequired");
+    }
+
+    if (!values[FORM_FIELDS.EMAIL]) {
+      newErrors[FORM_FIELDS.EMAIL] = t("contact.fields.email.errorRequired");
+    } else if (!validateEmail(values[FORM_FIELDS.EMAIL])) {
+      newErrors[FORM_FIELDS.EMAIL] = t("contact.fields.email.errorInvalid");
+    }
+
+    if (!values[FORM_FIELDS.DESCRIPTION]) {
+      newErrors[FORM_FIELDS.DESCRIPTION] = t("contact.fields.description.errorRequired");
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // Submit success
+    if (Platform.OS === "android") {
+      ToastAndroid.show(t("contact.buttons.successToast"), ToastAndroid.SHORT);
+    }
+    router.back();
+  };
+
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
 
   return (
     <>
@@ -63,7 +85,6 @@ export default function ContactScreen() {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        {/* Heading */}
         <View style={{ marginHorizontal: 20 }}>
           <Heading title={t("contact.title")} />
         </View>
@@ -72,7 +93,6 @@ export default function ContactScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
-          {/* Banner Image */}
           <View style={styles.banner}>
             <Image
               source={IMAGE_CONSTANTS.contactImage}
@@ -80,17 +100,23 @@ export default function ContactScreen() {
             />
           </View>
 
-          {/* Form */}
           <View style={styles.form}>
             <FormInput
               label={t("contact.fields.fullName.label")}
               placeholder={t("contact.fields.fullName.placeholder")}
+              value={values[FORM_FIELDS.FULL_NAME]}
+              onChangeText={handleChange(FORM_FIELDS.FULL_NAME)}
+              error={errors[FORM_FIELDS.FULL_NAME]}
               required
             />
+
             <FormInput
               label={t("contact.fields.email.label")}
               placeholder={t("contact.fields.email.placeholder")}
               type="email"
+              value={values[FORM_FIELDS.EMAIL]}
+              onChangeText={handleChange(FORM_FIELDS.EMAIL)}
+              error={errors[FORM_FIELDS.EMAIL]}
               required
             />
 
@@ -101,11 +127,22 @@ export default function ContactScreen() {
               <TextInput
                 placeholder={t("contact.fields.description.placeholder")}
                 multiline
+                value={values[FORM_FIELDS.DESCRIPTION]}
+                onChangeText={handleChange(FORM_FIELDS.DESCRIPTION)}
                 style={styles.textArea}
               />
+              {errors[FORM_FIELDS.DESCRIPTION] && (
+                <Body1 style={{ color: 'red', fontSize: 12 }}>
+                  {errors[FORM_FIELDS.DESCRIPTION]}
+                </Body1>
+              )}
             </View>
 
-            <TouchableOpacity style={[styles.submitButton]} onPress={handleSubmit}>
+            <TouchableOpacity
+              style={styles.submitButton}
+              // onPress={handleSubmit}
+              onPress={()=>router.back()}
+            >
               <ButtonText style={styles.submitText}>
                 {t("contact.buttons.send")}
               </ButtonText>
@@ -118,9 +155,8 @@ export default function ContactScreen() {
 }
 
 
-
 const styles = StyleSheet.create({
- 
+
   scrollContainer: {
     paddingHorizontal: "5%",
     paddingBottom: 40,
@@ -156,6 +192,7 @@ const styles = StyleSheet.create({
   textArea: {
     height: 120,
     borderColor: "#CACACB",
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,

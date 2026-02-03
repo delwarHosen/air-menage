@@ -29,8 +29,6 @@ export default function PasswordSecurity() {
 
     const openModal = () => {
         setDeleteModalVisible(true);
-
-        // একই সাথে স্লাইড এবং অপাসিটি এনিমেশন
         Animated.parallel([
             Animated.timing(slideAnim, {
                 toValue: 0,

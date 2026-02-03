@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -45,13 +46,21 @@ export default function PersonalEditInfo() {
 
     const onFormSubmit = (data) => {
         console.log("Updated Form Data:", data);
-        router.push("/cleaner/menu");
+        router.push("./menu");
     };
+
+
+    // font
+    const [fontsLoaded] = useFonts({
+        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    });
+
+    if (!fontsLoaded) return null;
 
     const renderItem = ({ item }) => (
         <View style={styles.inputWrapper}>
             <Body2 style={styles.labelOutside}>{t(`edit_personal_info.fields.${item}`)}</Body2>
-            
+
             <Controller
                 control={control}
                 name={item}
@@ -68,15 +77,25 @@ export default function PersonalEditInfo() {
                             <Ionicons name="chevron-down" size={20} color="#6b7480" />
                         </TouchableOpacity>
                     ) : (
-                        <View style={styles.inputCard}>
+                        <View style={[
+                            styles.inputCard,
+                            item === "email" && { backgroundColor: "#ffffff", borderColor: "#D1D5DB" }
+                        ]}>
                             <TextInput
-                                style={styles.textInput}
+                                style={[
+                                    styles.textInput,
+                                    item === "email" && { color: "#888f9b" }
+                                ]}
                                 value={String(value || "")}
                                 onChangeText={onChange}
                                 placeholder={t(`edit_personal_info.placeholders.${item}`)}
                                 keyboardType={item === "age" || item === "phone" ? "numeric" : "default"}
                                 placeholderTextColor="#9CA3AF"
+                                editable={item !== "email"}
                             />
+                            {/* {item === "email" && (
+                                <Ionicons name="lock-closed" size={16} color="#9CA3AF" />
+                            )} */}
                         </View>
                     )
                 )}
@@ -84,7 +103,7 @@ export default function PersonalEditInfo() {
 
             {/* --- Verification Button specific to SIRET Number --- */}
             {item === "verification_Your_SIRET_Number" && (
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.verifyButton}
                     onPress={() => router.push("/identity-verification/identity-verification-banner1")}
                 >
@@ -251,13 +270,14 @@ const styles = StyleSheet.create({
         color: "#1F2937",
         fontWeight: "500",
         flex: 1,
+        fontFamily: "Syne-Regular",
     },
     verifyButton: {
         backgroundColor: "#3F3F3F",
         marginTop: 15,
-        width:"60%",
+        width: "60%",
         paddingVertical: 12,
-        height:50,
+        height: 50,
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
