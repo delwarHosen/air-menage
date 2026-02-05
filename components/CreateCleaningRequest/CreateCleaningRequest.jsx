@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -12,8 +13,8 @@ import {
 import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Colors } from '../../assets/Colors';
-import { IMAGE_COMPONENTS } from '../../assets/image.index';
 import { FORM_FIELDS } from '../../constants/form';
+import { useCreateCleaningRequestMutation, useGetPropertiesQuery } from '../../redux/services/propertyApi';
 import { Body1, Body2, ButtonText, H2, H3, H5 } from '../typo/typography';
 import DatePicker from './DatePicker';
 import LinenHandlingForm from './LinenHandlingForm';
@@ -22,15 +23,11 @@ import PropertySelector from './PropertySelector';
 import TimePicker from './TimePicker';
 
 
-const properties = [
-  { id: '1', name: 'San Francisco', img: IMAGE_COMPONENTS.selectPropertiImage, area: '50 m²', beds: '2 Bed', featured: true },
-  { id: '2', name: 'New York Loft', img: IMAGE_COMPONENTS.selectPropertiImage, area: '75 m²', beds: '3 Bed', featured: true },
-  { id: '3', name: 'Miami Beach House', img: IMAGE_COMPONENTS.selectPropertiImage, area: '120 m²', beds: '4 Bed', featured: false },
-  { id: '4', name: 'Los Angeles Studio', img: IMAGE_COMPONENTS.selectPropertiImage, area: '35 m²', beds: '1 Bed', featured: false },
-  { id: '5', name: 'Chicago Apartment', img: IMAGE_COMPONENTS.selectPropertiImage, area: '60 m²', beds: '2 Bed', featured: true },
-];
+export default function CreateCleaningRequest() {
+  const { data: properties, isLoading, isError, error } = useGetPropertiesQuery();
+  const [createCleaningRequest, { isLoading: isBooking }] = useCreateCleaningRequestMutation();
 
-export default function PropertyBookingScreens() {
+
   const { t } = useTranslation();
   const router = useRouter();
   const [selectedProperty, setSelectedProperty] = useState(properties[0]);
@@ -43,6 +40,11 @@ export default function PropertyBookingScreens() {
   const [rate, setRate] = useState(50);
   const [sendToFavorites, setSendToFavorites] = useState(false);
   const [priceListVisible, setPriceListVisible] = useState(false);
+
+
+
+  // console.log("from rtk query:", properties);
+  // console.log("Kitchen Work:", properties[0].kitchenWork);
 
 
   const { control, handleSubmit, watch } = useForm({
@@ -75,6 +77,38 @@ export default function PropertyBookingScreens() {
       setCleaningTime(displayTime.trim());
     }
   }, [startTime, endTime]);
+
+
+
+  const handleCreateCleaningRequest = async (formData) => {
+    try {
+      const statuses = ["Pending", "Validate"];
+
+      const randomStatus = statuses[Math.floor(Math.random * statuses.length)];
+
+      const createNewCleaningRequest = {
+        propertyId: selectedProperty?.id,
+        date: selectedDate.toISOString(),
+        startTime,
+        endTime,
+        cleaningTime,
+        rate,
+        isFavorite: sendToFavorites,
+        linenOption: selectedOption,
+        status: randomStatus,
+        ...formData
+
+      };
+
+      await createCleaningRequest(createNewCleaningRequest).unwrap();
+      Alert.alert("Booking Saved to Local DB!");
+      router.back();
+
+    } catch (error) {
+      console.error("fail to create cleaning request..");
+      Alert.alert("Something want wrong", error.message);
+    }
+  }
 
   return (
     <KeyboardAvoidingView
@@ -111,7 +145,7 @@ export default function PropertyBookingScreens() {
             cleaningTime={cleaningTime}
           />
 
-          
+
           <LinenHandlingForm
             control={control}
             selectedOption={selectedOption}
@@ -164,10 +198,12 @@ export default function PropertyBookingScreens() {
             </Pressable>
 
             <Pressable
-              onPress={handleSubmit((data) => {
-                console.log("Final Data:", data);
-                router.push("./properties");
-              })}
+              // onPress={handleSubmit((data) => {
+              //   console.log("Final Data:", data);
+              //   router.push("./properties");
+              // })}
+              onPress={handleSubmit(handleCreateCleaningRequest)}
+              disabled={isBooking}
               style={styles.createButton}>
               <ButtonText style={styles.createButtonText}>
                 {t('booking.create_now')}
@@ -189,7 +225,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 40  
+    paddingBottom: 40
   },
   content: {
     padding: '5%',

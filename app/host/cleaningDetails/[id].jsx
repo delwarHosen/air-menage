@@ -2,29 +2,25 @@ import { Image } from 'expo-image';
 import { useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
-import { Colors } from "../../../assets/Colors";
+import { Colors } from '../../../assets/Colors';
 import { BedIcon, CreatePropertyIcon, KeyIcon, LocationIcon, TikMarkIcon } from '../../../assets/icons/Icons';
 import PropertyTypePicker from '../../../components/AddCleaningProperty/PropertyTypePicker';
-import Heading from "../../../components/Heading/Heading";
+import AllCleaner from '../../../components/AllCleaner/AllCleaner';
+import Heading from '../../../components/Heading/Heading';
 import { Body2, Caption, H5 } from '../../../components/typo/typography';
-// import { propertiesData } from '../../../store/PropertyData'; 
+import { propertiesData } from '../../../store/PropertyData';
+
 
 const { height: screenHeight } = Dimensions.get('window');
 const isSmallDevice = screenHeight < 700;
 
-export default function PropertiDetails() {
+export default function CleaningDetails() {
     const { t } = useTranslation();
-    const { property } = useLocalSearchParams();
+    const { id, hideCleaner, property } = useLocalSearchParams();
+    console.log("HideCleaner status:", hideCleaner);
+    // console.log("hide cleanerrrrrrr", hideCleaner)
 
-
-    let rawData = null;
-    try {
-        rawData = property ? JSON.parse(decodeURIComponent(property)) : null;
-    } catch (e) {
-        console.log("Parse error:", e);
-    }
-
-    const propertyData = rawData;
+    const propertyData = propertiesData.find((item) => item.id.toString() === id);
 
     if (!propertyData) {
         return (
@@ -33,10 +29,6 @@ export default function PropertiDetails() {
             </View>
         );
     }
-
-
-    const displayTitle = propertyData.propertyTitle || propertyData.title;
-    const displayImg = propertyData.propertyImage || propertyData.img;
 
     return (
         <View style={{ flex: 1, backgroundColor: '#FFF' }}>
@@ -49,20 +41,17 @@ export default function PropertiDetails() {
             >
                 <View style={styles.PropertyCard}>
                     <Image
-                        source={displayImg}
+                        source={propertyData.img}
                         style={[styles.image, { height: isSmallDevice ? 200 : 250 }]}
                         contentFit="cover"
                     />
 
                     <View>
-                        <H5 style={styles.title}>{displayTitle}</H5>
+                        <H5 style={styles.title}>{propertyData.title}</H5>
                         <Body2 style={styles.description}>{propertyData.description}</Body2>
 
                         <View style={{ marginBottom: 5 }}>
-                            <PropertyTypePicker
-                                value={propertyData.propertyType}
-                                isReadOnly={true}
-                            />
+                            <PropertyTypePicker />
                         </View>
 
                         {/* Location Card */}
@@ -79,9 +68,7 @@ export default function PropertiDetails() {
                         {/* Size Card */}
                         <View style={styles.prpertyCard}>
                             <CreatePropertyIcon />
-                            <Body2 style={styles.propertyText}>
-                                {t("properties.property_size")} ({propertyData.propertySize.replace("m2", "m²")})
-                            </Body2>
+                            <Body2 style={styles.propertyText}>{propertyData.propertySize}</Body2>
                         </View>
 
                         {/* Bedrooms Card */}
@@ -92,14 +79,6 @@ export default function PropertiDetails() {
                             </Body2>
                         </View>
 
-                        {/* Beds Card */}
-                        <View style={styles.prpertyCard}>
-                            <BedIcon />
-                            <Body2 style={styles.propertyText}>
-                                {propertyData.bedrooms} {t("properties.beds")}
-                            </Body2>
-                        </View>
-
                         {/* bathRoom Card */}
                         <View style={styles.prpertyCard}>
                             <BedIcon />
@@ -107,14 +86,13 @@ export default function PropertiDetails() {
                                 {propertyData.bathrooms} {t("properties.bathrooms")}
                             </Body2>
                         </View>
-
                         {/* Lock/Key Card */}
                         <View style={styles.keyCard}>
                             <View style={styles.leftContent}>
                                 <KeyIcon />
                                 <View style={{ flex: 1 }}>
                                     <Body2 style={styles.propertyText} numberOfLines={1}>
-                                        {propertyData.lockType || propertyData.keyLocation || "N/A"}
+                                        {propertyData.lockType}
                                     </Body2>
                                     <Caption style={styles.caption}>
                                         {t("properties.meetKey")}
@@ -125,12 +103,13 @@ export default function PropertiDetails() {
                         </View>
                     </View>
                 </View>
+                <View style={{ marginTop: 10 }}>
+                    <AllCleaner propertyData={propertyData} />
+                </View>
             </ScrollView>
         </View>
-    );
+    )
 }
-
-// styles part change korar dorkar nai, apnar deya design-e thakbe
 
 const styles = StyleSheet.create({
     centered: {

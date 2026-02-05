@@ -303,6 +303,7 @@
         "add_properties": "Add Properties",
         "title": "Flower Apartment",
         "overview": "Properties Overview",
+        "property_size":"property size",
         "location": "Location",
         "bedrooms": "Bedrooms",
         "meetKey": "Meet the cleaner to give keys",

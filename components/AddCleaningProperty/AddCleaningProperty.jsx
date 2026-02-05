@@ -14,13 +14,14 @@ import {
     View
 } from 'react-native';
 
+
 import { Colors } from "../../assets/Colors";
 import { FORM_FIELDS } from "../../constants/form";
 import { Body2 } from "../typo/typography";
 import { FormInput } from "../ui/FormInput";
 
-import { useFonts } from "expo-font";
 import Animated, { FadeInDown, FadeOut, LinearTransition } from 'react-native-reanimated';
+import { useCreatePropertyMutation } from "../../redux/services/propertyApi";
 import { ImageUpload } from '../ui/ImageUpload';
 import CounterPropertySpecification from './CounterPropertySpecification';
 import Elevator from './Elevator';
@@ -35,6 +36,7 @@ const isSmallDevice = height < 750;
 export default function AddCleaningProperty() {
     const router = useRouter();
     const { t } = useTranslation();
+    const [createProperty, { loading }] = useCreatePropertyMutation();
 
     const [generalWork, setGeneralWork] = useState([]);
     const [bedroomWork, setBedroomWork] = useState([]);
@@ -69,30 +71,60 @@ export default function AddCleaningProperty() {
 
     const selectedPropertyType = watch("propertyType");
 
-    const handleAddGeneral = (text) => setGeneralWork([...generalWork, { id: Date.now().toString(), text }]);
+    const handleAddGeneral = (text) => {
+        setGeneralWork(prev => [...prev, { id: Date.now().toString(), text }]);
+    };
     const handleDeleteGeneral = (id) => setGeneralWork(generalWork.filter(item => item.id !== id));
-    const handleAddBedRoom = (text) => setBedroomWork([...bedroomWork, { id: Date.now().toString(), text }]);
+
+    const handleAddBedRoom = (text) => {
+        setBedroomWork(prev => [...prev, { id: Date.now().toString(), text }]);
+    };
     const handleDeleteBedRoom = (id) => setBedroomWork(bedroomWork.filter(item => item.id !== id));
-    const handleAddBathRoom = (text) => setBathroomWork([...bathroomWork, { id: Date.now().toString(), text }]);
+
+    const handleAddBathRoom = (text) => {
+        setBathroomWork(prev => [...prev, { id: Date.now().toString(), text }]);
+    };
     const handleDeleteBathRoom = (id) => setBathroomWork(bathroomWork.filter(item => item.id !== id));
-    const handleAddKitchenRoom = (text) => setKitchenWork([...kitchenWork, { id: Date.now().toString(), text }]);
+
+    const handleAddKitchenRoom = (text) => {
+        setKitchenWork(prev => [...prev, { id: Date.now().toString(), text }]);
+    };
     const handleDeleteKitchen = (id) => setKitchenWork(kitchenWork.filter(item => item.id !== id));
 
-    const onSubmit = (values) => {
+    // const handleReset = async () => {
+    //     await AsyncStorage.clear();
+    //     // যদি RTK Query ব্যবহার করেন, তবে রিফ্রেশ করতে refetch কল করুন
+    //     alert("সব লোকাল ডাটা মুছে ফেলা হয়েছে। এখন নতুন ডাটা এড করুন।");
+    // };
+
+    const onSubmit = async (values) => {
         try {
-            const payload = { ...values, generalWork, bedroomWork, bathroomWork, kitchenWork };
-            console.log("Submitted Data:", payload);
-            router.back()
-        } catch {
+            const payload = {
+                ...values,
+
+                generalWork: generalWork.flat(),
+                bedroomWork: bedroomWork.flat(),
+                bathroomWork: bathroomWork.flat(),
+                kitchenWork: kitchenWork.flat()
+            };
+
+
+            // console.log("Submitting Cleaned Data:", JSON.stringify(payload, null, 2));
+
+            await createProperty(payload).unwrap();
+            ToastAndroid.show("Property Created Successfully", ToastAndroid.SHORT);
+            router.back();
+        } catch (err) {
             ToastAndroid.show(t("common.error"), ToastAndroid.SHORT);
+            console.error("Failed to save:", err);
         }
     };
 
 
     // Font
-    const [fontsLoaded] = useFonts({
-        'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
-    });
+    // const [fontsLoaded] = useFonts({
+    //     'Syne-Regular': require("../../assets/fonts/Syne-Regular.ttf"),
+    // });
 
     return (
         <View style={styles.container}>
@@ -101,12 +133,13 @@ export default function AddCleaningProperty() {
                 style={{ flex: 1 }}
                 keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 80}
             >
+
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={styles.scrollContainer}
                     keyboardShouldPersistTaps="handled"
                 >
-                    
+
                     <Controller
                         control={control}
                         name={FORM_FIELDS.PROPERTY_TITLE}
@@ -136,7 +169,12 @@ export default function AddCleaningProperty() {
                             />
                         )}
                     />
-
+                    {/* // UI-তে বাটন */}
+                    {/* <View>
+                        <TouchableOpacity onPress={handleReset} style={{ padding: 20, backgroundColor: 'red' }}>
+                            <Body2 style={{ color: 'white' }}>Reset All Local Data</Body2>
+                        </TouchableOpacity>
+                    </View> */}
                     <Controller
                         control={control}
                         name="propertyType"

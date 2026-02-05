@@ -30,8 +30,7 @@ export default function CreateCleaning() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: "#FAFAFA", // Header er sathe mil rakha bhalo
-        // Android er jonno StatusBar padding
+        backgroundColor: "#FAFAFA", 
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
     headerContainer: {

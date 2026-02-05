@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { Colors } from '../../assets/Colors';
 import {
     BedIcon,
     CreatePropertyIcon,
@@ -56,7 +57,7 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
             <TouchableOpacity style={styles.propertyCard} onPress={openModal}>
                 <View style={styles.propertyImage}>
                     <Image
-                        source={selectedProperty.img}
+                        source={selectedProperty.propertyImage}
                         style={{ width: 52, height: 52 }}
                         contentFit="cover"
                     />
@@ -64,18 +65,21 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
 
                 <View style={styles.propertyInfo}>
                     <View style={styles.propertyNameRow}>
-                        <H6 style={{ marginRight: 4 }}>{selectedProperty.name}</H6>
-                        {selectedProperty.featured && <RatingYelloBagdeStar />}
+                        <H6 style={{ marginRight: 4 }}>{selectedProperty.propertyTitle}</H6>
+                        {/* {selectedProperty.featured && <RatingYelloBagdeStar />} */}
+                         <RatingYelloBagdeStar />
                     </View>
 
                     <View style={styles.propertyDetails}>
                         <View style={styles.propertyContent}>
                             <CreatePropertyIcon />
-                            <Caption>{selectedProperty.area}</Caption>
+                            <Caption>{selectedProperty.propertySize.replace("m2", " m²")}</Caption>
                         </View>
                         <View style={styles.propertyContent}>
                             <BedIcon />
-                            <Caption>{selectedProperty.beds}</Caption>
+                            <Caption style={styles.propertyText}>
+                            {selectedProperty.bedrooms}    
+                            </Caption>
                         </View>
                     </View>
                 </View>
@@ -112,7 +116,7 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
                                 >
                                     <View style={styles.propertyImage}>
                                         <Image
-                                            source={item.img}
+                                            source={item.propertyImage}
                                             style={{ width: 52, height: 52 }}
                                             contentFit="cover"
                                         />
@@ -120,18 +124,19 @@ export default function PropertySelector({ properties, selectedProperty, onSelec
 
                                     <View style={styles.propertyInfo}>
                                         <View style={styles.propertyNameRow}>
-                                            <H6 style={{ marginRight: 4 }}>{item.name}</H6>
-                                            {item.featured && <RatingYelloBagdeStar />}
+                                            <H6 style={{ marginRight: 4 }}>{item.propertyTitle}</H6>
+                                            {/* {item.featured && <RatingYelloBagdeStar />} */}
+                                             <RatingYelloBagdeStar />
                                         </View>
 
                                         <View style={styles.propertyDetails}>
                                             <View style={styles.propertyContent}>
                                                 <CreatePropertyIcon />
-                                                <Caption>{item.area}</Caption>
+                                                <Caption>{item.propertySize.replace("m2", " m²")}</Caption>
                                             </View>
                                             <View style={styles.propertyContent}>
                                                 <BedIcon />
-                                                <Caption>{item.beds}</Caption>
+                                                <Caption>{item.bedrooms}</Caption>
                                             </View>
                                         </View>
                                     </View>
@@ -191,7 +196,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     activeCardBorder: {
-        borderColor: '#1A1A1A',
-        backgroundColor: '#F9F9F9'
+        borderColor: Colors.PRIMARY,
+        backgroundColor: "#FFFFFF"
     }
 });

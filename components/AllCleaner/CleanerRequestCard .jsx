@@ -18,8 +18,8 @@ export default function CleanerRequestCard({ propertyData, location, onAccept, o
         onDelete(propertyData);
         toggleModal();
     };
-    console.log("Full propertyData:", propertyData);
-    console.log("Image URL:", propertyData?.profile_img);
+    // console.log("Full propertyData:", propertyData);
+    // console.log("Image URL:", propertyData?.profile_img);
 
     return (
         <View style={styles.container}>

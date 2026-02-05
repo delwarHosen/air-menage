@@ -21,7 +21,7 @@ export default function TabsLayout() {
 
     return (
         <View style={{ flex: 1,
-        //  backgroundColor: "#fff" 
+         backgroundColor: "#fff" 
          }}>
             <Tabs
                 screenOptions={{
@@ -32,13 +32,14 @@ export default function TabsLayout() {
                         height: getTabBarHeight(),
                         backgroundColor: "white",
                         borderTopWidth: 1,
-                        borderTopColor: "#E5E7EB",
+                        borderTopColor: "#ffffff",
                         paddingBottom: Platform.OS === 'ios' ? 5 : 0,
                         paddingTop: 0,
                     },
                     tabBarItemStyle: {
                         flexDirection: 'column',
                         justifyContent: 'center',
+                         backgroundColor: "#FAFAFA",
                         // paddingVertical: 4,
                     },
                     tabBarLabelStyle: {

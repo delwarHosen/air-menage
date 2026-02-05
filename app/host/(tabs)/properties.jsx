@@ -1,22 +1,26 @@
 import { useTranslation } from "react-i18next";
 import {
+  ActivityIndicator,
   FlatList,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { AddWhiteIcon } from "../../../assets/icons/Icons";
 import { Body2, Caption, H5, H6 } from "../../../components/typo/typography";
-import { propertiesData } from "../../../store/PropertyData";
-
+// import { propertiesData } from "../../../store/PropertyData"; // 
+import { useGetPropertiesQuery } from "../../../redux/services/propertyApi";
 export default function Properties() {
   const router = useRouter();
   const { t } = useTranslation();
+
+  // RTK Query 
+  const { data: properties = [], isLoading, refetch } = useGetPropertiesQuery();
 
   return (
     <KeyboardAvoidingView
@@ -49,37 +53,48 @@ export default function Properties() {
         </View>
       </View>
 
-      {/* Properties List */}
-      <FlatList
-        data={propertiesData}
-        keyExtractor={(item) => item.id.toString()}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listContainer}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() =>
-              router.push({
-                pathname: `/host/propertiDetails/${item.id}`,
-                params: { property: JSON.stringify(item) },
-              })
-            }
-          >
-            <View style={styles.propertyCard}>
-              <Image
-                source={item.img}
-                style={styles.image}
-                contentFit="cover"
-              />
-              <H5 style={styles.title}>{item.title}</H5>
-              <Body2 style={styles.location}>{item.location}</Body2>
+      {/* Loading State */}
+      {isLoading ? (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <ActivityIndicator size="large" color="#3F3F3F" />
+        </View>
+      ) : (
+        <FlatList
+          data={properties}
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
+          //(Pull to refresh)
+          onRefresh={refetch}
+          refreshing={isLoading}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() =>
+                router.push(`/host/propertiDetails/${item.id}?hideCleaner=true&property=${encodeURIComponent(JSON.stringify(item))}`)
+              }
+            >
+              <View style={styles.propertyCard}>
+                <Image
+                  source={item.propertyImage || item.img} // Form propertyImage 
+                  style={styles.image}
+                  contentFit="cover"
+                />
+                <H5 style={styles.title}>{item.propertyTitle || item.title}</H5>
+                <Body2 style={styles.location}>{item.location}</Body2>
+              </View>
+            </TouchableOpacity>
+          )}
+          // 
+          ListEmptyComponent={() => (
+            <View style={{ alignItems: 'center', marginTop: 50 }}>
+              <Body2>{t("No properties found. Add one!")}</Body2>
             </View>
-          </TouchableOpacity>
-        )}
-      />
+          )}
+        />
+      )}
     </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   container: { flex: 1 },
 

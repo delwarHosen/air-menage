@@ -4,42 +4,59 @@ import { Colors } from "../../assets/Colors";
 import { ApartmantHomeIcon, ApartmentIcon } from "../../assets/icons/Icons";
 import { Body2 } from "../typo/typography";
 
-const PropertyTypePicker = ({ value, onChange }) => {
+export default function PropertyTypePicker({ value, onChange, isReadOnly = false }) {
     const { t } = useTranslation();
 
-    return (
-        <View style={styles.propertyContainer}>
-            <TouchableOpacity
-                style={[styles.propertyCard, value === "Apartment" && styles.active]}
-                onPress={() => onChange?.("Apartment")}  
-            >
-                <ApartmentIcon />
-                <Body2 style={styles.title}>{t("propertyType.apartment")}</Body2>
-            </TouchableOpacity>
+    const selectedType = typeof value === 'object' ? value?.propertyType : value;
 
-            <TouchableOpacity
-                style={[styles.propertyCard, value === "Home" && styles.active]}
-                onPress={() => onChange?.("Home")}  
-            >
-                <ApartmantHomeIcon />
-                <Body2 style={styles.title}>{t("propertyType.home")}</Body2>
-            </TouchableOpacity>
+    return (
+        <View style={[styles.propertyContainer, isReadOnly && { justifyContent: 'center' }]}>
+
+            {(!isReadOnly || selectedType === "Apartment") && (
+                <TouchableOpacity
+                    disabled={isReadOnly}
+                    style={[
+                        styles.propertyCard,
+                   
+                        !isReadOnly && selectedType === "Apartment" && styles.active,
+                        
+                        isReadOnly && { width: '35%', flex: 0, marginVertical: 10, height: 100 }
+                    ]}
+                    onPress={() => onChange?.("Apartment")}
+                >
+                    <ApartmentIcon />
+                    <Body2 style={styles.title}>{t("propertyType.apartment")}</Body2>
+                </TouchableOpacity>
+            )}
+
+            {(!isReadOnly || selectedType === "Home") && (
+                <TouchableOpacity
+                    disabled={isReadOnly}
+                    style={[
+                        styles.propertyCard,
+                        
+                        !isReadOnly && selectedType === "Home" && styles.active,
+                     
+                        isReadOnly && { width: '35%', flex: 0, marginVertical: 10, height: 100 }
+                    ]}
+                    onPress={() => onChange?.("Home")}
+                >
+                    <ApartmantHomeIcon />
+                    <Body2 style={styles.title}>{t("propertyType.home")}</Body2>
+                </TouchableOpacity>
+            )}
         </View>
     );
 };
 
-export default PropertyTypePicker;
-
-
 const styles = StyleSheet.create({
     propertyContainer: {
-        flexDirection: "row", gap: 10,
-        justifyContent: "center",
+        flexDirection: "row", 
+        gap: 10,
         alignItems: "center"
     },
     propertyCard: {
-        flex:1,
-        // width: "20%",
+        flex: 1, 
         height: 100,
         borderWidth: 1,
         borderRadius: 12,
@@ -52,5 +69,7 @@ const styles = StyleSheet.create({
     title: {
         marginTop: 15
     },
-    active: { borderColor: Colors.PRIMARY, },
+    active: {
+        borderColor: Colors.PRIMARY,
+    },
 })

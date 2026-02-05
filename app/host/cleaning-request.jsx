@@ -15,7 +15,7 @@ export default function CleaningRequest({ data, allData, activeTab }) {
     const renderItem = ({ item }) => (
         <TouchableOpacity
             activeOpacity={0.9}
-            onPress={() => router.push(`/host/propertiDetails/${item.id}`)}
+            onPress={() => router.push(`/host/cleaningDetails/${item.id}`)}
         >
             <View style={styles.card}>
                 <H5>{item.date}</H5>
