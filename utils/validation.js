@@ -1,4 +1,7 @@
-export const validateEmail = email => {
+// =========================
+// Email Validation
+// =========================
+export const validateEmail = (email = "") => {
   if (!email.trim()) return "Email is required"
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -6,25 +9,26 @@ export const validateEmail = email => {
     return "Please enter a valid email address"
   }
 
-  return ""
+  return true
 }
 
-export const validatePassword = password => {
+// =========================
+// Password Validation
+// =========================
+export const validatePassword = (password = "") => {
   if (!password.trim()) return "Password is required"
 
   if (password.length < 8) {
     return "Password must be at least 8 characters"
   }
 
-  // Optional: Add more password strength requirements
-  // if (!/[A-Z]/.test(password)) return 'Password must contain at least one uppercase letter';
-  // if (!/[a-z]/.test(password)) return 'Password must contain at least one lowercase letter';
-  // if (!/\d/.test(password)) return 'Password must contain at least one number';
-
-  return ""
+  return true
 }
 
-export const validateCurrentPassword = currentPassword => {
+// =========================
+// Current Password
+// =========================
+export const validateCurrentPassword = (currentPassword = "") => {
   if (!currentPassword.trim()) {
     return "Current password is required"
   }
@@ -33,74 +37,57 @@ export const validateCurrentPassword = currentPassword => {
     return "Current password must be at least 8 characters"
   }
 
-  return ""
+  return true
 }
 
-export const validateConfirmPassword = (password, confirmPassword) => {
-  const pwd = password.trim()
-  const confirmPwd = confirmPassword.trim()
+// =========================
+// Confirm Password (RHF friendly)
+// =========================
+export const validateConfirmPassword = password => confirmPassword => {
+  if (!confirmPassword.trim()) return "Confirm Password is required"
 
-  if (!confirmPwd) return "Confirm Password is required"
-
-  if (confirmPwd.length < 8)
+  if (confirmPassword.length < 8) {
     return "Confirm Password must be at least 8 characters"
+  }
 
-  if (pwd !== confirmPwd) return "Passwords do not match"
+  if (password !== confirmPassword) {
+    return "Passwords do not match"
+  }
 
-  return ""
+  return true
 }
 
-export const validateName = name => {
+// =========================
+// Full Name Validation
+// =========================
+export const validateName = (name = "") => {
   if (!name.trim()) return "Full name is required"
 
   if (name.trim().length < 2) {
     return "Name must be at least 2 characters"
   }
 
-  return ""
+  return true
 }
 
-// export const validateDOB = (dob: string): string => {
-//   if (!dob.trim()) return 'Date of birth is required';
-
-//   const birthDate = new Date(dob);
-//   const today = new Date();
-
-//   if (isNaN(birthDate.getTime())) {
-//     return 'Please enter a valid date';
-//   }
-
-//   // Calculate age
-//   let age = today.getFullYear() - birthDate.getFullYear();
-//   const monthDiff = today.getMonth() - birthDate.getMonth();
-
-//   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-//     age--;
-//   }
-
-//   if (age < 21) {
-//     return 'You must be at least 21 years old to register';
-//   }
-
-//   return '';
-// };
-
-export const validateDOB = dob => {
+// =========================
+// Date of Birth Validation (21+)
+// Format: DD/MM/YYYY
+// =========================
+export const validateDOB = (dob = "") => {
   if (!dob.trim()) return "Date of birth is required"
-  console.log(dob)
-  // Parse DD/MM.l/YYYY
+
   const [day, month, year] = dob.split("/").map(Number)
   const birthDate = new Date(year, month - 1, day)
 
-  const today = new Date()
-  console.log(`${day}-${month}-${year}`)
   if (isNaN(birthDate.getTime())) {
     return "Please enter a valid date"
   }
 
-  // Calculate age
+  const today = new Date()
   let age = today.getFullYear() - birthDate.getFullYear()
   const monthDiff = today.getMonth() - birthDate.getMonth()
+
   if (
     monthDiff < 0 ||
     (monthDiff === 0 && today.getDate() < birthDate.getDate())
@@ -112,14 +99,20 @@ export const validateDOB = dob => {
     return "You must be at least 21 years old to register"
   }
 
-  return ""
+  return true
 }
 
-export const validateRequired = (value, fieldName) => {
+// =========================
+// Required Field Validation
+// =========================
+export const validateRequired = (value = "", fieldName = "This field") => {
   if (!value.trim()) return `${fieldName} is required`
-  return ""
+  return true
 }
 
+// =========================
+// Over 21 Utility (boolean only)
+// =========================
 export const validateOver21 = dob => {
   if (!dob) return false
 
@@ -139,13 +132,16 @@ export const validateOver21 = dob => {
   return age >= 21
 }
 
-export const validateForm = (values, rules) => {
+// =========================
+// Manual Form Validator (non-RHF)
+// =========================
+export const validateForm = (values = {}, rules = {}) => {
   const errors = {}
 
   Object.keys(rules).forEach(key => {
-    const error = rules[key](values[key] || "")
-    if (error) {
-      errors[key] = error
+    const result = rules[key](values[key] || "")
+    if (result !== true) {
+      errors[key] = result
     }
   })
 

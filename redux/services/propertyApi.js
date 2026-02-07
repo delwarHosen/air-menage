@@ -39,6 +39,6 @@ const propertyApi = baseApis.injectEndpoints({
 export const {
     useCreatePropertyMutation,
     useGetPropertiesQuery,
-    useCreateCleaningRequestMutation
-
+    useCreateCleaningRequestMutation,
+    useGetCleaningRequestsQuery,
 } = propertyApi;

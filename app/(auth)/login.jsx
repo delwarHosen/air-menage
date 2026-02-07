@@ -1,4 +1,5 @@
 import { Link, useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -7,18 +8,20 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
+    ToastAndroid,
     TouchableOpacity,
     View
-} from 'react-native';
+} from "react-native";
 import { useSelector } from "react-redux";
 import { Colors } from "../../assets/Colors";
 import { AppleIcons, GoogleIcon } from "../../assets/icons/Icons";
 import { ButtonText, H3, H4 } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { FORM_FIELDS } from "../../constants/form";
-import { validateEmail, validatePassword } from "../../utils/validation"; // Import validation
+import { useSignInMutation } from "../../redux/services/authApis";
+import { validateEmail, validatePassword } from "../../utils/validation";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 const isSmallDevice = height < 700;
 
 export default function LoginScreen() {
@@ -26,41 +29,71 @@ export default function LoginScreen() {
     const { t } = useTranslation();
     const selectedRole = useSelector((state) => state.role.selectedRole);
 
+    const [loginUser, { isLoading: signInLoading }] = useSignInMutation();
+
     const {
         control,
         handleSubmit,
         watch,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm({
         defaultValues: {
             [FORM_FIELDS.EMAIL]: "",
             [FORM_FIELDS.PASSWORD]: "",
         },
-        mode: 'onChange' // Enable real-time validation
+        mode: "onChange",
     });
 
-    // Watch form values
     const values = watch();
 
-    // Check if form is valid
-    const isFormValid =
-        values[FORM_FIELDS.EMAIL] &&
-        values[FORM_FIELDS.PASSWORD] &&
-        !errors[FORM_FIELDS.EMAIL] &&
-        !errors[FORM_FIELDS.PASSWORD];
+    const onSubmit = async (formValues) => {
+        try {
+            const payload = {
+                email: formValues[FORM_FIELDS.EMAIL],
+                password: formValues[FORM_FIELDS.PASSWORD],
+                // role: selectedRole // Optional, backend may ignore
+            };
 
-    const onSubmit = (values) => {
-        const payload = {
-            email: values[FORM_FIELDS.EMAIL],
-            password: values[FORM_FIELDS.PASSWORD],
-            role: selectedRole
-        };
-        if (selectedRole === "cleaner") {
-            router.replace("/cleaner/home");
-        } else {
-            router.replace("/host/home");
+            // Clear existing token
+            const existingToken = await SecureStore.getItemAsync("accessToken");
+            if (existingToken) {
+                await SecureStore.deleteItemAsync("accessToken");
+            }
+
+            const res = await loginUser(payload).unwrap();
+
+            // Save token
+            await SecureStore.setItemAsync("accessToken", res.token);
+
+            // Show success message
+            ToastAndroid.showWithGravityAndOffset(
+                res.msg || "Login successful",
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+            );
+
+            // Navigate based on role
+            if (res.user.role === "cleaner") {
+                router.replace("/cleaner/home");
+            } else {
+                router.replace("/host/home");
+            }
+
+        } catch (error) {
+            const message =
+                error?.data?.msg ||
+                error?.message ||
+                "Something went wrong while signing in!";
+            ToastAndroid.showWithGravityAndOffset(
+                message,
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+            );
         }
-        console.log(payload)
     };
 
     return (
@@ -82,13 +115,10 @@ export default function LoginScreen() {
 
                         {/* Form Section */}
                         <View style={styles.form}>
-
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.EMAIL}
-                                rules={{
-                                    validate: validateEmail
-                                }}
+                                rules={{ validate: validateEmail }}
                                 render={({ field }) => (
                                     <FormInput
                                         label={t("auth.email")}
@@ -106,9 +136,7 @@ export default function LoginScreen() {
                             <Controller
                                 control={control}
                                 name={FORM_FIELDS.PASSWORD}
-                                rules={{
-                                    validate: validatePassword
-                                }}
+                                rules={{ validate: validatePassword }}
                                 render={({ field }) => (
                                     <FormInput
                                         label={t("auth.password")}
@@ -124,36 +152,34 @@ export default function LoginScreen() {
                             />
 
                             <TouchableOpacity
-                                onPress={() => onSubmit(values)} // Direct call, no validation
-                                // disabled={!isFormValid || isSubmitting}  // Comment out
+                                onPress={handleSubmit(onSubmit)}
+                                disabled={signInLoading}
                                 style={[
                                     styles.submitButton,
-                                    // (!isFormValid || isSubmitting) && { opacity: 0.5 }  // Comment out
+                                    { opacity: signInLoading ? 0.6 : 1 },
                                 ]}
                                 activeOpacity={0.8}
                             >
                                 <ButtonText style={styles.buttonText}>
-                                    {t("auth.login")}
+                                    {signInLoading ? "Processing..." : t("auth.login")}
                                 </ButtonText>
                             </TouchableOpacity>
 
+                            {/* Footer Links */}
                             <View style={styles.footerLinksContainer}>
                                 <Link href="/(auth)/register" asChild>
                                     <TouchableOpacity>
-                                        <H4 style={styles.underlineText}>
-                                            {t("auth.sign_up")}
-                                        </H4>
+                                        <H4 style={styles.underlineText}>{t("auth.sign_up")}</H4>
                                     </TouchableOpacity>
                                 </Link>
                                 <Link href="/(auth)/forgot-password" asChild>
                                     <TouchableOpacity>
-                                        <H4 style={styles.underlineText}>
-                                            {t("auth.forgot_password")}
-                                        </H4>
+                                        <H4 style={styles.underlineText}>{t("auth.forgot_password")}</H4>
                                     </TouchableOpacity>
                                 </Link>
                             </View>
 
+                            {/* Divider */}
                             <View style={styles.dividerContainer}>
                                 <View style={styles.divider} />
                                 <ButtonText style={styles.dividerText}>{t("auth.or")}</ButtonText>
@@ -177,29 +203,27 @@ export default function LoginScreen() {
     );
 }
 
-// styles same thakbe...
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: "#FFFFFF",
     },
     scrollContent: {
         flexGrow: 1,
         paddingHorizontal: "5%",
-        paddingTop: Platform.OS === 'ios' ? 60 : 40,
+        paddingTop: Platform.OS === "ios" ? 60 : 40,
         paddingBottom: 30,
-        justifyContent: isSmallDevice ? 'flex-start' : 'center',
+        justifyContent: isSmallDevice ? "flex-start" : "center",
     },
     header: {
         marginBottom: isSmallDevice ? 20 : 30,
     },
     title: {
         fontSize: isSmallDevice ? 22 : 28,
-        textAlign: 'left',
+        textAlign: "left",
     },
     form: {
-        width: '100%',
+        width: "100%",
     },
     submitButton: {
         backgroundColor: Colors.PRIMARY,
@@ -214,12 +238,12 @@ const styles = StyleSheet.create({
     },
     underlineText: {
         fontSize: isSmallDevice ? 13 : 14,
-        textDecorationLine: 'underline',
-        fontWeight: '500',
+        textDecorationLine: "underline",
+        fontWeight: "500",
     },
     footerLinksContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: "row",
+        justifyContent: "space-between",
         marginTop: 15,
         marginBottom: isSmallDevice ? 15 : 25,
     },
@@ -231,7 +255,7 @@ const styles = StyleSheet.create({
     divider: {
         flex: 1,
         height: 1,
-        backgroundColor: '#E2E8F0',
+        backgroundColor: "#E2E8F0",
     },
     dividerText: {
         marginHorizontal: 16,
@@ -251,6 +275,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 1,
-        borderColor: '#F1F5F9',
+        borderColor: "#F1F5F9",
     },
 });

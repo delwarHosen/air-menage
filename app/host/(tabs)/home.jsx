@@ -17,6 +17,7 @@ import { AddIcon, BlueVerifyIcon } from "../../../assets/icons/Icons";
 import AllCleaningRequests from '../../../components/AllCleaningRequests/AllCleaningRequests';
 import HostTabs from "../../../components/HostTabs/HostTabs";
 import { Body2, Caption, H4 } from "../../../components/typo/typography";
+import { useGetCleaningRequestsQuery } from '../../../redux/services/propertyApi';
 import { cleanerDetailsData } from '../../../store/CleanerRequestData';
 import { cleaners } from '../../../store/Cleaners';
 import CleaningRequest from '../cleaning-request';
@@ -26,6 +27,9 @@ export default function Home() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("pending");
   const { t } = useTranslation();
+
+  const { data: bookings, isLoading, error } = useGetCleaningRequestsQuery();
+  console.log("Booking from home", bookings);
 
 
   const displayData = cleanerDetailsData.filter((item) => {

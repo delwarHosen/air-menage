@@ -1,27 +1,30 @@
-import baseApis from "../baseApi";
+import baseApi from "../baseApi";
 
-const authApis = baseApis.injectEndpoints({
+const authApis = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         signUp: builder.mutation({
-            query: (data) => ({
-                url: '/auth/register',
+            query: (formData) => ({
+                url: '/register',
                 method: 'POST',
-                body: data,
+                body: formData,
+                
             }),
-            invalidatesTags: ['auth'],
+            invalidatesTags: ['user'],
         }),
         signIn: builder.mutation({
-            query: (data) => ({
-                url: '/auth/login',
+            query: (credentials) => ({
+                url: '/login',
                 method: 'POST',
-                body: data,
+                body: credentials,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             }),
             invalidatesTags: ['profile'],
         }),
-    })
-})
+    }),
+    overrideExisting: true,
+});
 
-export const {
-    useSignUpMutation,
-    useSignInMutation
-} = authApis;
+export const { useSignUpMutation, useSignInMutation } = authApis;
+export default authApis;
