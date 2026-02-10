@@ -7,10 +7,41 @@ import { Colors } from "../../assets/Colors";
 import { BedIcon, ClockIcon, CreatePropertyIcon, LocationIcon } from '../../assets/icons/Icons';
 import { Body1, Caption, H4, H5, H6 } from '../../components/typo/typography';
 
+const CleaningRequestSkeleton = () => (
+    <View style={[styles.card, { opacity: 0.5 }]}>
+        {/* ---For date--- */}
+        <View style={{ width: 100, height: 20, backgroundColor: '#E1E9EE', marginBottom: 10, borderRadius: 4 }} />
+        <View style={styles.divider} />
+
+        <View style={styles.middleRow}>
+            {/* ---for Image--- */}
+            <View style={[styles.propertyImage, { backgroundColor: '#E1E9EE' }]} />
+            {/* ---For card content--- */}
+            <View style={styles.rightContent}>
+                <View style={{ width: '60%', height: 15, backgroundColor: '#E1E9EE', marginBottom: 8, borderRadius: 4 }} />
+                <View style={{ width: '80%', height: 12, backgroundColor: '#E1E9EE', marginBottom: 8, borderRadius: 4 }} />
+                <View style={{ width: '40%', height: 12, backgroundColor: '#E1E9EE', borderRadius: 4 }} />
+            </View>
+        </View>
+    </View>
+);
+
+
 // { data } receive kora hoyeche Home theke
-export default function CleaningRequest({ data, allData, activeTab }) {
+export default function CleaningRequest({ data, allData, activeTab, isLoading }) {
     const { t } = useTranslation();
     const router = useRouter();
+
+
+    if (isLoading) {
+        return (
+            <View>
+                <CleaningRequestSkeleton />
+                <CleaningRequestSkeleton />
+                <CleaningRequestSkeleton />
+            </View>
+        )
+    }
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -120,9 +151,6 @@ export default function CleaningRequest({ data, allData, activeTab }) {
                     )}
                 </View>
             </>
-
-
-
         );
     };
 

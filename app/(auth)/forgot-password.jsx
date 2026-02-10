@@ -6,6 +6,7 @@ import {
     Platform,
     ScrollView,
     StyleSheet,
+    ToastAndroid,
     TouchableOpacity,
     View
 } from 'react-native';
@@ -15,10 +16,12 @@ import AuthHeading from "../../components/AuthHeading/AuthHeading";
 import { ButtonText } from "../../components/typo/typography";
 import { FormInput } from "../../components/ui/FormInput";
 import { FORM_FIELDS } from "../../constants/form";
+import { useForgotPasswordMutation } from "../../redux/services/authApis";
 
 export default function ForgotPasswordScreen() {
     const router = useRouter();
     const { t } = useTranslation();
+    const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
     const { control, handleSubmit } = useForm({
         defaultValues: {
@@ -27,14 +30,38 @@ export default function ForgotPasswordScreen() {
     });
 
     // This function runs immediately when the button is pressed
-    const onSubmit = (values) => {
-        const payload = {
-            email: values[FORM_FIELDS.EMAIL]
+    const onSubmit = async (values) => {
+
+        if (values?.email) {
+            return ToastAndroid.show("Pleaser enter a valid Email", ToastAndroid.SHORT);
         }
-        console.log("Routing with email:", payload);
+
+        try {
+
+            const payload = {
+                email: values[FORM_FIELDS.EMAIL]
+            }
+            console.log("Routing with email:", payload);
+            const res = await forgotPassword(payload).unwrap();
+
+            if (!res?.success) {
+                throw new Error(res?.message);
+            }
+
+            ToastAndroid.show(res?.message || "OTP sent to your mail", ToastAndroid.SHORT);
+
+            router.push("/(auth)/email-verification");
+
+        } catch (error) {
+            console.log(error?.data?.message || error?.message || "Somethimg want wrong")
+        }
+
+
+
+
 
         // Direct routing
-        router.push("/(auth)/email-verification");
+
     };
 
     return (

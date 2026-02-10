@@ -4,15 +4,15 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
-    Alert,
-    Dimensions,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    ToastAndroid,
-    TouchableOpacity,
-    View,
+  Alert,
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
@@ -94,7 +94,6 @@ export default function SignUpScreen() {
   };
 
 
-  
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -290,12 +289,29 @@ export default function SignUpScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: "#FFFFFF" },
-  flex1: { flex: 1 },
-  scrollContent: { flexGrow: 1, paddingHorizontal: "5%", paddingBottom: 20 },
-  content: { flex: 1, paddingTop: 10 },
-  imageContainer: { alignItems: "center", marginTop: 10 },
-  profileWrapper: { position: "relative" },
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#FFFFFF"
+  },
+  flex1: {
+    flex: 1
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: "5%",
+    paddingBottom: 20
+  },
+  content: {
+    flex: 1,
+    paddingTop: 10
+  },
+  imageContainer: {
+    alignItems: "center",
+    marginTop: 10
+  },
+  profileWrapper: {
+    position: "relative"
+  },
   cameraIconContainer: {
     position: "absolute",
     bottom: isSmallDevice ? 20 : 10,
@@ -309,16 +325,28 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#fff",
   },
-  title: { fontWeight: "500", textAlign: "left" },
-  form: { width: "100%" },
+  title: {
+    fontWeight: "500",
+    textAlign: "left"
+  },
+  form: {
+    width: "100%"
+  },
   submitButton: {
     backgroundColor: Colors.PRIMARY,
     borderRadius: 12,
     alignItems: "center",
     marginTop: 15,
   },
-  buttonText: { color: "#fff", fontWeight: "600" },
-  termsContainer: { flexDirection: "row", alignItems: "center", marginTop: 15 },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600"
+  },
+  termsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 15
+  },
   checkbox: {
     height: 18,
     width: 18,
@@ -330,11 +358,29 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   termsTextContainer: { flex: 1 },
-  linkText: { color: "#2DBEFF", textDecorationLine: "underline" },
-  dividerContainer: { flexDirection: "row", alignItems: "center" },
-  divider: { flex: 1, height: 1, backgroundColor: Colors.BORDER_COLOR },
-  dividerText: { marginHorizontal: 12, color: "#94A3B8" },
-  socialContainer: { flexDirection: "row", justifyContent: "center", gap: 15, marginBottom: 20 },
+  linkText: {
+    color: Colors.PRIMARY,
+    textDecorationLine: "underline"
+  },
+  dividerContainer: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  divider: {
+    flex: 1,
+    height: 1,
+    backgroundColor: Colors.BORDER_COLOR
+  },
+  dividerText: {
+    marginHorizontal: 12,
+    color: "#94A3B8"
+  },
+  socialContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 15,
+    marginBottom: 20
+  },
   socialIcon: {
     backgroundColor: "#F7F7F7",
     height: 55,

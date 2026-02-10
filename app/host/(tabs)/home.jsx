@@ -96,8 +96,17 @@ export default function Home() {
       );
     } else if (index === 1) {
       return (
-        <>
-          {cleaners.length === 0 ? (
+        <View style={styles.listContainer}>
+          {isLoading ? (
+            <FlatList
+              data={[1, 2, 3, 4, 5]}
+              renderItem={() => <CleanerSkeleton />}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ gap: 12 }}
+              keyExtractor={(item) => item.toString()}
+            />
+          ) : cleaners.length === 0 ? (
             <View style={styles.content}>
               <H4 style={styles.contentHeader}>{t("host_home.empty.title")}</H4>
               <Body2 style={{ textAlign: "center" }}>
@@ -105,18 +114,16 @@ export default function Home() {
               </Body2>
             </View>
           ) : (
-            <View style={styles.listContainer}>
-              <FlatList
-                data={cleaners}
-                renderItem={renderCleanerItem}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item) => item.id.toString()}
-                contentContainerStyle={{ gap: 12 }}
-              />
-            </View>
+            <FlatList
+              data={cleaners}
+              renderItem={renderCleanerItem}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.id.toString()}
+              contentContainerStyle={{ gap: 12 }}
+            />
           )}
-        </>
+        </View>
       );
     } else if (index === 2) {
       return (
@@ -126,6 +133,7 @@ export default function Home() {
               data={displayData}
               allData={cleanerDetailsData}
               activeTab={activeTab}
+              isLoading={isLoading}
             />
           ) : (
 
@@ -158,6 +166,26 @@ export default function Home() {
       </KeyboardAvoidingView>
     </View>
   );
+}
+
+
+const CleanerSkeleton = () => {
+  <View style={styles.profileButton}>
+    <View style={{ position: "relative" }}>
+      <View style={[styles.gradientBorder, { backgroundColor: "#E1E9EE'" }]}>
+        <View style={styles.whiteInnerCircle}>
+          <View style={{ width: "100%", height: "100%", backgroundColor: "'#F2F2F2'" }} />
+        </View>
+      </View>
+    </View>
+    <View style={{
+      width: 50,
+      height: 10,
+      backgroundColor: '#E1E9EE',
+      marginTop: 8,
+      borderRadius: 4
+    }} />
+  </View>
 }
 
 const styles = StyleSheet.create({

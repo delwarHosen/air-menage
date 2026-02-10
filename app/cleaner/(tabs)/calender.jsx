@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from "../../../assets/Colors";
@@ -15,7 +15,7 @@ export default function CleaningCalendar() {
   const currentYear = 2025;
   const { t } = useTranslation();
 
-  
+
   const cleaningData = {
     0: [ // January
       { date: '2025-01-05', location: 'e.g. B. Berlin or "Peak Fit...', time: '10:00-16:00', duration: '1h30', image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=200&h=200&fit=crop' },
@@ -128,15 +128,28 @@ export default function CleaningCalendar() {
     }).start();
   };
 
-  const dropdownAnimatedHeight = dropdownHeight.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 400],
-  });
+  const dropdownAnimatedHeight = useMemo(() => {
+    dropdownHeight.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 400],
+    })
+  }, [dropdownHeight])
 
-  const selectedMonthDates = selectedMonth !== null ? (cleaningData[selectedMonth] || []) : [];
-  const selectedCardData = selectedDate
-    ? cleaningData[selectedMonth]?.find(item => item.date === selectedDate)
-    : null;
+ 
+  const selectedMonthDates = useMemo(() => {
+    if (selectedMonth === null) return []
+    return cleaningData[selectedMonth] || []
+  }, [selectedMonth, cleaningData])
+
+
+  const selectedCardData = useMemo(() => {
+    if (!selectedDate || selectedMonth === null) return null;
+    return cleaningData[selectedMonth]?.find(
+      item => item.date === selectedDate
+    )
+  }, [selectedDate, selectedMonth, cleaningData])
+
+
 
   return (
     <View style={styles.container}>
@@ -332,16 +345,16 @@ const styles = StyleSheet.create({
   },
   dateCircle: {
     width: 30,
-    height: 30, 
+    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 6,
 
   },
   dateCircleActive: {
-    backgroundColor: Colors.PRIMARY, 
-    borderWidth:1, 
-    borderRadius:15, 
+    backgroundColor: Colors.PRIMARY,
+    borderWidth: 1,
+    borderRadius: 15,
     borderColor: Colors.PRIMARY
   },
   dateText: {

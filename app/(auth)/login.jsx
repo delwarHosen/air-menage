@@ -44,27 +44,33 @@ export default function LoginScreen() {
         mode: "onChange",
     });
 
-    const values = watch();
 
     const onSubmit = async (formValues) => {
         try {
             const payload = {
                 email: formValues[FORM_FIELDS.EMAIL],
                 password: formValues[FORM_FIELDS.PASSWORD],
-                // role: selectedRole // Optional, backend may ignore
             };
-
-            // Clear existing token
-            const existingToken = await SecureStore.getItemAsync("accessToken");
-            if (existingToken) {
-                await SecureStore.deleteItemAsync("accessToken");
-            }
-
             const res = await loginUser(payload).unwrap();
 
-            // Save token
+            // Token handle 
             await SecureStore.setItemAsync("accessToken", res.token);
 
+            // Debug korar jonno role check kora
+            console.log("User Role from Backend:", res.user.role);
+            console.log("Selected Role from Redux:", selectedRole);
+
+            // Navigation logic: backend role thakle sheta use kora priority
+            const userRole = res.user.role || selectedRole;
+
+            if (userRole === "cleaner") {
+                router.replace("/cleaner/home");
+            } else if (userRole === "host") {
+                router.replace("/host/home");
+            } else {
+                // Default route jodi kono role na thake
+                router.replace("/(auth)/login");
+            }
             // Show success message
             ToastAndroid.showWithGravityAndOffset(
                 res.msg || "Login successful",
@@ -74,12 +80,7 @@ export default function LoginScreen() {
                 50
             );
 
-            // Navigate based on role
-            if (res.user.role === "cleaner") {
-                router.replace("/cleaner/home");
-            } else {
-                router.replace("/host/home");
-            }
+
 
         } catch (error) {
             const message =
